@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2020-02-12T11:43:10
+# Project created by QtCreator 2020-02-12T11:55:51
 #
 #-------------------------------------------------
 
@@ -33,6 +33,9 @@ HEADERS += \
 
 FORMS += \
         ihm.ui
+
+RESOURCES += \
+    ressources.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
