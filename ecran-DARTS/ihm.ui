@@ -31,16 +31,26 @@
   <property name="styleSheet">
    <string notr="true">QWidget#ecranAttente
 {
-		background-image:url(:/ressources/background1.png)
+	background-image:url(:/ressources/background1.png)
 	/*background-color: #FFFFFF; */
 }
+
 QWidget#ecranPartie
 {
-	background-color: rgb(35, 93,166);
+	background-image:url(:/ressources/background6.png) 
+	/*background-color: rgb(35, 93,166); */
 }
+
 QWidget#ecranStatistique
 {
-	 background-color: rgb(35, 93,166);
+	background-image:url(:/ressources/background3.png)
+	/*background-color: rgb(35, 93,166); */
+}
+
+QLabel#labelStatutAttente
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
 }
 </string>
   </property>
@@ -93,7 +103,7 @@ QWidget#ecranStatistique
               </font>
              </property>
              <property name="text">
-              <string>00:00</string>
+              <string>00 : 00</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -121,11 +131,20 @@ QWidget#ecranStatistique
            </property>
            <item>
             <widget class="QLabel" name="labelLogo">
+             <property name="maximumSize">
+              <size>
+               <width>1000</width>
+               <height>1000</height>
+              </size>
+             </property>
              <property name="text">
               <string/>
              </property>
              <property name="pixmap">
               <pixmap resource="ressources.qrc">:/ressources/logoDarts.png</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -144,6 +163,9 @@ QWidget#ecranStatistique
                <weight>75</weight>
                <bold>true</bold>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>En attente de connexion</string>
@@ -175,7 +197,10 @@ QWidget#ecranStatistique
               </font>
              </property>
              <property name="text">
-              <string>00:00</string>
+              <string>00 : 00</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
              </property>
             </widget>
            </item>
@@ -307,7 +332,7 @@ QWidget#ecranStatistique
               </widget>
              </item>
              <item row="4" column="1">
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="manche">
                <property name="font">
                 <font>
                  <pointsize>30</pointsize>
@@ -359,7 +384,7 @@ QWidget#ecranStatistique
               </widget>
              </item>
              <item row="8" column="0">
-              <widget class="QLabel" name="label_2">
+              <widget class="QLabel" name="labelMoyenneVolees">
                <property name="font">
                 <font>
                  <pointsize>30</pointsize>
@@ -380,7 +405,152 @@ QWidget#ecranStatistique
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="ecranStatistique"/>
+     <widget class="QWidget" name="ecranStatistique">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayoutStatistique">
+         <item>
+          <widget class="QLabel" name="labelHeureStatistique">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>30</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>00 : 00</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="winnerPartie">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>50</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Winner Fabien</string>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignHCenter|Qt::AlignTop</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="2" column="0">
+              <widget class="QLabel" name="labelVoleesMaxStatistique">
+               <property name="font">
+                <font>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>- Volées maximal : </string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelMoyenneVoleesStatistique">
+               <property name="font">
+                <font>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>- Moyenne des volées : </string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelNombreVoleesStatistique">
+               <property name="font">
+                <font>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>- Nombre de volées : </string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="labelDureePartie">
+               <property name="font">
+                <font>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>- Durée partie : </string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelLogoJeu">
+             <property name="maximumSize">
+              <size>
+               <width>700</width>
+               <height>700</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="ressources.qrc">:/ressources/logoDarts.png</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="margin">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
