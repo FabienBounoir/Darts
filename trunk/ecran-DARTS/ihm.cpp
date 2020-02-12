@@ -2,7 +2,7 @@
 #include "ui_ihm.h"
 
 Ihm::Ihm(QWidget *parent) :
-    QMainWindow(parent),
+    QWidget(parent),
     ui(new Ui::Ihm)
 {
     ui->setupUi(this);

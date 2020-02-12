@@ -1,13 +1,13 @@
 #ifndef IHM_H
 #define IHM_H
 
-#include <QMainWindow>
+#include <QWidget>
 
 namespace Ui {
 class Ihm;
 }
 
-class Ihm : public QMainWindow
+class Ihm : public QWidget
 {
     Q_OBJECT
 
