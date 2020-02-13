@@ -29,22 +29,19 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget#ecranAttente
+   <string notr="true"> QWidget#ecranAttente
 {
-	background-image:url(:/ressources/background.png)
-	/*background-color: #FFFFFF; */
+	background-image:url(:/ressources/background.png);
 }
 
 QWidget#ecranPartie
 {
-	background-image:url(:/ressources/background.png) 
-	/*background-color: rgb(35, 93,166); */
+	background-image:url(:/ressources/background.png);
 }
 
 QWidget#ecranStatistique
 {
-	background-image:url(:/ressources/background.png)
-	/*background-color: rgb(35, 93,166); */
+	background-image:url(:/ressources/background.png);
 }
 
 QLabel#labelStatutAttente
@@ -55,6 +52,17 @@ QLabel#labelStatutAttente
 
 QLabel#labelHeureAttente
 {
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelHeurePartie
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#winnerPartie
+{
+	image:url(:/ressources/fondStatus.png);
 	color: rgb(109, 43,107);
 }
 </string>
@@ -81,7 +89,7 @@ QLabel#labelHeureAttente
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -465,7 +473,7 @@ QLabel#labelHeureAttente
             <bool>false</bool>
            </property>
            <property name="alignment">
-            <set>Qt::AlignHCenter|Qt::AlignTop</set>
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>

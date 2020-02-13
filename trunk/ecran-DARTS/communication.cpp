@@ -1,16 +1,43 @@
 #include "communication.h"
 #include <QDebug>
 
-Communication::Communication(QObject *parent) : QObject(parent)
+/**
+* @file communication.cpp
+*
+* @brief classe qui s'occupe de la parti communication (configuration, reception trame)
+*
+* @author Bounoir Fabien
+*
+* @version 0.1
+*
+*/
+
+/**
+ * @brief constructeur de la classe Communication
+ *
+ * @fn Communication::Communication
+ * @param parent
+ */
+Communication::Communication(QObject *parent) : QObject(parent), serveur(nullptr), socket(nullptr), trame("")
 {
     parametrerBluetooth();
 }
 
+/**
+ * @brief destructeur de la classe Communication
+ *
+ * @fn Communication::~Communication
+ */
 Communication::~Communication()
 {
     arreter();
 }
 
+/**
+ * @brief configure la communication bluetooth
+ *
+ * @fn Communication::parametrerBluetooth
+ */
 void Communication::parametrerBluetooth()
 {
     if (!localDevice.isValid())
@@ -40,6 +67,11 @@ void Communication::parametrerBluetooth()
     }
 }
 
+/**
+ * @brief demarre le serveur
+ *
+ * @fn Communication::demarrer
+ */
 void Communication::demarrer()
 {
     if (!serveur)
@@ -52,6 +84,11 @@ void Communication::demarrer()
     }
 }
 
+/**
+ * @brief arrete le serveur
+ *
+ * @fn Communication::arreter
+ */
 void Communication::arreter()
 {
     if (!serveur)
@@ -59,20 +96,25 @@ void Communication::arreter()
 
     serviceInfo.unregisterService();
 
-    /*if (socket)
+    if (socket)
     {
         if (socket->isOpen())
         {
            socket->close();
         }
         delete socket;
-        socket = NULL;
-    }*/
+        socket = nullptr;
+    }
 
-    //delete serveur;
-    //serveur = NULL;
+    delete serveur;
+    serveur = nullptr;
 }
 
+/**
+ * @brief Méthode appeler quand un nouveau client se connecte
+ *
+ * @fn Communication::nouveauClient
+ */
 void Communication::nouveauClient()
 {
     // on récupère la socket
@@ -84,6 +126,11 @@ void Communication::nouveauClient()
     connect(socket, SIGNAL(readyRead()), this, SLOT(socketReadyRead()));
 }
 
+/**
+ * @brief Méthode appelée quand une trame est disponible
+ *
+ * @fn Communication::socketReadyRead
+ */
 void Communication::socketReadyRead()
 {
     qDebug() << Q_FUNC_INFO;
@@ -95,9 +142,36 @@ void Communication::socketReadyRead()
         usleep(150000); // cf. timeout
     }
 
+    trame = QString(donnees);
+
     qDebug() << QString::fromUtf8("Données reçues : ") << QString(donnees);
+
+    decomposerTrame();
 }
 
+/**
+ * @brief Méthode qui decompose la trame reçu
+ *
+ * @fn Communication::decomposerTrame
+ */
+void Communication::decomposerTrame()
+{
+    if(trame.startsWith(TYPE_TRAME) && trame.endsWith(DELIMITEUR_FIN))
+    {
+        trame.remove("\r\n");
+        if(trame.contains("GAME"))      /** $DART;GAME;3;7 */
+        {
+            emit nouveauImpact(trame.section(";",2,2),trame.section(";",3,3));
+        }
+
+    }
+}
+
+/**
+ * @brief fonction appelée quand l'appareil est deconnecté
+ *
+ * @fn Communication::socketDisconnected
+ */
 void Communication::socketDisconnected()
 {
     qDebug() << Q_FUNC_INFO;
@@ -105,6 +179,12 @@ void Communication::socketDisconnected()
     qDebug() << message;
 }
 
+/**
+ * @brief fonction appelée quand l'appareil est connecté
+ *
+ * @fn Communication::deviceConnected
+ * @param adresse
+ */
 void Communication::deviceConnected(const QBluetoothAddress &adresse)
 {
     qDebug() << Q_FUNC_INFO << adresse << localDevice.pairingStatus(adresse);
@@ -117,12 +197,24 @@ void Communication::deviceConnected(const QBluetoothAddress &adresse)
 
 }
 
+/**
+ * @brief fonction appelée quand l'appareil est deconnecté
+ *
+ * @fn Communication::deviceDisconnected
+ * @param adresse
+ */
 void Communication::deviceDisconnected(const QBluetoothAddress &adresse)
 {
     qDebug() << Q_FUNC_INFO << adresse;
     emit appareilDeconnecter();
 }
 
+/**
+ * @brief Méthode appelée quand il y a une erreur avec l'appareil connecté
+ *
+ * @fn Communication::error
+ * @param erreur
+ */
 void Communication::error(QBluetoothLocalDevice::Error erreur)
 {
     qDebug() << Q_FUNC_INFO << erreur;

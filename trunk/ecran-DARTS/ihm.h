@@ -12,6 +12,19 @@ namespace Ui {
 class Ihm;
 }
 
+/**
+ * @file ihm.h
+ * @brief Declaration de la classe Ihm
+ *
+ * @version 0.1
+ *
+ * @author Bounoir Fabien
+ */
+
+/**
+ * @class Ihm ihm.h "ihm.h"
+ * @brief Declaration de la classe Ihm
+*/
 class Ihm : public QWidget
 {
     Q_OBJECT
@@ -27,6 +40,7 @@ public slots:
     void fermerApplication();
     void nouvelleAppareilConnecter();
     void appareilDeconnecter();
+    void afficherImpact(QString cercle, QString point);
 
 private:
     Ui::Ihm *ui;

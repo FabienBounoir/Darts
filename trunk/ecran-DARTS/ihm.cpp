@@ -4,6 +4,23 @@
 #include <QTime>
 #include <QAction>
 
+/**
+* @file ihm.cpp
+*
+* @brief classe qui s'occupe de l'affichage dans l'ihm
+*
+* @author Bounoir Fabien
+*
+* @version 0.1
+*
+*/
+
+/**
+ * @brief constructeur de la classe Ihm
+ *
+ * @fn Ihm::Ihm
+ * @param parent
+ */
 Ihm::Ihm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Ihm)
@@ -22,16 +39,27 @@ Ihm::Ihm(QWidget *parent) :
 
     communication->demarrer();
 
-    connect(communication, SIGNAL(appareilConnecter()),this,SLOT(nouvelleAppareilConnecter()));
-    connect(communication, SIGNAL(appareilDeconnecter()),this,SLOT(appareilDeconnecter()));
+    connect(communication, SIGNAL(appareilConnecter()) ,this ,SLOT(nouvelleAppareilConnecter()));
+    connect(communication, SIGNAL(appareilDeconnecter() ),this ,SLOT(appareilDeconnecter()));
+    connect(communication, SIGNAL(nouveauImpact(QString,QString)) ,this ,SLOT(afficherImpact(QString,QString)));
 
 }
 
+/**
+ * @brief destructeur de la classe Ihm
+ *
+ * @fn Ihm::~Ihm
+ */
 Ihm::~Ihm()
 {
     delete ui;
 }
 
+/**
+ * @brief Méthode qui initialise les raccourcis clavier
+ *
+ * @fn Ihm::attribuerRaccourcisClavier
+ */
 void Ihm::attribuerRaccourcisClavier()
 {
     QAction *quitter = new QAction(this);
@@ -52,6 +80,11 @@ void Ihm::attribuerRaccourcisClavier()
 #endif
 }
 
+/**
+ * @brief Méthode qui met a jour l'heure sur l'application
+ *
+ * @fn Ihm::actualiserHeure
+ */
 void Ihm::actualiserHeure()
 {
     QString affichageHeure;
@@ -62,6 +95,17 @@ void Ihm::actualiserHeure()
     ui->labelHeureStatistique->setText(affichageHeure);
 }
 
+void Ihm::afficherImpact(QString cercle, QString point)
+{
+    qDebug() <<"cercle : " << cercle <<"point : " << point <<endl;
+    ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/impact/IMPACT_" + cercle + "_" + point + ".png"));
+}
+
+/**
+ * @brief Méthode qui permet de changer de QStackedWidget avec la suivante
+ *
+ * @fn Ihm::allerPageSuivante
+ */
 void Ihm::allerPageSuivante()
 {
     int ecranCourant = Page(ui->ecranDarts->currentIndex());
@@ -69,6 +113,11 @@ void Ihm::allerPageSuivante()
     ui->ecranDarts->setCurrentIndex(ecranSuivant);
 }
 
+/**
+ * @brief Méthode qui permet de changer de QStackedWidget avec la Précédente
+ *
+ * @fn Ihm::allerPagePrecedente
+ */
 void Ihm::allerPagePrecedente()
 {
     int ecranCourant = ui->ecranDarts->currentIndex();
@@ -78,16 +127,31 @@ void Ihm::allerPagePrecedente()
     ui->ecranDarts->setCurrentIndex(ecranPrecedent);
 }
 
+/**
+ * @brief Méthode qui permet de quitter l'application
+ *
+ * @fn Ihm::fermerApplication
+ */
 void Ihm::fermerApplication()
 {
     this->close();
 }
 
+/**
+ * @brief Méthode qui permet de mettre a jour le message de status "nouvelle appareil connecté"
+ *
+ * @fn Ihm::nouvelleAppareilConnecter
+ */
 void Ihm::nouvelleAppareilConnecter()
 {
     ui->labelStatutAttente->setText("Attente configuration de la partie");
 }
 
+/**
+ * @brief Méthode qui permet de mettre a jour le message de status "appareil deconnecté"
+ *
+ * @fn Ihm::appareilDeconnecter
+ */
 void Ihm::appareilDeconnecter()
 {
     ui->labelStatutAttente->setText("En attente de connexion ");
