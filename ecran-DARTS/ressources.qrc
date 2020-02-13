@@ -4,5 +4,6 @@
         <file>ressources/background.png</file>
         <file>ressources/cible.png</file>
 	<file>ressources/fondStatus.png</file>
+	<!-- <file>ressources/fondHeure.png</file> -->
     </qresource>
 </RCC>
