@@ -99,6 +99,7 @@ void Ihm::afficherImpact(QString cercle, QString point)
 {
     qDebug() <<"cercle : " << cercle <<"point : " << point <<endl;
     ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/impact/IMPACT_" + cercle + "_" + point + ".png"));
+    ui->labelStatut->setText("Impact sur le cercle " + cercle + " à l'emplacement " + point );
 }
 
 /**
