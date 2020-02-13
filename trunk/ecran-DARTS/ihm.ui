@@ -31,25 +31,30 @@
   <property name="styleSheet">
    <string notr="true">QWidget#ecranAttente
 {
-	background-image:url(:/ressources/background1.png)
+	background-image:url(:/ressources/background.png)
 	/*background-color: #FFFFFF; */
 }
 
 QWidget#ecranPartie
 {
-	background-image:url(:/ressources/background6.png) 
+	background-image:url(:/ressources/background.png) 
 	/*background-color: rgb(35, 93,166); */
 }
 
 QWidget#ecranStatistique
 {
-	background-image:url(:/ressources/background3.png)
+	background-image:url(:/ressources/background.png)
 	/*background-color: rgb(35, 93,166); */
 }
 
 QLabel#labelStatutAttente
 {
 	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelHeureAttente
+{
 	color: rgb(109, 43,107);
 }
 </string>
@@ -95,6 +100,12 @@ QLabel#labelStatutAttente
            </property>
            <item>
             <widget class="QLabel" name="labelHeureAttente">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="font">
               <font>
                <pointsize>30</pointsize>

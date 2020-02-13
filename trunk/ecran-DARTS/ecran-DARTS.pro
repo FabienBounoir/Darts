@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui\
+            bluetooth
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
