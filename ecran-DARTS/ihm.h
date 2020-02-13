@@ -1,6 +1,7 @@
 #ifndef IHM_H
 #define IHM_H
 
+#include "communication.h"
 #include <QWidget>
 #include <QTimer>
 
@@ -24,10 +25,13 @@ public slots:
     void allerPagePrecedente();
     void allerPageSuivante();
     void fermerApplication();
+    void nouvelleAppareilConnecter();
+    void appareilDeconnecter();
 
 private:
     Ui::Ihm *ui;
     QTimer *timerHorloge;
+    Communication *communication;
 
     enum Page
     {

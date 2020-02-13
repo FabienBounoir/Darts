@@ -4,10 +4,39 @@
 #include <QTime>
 #include <QAction>
 
+Ihm::Ihm(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::Ihm)
+{
+    ui->setupUi(this);
+
+    communication = new Communication(this);
+
+    //Timer
+    timerHorloge = new QTimer(this); // Instancie dynamiquement le temporisateur du rafraichissement de l'heure
+    connect(timerHorloge, SIGNAL(timeout()),this,SLOT(actualiserHeure())); // Pour le déclenchement périodique de l'affichage de l'heure
+    timerHorloge->start(PERIODE_HORLOGE); // Toutes les secondes (1000 ms)
+
+    //raccourcis Quitter/ChangerPage
+    attribuerRaccourcisClavier();
+
+    communication->demarrer();
+
+    connect(communication, SIGNAL(appareilConnecter()),this,SLOT(nouvelleAppareilConnecter()));
+    connect(communication, SIGNAL(appareilDeconnecter()),this,SLOT(appareilDeconnecter()));
+
+}
+
+Ihm::~Ihm()
+{
+    delete ui;
+}
+
 void Ihm::attribuerRaccourcisClavier()
 {
     QAction *quitter = new QAction(this);
-    quitter->setShortcut(QKeySequence(QKeySequence::Quit));
+    //quitter->setShortcut(QKeySequence(QKeySequence::Quit));
+    quitter->setShortcut(QKeySequence(QKeySequence(Qt::Key_Up)));
     addAction(quitter);
     connect(quitter, SIGNAL(triggered()), this, SLOT(fermerApplication()));   // Pour fermer l'application
 
@@ -21,28 +50,6 @@ void Ihm::attribuerRaccourcisClavier()
     addAction(actionAllerGauche);
     connect(actionAllerGauche, SIGNAL(triggered()), this, SLOT(allerPagePrecedente()));// Pour revenir à l'écran précédent
 #endif
-}
-
-Ihm::Ihm(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Ihm)
-{
-    ui->setupUi(this);
-
-    //Timer
-    timerHorloge = new QTimer(this); // Instancie dynamiquement le temporisateur du rafraichissement de l'heure
-    connect(timerHorloge, SIGNAL(timeout()),this,SLOT(actualiserHeure())); // Pour le déclenchement périodique de l'affichage de l'heure
-    timerHorloge->start(PERIODE_HORLOGE); // Toutes les secondes (1000 ms)
-
-    //raccourcis Quitter/ChangerPage
-    attribuerRaccourcisClavier();
-
-
-}
-
-Ihm::~Ihm()
-{
-    delete ui;
 }
 
 void Ihm::actualiserHeure()
@@ -74,4 +81,14 @@ void Ihm::allerPagePrecedente()
 void Ihm::fermerApplication()
 {
     this->close();
+}
+
+void Ihm::nouvelleAppareilConnecter()
+{
+    ui->labelStatutAttente->setText("Attente configuration de la partie");
+}
+
+void Ihm::appareilDeconnecter()
+{
+    ui->labelStatutAttente->setText("En attente de connexion ");
 }
