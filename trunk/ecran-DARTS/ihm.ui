@@ -95,7 +95,7 @@ QLabel#labelStatut
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -325,7 +325,7 @@ QLabel#labelStatut
                 </font>
                </property>
                <property name="text">
-                <string>501</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -356,7 +356,7 @@ QLabel#labelStatut
                </property>
               </widget>
              </item>
-             <item row="3" column="0" colspan="2">
+             <item row="4" column="0" colspan="2">
               <widget class="Line" name="lineNomJoueurs">
                <property name="minimumSize">
                 <size>
@@ -369,7 +369,7 @@ QLabel#labelStatut
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
+             <item row="5" column="0">
               <widget class="QLabel" name="labelManche">
                <property name="font">
                 <font>
@@ -383,7 +383,7 @@ QLabel#labelStatut
                </property>
               </widget>
              </item>
-             <item row="4" column="1">
+             <item row="5" column="1">
               <widget class="QLabel" name="manche">
                <property name="font">
                 <font>
@@ -395,7 +395,7 @@ QLabel#labelStatut
                </property>
               </widget>
              </item>
-             <item row="5" column="0" colspan="2">
+             <item row="6" column="0" colspan="2">
               <widget class="Line" name="lineManche">
                <property name="minimumSize">
                 <size>
@@ -409,19 +409,6 @@ QLabel#labelStatut
               </widget>
              </item>
              <item row="7" column="0" colspan="2">
-              <widget class="Line" name="lineScoreActuel">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0" colspan="2">
               <widget class="QLabel" name="labelScoreActuel">
                <property name="font">
                 <font>
@@ -435,7 +422,20 @@ QLabel#labelStatut
                </property>
               </widget>
              </item>
-             <item row="8" column="0">
+             <item row="8" column="0" colspan="2">
+              <widget class="Line" name="lineScoreActuel">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="0">
               <widget class="QLabel" name="labelMoyenneVolees">
                <property name="font">
                 <font>
@@ -446,6 +446,18 @@ QLabel#labelStatut
                </property>
                <property name="text">
                 <string>- Moyenne des vollées :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="nomJoueur">
+               <property name="font">
+                <font>
+                 <pointsize>30</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
                </property>
               </widget>
              </item>

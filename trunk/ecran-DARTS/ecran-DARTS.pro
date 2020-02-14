@@ -30,11 +30,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         ihm.cpp \
-    communication.cpp
+    communication.cpp \
+    darts.cpp
 
 HEADERS += \
         ihm.h \
-    communication.h
+    communication.h \
+    darts.h
 
 FORMS += \
         ihm.ui
