@@ -14,8 +14,9 @@ public:
     QString getModeJeu() const;
     void setJoueur(QStringList joueur);
     void setModeJeu(QString modeJeu);
-
     Darts *getDarts();
+
+    void receptionnerImpact(int cercle, int point);
 
 signals:
 
