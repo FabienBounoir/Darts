@@ -70,6 +70,7 @@ void Communication::parametrerBluetooth()
         connect(&localDevice, SIGNAL(deviceConnected(QBluetoothAddress)), this, SLOT(deviceConnected(QBluetoothAddress)));
         connect(&localDevice, SIGNAL(deviceDisconnected(QBluetoothAddress)), this, SLOT(deviceDisconnected(QBluetoothAddress)));
         connect(&localDevice, SIGNAL(error(QBluetoothLocalDevice::Error)), this, SLOT(error(QBluetoothLocalDevice::Error)));
+        //connect(darts, SIGNAL(miseAJourPoint()), this , SLOT();
 
     }
 }
@@ -176,6 +177,7 @@ void Communication::decomposerTrame()
                 qDebug() << "joueur :" << joueur << endl;
             }
             darts->setJoueur(joueur);
+            darts->setModeJeu(trame.section(";",2,2));
             emit nouvellePartie(trame.section(";",2,2),joueur);
 
         }

@@ -427,7 +427,7 @@ QLabel
                </property>
               </widget>
              </item>
-             <item row="8" column="0" colspan="2">
+             <item row="9" column="0" colspan="2">
               <widget class="Line" name="lineScoreActuel">
                <property name="minimumSize">
                 <size>
@@ -440,7 +440,7 @@ QLabel
                </property>
               </widget>
              </item>
-             <item row="9" column="0">
+             <item row="10" column="0">
               <widget class="QLabel" name="labelMoyenneVolees">
                <property name="font">
                 <font>
@@ -456,6 +456,18 @@ QLabel
              </item>
              <item row="3" column="0">
               <widget class="QLabel" name="nomJoueur">
+               <property name="font">
+                <font>
+                 <pointsize>30</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0">
+              <widget class="QLabel" name="scoreActuel">
                <property name="font">
                 <font>
                  <pointsize>30</pointsize>

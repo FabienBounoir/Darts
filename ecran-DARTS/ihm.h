@@ -43,6 +43,7 @@ public slots:
     void appareilDeconnecter();
     void afficherImpact(QString cercle, QString point);
     void afficherPartie(QString mode, QStringList joueur);
+    void miseAJourScore();
 
 private:
     Ui::Ihm *ui;
