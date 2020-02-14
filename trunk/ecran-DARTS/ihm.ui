@@ -71,6 +71,11 @@ QLabel#labelStatut
 	image:url(:/ressources/fondStatus.png);
 	color: rgb(109, 43,107);
 }
+
+QLabel
+{
+	color: rgb(255,255,255);
+}
 </string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">

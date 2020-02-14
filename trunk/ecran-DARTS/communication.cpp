@@ -182,6 +182,7 @@ void Communication::decomposerTrame()
 
         if(trame.contains("GAME"))      /** $DART;GAME;3;7 */
         {
+            darts->receptionnerImpact(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
             emit nouveauImpact(trame.section(";",2,2),trame.section(";",3,3));
         }
 
