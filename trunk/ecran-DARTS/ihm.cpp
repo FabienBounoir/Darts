@@ -44,6 +44,7 @@ Ihm::Ihm(QWidget *parent) :
     connect(communication, SIGNAL(appareilDeconnecter() ),this ,SLOT(appareilDeconnecter()));
     connect(communication, SIGNAL(nouveauImpact(QString, QString)) ,this ,SLOT(afficherImpact(QString,QString)));
     connect(communication, SIGNAL(nouvellePartie(QString, QStringList)),this ,SLOT(afficherPartie(QString,QStringList)));
+    connect(communication->getDarts(), SIGNAL(miseAJourPoint()), this , SLOT(miseAJourScore()));
 
 }
 
@@ -97,6 +98,19 @@ void Ihm::actualiserHeure()
     ui->labelHeureStatistique->setText(affichageHeure);
 }
 
+void Ihm::miseAJourScore()
+{
+    QString score;
+    QStringList joueur = communication->getDarts()->getJoueur();
+    QVector<int> scoreJoueur = communication->getDarts()->getPointJoueur();
+
+    for(int i = 1; i < joueur.size(); i++)
+    {
+        score += "         " +joueur.at(i) + " : " + QString::number(scoreJoueur[i-1]) + "\n";
+    }
+    ui->scoreActuel->setText(score);
+}
+
 void Ihm::afficherImpact(QString cercle, QString point)
 {
     qDebug() <<"cercle : " << cercle <<"point : " << point <<endl;
@@ -107,7 +121,7 @@ void Ihm::afficherImpact(QString cercle, QString point)
 void Ihm::afficherPartie(QString mode, QStringList joueur)
 {
     qDebug() << "mode de jeu : " << mode << "  Joueur : " << joueur << endl;
-    ui->typeJeu->setText(mode);
+    ui->typeJeu->setText(mode + " Double out");
     QString nomjoueur;
     for(int i = 1; i < joueur.size(); i++)
     {
