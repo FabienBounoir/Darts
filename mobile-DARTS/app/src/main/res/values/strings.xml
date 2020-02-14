@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Darts</string>
+    <string name="partie">Partie</string>
+    <string name="historique">Historique</string>
+    <string name="joueurs">Joueurs</string>
+    <string name="todo">TODO</string>
+</resources>
