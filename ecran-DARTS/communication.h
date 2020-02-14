@@ -1,6 +1,7 @@
 #ifndef COMMUNICATION_H
 #define COMMUNICATION_H
 
+#include "darts.h"
 #include <QObject>
 #include <QBluetoothLocalDevice>
 #include <QBluetoothServer>
@@ -33,6 +34,8 @@ public:
     explicit Communication(QObject *parent = nullptr);
     ~Communication();
 
+    Darts *getDarts() const;
+
     void parametrerBluetooth();     //!< Méthode qui configure la connexion bluetooth en mode serveur
     void demarrer();                //!< Méthode qui démarre le serveur
     void arreter();                 //!< Méthode qui arrête le serveur
@@ -41,6 +44,7 @@ signals:
     void appareilConnecter();       //!< signal emit quand un nouvelle appareil est connecté
     void appareilDeconnecter();     //!< signal emit quand un l'appareil se déconnecté
     void nouveauImpact(QString cercle, QString point);
+    void nouvellePartie(QString mode, QStringList joueur);
 
 public slots:
     void deviceConnected(const QBluetoothAddress &adresse);         //!< Méthode appeler quand un nouvelle appareil est connecté
@@ -58,6 +62,7 @@ private:
 
     QString localDeviceName = "Ecran-Darts";
     QString trame;
+    Darts *darts;
 
     void decomposerTrame();
 

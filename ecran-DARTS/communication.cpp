@@ -20,6 +20,8 @@
  */
 Communication::Communication(QObject *parent) : QObject(parent), serveur(nullptr), socket(nullptr), trame("")
 {
+    darts = new Darts(this);
+
     parametrerBluetooth();
 }
 
@@ -31,6 +33,11 @@ Communication::Communication(QObject *parent) : QObject(parent), serveur(nullptr
 Communication::~Communication()
 {
     arreter();
+}
+
+Darts *Communication::getDarts() const
+{
+    return darts;
 }
 
 /**
@@ -158,11 +165,27 @@ void Communication::decomposerTrame()
 {
     if(trame.startsWith(TYPE_TRAME) && trame.endsWith(DELIMITEUR_FIN))
     {
+        QStringList joueur;
         trame.remove("\r\n");
+        if(trame.contains("START"))      /** $DART;START;2;fabien;erwan */
+        {
+            for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
+            {
+
+                joueur.push_back(trame.section(";",3+i,3+i));
+                qDebug() << "joueur :" << joueur << endl;
+            }
+            darts->setJoueur(joueur);
+            emit nouvellePartie(trame.section(";",2,2),joueur);
+
+        }
+
         if(trame.contains("GAME"))      /** $DART;GAME;3;7 */
         {
             emit nouveauImpact(trame.section(";",2,2),trame.section(";",3,3));
         }
+
+
 
     }
 }

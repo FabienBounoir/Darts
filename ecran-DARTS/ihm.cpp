@@ -28,6 +28,7 @@ Ihm::Ihm(QWidget *parent) :
     ui->setupUi(this);
 
     communication = new Communication(this);
+    darts = new Darts(this);
 
     //Timer
     timerHorloge = new QTimer(this); // Instancie dynamiquement le temporisateur du rafraichissement de l'heure
@@ -41,7 +42,8 @@ Ihm::Ihm(QWidget *parent) :
 
     connect(communication, SIGNAL(appareilConnecter()) ,this ,SLOT(nouvelleAppareilConnecter()));
     connect(communication, SIGNAL(appareilDeconnecter() ),this ,SLOT(appareilDeconnecter()));
-    connect(communication, SIGNAL(nouveauImpact(QString,QString)) ,this ,SLOT(afficherImpact(QString,QString)));
+    connect(communication, SIGNAL(nouveauImpact(QString, QString)) ,this ,SLOT(afficherImpact(QString,QString)));
+    connect(communication, SIGNAL(nouvellePartie(QString, QStringList)),this ,SLOT(afficherPartie(QString,QStringList)));
 
 }
 
@@ -100,6 +102,19 @@ void Ihm::afficherImpact(QString cercle, QString point)
     qDebug() <<"cercle : " << cercle <<"point : " << point <<endl;
     ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/impact/IMPACT_" + cercle + "_" + point + ".png"));
     ui->labelStatut->setText("Impact sur le cercle " + cercle + " à l'emplacement " + point );
+}
+
+void Ihm::afficherPartie(QString mode, QStringList joueur)
+{
+    qDebug() << "mode de jeu : " << mode << "  Joueur : " << joueur << endl;
+    ui->typeJeu->setText(mode);
+    QString nomjoueur;
+    for(int i = 1; i < joueur.size(); i++)
+    {
+        nomjoueur += "         " +joueur.at(i) + "\n";
+    }
+    ui->nomJoueur->setText(nomjoueur);
+    ui->ecranDarts->setCurrentIndex(Ihm::PageJeu);
 }
 
 /**

@@ -2,6 +2,7 @@
 #define IHM_H
 
 #include "communication.h"
+#include "darts.h"
 #include <QWidget>
 #include <QTimer>
 
@@ -41,11 +42,13 @@ public slots:
     void nouvelleAppareilConnecter();
     void appareilDeconnecter();
     void afficherImpact(QString cercle, QString point);
+    void afficherPartie(QString mode, QStringList joueur);
 
 private:
     Ui::Ihm *ui;
     QTimer *timerHorloge;
     Communication *communication;
+    Darts *darts;
 
     enum Page
     {
