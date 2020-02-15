@@ -31,12 +31,14 @@ SOURCES += \
         main.cpp \
         ihm.cpp \
     communication.cpp \
-    darts.cpp
+    darts.cpp \
+    joueur.cpp
 
 HEADERS += \
         ihm.h \
     communication.h \
-    darts.h
+    darts.h \
+    joueur.h
 
 FORMS += \
         ihm.ui
