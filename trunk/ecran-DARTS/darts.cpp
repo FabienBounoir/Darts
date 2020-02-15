@@ -2,53 +2,99 @@
 
 #include <QDebug>
 
-Darts::Darts(QObject *parent) : QObject(parent), joueur(NULL), modeJeu(""), pointJoueur(0)
+
+/**
+* @file darts.cpp
+*
+* @brief darts s'occupe du deroulement de la partie
+*
+* @author Bounoir Fabien
+*
+* @version 0.1
+*
+*/
+
+/**
+ * @brief constructeur de la classe Darts
+ *
+ * @fn Darts::Darts
+ * @param parent
+ */
+Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0), pointJoueur(0)
 {
 
 }
 
+/**
+ * @brief destructeur de la classe Darts
+ *
+ * @fn Darts::~Darts
+ */
 Darts::~Darts()
 {
 
 }
 
-QStringList Darts::getJoueur() const
+/**
+ * @brief retourne la manche
+ *
+ * @fn Darts::getManche
+ * @return int
+ */
+int Darts::getManche() const
 {
-    return joueur;
+    return manche;
 }
 
-QString Darts::getModeJeu() const
+/**
+ * @brief retourne une liste des joueurs
+ *
+ * @fn Darts::getListJoueur
+ * @return QList<Joueur>
+ */
+QList<Joueur> Darts::getListJoueur() const
 {
-    return modeJeu;
+    return joueurs;
 }
 
-QVector<int> Darts::getPointJoueur() const
+/**
+ * @brief permet de mettre à jour le numero de manche
+ *
+ * @fn Darts::setManche
+ * @param manche
+ */
+void Darts::setManche(int manche)
 {
-    return pointJoueur;
+    this->manche = manche;
 }
 
-void Darts::setJoueur(QStringList joueur)
+
+/**
+ * @brief permet initialiser la partie
+ *
+ * @fn Darts::initialiserPartie
+ * @param joueurList
+ * @param modeJeu
+ */
+void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
 {
-    this->joueur = joueur;
-}
-
-void Darts::setModeJeu(QString modeJeu)
-{
-    this->modeJeu = modeJeu;
-
-    pointJoueur.resize(joueur.size() - 1);
-
-    for(int i = 0; i < joueur.size() - 1 ;i++)
+    nbJoueur = joueurList.size() - 2;
+    for(int i = 1; i < joueurList.size() ; i++)
     {
-        pointJoueur[i] = modeJeu.toInt();
+        Joueur player(joueurList.at(i), modeJeu.toInt(), 3);
+        joueurs.push_back(player);
     }
-    qDebug() << "pointJoueur : " << pointJoueur <<endl;
-    emit miseAJourPoint();
 }
 
+/**
+ * @brief permet de traiter la reception d'impact
+ *
+ * @fn Darts::receptionnerImpact
+ * @param cercle
+ * @param point
+ */
 void Darts::receptionnerImpact(int cercle, int point)
 {
-    int pointLancer;
     if(cercle == 4)
     {
         pointLancer = point * 3;
@@ -62,5 +108,55 @@ void Darts::receptionnerImpact(int cercle, int point)
         pointLancer = point;
     }
 
-    qDebug() << "point : " << pointLancer << endl;
+    emit nouvelleImpact(cercle, point, pointLancer);
+
+    enleverPointImpact();
+    gererManche();
+
+    emit miseAJourPoint();
+}
+
+/**
+ * @brief Méthode qui met à jour le score du joueur
+ *
+ * @fn Darts::enleverPointImpact
+ */
+void Darts::enleverPointImpact()
+{
+    joueurs[joueurActif].setScore(joueurs[joueurActif].getScore() - pointLancer);
+
+    if(joueurs[joueurActif].getScore() < 0)
+    {
+         joueurs[joueurActif].setScore(joueurs[joueurActif].getScoreManchePrecedente());
+         emit voleeAnnulee();
+         joueurActif++;
+    }
+
+    qDebug() << joueurs[joueurActif].getNom() << "  : " << joueurs[joueurActif].getScore() << endl;
+    joueurs[joueurActif].setNbFlechette(joueurs[joueurActif].getFlechette() - 1);
+}
+
+/**
+ * @brief Méthode qui permet de gerer le changement de manche en fonction des flechettes de chaque joueur
+ *
+ * @fn Darts::gererManche
+ */
+void Darts::gererManche()
+{
+    if(joueurs[joueurActif].getFlechette() == 0)
+    {
+        joueurs[joueurActif].setNbFlechette(3);
+        joueurs[joueurActif].setScoreManchePrecedente(joueurs[joueurActif].getScore());
+
+        if(joueurActif == nbJoueur)
+        {
+            joueurActif = 0;
+            setManche(getManche() + 1);
+            emit nouvelleManche();
+        }
+        else
+        {
+            joueurActif++;
+        }
+    }
 }

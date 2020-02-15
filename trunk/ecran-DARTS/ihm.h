@@ -31,26 +31,36 @@ class Ihm : public QWidget
     Q_OBJECT
 
 public:
+
     explicit Ihm(QWidget *parent = nullptr);
+
     ~Ihm();
 
 public slots:
+
     void actualiserHeure();
     void allerPagePrecedente();
     void allerPageSuivante();
     void fermerApplication();
     void nouvelleAppareilConnecter();
     void appareilDeconnecter();
-    void afficherImpact(QString cercle, QString point);
+    void afficherImpact(int cercle, int point, int score);
     void afficherPartie(QString mode, QStringList joueur);
     void miseAJourScore();
+    void mettreAJourManche();
+    void AfficherVoleeAnnulee();
 
 private:
-    Ui::Ihm *ui;
-    QTimer *timerHorloge;
-    Communication *communication;
-    Darts *darts;
+    Ui::Ihm *ui; /**< object de notre Ihm */
+    QTimer *timerHorloge; /**< objet timerHorloge */
+    Communication *communication; /**< objet communication */
+    Darts *darts; /**< objet darts */
 
+    /**
+     * @brief contient les differentes pages de L'application
+     *
+     * @enum Page
+     */
     enum Page
     {
         PageAttente = 0,

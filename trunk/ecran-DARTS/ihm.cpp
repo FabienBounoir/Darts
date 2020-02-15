@@ -26,6 +26,7 @@ Ihm::Ihm(QWidget *parent) :
     ui(new Ui::Ihm)
 {
     ui->setupUi(this);
+    ui->ecranDarts->setCurrentIndex(Ihm::PageAttente);
 
     communication = new Communication(this);
     darts = new Darts(this);
@@ -42,9 +43,11 @@ Ihm::Ihm(QWidget *parent) :
 
     connect(communication, SIGNAL(appareilConnecter()) ,this ,SLOT(nouvelleAppareilConnecter()));
     connect(communication, SIGNAL(appareilDeconnecter() ),this ,SLOT(appareilDeconnecter()));
-    connect(communication, SIGNAL(nouveauImpact(QString, QString)) ,this ,SLOT(afficherImpact(QString,QString)));
     connect(communication, SIGNAL(nouvellePartie(QString, QStringList)),this ,SLOT(afficherPartie(QString,QStringList)));
+    connect(communication->getDarts(), SIGNAL(nouvelleImpact(int, int, int)) ,this ,SLOT(afficherImpact(int,int,int)));
     connect(communication->getDarts(), SIGNAL(miseAJourPoint()), this , SLOT(miseAJourScore()));
+    connect(communication->getDarts(), SIGNAL(nouvelleManche()), this , SLOT(mettreAJourManche()));
+    connect(communication->getDarts(), SIGNAL(voleeAnnulee()), this , SLOT(AfficherVoleeAnnulee()));
 
 }
 
@@ -98,26 +101,54 @@ void Ihm::actualiserHeure()
     ui->labelHeureStatistique->setText(affichageHeure);
 }
 
+/**
+ * @brief Méthode qui met à jour le score dans L'ihm
+ *
+ * @fn Ihm::miseAJourScore
+ */
 void Ihm::miseAJourScore()
 {
     QString score;
-    QStringList joueur = communication->getDarts()->getJoueur();
-    QVector<int> scoreJoueur = communication->getDarts()->getPointJoueur();
 
-    for(int i = 1; i < joueur.size(); i++)
+    for(int i = 0; i < communication->getDarts()->getListJoueur().size(); i++)
     {
-        score += "         " +joueur.at(i) + " : " + QString::number(scoreJoueur[i-1]) + "\n";
+        score += "         " + communication->getDarts()->getListJoueur()[i].getNom() + " : " + QString::number(communication->getDarts()->getListJoueur()[i].getScore()) + "\n";
     }
     ui->scoreActuel->setText(score);
 }
 
-void Ihm::afficherImpact(QString cercle, QString point)
+/**
+ * @brief Méthode qui met à jour le numero de la manche
+ *
+ * @fn Ihm::mettreAJourManche
+ */
+void Ihm::mettreAJourManche()
 {
-    qDebug() <<"cercle : " << cercle <<"point : " << point <<endl;
-    ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/impact/IMPACT_" + cercle + "_" + point + ".png"));
-    ui->labelStatut->setText("Impact sur le cercle " + cercle + " à l'emplacement " + point );
+    ui->manche->setText(QString::number(communication->getDarts()->getManche()));
 }
 
+/**
+ * @brief Méthode qui affiche la cible correspondante à l'impact et les points de cette Impact
+ *
+ * @fn Ihm::afficherImpact
+ * @param cercle
+ * @param point
+ * @param score
+ */
+void Ihm::afficherImpact(int cercle, int point, int score)
+{
+    qDebug() <<"cercle : " << cercle <<"point : " << point <<endl;
+    ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/impact/IMPACT_" + QString::number(cercle) + "_" + QString::number(point) + ".png"));
+    ui->labelStatut->setText(QString::number(score) + " point(s)" );
+}
+
+/**
+ * @brief Méthode qui initialise l'affichage du mode et des joueurs de la partie
+ *
+ * @fn Ihm::afficherPartie
+ * @param mode
+ * @param joueur
+ */
 void Ihm::afficherPartie(QString mode, QStringList joueur)
 {
     qDebug() << "mode de jeu : " << mode << "  Joueur : " << joueur << endl;
@@ -129,6 +160,18 @@ void Ihm::afficherPartie(QString mode, QStringList joueur)
     }
     ui->nomJoueur->setText(nomjoueur);
     ui->ecranDarts->setCurrentIndex(Ihm::PageJeu);
+
+    miseAJourScore();
+}
+
+/**
+ * @brief Méthode qui affiche le message de statut "volée annulée"
+ *
+ * @fn Ihm::AfficherVoleeAnnulee
+ */
+void Ihm::AfficherVoleeAnnulee()
+{
+    ui->labelStatut->setText("Volée annulée !");
 }
 
 /**

@@ -458,7 +458,7 @@ QLabel
               <widget class="QLabel" name="nomJoueur">
                <property name="font">
                 <font>
-                 <pointsize>30</pointsize>
+                 <pointsize>25</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -470,7 +470,7 @@ QLabel
               <widget class="QLabel" name="scoreActuel">
                <property name="font">
                 <font>
-                 <pointsize>30</pointsize>
+                 <pointsize>25</pointsize>
                 </font>
                </property>
                <property name="text">

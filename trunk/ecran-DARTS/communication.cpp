@@ -35,6 +35,12 @@ Communication::~Communication()
     arreter();
 }
 
+/**
+ * @brief retourne l'objet darts
+ *
+ * @fn Communication::getDarts
+ * @return Darts
+ */
 Darts *Communication::getDarts() const
 {
     return darts;
@@ -172,12 +178,10 @@ void Communication::decomposerTrame()
         {
             for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
             {
-
                 joueur.push_back(trame.section(";",3+i,3+i));
-                qDebug() << "joueur :" << joueur << endl;
             }
-            darts->setJoueur(joueur);
-            darts->setModeJeu(trame.section(";",2,2));
+
+            darts->initialiserPartie(joueur, trame.section(";",2,2));
             emit nouvellePartie(trame.section(";",2,2),joueur);
 
         }
@@ -185,11 +189,7 @@ void Communication::decomposerTrame()
         if(trame.contains("GAME"))      /** $DART;GAME;3;7 */
         {
             darts->receptionnerImpact(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
-            emit nouveauImpact(trame.section(";",2,2),trame.section(";",3,3));
         }
-
-
-
     }
 }
 

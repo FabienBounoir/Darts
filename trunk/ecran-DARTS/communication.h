@@ -43,7 +43,6 @@ public:
 signals:
     void appareilConnecter();       //!< signal emit quand un nouvelle appareil est connecté
     void appareilDeconnecter();     //!< signal emit quand un l'appareil se déconnecté
-    void nouveauImpact(QString cercle, QString point);
     void nouvellePartie(QString mode, QStringList joueur);
 
 public slots:
@@ -60,9 +59,9 @@ private:
     QBluetoothSocket *socket;           //!< la socket de communication Bluetooth
     QBluetoothServiceInfo serviceInfo;  //!< information sur le service bluetooth
 
-    QString localDeviceName = "Ecran-Darts";
-    QString trame;
-    Darts *darts;
+    QString localDeviceName = "Ecran-Darts"; /**< nom du peripherique */
+    QString trame; /**< contient la trame recu */
+    Darts *darts; /**< objet darts */
 
     void decomposerTrame();
 
