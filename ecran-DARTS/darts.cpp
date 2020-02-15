@@ -57,11 +57,23 @@ QList<Joueur> Darts::getListJoueur() const
     return joueurs;
 }
 
+/**
+ * @brief retourne la volee Max
+ *
+ * @fn Darts::getVoleeMax
+ * @return int
+ */
 int Darts::getVoleeMax()
 {
     return voleeMax;
 }
 
+/**
+ * @brief  permet de mettre à jour la volée Max
+ *
+ * @fn Darts::setVoleeMax
+ * @param voleeMax
+ */
 void Darts::setVoleeMax(int voleeMax)
 {
     this->voleeMax = voleeMax;
@@ -97,6 +109,11 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
     }
 }
 
+/**
+ * @brief Méthode qui permet de remettre a zero les differents attribut et conteneur pour une nouvelle partie
+ *
+ * @fn Darts::reinitialiserPartie
+ */
 void Darts::reinitialiserPartie()
 {
     joueurs.clear();
@@ -197,6 +214,11 @@ void Darts::gererManche()
     }
 }
 
+/**
+ * @brief Methode qui teste la Volée pour savoir si elle est superieur à la Volée Max
+ *
+ * @fn Darts::gererVoleeMax
+ */
 void Darts::gererVoleeMax()
 {
     if((joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore()) > getVoleeMax())

@@ -52,16 +52,16 @@ signals:
 public slots:
 
 private:
-    QList<Joueur> joueurs;      //!< @todo describe
-    QStringList joueur;         //!< @todo describe
-    int nbJoueur;               //!< @todo describe
-    int joueurActif;            //!< @todo describe
-    int manche;                 //!< @todo describe
-    int pointLancer;            //!< @todo describe
-    int voleeMax;
+    QList<Joueur> joueurs;      //!< contient des objets joueurs
+    QStringList joueur;         //!< contient les noms des differents joueur
+    int nbJoueur;               //!< contient le nombre de joueur
+    int joueurActif;            //!< contient le numero du joueur en train de jouer
+    int manche;                 //!< contient le numero de la manche actuel
+    int pointLancer;            //!< contient les point associer l'impact de la fleche
+    int voleeMax;               //!< contient la volées Max
 
-    void enleverPointImpact();  //!< @todo describe
-    void gererManche();         //!< @todo describe
+    void enleverPointImpact();
+    void gererManche();
     void gererVoleeMax();
 };
 

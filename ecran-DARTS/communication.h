@@ -39,8 +39,8 @@ class Communication : public QObject
 {
     Q_OBJECT
 public:
-    explicit Communication(QObject *parent = nullptr);
-    ~Communication();
+    explicit Communication(QObject *parent = nullptr);  //!< constructeur de la classe Communication
+    ~Communication();                                   //!< destructeur de la classe Communication
 
     Darts *getDarts() const;
     void parametrerBluetooth();     //!< Méthode qui configure la connexion Bluetooth en mode serveur
@@ -61,8 +61,8 @@ public:
 signals:
     void appareilConnecter();       //!< signal émis quand un nouvel appareil est connecté
     void appareilDeconnecter();     //!< signal émis quand un l'appareil se déconnecté
-    void nouvellePartie(QString mode, QStringList joueur);
-    void resetPartie();
+    void nouvellePartie(QString mode, QStringList joueur);      //!< signal emit quand une trame "START est envoyer
+    void resetPartie();                                         //!< signal qui reset la partie en cour
 
 public slots:
     void deviceConnected(const QBluetoothAddress &adresse);         //!< Slot appelée quand un nouvelle appareil est connecté
@@ -71,7 +71,7 @@ public slots:
     void nouveauClient();                                           //!< Slot appelée quand un nouveau client veut se connecter
     void socketReadyRead();                                         //!< Slot appelée quand une nouvelle trame est disponible
     void socketDisconnected();                                      //!< Slot appelée quand l'appareil est deconnecté
-    void miseAJourEtatPartie();
+    void miseAJourEtatPartie();                                     //!< Slot appelée pour mettre a jour l'etat de la partie
 
 private:
     QBluetoothLocalDevice localDevice;          //!< L'interface Bluetooth de la Raspberry Pi
@@ -83,7 +83,7 @@ private:
     Darts *darts;                               //!< Association objet darts
     EtatPartie etatPartie;                      //!< contient l'etat de la partie
 
-    void decomposerTrame();
+    void decomposerTrame();                     //!< methoe qui decompose la trame reçu
 
 };
 

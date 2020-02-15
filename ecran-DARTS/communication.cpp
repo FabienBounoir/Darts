@@ -257,6 +257,11 @@ void Communication::error(QBluetoothLocalDevice::Error erreur)
     qDebug() << Q_FUNC_INFO << erreur;
 }
 
+/**
+ * @brief  Méthode qui met a jour l'etat de la partie
+ *
+ * @fn Communication::miseAJourEtatPartie
+ */
 void Communication::miseAJourEtatPartie()
 {
     etatPartie = EtatPartie::Fin;

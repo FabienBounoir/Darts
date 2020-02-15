@@ -41,15 +41,7 @@ Ihm::Ihm(QWidget *parent) :
 
     communication->demarrer();
 
-    connect(communication, SIGNAL(appareilConnecter()) ,this ,SLOT(nouvelleAppareilConnecter()));
-    connect(communication, SIGNAL(appareilDeconnecter() ),this ,SLOT(appareilDeconnecter()));
-    connect(communication, SIGNAL(nouvellePartie(QString, QStringList)),this ,SLOT(afficherPartie(QString,QStringList)));
-    connect(communication, SIGNAL(resetPartie()),this ,SLOT(nouvellePartie()));
-    connect(communication->getDarts(), SIGNAL(finPartie(QString, int)),this ,SLOT(partieFini(QString, int)));
-    connect(communication->getDarts(), SIGNAL(nouvelleImpact(int, int, int)) ,this ,SLOT(afficherImpact(int,int,int)));
-    connect(communication->getDarts(), SIGNAL(miseAJourPoint()), this , SLOT(miseAJourScore()));
-    connect(communication->getDarts(), SIGNAL(nouvelleManche()), this , SLOT(mettreAJourManche()));
-    connect(communication->getDarts(), SIGNAL(voleeAnnulee()), this , SLOT(AfficherVoleeAnnulee()));
+    initialiserConnect();
 
 }
 
@@ -61,6 +53,24 @@ Ihm::Ihm(QWidget *parent) :
 Ihm::~Ihm()
 {
     delete ui;
+}
+
+/**
+ * @brief Méthode qui initialise les connects
+ *
+ * @fn Ihm::initialiserConnect
+ */
+void Ihm::initialiserConnect()
+{
+    connect(communication, SIGNAL(appareilConnecter()) ,this ,SLOT(nouvelleAppareilConnecter()));
+    connect(communication, SIGNAL(appareilDeconnecter() ),this ,SLOT(appareilDeconnecter()));
+    connect(communication, SIGNAL(nouvellePartie(QString, QStringList)),this ,SLOT(afficherPartie(QString,QStringList)));
+    connect(communication, SIGNAL(resetPartie()),this ,SLOT(nouvellePartie()));
+    connect(communication->getDarts(), SIGNAL(finPartie(QString, int)),this ,SLOT(partieFini(QString, int)));
+    connect(communication->getDarts(), SIGNAL(nouvelleImpact(int, int, int)) ,this ,SLOT(afficherImpact(int,int,int)));
+    connect(communication->getDarts(), SIGNAL(miseAJourPoint()), this , SLOT(miseAJourScore()));
+    connect(communication->getDarts(), SIGNAL(nouvelleManche()), this , SLOT(mettreAJourManche()));
+    connect(communication->getDarts(), SIGNAL(voleeAnnulee()), this , SLOT(AfficherVoleeAnnulee()));
 }
 
 /**
@@ -176,6 +186,13 @@ void Ihm::AfficherVoleeAnnulee()
     ui->labelStatut->setText("Volée annulée !");
 }
 
+/**
+ * @brief Méthode qui met à jour l'affichage quand la partie est fini
+ *
+ * @fn Ihm::partieFini
+ * @param gagnant
+ * @param voleeMaxJoueur
+ */
 void Ihm::partieFini(QString gagnant, int voleeMaxJoueur)
 {
     ui->winnerPartie->setText("Winner " + gagnant);
@@ -183,6 +200,11 @@ void Ihm::partieFini(QString gagnant, int voleeMaxJoueur)
     ui->ecranDarts->setCurrentIndex(Ihm::PageStatistique);
 }
 
+/**
+ * @brief Methode qui met à jour l'affichage pour lancer une nouvelle partie
+ *
+ * @fn Ihm::nouvellePartie
+ */
 void Ihm::nouvellePartie()
 {
      ui->ecranDarts->setCurrentIndex(Ihm::PageAttente);
