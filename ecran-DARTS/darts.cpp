@@ -95,6 +95,9 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
  */
 void Darts::receptionnerImpact(int cercle, int point)
 {
+    /**
+     * @todo Définir les constantes Double et Triple
+     */
     if(cercle == 4)
     {
         pointLancer = point * 3;
@@ -132,7 +135,7 @@ void Darts::enleverPointImpact()
          joueurActif++;
     }
 
-    qDebug() << joueurs[joueurActif].getNom() << "  : " << joueurs[joueurActif].getScore() << endl;
+    qDebug() << Q_FUNC_INFO << joueurs[joueurActif].getNom() << "  : " << joueurs[joueurActif].getScore();
     joueurs[joueurActif].setNbFlechette(joueurs[joueurActif].getFlechette() - 1);
 }
 

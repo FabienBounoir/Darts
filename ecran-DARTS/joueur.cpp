@@ -23,7 +23,7 @@
  */
 Joueur::Joueur(QString nom, int score , int nbFlechette): nom(nom), score(score),scoreManchePrecedente(score), nbFlechette(nbFlechette)
 {
-    qDebug() << nom << " " << score << " " << nbFlechette << endl;
+    qDebug() << Q_FUNC_INFO << nom << " " << score << " " << nbFlechette;
 }
 
 /**
