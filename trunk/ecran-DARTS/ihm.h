@@ -72,6 +72,7 @@ private:
     };
 
     void attribuerRaccourcisClavier();
+    void initialiserConnect();
 };
 
 #endif // IHM_H
