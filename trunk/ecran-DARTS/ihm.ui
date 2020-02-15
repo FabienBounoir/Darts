@@ -100,7 +100,7 @@ QLabel
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -543,6 +543,9 @@ QLabel
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <layout class="QGridLayout" name="gridLayout">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetMinimumSize</enum>
+             </property>
              <item row="2" column="0">
               <widget class="QLabel" name="labelVoleesMaxStatistique">
                <property name="font">
@@ -596,6 +599,20 @@ QLabel
                </property>
                <property name="text">
                 <string>- Durée partie : </string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="voleeMax">
+               <property name="font">
+                <font>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
                </property>
               </widget>
              </item>

@@ -45,7 +45,7 @@ Ihm::Ihm(QWidget *parent) :
     connect(communication, SIGNAL(appareilDeconnecter() ),this ,SLOT(appareilDeconnecter()));
     connect(communication, SIGNAL(nouvellePartie(QString, QStringList)),this ,SLOT(afficherPartie(QString,QStringList)));
     connect(communication, SIGNAL(resetPartie()),this ,SLOT(nouvellePartie()));
-    connect(communication->getDarts(), SIGNAL(finPartie(QString)),this ,SLOT(partieFini(QString)));
+    connect(communication->getDarts(), SIGNAL(finPartie(QString, int)),this ,SLOT(partieFini(QString, int)));
     connect(communication->getDarts(), SIGNAL(nouvelleImpact(int, int, int)) ,this ,SLOT(afficherImpact(int,int,int)));
     connect(communication->getDarts(), SIGNAL(miseAJourPoint()), this , SLOT(miseAJourScore()));
     connect(communication->getDarts(), SIGNAL(nouvelleManche()), this , SLOT(mettreAJourManche()));
@@ -176,9 +176,10 @@ void Ihm::AfficherVoleeAnnulee()
     ui->labelStatut->setText("Volée annulée !");
 }
 
-void Ihm::partieFini(QString gagnant)
+void Ihm::partieFini(QString gagnant, int voleeMaxJoueur)
 {
     ui->winnerPartie->setText("Winner " + gagnant);
+    ui->voleeMax->setText(QString::number(voleeMaxJoueur) + " points");
     ui->ecranDarts->setCurrentIndex(Ihm::PageStatistique);
 }
 

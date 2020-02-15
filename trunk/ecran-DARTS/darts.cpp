@@ -20,7 +20,7 @@
  * @fn Darts::Darts
  * @param parent
  */
-Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0)
+Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0), voleeMax(0)
 {
 
 }
@@ -55,6 +55,16 @@ int Darts::getManche() const
 QList<Joueur> Darts::getListJoueur() const
 {
     return joueurs;
+}
+
+int Darts::getVoleeMax()
+{
+    return voleeMax;
+}
+
+void Darts::setVoleeMax(int voleeMax)
+{
+    this->voleeMax = voleeMax;
 }
 
 /**
@@ -124,7 +134,8 @@ void Darts::receptionnerImpact(int cercle, int point)
 
     if((joueurs[joueurActif].getScore() - pointLancer)  == 0 && cercle == DOUBLE_POINT)
     {
-        emit finPartie(joueurs[joueurActif].getNom());
+        gererVoleeMax();
+        emit finPartie(joueurs[joueurActif].getNom(), getVoleeMax());
         emit etatPartieFini();
     }
     else
@@ -168,6 +179,9 @@ void Darts::gererManche()
     if(joueurs[joueurActif].getFlechette() == 0)
     {
         joueurs[joueurActif].setNbFlechette(3);
+
+        gererVoleeMax();
+
         joueurs[joueurActif].setScoreManchePrecedente(joueurs[joueurActif].getScore());
 
         if(joueurActif == nbJoueur - 1)
@@ -180,5 +194,13 @@ void Darts::gererManche()
         {
             joueurActif++;
         }
+    }
+}
+
+void Darts::gererVoleeMax()
+{
+    if((joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore()) > getVoleeMax())
+    {
+        setVoleeMax(joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore());
     }
 }
