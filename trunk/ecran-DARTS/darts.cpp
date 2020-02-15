@@ -20,7 +20,7 @@
  * @fn Darts::Darts
  * @param parent
  */
-Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0), pointJoueur(0)
+Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0)
 {
 
 }
@@ -78,12 +78,23 @@ void Darts::setManche(int manche)
  */
 void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
 {
-    nbJoueur = joueurList.size() - 2;
+    nbJoueur = joueurList.size() - 1;
+    qDebug() << "nombre de JOUEUR : " << nbJoueur;
     for(int i = 1; i < joueurList.size() ; i++)
     {
         Joueur player(joueurList.at(i), modeJeu.toInt(), 3);
         joueurs.push_back(player);
     }
+}
+
+void Darts::reinitialiserPartie()
+{
+    joueurs.clear();
+    joueur.clear();
+    nbJoueur = 0;
+    joueurActif = 0;
+    manche = 1;
+    pointLancer = 0;
 }
 
 /**
@@ -95,14 +106,11 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
  */
 void Darts::receptionnerImpact(int cercle, int point)
 {
-    /**
-     * @todo Définir les constantes Double et Triple
-     */
-    if(cercle == 4)
+    if(cercle == TRIPLE_POINT)
     {
         pointLancer = point * 3;
     }
-    else if(cercle == 6)
+    else if(cercle == DOUBLE_POINT)
     {
         pointLancer = point * 2;
     }
@@ -112,10 +120,18 @@ void Darts::receptionnerImpact(int cercle, int point)
     }
 
     emit nouvelleImpact(cercle, point, pointLancer);
+    qDebug() << joueurs[joueurActif].getNom() << " SCORE : "<<joueurs[joueurActif].getScore() - pointLancer << endl;
 
-    enleverPointImpact();
-    gererManche();
-
+    if((joueurs[joueurActif].getScore() - pointLancer)  == 0 && cercle == DOUBLE_POINT)
+    {
+        emit finPartie(joueurs[joueurActif].getNom());
+        emit etatPartieFini();
+    }
+    else
+    {
+        enleverPointImpact();
+        gererManche();
+    }
     emit miseAJourPoint();
 }
 
@@ -132,11 +148,14 @@ void Darts::enleverPointImpact()
     {
          joueurs[joueurActif].setScore(joueurs[joueurActif].getScoreManchePrecedente());
          emit voleeAnnulee();
-         joueurActif++;
-    }
 
-    qDebug() << Q_FUNC_INFO << joueurs[joueurActif].getNom() << "  : " << joueurs[joueurActif].getScore();
-    joueurs[joueurActif].setNbFlechette(joueurs[joueurActif].getFlechette() - 1);
+         joueurs[joueurActif].setNbFlechette(0);
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << joueurs[joueurActif].getNom() << "  : " << joueurs[joueurActif].getScore();
+        joueurs[joueurActif].setNbFlechette(joueurs[joueurActif].getFlechette() - 1);
+    }
 }
 
 /**
@@ -151,7 +170,7 @@ void Darts::gererManche()
         joueurs[joueurActif].setNbFlechette(3);
         joueurs[joueurActif].setScoreManchePrecedente(joueurs[joueurActif].getScore());
 
-        if(joueurActif == nbJoueur)
+        if(joueurActif == nbJoueur - 1)
         {
             joueurActif = 0;
             setManche(getManche() + 1);

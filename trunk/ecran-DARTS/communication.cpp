@@ -23,6 +23,7 @@ Communication::Communication(QObject *parent) : QObject(parent), serveur(nullptr
     darts = new Darts(this);
 
     parametrerBluetooth();
+    etatPartie = EtatPartie::Attente;
 }
 
 /**
@@ -76,7 +77,8 @@ void Communication::parametrerBluetooth()
         connect(&localDevice, SIGNAL(deviceConnected(QBluetoothAddress)), this, SLOT(deviceConnected(QBluetoothAddress)));
         connect(&localDevice, SIGNAL(deviceDisconnected(QBluetoothAddress)), this, SLOT(deviceDisconnected(QBluetoothAddress)));
         connect(&localDevice, SIGNAL(error(QBluetoothLocalDevice::Error)), this, SLOT(error(QBluetoothLocalDevice::Error)));
-        //connect(darts, SIGNAL(miseAJourPoint()), this , SLOT();
+
+        connect(darts, SIGNAL(etatPartieFini()), this , SLOT(miseAJourEtatPartie()));
 
     }
 }
@@ -174,8 +176,12 @@ void Communication::decomposerTrame()
     {
         QStringList joueur;
         trame.remove("\r\n");
-        if(trame.contains("START"))      /** $DART;START;2;fabien;erwan */
+        if(trame.contains("START") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;START;2;fabien;erwan */
         {
+            emit resetPartie();
+            darts->reinitialiserPartie();
+
+            etatPartie = EtatPartie::EnCours;
             for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
             {
                 joueur.push_back(trame.section(";",3+i,3+i));
@@ -185,10 +191,15 @@ void Communication::decomposerTrame()
             emit nouvellePartie(trame.section(";",2,2),joueur);
 
         }
-
-        if(trame.contains("GAME"))      /** $DART;GAME;3;7 */
+        else if(trame.contains("GAME") && etatPartie == EtatPartie::EnCours)      /** $DART;GAME;3;7 */
         {
             darts->receptionnerImpact(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
+        }
+        else if(trame.contains("RESET") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Fin))
+        {
+            emit resetPartie();
+            darts->reinitialiserPartie();
+            etatPartie = EtatPartie::Attente;
         }
     }
 }
@@ -246,3 +257,7 @@ void Communication::error(QBluetoothLocalDevice::Error erreur)
     qDebug() << Q_FUNC_INFO << erreur;
 }
 
+void Communication::miseAJourEtatPartie()
+{
+    etatPartie = EtatPartie::Fin;
+}

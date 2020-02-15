@@ -49,6 +49,8 @@ public slots:
     void miseAJourScore();
     void mettreAJourManche();
     void AfficherVoleeAnnulee();
+    void nouvellePartie();
+    void partieFini(QString gagnant);
 
 private:
     Ui::Ihm *ui; /**< object de notre Ihm */
