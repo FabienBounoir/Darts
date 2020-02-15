@@ -1,12 +1,6 @@
 #ifndef DARTS_H
 #define DARTS_H
 
-#include "joueur.h"
-#include <QObject>
-#include <QVector>
-
-class Joueur;
-
 /**
  * @file darts.h
  * @brief Declaration de la classe Darts
@@ -15,6 +9,12 @@ class Joueur;
  *
  * @author Bounoir Fabien
  */
+
+#include "joueur.h"
+#include <QObject>
+#include <QVector>
+
+class Joueur;
 
 /**
  * @class Darts darts.h "darts.h"
@@ -44,15 +44,16 @@ signals:
 public slots:
 
 private:
-    QList<Joueur> joueurs; /**< TODO: describe */
-    QStringList joueur; /**< TODO: describe */
-    int nbJoueur; /**< TODO: describe */
-    int joueurActif; /**< TODO: describe */
-    int manche; /**< TODO: describe */
-    int pointLancer; /**< TODO: describe */
-    QVector<int> pointJoueur; //!< Un vecteur qui contient les points des differents joueurs /**< TODO: describe */
-    void enleverPointImpact();
-    void gererManche();
+    QList<Joueur> joueurs;      //!< @todo describe
+    QStringList joueur;         //!< @todo describe
+    int nbJoueur;               //!< @todo describe
+    int joueurActif;            //!< @todo describe
+    int manche;                 //!< @todo describe
+    int pointLancer;            //!< @todo describe
+    QVector<int> pointJoueur;   //!< Vecteur qui contient les points des differents joueurs
+
+    void enleverPointImpact();  //!< @todo describe
+    void gererManche();         //!< @todo describe
 };
 
 #endif // DARTS_H

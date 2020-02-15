@@ -1,6 +1,15 @@
 #ifndef IHM_H
 #define IHM_H
 
+/**
+ * @file ihm.h
+ * @brief Declaration de la classe Ihm
+ *
+ * @version 0.1
+ *
+ * @author Bounoir Fabien
+ */
+
 #include "communication.h"
 #include "darts.h"
 #include <QWidget>
@@ -12,15 +21,6 @@
 namespace Ui {
 class Ihm;
 }
-
-/**
- * @file ihm.h
- * @brief Declaration de la classe Ihm
- *
- * @version 0.1
- *
- * @author Bounoir Fabien
- */
 
 /**
  * @class Ihm ihm.h "ihm.h"
@@ -57,9 +57,9 @@ private:
     Darts *darts; /**< objet darts */
 
     /**
-     * @brief contient les differentes pages de L'application
-     *
      * @enum Page
+     * @brief Définit les différentes pages de l'IHM
+     *     
      */
     enum Page
     {

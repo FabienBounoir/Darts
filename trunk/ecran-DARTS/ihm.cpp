@@ -137,7 +137,7 @@ void Ihm::mettreAJourManche()
  */
 void Ihm::afficherImpact(int cercle, int point, int score)
 {
-    qDebug() <<"cercle : " << cercle <<"point : " << point <<endl;
+    qDebug() << Q_FUNC_INFO << "cercle : " << cercle << "point : " << point;
     ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/impact/IMPACT_" + QString::number(cercle) + "_" + QString::number(point) + ".png"));
     ui->labelStatut->setText(QString::number(score) + " point(s)" );
 }
@@ -151,7 +151,7 @@ void Ihm::afficherImpact(int cercle, int point, int score)
  */
 void Ihm::afficherPartie(QString mode, QStringList joueur)
 {
-    qDebug() << "mode de jeu : " << mode << "  Joueur : " << joueur << endl;
+    qDebug() << Q_FUNC_INFO << "mode de jeu : " << mode << "  Joueur : " << joueur;
     ui->typeJeu->setText(mode + " Double out");
     QString nomjoueur;
     for(int i = 1; i < joueur.size(); i++)
