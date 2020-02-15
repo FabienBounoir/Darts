@@ -43,15 +43,26 @@ public:
     ~Communication();
 
     Darts *getDarts() const;
-
     void parametrerBluetooth();     //!< Méthode qui configure la connexion Bluetooth en mode serveur
     void demarrer();                //!< Méthode qui démarre le serveur
     void arreter();                 //!< Méthode qui arrête le serveur
+
+    /**
+     * @brief contient les different etat de la partie
+     * @enum EtatSeance
+     */
+    enum EtatPartie
+    {
+        Attente = 0,
+        EnCours = 1,
+        Fin
+    };
 
 signals:
     void appareilConnecter();       //!< signal émis quand un nouvel appareil est connecté
     void appareilDeconnecter();     //!< signal émis quand un l'appareil se déconnecté
     void nouvellePartie(QString mode, QStringList joueur);
+    void resetPartie();
 
 public slots:
     void deviceConnected(const QBluetoothAddress &adresse);         //!< Slot appelée quand un nouvelle appareil est connecté
@@ -60,6 +71,7 @@ public slots:
     void nouveauClient();                                           //!< Slot appelée quand un nouveau client veut se connecter
     void socketReadyRead();                                         //!< Slot appelée quand une nouvelle trame est disponible
     void socketDisconnected();                                      //!< Slot appelée quand l'appareil est deconnecté
+    void miseAJourEtatPartie();
 
 private:
     QBluetoothLocalDevice localDevice;          //!< L'interface Bluetooth de la Raspberry Pi
@@ -69,6 +81,7 @@ private:
     QString localDeviceName = "Ecran-Darts";    //!< Nom du peripherique local
     QString trame;                              //!< La trame recue
     Darts *darts;                               //!< Association objet darts
+    EtatPartie etatPartie;                      //!< contient l'etat de la partie
 
     void decomposerTrame();
 

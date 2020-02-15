@@ -44,6 +44,8 @@ Ihm::Ihm(QWidget *parent) :
     connect(communication, SIGNAL(appareilConnecter()) ,this ,SLOT(nouvelleAppareilConnecter()));
     connect(communication, SIGNAL(appareilDeconnecter() ),this ,SLOT(appareilDeconnecter()));
     connect(communication, SIGNAL(nouvellePartie(QString, QStringList)),this ,SLOT(afficherPartie(QString,QStringList)));
+    connect(communication, SIGNAL(resetPartie()),this ,SLOT(nouvellePartie()));
+    connect(communication->getDarts(), SIGNAL(finPartie(QString)),this ,SLOT(partieFini(QString)));
     connect(communication->getDarts(), SIGNAL(nouvelleImpact(int, int, int)) ,this ,SLOT(afficherImpact(int,int,int)));
     connect(communication->getDarts(), SIGNAL(miseAJourPoint()), this , SLOT(miseAJourScore()));
     connect(communication->getDarts(), SIGNAL(nouvelleManche()), this , SLOT(mettreAJourManche()));
@@ -172,6 +174,24 @@ void Ihm::afficherPartie(QString mode, QStringList joueur)
 void Ihm::AfficherVoleeAnnulee()
 {
     ui->labelStatut->setText("Volée annulée !");
+}
+
+void Ihm::partieFini(QString gagnant)
+{
+    ui->winnerPartie->setText("Winner " + gagnant);
+    ui->ecranDarts->setCurrentIndex(Ihm::PageStatistique);
+}
+
+void Ihm::nouvellePartie()
+{
+     ui->ecranDarts->setCurrentIndex(Ihm::PageAttente);
+     ui->manche->setText("1");
+     ui->nomJoueur->setText("");
+     ui->scoreActuel->setText("");
+     ui->typeJeu->setText("");
+     ui->winnerPartie->setText("Winner ....");
+     ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/ressources/cible.png"));
+     ui->labelStatut->setText("");
 }
 
 /**

@@ -14,6 +14,9 @@
 #include <QObject>
 #include <QVector>
 
+#define TRIPLE_POINT 4
+#define DOUBLE_POINT 6
+
 class Joueur;
 
 /**
@@ -34,12 +37,15 @@ public:
 
     void receptionnerImpact(int cercle, int point);
     void initialiserPartie(QStringList joueur, QString modeJeu);
+    void reinitialiserPartie();
 
 signals:
     void miseAJourPoint();
     void nouvelleManche();
     void nouvelleImpact(int,int,int);
     void voleeAnnulee();
+    void finPartie(QString);
+    void etatPartieFini();
 
 public slots:
 
@@ -50,7 +56,6 @@ private:
     int joueurActif;            //!< @todo describe
     int manche;                 //!< @todo describe
     int pointLancer;            //!< @todo describe
-    QVector<int> pointJoueur;   //!< Vecteur qui contient les points des differents joueurs
 
     void enleverPointImpact();  //!< @todo describe
     void gererManche();         //!< @todo describe
