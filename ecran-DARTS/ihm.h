@@ -50,7 +50,7 @@ public slots:
     void mettreAJourManche();
     void AfficherVoleeAnnulee();
     void nouvellePartie();
-    void partieFini(QString gagnant);
+    void partieFini(QString gagnant, int voleeMaxJoueur);
 
 private:
     Ui::Ihm *ui; /**< object de notre Ihm */

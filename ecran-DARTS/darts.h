@@ -33,6 +33,8 @@ public:
     QList<Joueur> getListJoueur() const;
     int getManche() const;
     Darts *getDarts();
+    int getVoleeMax();
+    void setVoleeMax(int voleeMax);
     void setManche(int manche);
 
     void receptionnerImpact(int cercle, int point);
@@ -44,7 +46,7 @@ signals:
     void nouvelleManche();
     void nouvelleImpact(int,int,int);
     void voleeAnnulee();
-    void finPartie(QString);
+    void finPartie(QString, int);
     void etatPartieFini();
 
 public slots:
@@ -56,9 +58,11 @@ private:
     int joueurActif;            //!< @todo describe
     int manche;                 //!< @todo describe
     int pointLancer;            //!< @todo describe
+    int voleeMax;
 
     void enleverPointImpact();  //!< @todo describe
     void gererManche();         //!< @todo describe
+    void gererVoleeMax();
 };
 
 #endif // DARTS_H
