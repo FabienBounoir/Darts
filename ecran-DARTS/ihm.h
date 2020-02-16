@@ -48,6 +48,7 @@ public slots:
     void afficherPartie(QString mode);
     void miseAJourScore();
     void mettreAJourManche();
+    void mettreAJourMoyenneVolee();
     void AfficherVoleeAnnulee();
     void nouvellePartie();
     void partieFini(QString gagnant, int voleeMaxJoueur);

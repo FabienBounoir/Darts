@@ -175,7 +175,7 @@ void Communication::decomposerTrame()
     if(trame.startsWith(TYPE_TRAME) && trame.endsWith(DELIMITEUR_FIN))
     {
         QStringList joueur;
-        trame.remove("\r\n");
+        trame.remove(DELIMITEUR_FIN);
         if(trame.contains("START") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;START;2;fabien;erwan */
         {
             emit resetPartie();

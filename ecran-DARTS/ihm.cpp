@@ -39,6 +39,7 @@ Ihm::Ihm(QWidget *parent) :
     //raccourcis Quitter/ChangerPage
     attribuerRaccourcisClavier();
 
+    //demarrer la communication bluetooth
     communication->demarrer();
 
     initialiserConnect();
@@ -72,6 +73,7 @@ void Ihm::initialiserConnect()
     connect(communication->getDarts(), SIGNAL(miseAJourPoint()), this , SLOT(miseAJourScore()));
     connect(communication->getDarts(), SIGNAL(nouvelleManche()), this , SLOT(mettreAJourManche()));
     connect(communication->getDarts(), SIGNAL(voleeAnnulee()), this , SLOT(AfficherVoleeAnnulee()));
+    connect(communication->getDarts(), SIGNAL(miseAJourMoyenneVolee()), this , SLOT(mettreAJourMoyenneVolee()));
 }
 
 /**
@@ -159,8 +161,6 @@ void Ihm::afficherImpact(int cercle, int point, int score)
  * @brief Méthode qui initialise l'affichage du mode et des joueurs de la partie
  *
  * @fn Ihm::afficherPartie
- * @param mode
- * @param joueur
  */
 void Ihm::mettreAJourJoueur()
 {
@@ -179,6 +179,30 @@ void Ihm::mettreAJourJoueur()
     ui->nomJoueur->setText(nomjoueur);
 }
 
+/**
+ * @brief Méthode qui initialise l'affichage du mode et des joueurs de la partie
+ *
+ * @fn Ihm::mettreAJourMoyenneVolee
+ */
+void Ihm::mettreAJourMoyenneVolee()
+{
+    QString moyenneVoleeJoueur;
+    for(int i = 0; i < communication->getDarts()->getListJoueur().size(); i++)
+    {
+        moyenneVoleeJoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + " : " + " En cours de realisation ... \n";
+        /**
+         * @todo faire gestion Moyenne Volées
+         */
+    }
+    ui->moyenneVolee->setText(moyenneVoleeJoueur);
+}
+
+/**
+ * @brief Méthode qui met a jour le mode et jeu et la page actif
+ *
+ * @fn Ihm::afficherPartie
+ * @param mode
+ */
 void Ihm::afficherPartie(QString mode)
 {
     ui->typeJeu->setText(mode + " Double out");
@@ -230,6 +254,9 @@ void Ihm::nouvellePartie()
      ui->winnerPartie->setText("Winner ....");
      ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/ressources/cible.png"));
      ui->labelStatut->setText("");
+     ui->moyenneVolee->setText("");
+     ui->nbVolees->setText("");
+     ui->voleeMax->setText("");
 }
 
 /**

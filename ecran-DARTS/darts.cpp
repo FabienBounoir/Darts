@@ -231,6 +231,7 @@ void Darts::gererManche()
             joueurActif = 0;
             setManche(getManche() + 1);
             emit changerJoueurActif();
+            emit miseAJourMoyenneVolee();
             emit nouvelleManche();
         }
         else
