@@ -38,7 +38,7 @@ public:
     int getNbVolees();
     void setVoleeMax(int voleeMax);
     void setManche(int manche);
-
+    void calculerMoyenneVolees();
     void receptionnerImpact(int cercle, int point);
     void initialiserPartie(QStringList joueur, QString modeJeu);
     void reinitialiserPartie();

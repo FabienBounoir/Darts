@@ -196,7 +196,7 @@ void Darts::enleverPointImpact()
 {
     joueurs[joueurActif].setScore(joueurs[joueurActif].getScore() - pointLancer);
 
-    if(joueurs[joueurActif].getScore() < 0)
+    if(joueurs[joueurActif].getScore() < 0) //score Volées inferieur au score = Volée annulée
     {
          joueurs[joueurActif].setScore(joueurs[joueurActif].getScoreManchePrecedente());
          emit voleeAnnulee();
@@ -206,7 +206,6 @@ void Darts::enleverPointImpact()
     else
     {
         nbVolees++;
-        qDebug() << Q_FUNC_INFO << joueurs[joueurActif].getNom() << "  : " << joueurs[joueurActif].getScore();
         joueurs[joueurActif].setNbFlechette(joueurs[joueurActif].getFlechette() - 1);
     }
 }
@@ -218,20 +217,22 @@ void Darts::enleverPointImpact()
  */
 void Darts::gererManche()
 {
-    if(joueurs[joueurActif].getFlechette() == 0)
+    if(joueurs[joueurActif].getFlechette() == 0) //fin de la volées du joueur
     {
         joueurs[joueurActif].setNbFlechette(3);
 
         gererVoleeMax();
 
+        joueurs[joueurActif].addHistoriqueVolees((joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore()));
+
         joueurs[joueurActif].setScoreManchePrecedente(joueurs[joueurActif].getScore());
 
-        if(joueurActif == nbJoueur - 1)
+        if(joueurActif == nbJoueur - 1)  //equivalent a la fin de manche
         {
             joueurActif = 0;
             setManche(getManche() + 1);
             emit changerJoueurActif();
-            emit miseAJourMoyenneVolee();
+            calculerMoyenneVolees();
             emit nouvelleManche();
         }
         else
@@ -240,6 +241,28 @@ void Darts::gererManche()
             emit changerJoueurActif();
         }
     }
+}
+
+/**
+ * @brief Methode qui calcule la moyenne des Volées de chaque joueur
+ *
+ * @fn Darts::calculerMoyenneVolees
+ */
+void Darts::calculerMoyenneVolees()
+{
+    for(int i = 0; i <= joueurs.size() - 1; i++)
+    {
+        float moyenneVolee = 0;
+
+        for(int j = 0; j < joueurs[i].getHistoriqueVolees().size(); j++)
+        {
+            moyenneVolee += joueurs[i].getHistoriqueVolees()[j];
+        }
+
+        moyenneVolee = moyenneVolee / joueurs[i].getHistoriqueVolees().size();
+        joueurs[i].setMoyenneVolee(moyenneVolee);
+    }
+    emit miseAJourMoyenneVolee();
 }
 
 /**
