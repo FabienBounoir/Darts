@@ -51,6 +51,7 @@ signals:
     void finPartie(QString, int);
     void etatPartieFini();
     void changerJoueurActif();
+    void miseAJourMoyenneVolee();
 
 public slots:
 
