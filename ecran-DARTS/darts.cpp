@@ -68,6 +68,11 @@ int Darts::getVoleeMax()
     return voleeMax;
 }
 
+int Darts::getJoueurActif()
+{
+    return joueurActif;
+}
+
 /**
  * @brief  permet de mettre à jour la volée Max
  *
@@ -205,11 +210,13 @@ void Darts::gererManche()
         {
             joueurActif = 0;
             setManche(getManche() + 1);
+            emit changerJoueurActif();
             emit nouvelleManche();
         }
         else
         {
             joueurActif++;
+            emit changerJoueurActif();
         }
     }
 }

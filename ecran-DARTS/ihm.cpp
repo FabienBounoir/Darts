@@ -64,9 +64,10 @@ void Ihm::initialiserConnect()
 {
     connect(communication, SIGNAL(appareilConnecter()) ,this ,SLOT(nouvelleAppareilConnecter()));
     connect(communication, SIGNAL(appareilDeconnecter() ),this ,SLOT(appareilDeconnecter()));
-    connect(communication, SIGNAL(nouvellePartie(QString, QStringList)),this ,SLOT(afficherPartie(QString,QStringList)));
+    connect(communication, SIGNAL(nouvellePartie(QString)),this ,SLOT(afficherPartie(QString)));
     connect(communication, SIGNAL(resetPartie()),this ,SLOT(nouvellePartie()));
     connect(communication->getDarts(), SIGNAL(finPartie(QString, int)),this ,SLOT(partieFini(QString, int)));
+    connect(communication->getDarts(), SIGNAL(changerJoueurActif()) ,this ,SLOT(mettreAJourJoueur()));
     connect(communication->getDarts(), SIGNAL(nouvelleImpact(int, int, int)) ,this ,SLOT(afficherImpact(int,int,int)));
     connect(communication->getDarts(), SIGNAL(miseAJourPoint()), this , SLOT(miseAJourScore()));
     connect(communication->getDarts(), SIGNAL(nouvelleManche()), this , SLOT(mettreAJourManche()));
@@ -161,16 +162,29 @@ void Ihm::afficherImpact(int cercle, int point, int score)
  * @param mode
  * @param joueur
  */
-void Ihm::afficherPartie(QString mode, QStringList joueur)
+void Ihm::mettreAJourJoueur()
 {
-    qDebug() << Q_FUNC_INFO << "mode de jeu : " << mode << "  Joueur : " << joueur;
-    ui->typeJeu->setText(mode + " Double out");
     QString nomjoueur;
-    for(int i = 1; i < joueur.size(); i++)
+    for(int i = 0; i < communication->getDarts()->getListJoueur().size(); i++)
     {
-        nomjoueur += "         " +joueur.at(i) + "\n";
+        if(i == communication->getDarts()->getJoueurActif())
+        {
+            nomjoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + " <--" + "\n";
+        }
+        else
+        {
+            nomjoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + "\n";
+        }
     }
     ui->nomJoueur->setText(nomjoueur);
+}
+
+void Ihm::afficherPartie(QString mode)
+{
+    ui->typeJeu->setText(mode + " Double out");
+
+    mettreAJourJoueur();
+
     ui->ecranDarts->setCurrentIndex(Ihm::PageJeu);
 
     miseAJourScore();
