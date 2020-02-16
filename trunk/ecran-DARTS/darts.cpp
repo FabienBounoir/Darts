@@ -20,7 +20,7 @@
  * @fn Darts::Darts
  * @param parent
  */
-Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0), voleeMax(0)
+Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0), voleeMax(0), nbVolees(0)
 {
 
 }
@@ -68,9 +68,26 @@ int Darts::getVoleeMax()
     return voleeMax;
 }
 
+/**
+ * @brief retourne le numero du joueur actif
+ *
+ * @fn Darts::getJoueurActif
+ * @return int
+ */
 int Darts::getJoueurActif()
 {
     return joueurActif;
+}
+
+/**
+ * @brief retourne le nombre de volées de la partie
+ *
+ * @fn Darts::getNbVolees
+ * @return int
+ */
+int Darts::getNbVolees()
+{
+    return nbVolees;
 }
 
 /**
@@ -127,6 +144,7 @@ void Darts::reinitialiserPartie()
     joueurActif = 0;
     manche = 1;
     pointLancer = 0;
+    nbVolees = 0;
 }
 
 /**
@@ -157,6 +175,7 @@ void Darts::receptionnerImpact(int cercle, int point)
     if((joueurs[joueurActif].getScore() - pointLancer)  == 0 && cercle == DOUBLE_POINT)
     {
         gererVoleeMax();
+        nbVolees++;
         emit finPartie(joueurs[joueurActif].getNom(), getVoleeMax());
         emit etatPartieFini();
     }
@@ -186,6 +205,7 @@ void Darts::enleverPointImpact()
     }
     else
     {
+        nbVolees++;
         qDebug() << Q_FUNC_INFO << joueurs[joueurActif].getNom() << "  : " << joueurs[joueurActif].getScore();
         joueurs[joueurActif].setNbFlechette(joueurs[joueurActif].getFlechette() - 1);
     }

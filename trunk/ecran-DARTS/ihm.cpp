@@ -211,6 +211,7 @@ void Ihm::partieFini(QString gagnant, int voleeMaxJoueur)
 {
     ui->winnerPartie->setText("Winner " + gagnant);
     ui->voleeMax->setText(QString::number(voleeMaxJoueur) + " points");
+    ui->nbVolees->setText(QString::number(communication->getDarts()->getNbVolees()));
     ui->ecranDarts->setCurrentIndex(Ihm::PageStatistique);
 }
 

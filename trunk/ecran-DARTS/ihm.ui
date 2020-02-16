@@ -100,7 +100,7 @@ QLabel
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -604,6 +604,20 @@ QLabel
              </item>
              <item row="2" column="1">
               <widget class="QLabel" name="voleeMax">
+               <property name="font">
+                <font>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="nbVolees">
                <property name="font">
                 <font>
                  <pointsize>30</pointsize>
