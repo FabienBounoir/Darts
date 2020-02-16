@@ -35,6 +35,7 @@ public:
     Darts *getDarts();
     int getVoleeMax();
     int getJoueurActif();
+    int getNbVolees();
     void setVoleeMax(int voleeMax);
     void setManche(int manche);
 
@@ -61,6 +62,7 @@ private:
     int manche;                 //!< contient le numero de la manche actuel
     int pointLancer;            //!< contient les point associer l'impact de la fleche
     int voleeMax;               //!< contient la volées Max
+    int nbVolees;               //!< contient le nombre de Volées de la partie en cours
 
     void enleverPointImpact();
     void gererManche();
