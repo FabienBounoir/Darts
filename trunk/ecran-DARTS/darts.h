@@ -34,6 +34,7 @@ public:
     int getManche() const;
     Darts *getDarts();
     int getVoleeMax();
+    int getJoueurActif();
     void setVoleeMax(int voleeMax);
     void setManche(int manche);
 
@@ -48,6 +49,7 @@ signals:
     void voleeAnnulee();
     void finPartie(QString, int);
     void etatPartieFini();
+    void changerJoueurActif();
 
 public slots:
 

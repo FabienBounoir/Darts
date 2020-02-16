@@ -61,7 +61,7 @@ public:
 signals:
     void appareilConnecter();       //!< signal émis quand un nouvel appareil est connecté
     void appareilDeconnecter();     //!< signal émis quand un l'appareil se déconnecté
-    void nouvellePartie(QString mode, QStringList joueur);      //!< signal emit quand une trame "START est envoyer
+    void nouvellePartie(QString mode);      //!< signal emit quand une trame "START est envoyer
     void resetPartie();                                         //!< signal qui reset la partie en cour
 
 public slots:

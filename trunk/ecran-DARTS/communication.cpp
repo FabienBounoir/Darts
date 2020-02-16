@@ -188,7 +188,7 @@ void Communication::decomposerTrame()
             }
 
             darts->initialiserPartie(joueur, trame.section(";",2,2));
-            emit nouvellePartie(trame.section(";",2,2),joueur);
+            emit nouvellePartie(trame.section(";",2,2));
 
         }
         else if(trame.contains("GAME") && etatPartie == EtatPartie::EnCours)      /** $DART;GAME;3;7 */

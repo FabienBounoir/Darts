@@ -45,13 +45,15 @@ public slots:
     void nouvelleAppareilConnecter();
     void appareilDeconnecter();
     void afficherImpact(int cercle, int point, int score);
-    void afficherPartie(QString mode, QStringList joueur);
+    void afficherPartie(QString mode);
     void miseAJourScore();
     void mettreAJourManche();
     void AfficherVoleeAnnulee();
     void nouvellePartie();
     void partieFini(QString gagnant, int voleeMaxJoueur);
 
+    void mettreAJourJoueur();
+    
 private:
     Ui::Ihm *ui; /**< object de notre Ihm */
     QTimer *timerHorloge; /**< objet timerHorloge */
