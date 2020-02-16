@@ -558,7 +558,7 @@ QLabel
              <property name="sizeConstraint">
               <enum>QLayout::SetMinimumSize</enum>
              </property>
-             <item row="2" column="0">
+             <item row="3" column="0">
               <widget class="QLabel" name="labelVoleesMaxStatistique">
                <property name="font">
                 <font>
@@ -584,9 +584,12 @@ QLabel
                <property name="text">
                 <string>- Moyenne des volées : </string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+               </property>
               </widget>
              </item>
-             <item row="1" column="0">
+             <item row="2" column="0">
               <widget class="QLabel" name="labelNombreVoleesStatistique">
                <property name="font">
                 <font>
@@ -600,7 +603,7 @@ QLabel
                </property>
               </widget>
              </item>
-             <item row="3" column="0">
+             <item row="4" column="0">
               <widget class="QLabel" name="labelDureePartie">
                <property name="font">
                 <font>
@@ -614,7 +617,7 @@ QLabel
                </property>
               </widget>
              </item>
-             <item row="2" column="1">
+             <item row="3" column="1">
               <widget class="QLabel" name="voleeMax">
                <property name="font">
                 <font>
@@ -628,13 +631,25 @@ QLabel
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
+             <item row="2" column="1">
               <widget class="QLabel" name="nbVolees">
                <property name="font">
                 <font>
                  <pointsize>30</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="moyenneVolees">
+               <property name="font">
+                <font>
+                 <pointsize>25</pointsize>
                 </font>
                </property>
                <property name="text">

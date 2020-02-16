@@ -189,12 +189,13 @@ void Ihm::mettreAJourMoyenneVolee()
     QString moyenneVoleeJoueur;
     for(int i = 0; i < communication->getDarts()->getListJoueur().size(); i++)
     {
-        moyenneVoleeJoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + " : " + " En cours de realisation ... \n";
+        moyenneVoleeJoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + " : " + QString::number(communication->getDarts()->getListJoueur()[i].getMoyenneVolee()) +" \n";
         /**
          * @todo faire gestion Moyenne Volées
          */
     }
     ui->moyenneVolee->setText(moyenneVoleeJoueur);
+    ui->moyenneVolees->setText(moyenneVoleeJoueur);
 }
 
 /**
@@ -257,6 +258,7 @@ void Ihm::nouvellePartie()
      ui->moyenneVolee->setText("");
      ui->nbVolees->setText("");
      ui->voleeMax->setText("");
+     ui->moyenneVolees->setText("");
 }
 
 /**

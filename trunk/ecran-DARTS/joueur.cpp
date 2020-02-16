@@ -21,7 +21,7 @@
  * @param score
  * @param nbFlechette
  */
-Joueur::Joueur(QString nom, int score , int nbFlechette): nom(nom), score(score), scoreManchePrecedente(score), nbFlechette(nbFlechette)
+Joueur::Joueur(QString nom, int score , int nbFlechette): nom(nom), score(score), moyenneVolee(0), scoreManchePrecedente(score), nbFlechette(nbFlechette)
 {
     qDebug() << Q_FUNC_INFO << nom << " " << score << " " << nbFlechette;
 }
@@ -70,6 +70,39 @@ int Joueur::getFlechette() const
     return this->nbFlechette;
 }
 
+/**
+ * @brief retourne la moyenne des volees
+ *
+ * @fn Joueur::getFlechette
+ * @return float
+ */
+float Joueur::getMoyenneVolee() const
+{
+    return this->moyenneVolee;
+}
+
+/**
+ * @brief retourne le vector contenant tous les scores des volées precedente
+ *
+ * @fn Joueur::getHistoriqueVolees
+ * @return QVector<float>
+ */
+QVector<float> Joueur::getHistoriqueVolees() const
+{
+    return this->historiqueVolees;
+}
+
+/**
+ * @brief permet de mettre à jour la moyenne des volées
+ *
+ * @fn Joueur::setMoyenneVolee
+ * @param moyenneVolee
+ */
+void Joueur::setMoyenneVolee(float moyenneVolee)
+{
+    this->moyenneVolee = moyenneVolee;
+}
+
 
 /**
  * @brief permet de mettre à jour le score du joueur
@@ -102,4 +135,15 @@ void Joueur::setScoreManchePrecedente(int scoreManchePrecedente)
 void Joueur::setNbFlechette(int nbFlechette)
 {
     this->nbFlechette = nbFlechette;
+}
+
+/**
+ * @brief Méthode qui ajoute la volée au vecteur contenant l'historique des volées
+ *
+ * @fn Joueur::addHistoriqueVolees
+ * @param volee
+ */
+void Joueur::addHistoriqueVolees(float volee)
+{
+    historiqueVolees.push_back(volee);
 }
