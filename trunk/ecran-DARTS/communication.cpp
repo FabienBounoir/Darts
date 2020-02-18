@@ -201,6 +201,11 @@ void Communication::decomposerTrame()
             darts->reinitialiserPartie();
             etatPartie = EtatPartie::Attente;
         }
+        else if(trame.contains("STOP") && (etatPartie == EtatPartie::EnCours))
+        {
+            etatPartie = EtatPartie::Fin;
+            darts->arreterPartie();
+        }
     }
 }
 
