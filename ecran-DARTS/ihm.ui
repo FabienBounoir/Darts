@@ -442,6 +442,9 @@ QLabel
              </item>
              <item row="10" column="0">
               <widget class="QLabel" name="labelMoyenneVolees">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="font">
                 <font>
                  <pointsize>30</pointsize>
@@ -574,6 +577,9 @@ QLabel
              </item>
              <item row="0" column="0">
               <widget class="QLabel" name="labelMoyenneVoleesStatistique">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="font">
                 <font>
                  <pointsize>30</pointsize>

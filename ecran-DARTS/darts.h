@@ -42,6 +42,7 @@ public:
     void receptionnerImpact(int cercle, int point);
     void initialiserPartie(QStringList joueur, QString modeJeu);
     void reinitialiserPartie();
+    void arreterPartie();
 
 signals:
     void miseAJourPoint();
@@ -68,6 +69,7 @@ private:
     void enleverPointImpact();
     void gererManche();
     void gererVoleeMax();
+    QString calculerGagnant();
 };
 
 #endif // DARTS_H

@@ -44,6 +44,7 @@ Ihm::Ihm(QWidget *parent) :
 
     initialiserConnect();
 
+    nouvellePartie();
 }
 
 /**
@@ -194,7 +195,9 @@ void Ihm::mettreAJourMoyenneVolee()
          * @todo faire gestion Moyenne Volées
          */
     }
+    ui->labelMoyenneVolees->setVisible(true);
     ui->moyenneVolee->setText(moyenneVoleeJoueur);
+    ui->labelMoyenneVoleesStatistique->setVisible(true);
     ui->moyenneVolees->setText(moyenneVoleeJoueur);
 }
 
@@ -259,6 +262,8 @@ void Ihm::nouvellePartie()
      ui->nbVolees->setText("");
      ui->voleeMax->setText("");
      ui->moyenneVolees->setText("");
+     ui->labelMoyenneVolees->setVisible(false);
+     ui->labelMoyenneVoleesStatistique->setVisible(false);
 }
 
 /**

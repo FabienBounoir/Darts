@@ -277,3 +277,23 @@ void Darts::gererVoleeMax()
         setVoleeMax(joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore());
     }
 }
+
+void Darts::arreterPartie()
+{
+    emit finPartie(calculerGagnant(), getVoleeMax());
+}
+
+QString Darts::calculerGagnant()
+{
+    QString gagnant;
+    int scoreGagnant = 1000;
+    for(int i = 0; i <= joueurs.size() - 1; i++)
+    {
+        if(scoreGagnant > joueurs[i].getScore())
+        {
+            scoreGagnant = joueurs[i].getScore();
+            gagnant = joueurs[i].getNom();
+        }
+    }
+    return gagnant;
+}
