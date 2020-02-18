@@ -145,6 +145,7 @@ void Darts::reinitialiserPartie()
     manche = 1;
     pointLancer = 0;
     nbVolees = 0;
+    voleeMax = 0;
 }
 
 /**
