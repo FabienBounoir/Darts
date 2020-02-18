@@ -80,7 +80,7 @@ int Darts::getJoueurActif()
 }
 
 /**
- * @brief retourne le nombre de volées de la partie
+ * @brief Méthode qui retourne le nombre de volées de la partie
  *
  * @fn Darts::getNbVolees
  * @return int
@@ -91,7 +91,7 @@ int Darts::getNbVolees()
 }
 
 /**
- * @brief  permet de mettre à jour la volée Max
+ * @brief  Méthode qui permet de mettre à jour la volée Max
  *
  * @fn Darts::setVoleeMax
  * @param voleeMax
@@ -114,7 +114,7 @@ void Darts::setManche(int manche)
 
 
 /**
- * @brief permet initialiser la partie
+ * @brief Méthode qui permet d'initialiser la partie
  *
  * @fn Darts::initialiserPartie
  * @param joueurList
@@ -148,7 +148,7 @@ void Darts::reinitialiserPartie()
 }
 
 /**
- * @brief permet de traiter la reception d'impact
+ * @brief Méthode qui permet de traiter la reception d'impact
  *
  * @fn Darts::receptionnerImpact
  * @param cercle
@@ -178,6 +178,14 @@ void Darts::receptionnerImpact(int cercle, int point)
         nbVolees++;
         emit finPartie(joueurs[joueurActif].getNom(), getVoleeMax());
         emit etatPartieFini();
+    }
+    else if((joueurs[joueurActif].getScore() - pointLancer)  == 0)
+    {
+        joueurs[joueurActif].setScore(joueurs[joueurActif].getScoreManchePrecedente());
+        emit voleeAnnulee();
+        joueurs[joueurActif].setNbFlechette(0);
+
+        gererManche();
     }
     else
     {
@@ -244,7 +252,7 @@ void Darts::gererManche()
 }
 
 /**
- * @brief Methode qui calcule la moyenne des Volées de chaque joueur
+ * @brief Méthode qui calcule la moyenne des Volées de chaque joueur
  *
  * @fn Darts::calculerMoyenneVolees
  */
@@ -266,7 +274,7 @@ void Darts::calculerMoyenneVolees()
 }
 
 /**
- * @brief Methode qui teste la Volée pour savoir si elle est superieur à la Volée Max
+ * @brief Méthode qui teste la Volée pour savoir si elle est superieur à la Volée Max
  *
  * @fn Darts::gererVoleeMax
  */
@@ -278,11 +286,22 @@ void Darts::gererVoleeMax()
     }
 }
 
+/**
+ * @brief Méthode qui arrête la partie
+ *
+ * @fn Darts::arreterPartie
+ */
 void Darts::arreterPartie()
 {
     emit finPartie(calculerGagnant(), getVoleeMax());
 }
 
+/**
+ * @brief Méthode qui calcule le gagnant de la partie
+ *
+ * @fn Darts::calculerGagnant
+ * @return QString
+ */
 QString Darts::calculerGagnant()
 {
     QString gagnant;

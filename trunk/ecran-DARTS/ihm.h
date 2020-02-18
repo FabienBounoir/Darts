@@ -33,7 +33,6 @@ class Ihm : public QWidget
 public:
 
     explicit Ihm(QWidget *parent = nullptr);
-
     ~Ihm();
 
 public slots:
@@ -52,7 +51,6 @@ public slots:
     void AfficherVoleeAnnulee();
     void nouvellePartie();
     void partieFini(QString gagnant, int voleeMaxJoueur);
-
     void mettreAJourJoueur();
     
 private:

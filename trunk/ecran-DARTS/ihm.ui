@@ -100,7 +100,7 @@ QLabel
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -312,7 +312,7 @@ QLabel
               <widget class="QLabel" name="labelTypeJeu">
                <property name="font">
                 <font>
-                 <pointsize>30</pointsize>
+                 <pointsize>27</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -326,7 +326,7 @@ QLabel
               <widget class="QLabel" name="typeJeu">
                <property name="font">
                 <font>
-                 <pointsize>30</pointsize>
+                 <pointsize>27</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -351,7 +351,7 @@ QLabel
               <widget class="QLabel" name="labelNomjoueurs">
                <property name="font">
                 <font>
-                 <pointsize>30</pointsize>
+                 <pointsize>27</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -378,7 +378,7 @@ QLabel
               <widget class="QLabel" name="labelManche">
                <property name="font">
                 <font>
-                 <pointsize>30</pointsize>
+                 <pointsize>27</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -392,7 +392,7 @@ QLabel
               <widget class="QLabel" name="manche">
                <property name="font">
                 <font>
-                 <pointsize>30</pointsize>
+                 <pointsize>27</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -417,7 +417,7 @@ QLabel
               <widget class="QLabel" name="labelScoreActuel">
                <property name="font">
                 <font>
-                 <pointsize>30</pointsize>
+                 <pointsize>27</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -447,7 +447,7 @@ QLabel
                </property>
                <property name="font">
                 <font>
-                 <pointsize>30</pointsize>
+                 <pointsize>27</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -461,7 +461,7 @@ QLabel
               <widget class="QLabel" name="nomJoueur">
                <property name="font">
                 <font>
-                 <pointsize>25</pointsize>
+                 <pointsize>22</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -473,7 +473,7 @@ QLabel
               <widget class="QLabel" name="scoreActuel">
                <property name="font">
                 <font>
-                 <pointsize>25</pointsize>
+                 <pointsize>22</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -485,7 +485,7 @@ QLabel
               <widget class="QLabel" name="moyenneVolee">
                <property name="font">
                 <font>
-                 <pointsize>25</pointsize>
+                 <pointsize>22</pointsize>
                 </font>
                </property>
                <property name="text">
