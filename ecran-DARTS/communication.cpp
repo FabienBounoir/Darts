@@ -184,7 +184,13 @@ void Communication::decomposerTrame()
             etatPartie = EtatPartie::EnCours;
             for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
             {
-                joueur.push_back(trame.section(";",3+i,3+i));
+                if(trame.section(";",3+i,3+i) == "")
+                {
+                    joueur.push_back("Joueur[" + QString::number(i) + "]");
+                }else
+                {
+                    joueur.push_back(trame.section(";",3+i,3+i));
+                }
             }
 
             darts->initialiserPartie(joueur, trame.section(";",2,2));
@@ -236,6 +242,7 @@ void Communication::deviceConnected(const QBluetoothAddress &adresse)
         message += " [" + QString::fromUtf8("appairé") + "]";
     else
         message += " [" + QString::fromUtf8("non appairé") + "]" ;
+    qDebug() << message << endl;
 
 }
 
