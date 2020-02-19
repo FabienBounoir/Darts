@@ -36,6 +36,7 @@ public:
     int getVoleeMax();
     int getJoueurActif();
     int getNbVolees();
+    QString getModeDeJeu();
     void setVoleeMax(int voleeMax);
     void setManche(int manche);
     void calculerMoyenneVolees();
@@ -53,6 +54,7 @@ signals:
     void etatPartieFini();
     void changerJoueurActif();
     void miseAJourMoyenneVolee();
+    void nouvellePartie();      //!< signal emit quand il y a une nouvelle partie
 
 public slots:
 
@@ -65,11 +67,13 @@ private:
     int pointLancer;            //!< contient les point associer l'impact de la fleche
     int voleeMax;               //!< contient la volées Max
     int nbVolees;               //!< contient le nombre de Volées de la partie en cours
+    QString ModeDeJeu;        //!< contient le mode de jeu en cours
 
     void enleverPointImpact();
     void gererManche();
     void gererVoleeMax();
     QString calculerGagnant();
+    void testerImpact(int cercle);
 };
 
 #endif // DARTS_H

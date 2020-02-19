@@ -61,7 +61,6 @@ public:
 signals:
     void appareilConnecter();       //!< signal émis quand un nouvel appareil est connecté
     void appareilDeconnecter();     //!< signal émis quand un l'appareil se déconnecté
-    void nouvellePartie(QString mode);      //!< signal emit quand une trame "START est envoyer
     void resetPartie();                                         //!< signal qui reset la partie en cour
 
 public slots:
@@ -71,7 +70,8 @@ public slots:
     void nouveauClient();                                           //!< Slot appelée quand un nouveau client veut se connecter
     void socketReadyRead();                                         //!< Slot appelée quand une nouvelle trame est disponible
     void socketDisconnected();                                      //!< Slot appelée quand l'appareil est deconnecté
-    void miseAJourEtatPartie();                                     //!< Slot appelée pour mettre a jour l'etat de la partie
+    void miseAJourEtatPartieFin();                                  //!< Slot appelée pour mettre a jour l'etat de la partie fin
+    void miseAJourEtatPartieEnCours();                              //!< Slot appelée pour mettre a jour l'etat de la partie en cours
 
 private:
     QBluetoothLocalDevice localDevice;          //!< L'interface Bluetooth de la Raspberry Pi

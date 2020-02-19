@@ -20,7 +20,7 @@
  * @fn Darts::Darts
  * @param parent
  */
-Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0), voleeMax(0), nbVolees(0)
+Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0), voleeMax(0), nbVolees(0), ModeDeJeu("")
 {
 
 }
@@ -91,6 +91,17 @@ int Darts::getNbVolees()
 }
 
 /**
+ * @brief
+ *
+ * @fn Darts::getModeDeJeu
+ * @return QString
+ */
+QString Darts::getModeDeJeu()
+{
+    return ModeDeJeu;
+}
+
+/**
  * @brief  Méthode qui permet de mettre à jour la volée Max
  *
  * @fn Darts::setVoleeMax
@@ -123,11 +134,40 @@ void Darts::setManche(int manche)
 void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
 {
     nbJoueur = joueurList.size() - 1;
+    ModeDeJeu = modeJeu;
     qDebug() << "nombre de JOUEUR : " << nbJoueur;
-    for(int i = 1; i < joueurList.size() ; i++)
+
+    if(ModeDeJeu == "501" || ModeDeJeu == "301")
     {
-        Joueur player(joueurList.at(i), modeJeu.toInt(), 3);
-        joueurs.push_back(player);
+        for(int i = 1; i < joueurList.size() ; i++)
+        {
+            Joueur player(joueurList.at(i), modeJeu.toInt(), 3);
+            joueurs.push_back(player);
+        }
+        emit nouvellePartie();
+    }
+    else if(ModeDeJeu == "501_DOUBLE_OUT")
+    {
+        for(int i = 1; i < joueurList.size() ; i++)
+        {
+            Joueur player(joueurList.at(i), 501, 3);
+            joueurs.push_back(player);
+        }
+        emit nouvellePartie();
+    }
+    else if(ModeDeJeu == "301_DOUBLE_OUT")
+    {
+        for(int i = 1; i < joueurList.size() ; i++)
+        {
+            Joueur player(joueurList.at(i), 301, 3);
+            joueurs.push_back(player);
+        }
+        emit nouvellePartie();
+    }
+    else
+    {
+        qDebug() << "Erreur Mode De Jeu" << endl;
+        reinitialiserPartie();
     }
 }
 
@@ -140,6 +180,7 @@ void Darts::reinitialiserPartie()
 {
     joueurs.clear();
     joueur.clear();
+    ModeDeJeu = "";
     nbJoueur = 0;
     joueurActif = 0;
     manche = 1;
@@ -172,28 +213,39 @@ void Darts::receptionnerImpact(int cercle, int point)
 
     emit nouvelleImpact(cercle, point, pointLancer);
     qDebug() << joueurs[joueurActif].getNom() << " SCORE : "<<joueurs[joueurActif].getScore() - pointLancer << endl;
+    joueurs[joueurActif].setScore(joueurs[joueurActif].getScore() - pointLancer);
+    testerImpact(cercle);
+    emit miseAJourPoint();
+}
 
-    if((joueurs[joueurActif].getScore() - pointLancer)  == 0 && cercle == DOUBLE_POINT)
+/**
+ * @brief Methode qui teste si le joueur a gagné
+ *
+ * @fn Darts::testerImpact
+ * @param cercle
+ * @param pointLancer
+ */
+void Darts::testerImpact(int cercle)
+{
+    if(joueurs[joueurActif].getScore()  == 0 && cercle == DOUBLE_POINT && (ModeDeJeu == "501_DOUBLE_OUT" || ModeDeJeu == "301_DOUBLE_OUT")) //fin avec double
     {
         gererVoleeMax();
         nbVolees++;
         emit finPartie(joueurs[joueurActif].getNom(), getVoleeMax());
         emit etatPartieFini();
     }
-    else if((joueurs[joueurActif].getScore() - pointLancer)  == 0)
+    else if(joueurs[joueurActif].getScore()  == 0 && (ModeDeJeu == "501" || ModeDeJeu == "301"))    //fin sans double
     {
-        joueurs[joueurActif].setScore(joueurs[joueurActif].getScoreManchePrecedente());
-        emit voleeAnnulee();
-        joueurs[joueurActif].setNbFlechette(0);
-
-        gererManche();
+        gererVoleeMax();
+        nbVolees++;
+        emit finPartie(joueurs[joueurActif].getNom(), getVoleeMax());
+        emit etatPartieFini();
     }
     else
     {
         enleverPointImpact();
         gererManche();
     }
-    emit miseAJourPoint();
 }
 
 /**
@@ -203,9 +255,7 @@ void Darts::receptionnerImpact(int cercle, int point)
  */
 void Darts::enleverPointImpact()
 {
-    joueurs[joueurActif].setScore(joueurs[joueurActif].getScore() - pointLancer);
-
-    if(joueurs[joueurActif].getScore() < 0) //score Volées inferieur au score = Volée annulée
+    if(joueurs[joueurActif].getScore() <= 0) //score Volées inferieur au score = Volée annulée
     {
          joueurs[joueurActif].setScore(joueurs[joueurActif].getScoreManchePrecedente());
          emit voleeAnnulee();

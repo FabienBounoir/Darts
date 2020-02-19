@@ -78,7 +78,8 @@ void Communication::parametrerBluetooth()
         connect(&localDevice, SIGNAL(deviceDisconnected(QBluetoothAddress)), this, SLOT(deviceDisconnected(QBluetoothAddress)));
         connect(&localDevice, SIGNAL(error(QBluetoothLocalDevice::Error)), this, SLOT(error(QBluetoothLocalDevice::Error)));
 
-        connect(darts, SIGNAL(etatPartieFini()), this , SLOT(miseAJourEtatPartie()));
+        connect(darts, SIGNAL(etatPartieFini()), this , SLOT(miseAJourEtatPartieFin()));
+        connect(darts, SIGNAL(nouvellePartie()), this , SLOT(miseAJourEtatPartieEnCours()));
 
     }
 }
@@ -181,21 +182,19 @@ void Communication::decomposerTrame()
             emit resetPartie();
             darts->reinitialiserPartie();
 
-            etatPartie = EtatPartie::EnCours;
             for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
             {
                 if(trame.section(";",3+i,3+i) == "")
                 {
                     joueur.push_back("Joueur[" + QString::number(i) + "]");
-                }else
+                }
+                else
                 {
                     joueur.push_back(trame.section(";",3+i,3+i));
                 }
             }
 
             darts->initialiserPartie(joueur, trame.section(";",2,2));
-            emit nouvellePartie(trame.section(";",2,2));
-
         }
         else if(trame.contains("GAME") && etatPartie == EtatPartie::EnCours)      /** $DART;GAME;3;7 */
         {
@@ -270,11 +269,21 @@ void Communication::error(QBluetoothLocalDevice::Error erreur)
 }
 
 /**
- * @brief  Méthode qui met a jour l'etat de la partie
+ * @brief  Méthode qui met a jour l'etat de la partie fin
  *
- * @fn Communication::miseAJourEtatPartie
+ * @fn Communication::miseAJourEtatPartieFin
  */
-void Communication::miseAJourEtatPartie()
+void Communication::miseAJourEtatPartieFin()
 {
     etatPartie = EtatPartie::Fin;
+}
+
+/**
+ * @brief  Méthode qui met a jour l'etat de la partie en cours
+ *
+ * @fn Communication::miseAJourEtatPartieEnCours
+ */
+void Communication::miseAJourEtatPartieEnCours()
+{
+    etatPartie = EtatPartie::EnCours;
 }
