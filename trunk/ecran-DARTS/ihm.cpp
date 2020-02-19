@@ -67,7 +67,7 @@ void Ihm::initialiserConnect()
 {
     connect(communication, SIGNAL(appareilConnecter()) ,this ,SLOT(nouvelleAppareilConnecter()));
     connect(communication, SIGNAL(appareilDeconnecter() ),this ,SLOT(appareilDeconnecter()));
-    connect(communication, SIGNAL(nouvellePartie(QString)),this ,SLOT(afficherPartie(QString)));
+    connect(communication->getDarts(), SIGNAL(nouvellePartie()),this ,SLOT(afficherPartie()));
     connect(communication, SIGNAL(resetPartie()),this ,SLOT(nouvellePartie()));
     connect(communication->getDarts(), SIGNAL(finPartie(QString, int)),this ,SLOT(partieFini(QString, int)));
     connect(communication->getDarts(), SIGNAL(changerJoueurActif()) ,this ,SLOT(mettreAJourJoueur()));
@@ -165,7 +165,7 @@ void Ihm::afficherImpact(int cercle, int point, int score)
 /**
  * @brief Méthode qui initialise l'affichage du mode et des joueurs de la partie
  *
- * @fn Ihm::afficherPartie
+ * @fn Ihm::mettreAJourJoueur
  */
 void Ihm::mettreAJourJoueur()
 {
@@ -207,11 +207,10 @@ void Ihm::mettreAJourMoyenneVolee()
  * @brief Méthode qui met a jour le mode et jeu et la page actif
  *
  * @fn Ihm::afficherPartie
- * @param mode
  */
-void Ihm::afficherPartie(QString mode)
+void Ihm::afficherPartie()
 {
-    ui->typeJeu->setText(mode + " Double out");
+    ui->typeJeu->setText(communication->getDarts()->getModeDeJeu());
 
     mettreAJourJoueur();
 

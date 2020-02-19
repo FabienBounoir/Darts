@@ -44,7 +44,7 @@ public slots:
     void nouvelleAppareilConnecter();
     void appareilDeconnecter();
     void afficherImpact(int cercle, int point, int score);
-    void afficherPartie(QString mode);
+    void afficherPartie();
     void miseAJourScore();
     void mettreAJourManche();
     void mettreAJourMoyenneVolee();
