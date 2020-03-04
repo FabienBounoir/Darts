@@ -39,6 +39,7 @@ public:
     int getJoueurActif();
     int getNbVolees();
     QString getModeDeJeu();
+    Solution *getSolution() const;
     void setVoleeMax(int voleeMax);
     void setManche(int manche);
     void calculerMoyenneVolees();
@@ -61,7 +62,7 @@ signals:
 public slots:
 
 private:
-    Solution *solution;
+    Solution *solution;         //!< Association objet solution
     QList<Joueur> joueurs;      //!< contient des objets joueurs
     QStringList joueur;         //!< contient les noms des differents joueur
     int nbJoueur;               //!< contient le nombre de joueur

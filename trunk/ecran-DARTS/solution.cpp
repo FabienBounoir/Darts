@@ -1,26 +1,36 @@
 #include "solution.h"
 
-Solution::Solution(QObject *parent) : QObject(parent)
+/**
+ * @brief constructeur de la classe Solution
+ *
+ * @fn Solution::Solution
+ * @param parent
+ */
+Solution::Solution(QObject *parent) : QObject(parent), solution("")
 {
 
 }
 
-void Solution::calculerCombinaisons()
+/**
+ * @brief methode qui emet un signal pour que l'Ihm affiche la solution trouver
+ *
+ * @fn Solution::transmettreSolution
+ * @param score
+ */
+void Solution::transmettreSolution(int score)
 {
-
+    qDebug() << "Score = " << score << " : " << solution;
+    emit solutionTrouver("Score = " + QString::number(score) + " : " + solution);
 }
 
-void Solution::afficherSolution(int score, const QVector<QString> &solution)
-{
-    qDebug() << "Score = " << score << " : ";
-    qDebug() << "taille vecteur" << solution.size() << endl;
-    for(int i = 0; i < solution.size(); i++)
-    {
-        qDebug() << solution.at(i) << " ";
-    }
-    qDebug() << endl;
-}
-
+/**
+ * @brief
+ *
+ * @fn Solution::aTriple
+ * @param points
+ * @param score
+ * @return bool
+ */
 bool Solution::aTriple(int points, const int score)
 {
     if((score / (points*3)) >= 1)
@@ -30,6 +40,15 @@ bool Solution::aTriple(int points, const int score)
     return false;
 }
 
+/**
+ * @brief methode qui recherche le meilleur triple pour la solution
+ *
+ * @fn Solution::rechercherTriple
+ * @param score
+ * @param combinaison
+ * @param start
+ * @return bool
+ */
 bool Solution::rechercherTriple(int &score, QString &combinaison, int start=20)
 {
     bool trouve = false;
@@ -45,6 +64,14 @@ bool Solution::rechercherTriple(int &score, QString &combinaison, int start=20)
     return trouve;
 }
 
+/**
+ * @brief
+ *
+ * @fn Solution::aDouble
+ * @param points
+ * @param score
+ * @return bool
+ */
 bool Solution::aDouble(int points, const int score)
 {
     if((score / (points*2)) >= 1)
@@ -54,6 +81,14 @@ bool Solution::aDouble(int points, const int score)
     return false;
 }
 
+/**
+ * @brief methode qui recherche le meilleur double pour la solution
+ *
+ * @fn Solution::rechercherDouble
+ * @param score
+ * @param combinaison
+ * @return bool
+ */
 bool Solution::rechercherDouble(int &score, QString &combinaison)
 {
     bool trouve = false;
@@ -72,6 +107,14 @@ bool Solution::rechercherDouble(int &score, QString &combinaison)
     return trouve;
 }
 
+/**
+ * @brief
+ *
+ * @fn Solution::aSimple
+ * @param points
+ * @param score
+ * @return bool
+ */
 bool Solution::aSimple(int points, const int score)
 {
     if((score / points) >= 1)
@@ -79,6 +122,14 @@ bool Solution::aSimple(int points, const int score)
     return false;
 }
 
+/**
+ * @brief methode qui recherche le meilleur simple pour la solution
+ *
+ * @fn Solution::rechercherSimple
+ * @param score
+ * @param combinaison
+ * @return bool
+ */
 bool Solution::rechercherSimple(int &score, QString &combinaison)
 {
     bool trouve = false;
@@ -97,6 +148,14 @@ bool Solution::rechercherSimple(int &score, QString &combinaison)
     return trouve;
 }
 
+/**
+ * @brief methode qui test si les points son double
+ *
+ * @fn Solution::estDouble
+ * @param points
+ * @param score
+ * @return bool
+ */
 bool Solution::estDouble(int points, const int score)
 {
     if(score == (points*2))
@@ -104,6 +163,14 @@ bool Solution::estDouble(int points, const int score)
     return false;
 }
 
+/**
+ * @brief
+ *
+ * @fn Solution::extraireDouble
+ * @param score
+ * @param cible
+ * @return bool
+ */
 bool Solution::extraireDouble(int &score, int cible)
 {
     if(aDouble(cible, score))
@@ -114,7 +181,16 @@ bool Solution::extraireDouble(int &score, int cible)
     return false;
 }
 
-bool Solution::rechercher(int score, int nbFlechettes, QVector<QString> solution, bool still)
+/**
+ * @brief methode qui recherche la meilleur combinaison
+ *
+ * @fn Solution::rechercher
+ * @param score
+ * @param nbFlechettes
+ * @param still
+ * @return bool
+ */
+bool Solution::rechercher(int score, int nbFlechettes, bool still)
 {
     QString combinaison;
     int s = score;
@@ -148,7 +224,7 @@ bool Solution::rechercher(int score, int nbFlechettes, QVector<QString> solution
 
         if(trouve)
         {
-            solution.push_back(combinaison);
+            solution +=  " " + combinaison;
             flechettes--;
             if(score == 0)
             {
@@ -186,14 +262,20 @@ bool Solution::rechercher(int score, int nbFlechettes, QVector<QString> solution
     return false;
 }
 
+/**
+ * @brief methode qui trouve la meilleur solution
+ *
+ * @fn Solution::trouverSolution
+ * @param s
+ * @param flechettes
+ */
 void Solution::trouverSolution(int s, int flechettes)
 {
     int score = 0;
-    int n = RECHERCHE_TRIPLE;
-    int start = 20;
     bool trouve = false;
     int nbFlechettes = 0;
-    QVector<QString> solution;
+    //QVector<QString> solution;
+    solution = "";
 
     trouve = false;
     for(int i=25; i>0 && !trouve; i--)
@@ -205,10 +287,10 @@ void Solution::trouverSolution(int s, int flechettes)
         if(extraireDouble(score, i))
         {
             nbFlechettes--;
-            if(rechercher(score, nbFlechettes, solution) || score == 0)
+            if(rechercher(score, nbFlechettes) || score == 0)
             {
-                solution.push_back("D" + QString::number(i) + "*");
-                afficherSolution(s, solution);
+                solution += " D" + QString::number(i) + "*";
+                transmettreSolution(s);
                 trouve = true;
                 break;
             }
@@ -217,7 +299,7 @@ void Solution::trouverSolution(int s, int flechettes)
     if(!trouve)
     {
         //cout << "Score = " << s << " : impossible" << endl;
-        rechercher(score, nbFlechettes+1, solution, true);
-        afficherSolution(s, solution);
+        rechercher(score, nbFlechettes+1, true);
+        transmettreSolution(s);
     }
 }

@@ -53,7 +53,8 @@ public slots:
     void partieFini(QString gagnant, int voleeMaxJoueur);
     void mettreAJourJoueur();
     void afficherDureePartie();
-    
+    void mettreAJoursolution(QString solution);
+
 private:
     Ui::Ihm *ui; /**< object de notre Ihm */
     QTimer *timerHorloge; /**< objet timerHorloge */

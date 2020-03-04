@@ -5,8 +5,6 @@
 #include <QString>
 #include <QDebug>
 
-#define MAX (3*20 + 3*20 + 2*25)
-
 // Rechercher en premier ?
 #define RECHERCHE_TRIPLE    1
 #define RECHERCHE_DOUBLE    2
@@ -18,11 +16,11 @@ class Solution : public QObject
     Q_OBJECT
 public:
     explicit Solution(QObject *parent = nullptr);
-    void calculerCombinaisons();
     void trouverSolution(int score, int flechettes);
 
 private:
-    void afficherSolution(int score, const QVector<QString> &solution);
+    QString solution;                       //!< contient la solution pour finir la partie
+    void afficherSolution(int score);
     bool aTriple(int points, const int score);
     bool rechercherTriple(int &score, QString &combinaison, int start);
     bool aDouble(int points, const int score);
@@ -31,9 +29,10 @@ private:
     bool rechercherSimple(int &score, QString &combinaison);
     bool estDouble(int points, const int score);
     bool extraireDouble(int &score, int cible);
-    bool rechercher(int score, int nbFlechettes, QVector<QString> solution, bool still=false);
+    bool rechercher(int score, int nbFlechettes, bool still=false);
 
 signals:
+    void solutionTrouver(QString solution);
 
 public slots:
 };
