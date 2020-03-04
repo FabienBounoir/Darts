@@ -1,6 +1,15 @@
 #ifndef SOLUTION_H
 #define SOLUTION_H
 
+/**
+ * @file solution.h
+ * @brief Declaration de la classe solution
+ *
+ * @version 0.1
+ *
+ * @author Bounoir Fabien
+ */
+
 #include <QObject>
 #include <QString>
 #include <QDebug>
@@ -11,6 +20,10 @@
 #define RECHERCHE_SIMPLE    3
 #define RECHERCHE_FINIE     4
 
+/**
+ * @class Solution solution.h "solution.h"
+ * @brief Declaration de la classe Solution
+*/
 class Solution : public QObject
 {
     Q_OBJECT
@@ -20,7 +33,7 @@ public:
 
 private:
     QString solution;                       //!< contient la solution pour finir la partie
-    void afficherSolution(int score);
+    void transmettreSolution(int score);
     bool aTriple(int points, const int score);
     bool rechercherTriple(int &score, QString &combinaison, int start);
     bool aDouble(int points, const int score);

@@ -1,6 +1,17 @@
 #include "solution.h"
 
 /**
+* @file solution.cpp
+*
+* @brief solution s'occupe de rechercher les differentes solution pour finir la partie
+*
+* @author Bounoir Fabien
+*
+* @version 0.1
+*
+*/
+
+/**
  * @brief constructeur de la classe Solution
  *
  * @fn Solution::Solution
@@ -24,7 +35,7 @@ void Solution::transmettreSolution(int score)
 }
 
 /**
- * @brief
+ * @brief test si le triple choisie et possible
  *
  * @fn Solution::aTriple
  * @param points
@@ -65,7 +76,7 @@ bool Solution::rechercherTriple(int &score, QString &combinaison, int start=20)
 }
 
 /**
- * @brief
+ * @brief test si le double choisie et possible
  *
  * @fn Solution::aDouble
  * @param points
@@ -108,7 +119,7 @@ bool Solution::rechercherDouble(int &score, QString &combinaison)
 }
 
 /**
- * @brief
+ * @brief test si le simple choisie et possible
  *
  * @fn Solution::aSimple
  * @param points
@@ -164,7 +175,7 @@ bool Solution::estDouble(int points, const int score)
 }
 
 /**
- * @brief
+ * @brief methode qui cherche le double pour finir la partie
  *
  * @fn Solution::extraireDouble
  * @param score
