@@ -55,7 +55,7 @@ QLabel#labelHeureAttente
 	color: rgb(109, 43,107);
 }
 
-QLabel#labelHeurePartie
+QLabel#labelTempsPartie
 {
 	color: rgb(109, 43,107);
 }
@@ -242,7 +242,7 @@ QLabel
          <item>
           <layout class="QVBoxLayout" name="verticalLayoutVisualisation">
            <item>
-            <widget class="QLabel" name="labelHeurePartie">
+            <widget class="QLabel" name="labelTempsPartie">
              <property name="font">
               <font>
                <pointsize>30</pointsize>
@@ -611,6 +611,9 @@ QLabel
              </item>
              <item row="4" column="0">
               <widget class="QLabel" name="labelDureePartie">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="font">
                 <font>
                  <pointsize>30</pointsize>
@@ -656,6 +659,18 @@ QLabel
                <property name="font">
                 <font>
                  <pointsize>25</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLabel" name="tempsPartie">
+               <property name="font">
+                <font>
+                 <pointsize>30</pointsize>
                 </font>
                </property>
                <property name="text">

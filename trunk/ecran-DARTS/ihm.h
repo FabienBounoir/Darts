@@ -52,12 +52,14 @@ public slots:
     void nouvellePartie();
     void partieFini(QString gagnant, int voleeMaxJoueur);
     void mettreAJourJoueur();
+    void afficherDureePartie();
     
 private:
     Ui::Ihm *ui; /**< object de notre Ihm */
     QTimer *timerHorloge; /**< objet timerHorloge */
     Communication *communication; /**< objet communication */
     Darts *darts; /**< objet darts */
+    int compteurDureePartie; //!< compteur de secondes pour la duréee d'une séance
 
     /**
      * @enum Page

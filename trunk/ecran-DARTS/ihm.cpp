@@ -24,7 +24,8 @@
  */
 Ihm::Ihm(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Ihm)
+    ui(new Ui::Ihm),
+    compteurDureePartie(0)
 {
     ui->setupUi(this);
     ui->ecranDarts->setCurrentIndex(Ihm::PageAttente);
@@ -114,7 +115,6 @@ void Ihm::actualiserHeure()
     QTime heure = QTime::currentTime();
     affichageHeure = "<font color=\"#6D2B6B\">" + heure.toString("hh : mm ") + "</font>";
     ui->labelHeureAttente->setText(affichageHeure);
-    ui->labelHeurePartie->setText(affichageHeure);
     ui->labelHeureStatistique->setText(affichageHeure);
 }
 
@@ -213,6 +213,8 @@ void Ihm::afficherPartie()
     ui->typeJeu->setText(communication->getDarts()->getModeDeJeu());
 
     mettreAJourJoueur();
+    compteurDureePartie = 0;
+    connect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
 
     ui->ecranDarts->setCurrentIndex(Ihm::PageJeu);
 
@@ -238,6 +240,7 @@ void Ihm::AfficherVoleeAnnulee()
  */
 void Ihm::partieFini(QString gagnant, int voleeMaxJoueur)
 {
+    disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
     ui->winnerPartie->setText("Winner " + gagnant);
     ui->voleeMax->setText(QString::number(voleeMaxJoueur) + " points");
     ui->nbVolees->setText(QString::number(communication->getDarts()->getNbVolees()));
@@ -265,7 +268,6 @@ void Ihm::nouvellePartie()
      ui->moyenneVolees->setText("");
      ui->labelMoyenneVolees->setVisible(false);
      ui->labelMoyenneVoleesStatistique->setVisible(false);
-     ui->labelDureePartie->setVisible(false);
 }
 
 /**
@@ -322,4 +324,27 @@ void Ihm::nouvelleAppareilConnecter()
 void Ihm::appareilDeconnecter()
 {
     ui->labelStatutAttente->setText("En attente de connexion ");
+}
+
+/**
+ * @brief Affiche la durée d'une Seance(slot)
+ *
+ * @fn TtpaIhm::afficherDureePartie
+ *
+ */
+void Ihm::afficherDureePartie()
+{
+    QTime duree(0, 0);
+    compteurDureePartie++;
+    QTime dureeSeance = duree.addSecs(compteurDureePartie);
+    if(compteurDureePartie >= 3600)
+    {
+        ui->labelTempsPartie->setText(dureeSeance.toString("hh : mm : ss"));
+        ui->tempsPartie->setText(dureeSeance.toString("hh : mm : ss"));
+    }
+    else
+    {
+        ui->labelTempsPartie->setText(dureeSeance.toString("mm : ss"));
+        ui->tempsPartie->setText(dureeSeance.toString("mm : ss"));
+    }
 }
