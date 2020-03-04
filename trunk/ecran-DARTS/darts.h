@@ -11,6 +11,7 @@
  */
 
 #include "joueur.h"
+#include "solution.h"
 #include <QObject>
 #include <QVector>
 
@@ -18,6 +19,7 @@
 #define DOUBLE_POINT 6
 
 class Joueur;
+class Solution;
 
 /**
  * @class Darts darts.h "darts.h"
@@ -59,6 +61,7 @@ signals:
 public slots:
 
 private:
+    Solution *solution;
     QList<Joueur> joueurs;      //!< contient des objets joueurs
     QStringList joueur;         //!< contient les noms des differents joueur
     int nbJoueur;               //!< contient le nombre de joueur
