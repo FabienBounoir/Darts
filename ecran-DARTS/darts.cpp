@@ -102,6 +102,17 @@ QString Darts::getModeDeJeu()
 }
 
 /**
+ * @brief retourne l'objet solution
+ *
+ * @fn Darts::getSolution
+ * @return solution
+ */
+Solution *Darts::getSolution() const
+{
+    return solution;
+}
+
+/**
  * @brief  Méthode qui permet de mettre à jour la volée Max
  *
  * @fn Darts::setVoleeMax
@@ -169,6 +180,7 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
         qDebug() << "Erreur Mode De Jeu" << endl;
         reinitialiserPartie();
     }
+    solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
 }
 
 /**
@@ -264,9 +276,9 @@ void Darts::enleverPointImpact()
     }
     else
     {
-        solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
         nbVolees++;
         joueurs[joueurActif].setNbFlechette(joueurs[joueurActif].getFlechette() - 1);
+        solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
     }
 }
 
@@ -294,11 +306,13 @@ void Darts::gererManche()
             emit changerJoueurActif();
             calculerMoyenneVolees();
             emit nouvelleManche();
+            solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
         }
         else
         {
             joueurActif++;
             emit changerJoueurActif();
+            solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
         }
     }
 }

@@ -77,6 +77,7 @@ void Ihm::initialiserConnect()
     connect(communication->getDarts(), SIGNAL(nouvelleManche()), this , SLOT(mettreAJourManche()));
     connect(communication->getDarts(), SIGNAL(voleeAnnulee()), this , SLOT(AfficherVoleeAnnulee()));
     connect(communication->getDarts(), SIGNAL(miseAJourMoyenneVolee()), this , SLOT(mettreAJourMoyenneVolee()));
+    connect(communication->getDarts()->getSolution(), SIGNAL(solutionTrouver(QString)), this , SLOT(mettreAJoursolution(QString)));
 }
 
 /**
@@ -329,7 +330,7 @@ void Ihm::appareilDeconnecter()
 /**
  * @brief Affiche la durée d'une Seance(slot)
  *
- * @fn TtpaIhm::afficherDureePartie
+ * @fn Ihm::afficherDureePartie
  *
  */
 void Ihm::afficherDureePartie()
@@ -347,4 +348,15 @@ void Ihm::afficherDureePartie()
         ui->labelTempsPartie->setText(dureeSeance.toString("mm : ss"));
         ui->tempsPartie->setText(dureeSeance.toString("mm : ss"));
     }
+}
+
+/**
+ * @brief Affiche les solutions possibles pour finir la parties
+ *
+ * @fn Ihm::mettreAJoursolution
+ *
+ */
+void Ihm::mettreAJoursolution(QString solution)
+{
+    ui->labelStatut->setText(solution);
 }
