@@ -22,7 +22,7 @@
  */
 Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0), voleeMax(0), nbVolees(0), ModeDeJeu("")
 {
-
+    solution = new Solution(this);
 }
 
 /**
@@ -227,7 +227,7 @@ void Darts::receptionnerImpact(int cercle, int point)
  */
 void Darts::testerImpact(int cercle)
 {
-    if(joueurs[joueurActif].getScore()  == 0 && cercle == DOUBLE_POINT && (ModeDeJeu == "501_DOUBLE_OUT" || ModeDeJeu == "301_DOUBLE_OUT")) //fin avec double
+    if(joueurs[joueurActif].getScore()  == 0 && (cercle == DOUBLE_POINT || cercle == 2) && (ModeDeJeu == "501_DOUBLE_OUT" || ModeDeJeu == "301_DOUBLE_OUT")) //fin avec double
     {
         gererVoleeMax();
         nbVolees++;
@@ -257,13 +257,14 @@ void Darts::enleverPointImpact()
 {
     if(joueurs[joueurActif].getScore() <= 0) //score Volées inferieur au score = Volée annulée
     {
-         joueurs[joueurActif].setScore(joueurs[joueurActif].getScoreManchePrecedente());
-         emit voleeAnnulee();
+        joueurs[joueurActif].setScore(joueurs[joueurActif].getScoreManchePrecedente());
+        emit voleeAnnulee();
 
-         joueurs[joueurActif].setNbFlechette(0);
+        joueurs[joueurActif].setNbFlechette(0);
     }
     else
     {
+        solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
         nbVolees++;
         joueurs[joueurActif].setNbFlechette(joueurs[joueurActif].getFlechette() - 1);
     }
