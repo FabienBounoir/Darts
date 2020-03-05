@@ -210,7 +210,7 @@ void Communication::decomposerTrame()
             emit play();
             etatPartie = EtatPartie::EnCours;
         }
-        else if(trame.contains("RESET") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Fin))
+        else if(trame.contains("RESET") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Fin || etatPartie == EtatPartie::Pause))
         {
             emit resetPartie();
             darts->reinitialiserPartie();
@@ -253,7 +253,7 @@ void Communication::deviceConnected(const QBluetoothAddress &adresse)
         message += " [" + QString::fromUtf8("non appairé") + "]" ;
     qDebug() << message << endl;
 
-    if(etatPartie == EtatPartie::Pause)
+    if(etatPartie == EtatPartie::Pause) // si l'appareil est reconnecte la partie reprend
     {
         emit play();
         etatPartie = EtatPartie::EnCours;
@@ -271,7 +271,7 @@ void Communication::deviceDisconnected(const QBluetoothAddress &adresse)
     qDebug() << Q_FUNC_INFO << adresse;
     emit appareilDeconnecter();
 
-    if(etatPartie == EtatPartie::EnCours)
+    if(etatPartie == EtatPartie::EnCours) // si l'appareil ce deconnecte pendant la partie, il la met donc en pause
     {
         emit pause();
         etatPartie = EtatPartie::Pause;

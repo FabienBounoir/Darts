@@ -78,6 +78,8 @@ private:
     void gererVoleeMax();
     QString calculerGagnant();
     void testerImpact(int cercle);
+    void testerSiJoueurEliminer();
+    void controlerJoueurEliminer();
 };
 
 #endif // DARTS_H

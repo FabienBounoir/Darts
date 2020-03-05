@@ -294,14 +294,17 @@ void Darts::gererManche()
         joueurs[joueurActif].setNbFlechette(3);
 
         gererVoleeMax();
+        testerSiJoueurEliminer();
 
         joueurs[joueurActif].addHistoriqueVolees((joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore()));
-
         joueurs[joueurActif].setScoreManchePrecedente(joueurs[joueurActif].getScore());
 
         if(joueurActif == nbJoueur - 1)  //equivalent a la fin de manche
         {
             joueurActif = 0;
+
+            controlerJoueurEliminer();
+
             setManche(getManche() + 1);
             emit changerJoueurActif();
             calculerMoyenneVolees();
@@ -311,9 +314,49 @@ void Darts::gererManche()
         else
         {
             joueurActif++;
+
+            controlerJoueurEliminer();
+
             emit changerJoueurActif();
             solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
         }
+    }
+}
+
+/**
+ * @brief Méthode qui change de joueur si le joueur actuel est eliminer
+ *
+ * @fn Darts::testerSiJoueurEliminer
+ */
+void Darts::controlerJoueurEliminer()
+{
+    /** @todo ameliorer code  */
+    while(joueurs[joueurActif].getEliminer()) //tant que le joueur est eliminer on passe donc au joueur suivant
+    {
+        if(joueurActif == nbJoueur - 1)  //si le joueur est le dernier de la manche à jouer
+        {
+            joueurActif = 0;
+            setManche(getManche() + 1);
+            calculerMoyenneVolees();
+            emit nouvelleManche();
+        }
+        else                            //si le joueur n'est pas le dernier de la manchev
+        {
+            joueurActif++;
+        }
+    }
+}
+
+/**
+ * @brief Méthode qui test si le joueur est à 1 point à la fin de la manche
+ *
+ * @fn Darts::testerSiJoueurEliminer
+ */
+void Darts::testerSiJoueurEliminer()
+{
+    if(joueurs[joueurActif].getScore() == 1)
+    {
+        joueurs[joueurActif].setEliminer(true);
     }
 }
 
@@ -374,7 +417,7 @@ QString Darts::calculerGagnant()
     int scoreGagnant = 1000;
     for(int i = 0; i <= joueurs.size() - 1; i++)
     {
-        if(scoreGagnant > joueurs[i].getScore())
+        if(scoreGagnant > joueurs[i].getScore() && !joueurs[i].getEliminer()) // test le personne aillant le score le plus bas mais aussi qu'il ne soit pas eliminer
         {
             scoreGagnant = joueurs[i].getScore();
             gagnant = joueurs[i].getNom();
