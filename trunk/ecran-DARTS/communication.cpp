@@ -200,6 +200,16 @@ void Communication::decomposerTrame()
         {
             darts->receptionnerImpact(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
         }
+        else if(trame.contains("PAUSE") && etatPartie == EtatPartie::EnCours)
+        {
+            emit pause();
+            etatPartie = EtatPartie::Pause;
+        }
+        else if(trame.contains("START") && etatPartie == EtatPartie::Pause)
+        {
+            emit play();
+            etatPartie = EtatPartie::EnCours;
+        }
         else if(trame.contains("RESET") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Fin))
         {
             emit resetPartie();

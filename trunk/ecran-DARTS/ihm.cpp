@@ -78,6 +78,8 @@ void Ihm::initialiserConnect()
     connect(communication->getDarts(), SIGNAL(voleeAnnulee()), this , SLOT(AfficherVoleeAnnulee()));
     connect(communication->getDarts(), SIGNAL(miseAJourMoyenneVolee()), this , SLOT(mettreAJourMoyenneVolee()));
     connect(communication->getDarts()->getSolution(), SIGNAL(solutionTrouver(QString)), this , SLOT(mettreAJoursolution(QString)));
+    connect(communication, SIGNAL(pause()),this ,SLOT(mettrePausePartie()));
+    connect(communication, SIGNAL(play()),this ,SLOT(relancerpartie()));
 }
 
 /**
@@ -354,9 +356,32 @@ void Ihm::afficherDureePartie()
  * @brief Affiche les solutions possibles pour finir la parties
  *
  * @fn Ihm::mettreAJoursolution
- *
  */
 void Ihm::mettreAJoursolution(QString solution)
 {
     ui->labelStatut->setText(solution);
+}
+
+/**
+ * @brief met en pause le chronometrage de la partie
+ *
+ * @fn Ihm::mettrePausePartie
+ */
+void Ihm::mettrePausePartie()
+{
+    disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // mettre en pause le chronometrage de la partie
+    ui->labelTempsPartie->setStyleSheet("color: rgb(179, 0,5);");
+    qDebug() << "Partie en pause" << endl;
+}
+
+/**
+ * @brief relancer le chronometrage de la partie
+ *
+ * @fn Ihm::relancerpartie
+ */
+void Ihm::relancerpartie()
+{
+    ui->labelTempsPartie->setStyleSheet("color: rgb(109, 43,107);");
+    connect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // relancer le chronometrage de la partie
+    qDebug() << "Partie relancer" << endl;
 }

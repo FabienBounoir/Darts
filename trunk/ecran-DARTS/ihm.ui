@@ -100,7 +100,7 @@ QLabel
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -671,6 +671,8 @@ QLabel
                <property name="font">
                 <font>
                  <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
                </property>
                <property name="text">

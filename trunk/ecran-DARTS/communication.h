@@ -55,13 +55,16 @@ public:
     {
         Attente = 0,
         EnCours = 1,
-        Fin
+        Fin = 2,
+        Pause
     };
 
 signals:
     void appareilConnecter();       //!< signal émis quand un nouvel appareil est connecté
     void appareilDeconnecter();     //!< signal émis quand un l'appareil se déconnecté
-    void resetPartie();                                         //!< signal qui reset la partie en cour
+    void resetPartie();             //!< signal qui reset la partie en cour
+    void pause();                   //!< signal qui met en pause la partie
+    void play();                    //!< signal qui relance le chronometrage de la partie la partie
 
 public slots:
     void deviceConnected(const QBluetoothAddress &adresse);         //!< Slot appelée quand un nouvelle appareil est connecté
@@ -83,7 +86,7 @@ private:
     Darts *darts;                               //!< Association objet darts
     EtatPartie etatPartie;                      //!< contient l'etat de la partie
 
-    void decomposerTrame();                     //!< methoe qui decompose la trame reçu
+    void decomposerTrame();                     //!< methode qui decompose la trame reçu
 
 };
 
