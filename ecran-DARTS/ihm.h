@@ -54,6 +54,8 @@ public slots:
     void mettreAJourJoueur();
     void afficherDureePartie();
     void mettreAJoursolution(QString solution);
+    void mettrePausePartie();
+    void relancerpartie();
 
 private:
     Ui::Ihm *ui; /**< object de notre Ihm */
