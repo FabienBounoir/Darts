@@ -253,6 +253,11 @@ void Communication::deviceConnected(const QBluetoothAddress &adresse)
         message += " [" + QString::fromUtf8("non appairé") + "]" ;
     qDebug() << message << endl;
 
+    if(etatPartie == EtatPartie::Pause)
+    {
+        emit play();
+        etatPartie = EtatPartie::EnCours;
+    }
 }
 
 /**
@@ -265,6 +270,12 @@ void Communication::deviceDisconnected(const QBluetoothAddress &adresse)
 {
     qDebug() << Q_FUNC_INFO << adresse;
     emit appareilDeconnecter();
+
+    if(etatPartie == EtatPartie::EnCours)
+    {
+        emit pause();
+        etatPartie = EtatPartie::Pause;
+    }
 }
 
 /**
