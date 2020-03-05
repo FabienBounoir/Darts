@@ -93,6 +93,28 @@ QVector<float> Joueur::getHistoriqueVolees() const
 }
 
 /**
+ * @brief retourne un etat true/false pour savoir si le joueur est eliminé
+ *
+ * @fn Joueur::getEliminer
+ * @return bool
+ */
+bool Joueur::getEliminer() const
+{
+    return this->elimine;
+}
+
+/**
+ * @brief permet de modifier si le joueur est eliminer
+ *
+ * @fn Joueur::setEliminer
+ * @param elimine
+ */
+void Joueur::setEliminer(bool elimine)
+{
+    this->elimine = elimine;
+}
+
+/**
  * @brief permet de mettre à jour la moyenne des volées
  *
  * @fn Joueur::setMoyenneVolee
