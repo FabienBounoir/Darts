@@ -205,7 +205,7 @@ void Communication::decomposerTrame()
             emit pause();
             etatPartie = EtatPartie::Pause;
         }
-        else if(trame.contains("START") && etatPartie == EtatPartie::Pause)
+        else if(trame.contains("PLAY") && etatPartie == EtatPartie::Pause)
         {
             emit play();
             etatPartie = EtatPartie::EnCours;
