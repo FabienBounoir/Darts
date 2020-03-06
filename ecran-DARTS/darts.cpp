@@ -190,6 +190,12 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
  */
 void Darts::reinitialiserPartie()
 {
+    /** @todo delete les objets joueurs **/
+    /*for(QList<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it)
+    {
+        delete *it;
+    }*/
+
     joueurs.clear();
     joueur.clear();
     ModeDeJeu = "";
