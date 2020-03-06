@@ -151,16 +151,18 @@ void Ihm::mettreAJourManche()
  * @brief Méthode qui affiche la cible correspondante à l'impact (si fichier Image Impact et disponible) et les points de cette Impact
  *
  * @fn Ihm::afficherImpact
- * @param cercle
+ * @param typePoint
  * @param point
  * @param score
  */
-void Ihm::afficherImpact(int cercle, int point, int score)
+void Ihm::afficherImpact(int typePoint, int point, int score)
 {
-    qDebug() << Q_FUNC_INFO << "cercle : " << cercle << "point : " << point;
-    if(QFileInfo("../ecran-DARTS/impact/IMPACT_" + QString::number(cercle) + "_" + QString::number(point) + ".png").exists())       //test si l'image existe
+    /** @todo ajouter la superposition des images pour avoir la volées compléte afficher **/
+
+    qDebug() << Q_FUNC_INFO << "Type Point : " << typePoint << "point : " << point;
+    if(QFileInfo("../ecran-DARTS/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png").exists())       //test si l'image existe
     {
-        ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/impact/IMPACT_" + QString::number(cercle) + "_" + QString::number(point) + ".png"));
+        ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png"));
     }
     ui->labelStatut->setText(QString::number(score) + " point(s)" );
 }
@@ -198,7 +200,7 @@ void Ihm::mettreAJourMoyenneVolee()
     for(int i = 0; i < communication->getDarts()->getListJoueur().size(); i++)
     {
         moyenneVoleeJoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + " : " + QString::number(communication->getDarts()->getListJoueur()[i].getMoyenneVolee()) +" \n";
-        /** @todo fixer warning  */
+        /** @bug fixer warning  */
     }
     ui->labelMoyenneVolees->setVisible(true);
     ui->moyenneVolee->setText(moyenneVoleeJoueur);

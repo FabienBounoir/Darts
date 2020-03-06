@@ -211,16 +211,16 @@ void Darts::reinitialiserPartie()
  * @brief Méthode qui permet de traiter la reception d'impact
  *
  * @fn Darts::receptionnerImpact
- * @param cercle
+ * @param typePoint
  * @param point
  */
-void Darts::receptionnerImpact(int cercle, int point)
+void Darts::receptionnerImpact(int typePoint, int point)
 {
-    if(cercle == TRIPLE_POINT)
+    if(typePoint == TRIPLE_POINT)
     {
         pointLancer = point * 3;
     }
-    else if(cercle == DOUBLE_POINT)
+    else if(typePoint == DOUBLE_POINT)
     {
         pointLancer = point * 2;
     }
@@ -229,10 +229,10 @@ void Darts::receptionnerImpact(int cercle, int point)
         pointLancer = point;
     }
 
-    emit nouvelleImpact(cercle, point, pointLancer);
+    emit nouvelleImpact(typePoint, point, pointLancer);
     qDebug() << joueurs[joueurActif].getNom() << " SCORE : "<<joueurs[joueurActif].getScore() - pointLancer << endl;
     joueurs[joueurActif].setScore(joueurs[joueurActif].getScore() - pointLancer);
-    testerImpact(cercle);
+    testerImpact(typePoint);
     emit miseAJourPoint();
 }
 
@@ -240,12 +240,12 @@ void Darts::receptionnerImpact(int cercle, int point)
  * @brief Methode qui teste si le joueur a gagné
  *
  * @fn Darts::testerImpact
- * @param cercle
+ * @param typePoint
  * @param pointLancer
  */
-void Darts::testerImpact(int cercle)
+void Darts::testerImpact(int typePoint)
 {
-    if(joueurs[joueurActif].getScore()  == 0 && (cercle == DOUBLE_POINT || cercle == 2) && (ModeDeJeu == "501_DOUBLE_OUT" || ModeDeJeu == "301_DOUBLE_OUT")) //fin avec double
+    if(joueurs[joueurActif].getScore()  == 0 && (typePoint == DOUBLE_POINT) && (ModeDeJeu == "501_DOUBLE_OUT" || ModeDeJeu == "301_DOUBLE_OUT")) //fin avec double
     {
         gererVoleeMax();
         nbVolees++;
@@ -336,7 +336,6 @@ void Darts::gererManche()
  */
 void Darts::controlerJoueurEliminer()
 {
-    /** @todo ameliorer code  */
     while(joueurs[joueurActif].getEliminer()) //tant que le joueur est eliminer on passe donc au joueur suivant
     {
         if(joueurActif == nbJoueur - 1)  //si le joueur est le dernier de la manche à jouer

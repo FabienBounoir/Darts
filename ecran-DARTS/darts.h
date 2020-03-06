@@ -15,8 +15,8 @@
 #include <QObject>
 #include <QVector>
 
-#define TRIPLE_POINT 4
-#define DOUBLE_POINT 6
+#define TRIPLE_POINT 3
+#define DOUBLE_POINT 2
 
 class Joueur;
 class Solution;
