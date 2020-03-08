@@ -62,11 +62,11 @@ public:
     };
 
 signals:
-    void appareilConnecter();       //!< signal émis quand un nouvel appareil est connecté
-    void appareilDeconnecter();     //!< signal émis quand un appareil se déconnecte
-    void resetPartie();             //!< signal qui reinitialisera la partie en cours
-    void pause();                   //!< signal qui mettra en pause la partie
-    void play();                    //!< signal qui relancera le chronometrage de la partie la partie
+    void appareilConnecter();           //!< signal émis quand un nouvel appareil est connecté
+    void afficherAttenteConnexion();    //!< signal émis quand un appareil se déconnecte
+    void resetPartie();                 //!< signal qui reinitialisera la partie en cours
+    void pause();                       //!< signal qui mettra en pause la partie
+    void play();                        //!< signal qui relancera le chronometrage de la partie la partie
 
 public slots:
     void deviceConnected(const QBluetoothAddress &adresse);         //!< Slot appelé quand un nouvel appareil est connecté

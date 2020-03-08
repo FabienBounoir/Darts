@@ -155,7 +155,8 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
             Joueur player(joueurList.at(i), modeJeu.toInt(), 3);
             joueurs.push_back(player);
         }
-        emit nouvellePartie();
+        emit afficherNouvellePartie();
+        emit changerEtatPartie();
     }
     else if(ModeDeJeu == "501_DOUBLE_OUT")
     {
@@ -164,7 +165,8 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
             Joueur player(joueurList.at(i), 501, 3);
             joueurs.push_back(player);
         }
-        emit nouvellePartie();
+        emit afficherNouvellePartie();
+        emit changerEtatPartie();
     }
     else if(ModeDeJeu == "301_DOUBLE_OUT")
     {
@@ -173,7 +175,8 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
             Joueur player(joueurList.at(i), 301, 3);
             joueurs.push_back(player);
         }
-        emit nouvellePartie();
+        emit afficherNouvellePartie();
+        emit changerEtatPartie();
     }
     else
     {
@@ -224,7 +227,7 @@ void Darts::receptionnerImpact(int typePoint, int point)
     {
         pointLancer = point * 2;
     }
-    else if(typePoint == SIMPLE_POINT)
+    else if(typePoint == SIMPLE_POINT || typePoint == ZERO_POINT)
     {
         pointLancer = point;
     }

@@ -79,8 +79,7 @@ void Communication::parametrerBluetooth()
         connect(&localDevice, SIGNAL(error(QBluetoothLocalDevice::Error)), this, SLOT(error(QBluetoothLocalDevice::Error)));
 
         connect(darts, SIGNAL(etatPartieFini()), this , SLOT(miseAJourEtatPartieFin()));
-        connect(darts, SIGNAL(nouvellePartie()), this , SLOT(miseAJourEtatPartieEnCours()));
-
+        connect(darts, SIGNAL(changerEtatPartie()), this , SLOT(miseAJourEtatPartieEnCours()));
     }
 }
 
@@ -269,7 +268,7 @@ void Communication::deviceConnected(const QBluetoothAddress &adresse)
 void Communication::deviceDisconnected(const QBluetoothAddress &adresse)
 {
     qDebug() << Q_FUNC_INFO << adresse;
-    emit appareilDeconnecter();
+    emit afficherAttenteConnexion();
 
     if(etatPartie == EtatPartie::EnCours) // si l'appareil ce deconnecte pendant la partie, il la met donc en pause
     {

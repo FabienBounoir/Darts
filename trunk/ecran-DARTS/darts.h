@@ -18,6 +18,7 @@
 #define TRIPLE_POINT 3
 #define DOUBLE_POINT 2
 #define SIMPLE_POINT 1
+#define ZERO_POINT 0
 
 class Joueur;
 class Solution;
@@ -51,15 +52,16 @@ public:
     void arreterPartie();
 
 signals:
-    void miseAJourPoint();
-    void nouvelleManche();
-    void nouvelImpact(int,int,int);
-    void voleeAnnulee();
-    void finPartie(QString, int);
-    void etatPartieFini();
-    void changementJoueurActif();
-    void miseAJourMoyenneVolee();
-    void nouvellePartie();      //!< signal émis quand il y a une nouvelle partie
+    void miseAJourPoint();              //!< signal émis pour mettre à jour les points des joueurs
+    void nouvelleManche();              //!< signal émis quand on change de manche
+    void nouvelImpact(int,int,int);     //!< signal émis quand il y a un nouvel Impact
+    void voleeAnnulee();                //!< signal émis quand la volées est annulé
+    void finPartie(QString, int);       //!< signal émis quand c'est la fin de la partie
+    void etatPartieFini();              //!< signal émis pour mettre l'etat de la partie en fin
+    void changementJoueurActif();       //!< signal émis quand le joueur actif change
+    void miseAJourMoyenneVolee();       //!< signal émis pour mettre à jour la moyenne des volées
+    void afficherNouvellePartie();      //!< signal émis quand il y a une nouvelle partie
+    void changerEtatPartie();           //!< signal émis pour changer l'etat de la partie
 
 public slots:
 
