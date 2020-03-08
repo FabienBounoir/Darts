@@ -3,5 +3,5 @@
     <string name="partie">Partie</string>
     <string name="historique">Historique</string>
     <string name="joueurs">Joueurs</string>
-    <string name="todo">TODO</string>
+    <string name="description">Jeu de fléchettes</string>
 </resources>
