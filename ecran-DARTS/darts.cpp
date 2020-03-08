@@ -6,7 +6,7 @@
 /**
 * @file darts.cpp
 *
-* @brief darts s'occupe du deroulement de la partie
+* @brief Définition de la classe Darts
 *
 * @author Bounoir Fabien
 *
@@ -39,7 +39,7 @@ Darts::~Darts()
  * @brief retourne la manche
  *
  * @fn Darts::getManche
- * @return int
+ * @return int le numéro de manche
  */
 int Darts::getManche() const
 {
@@ -50,7 +50,7 @@ int Darts::getManche() const
  * @brief retourne une liste des joueurs
  *
  * @fn Darts::getListJoueur
- * @return QList<Joueur>
+ * @return QList<Joueur> la liste des joueurs
  */
 QList<Joueur> Darts::getListJoueur() const
 {
@@ -58,10 +58,10 @@ QList<Joueur> Darts::getListJoueur() const
 }
 
 /**
- * @brief retourne la volee Max
+ * @brief retourne la volée max
  *
  * @fn Darts::getVoleeMax
- * @return int
+ * @return int la volée max
  */
 int Darts::getVoleeMax()
 {
@@ -69,10 +69,10 @@ int Darts::getVoleeMax()
 }
 
 /**
- * @brief retourne le numero du joueur actif
+ * @brief retourne le numéro du joueur actif
  *
  * @fn Darts::getJoueurActif
- * @return int
+ * @return int le numéro du joueur actif
  */
 int Darts::getJoueurActif()
 {
@@ -80,10 +80,10 @@ int Darts::getJoueurActif()
 }
 
 /**
- * @brief Méthode qui retourne le nombre de volées de la partie
+ * @brief retourne le nombre de volées de la partie
  *
  * @fn Darts::getNbVolees
- * @return int
+ * @return int le nombre de volées de la partie
  */
 int Darts::getNbVolees()
 {
@@ -91,10 +91,10 @@ int Darts::getNbVolees()
 }
 
 /**
- * @brief
+ * @brief retourne le mode de jeu
  *
  * @fn Darts::getModeDeJeu
- * @return QString
+ * @return QString le mode de jeu
  */
 QString Darts::getModeDeJeu()
 {
@@ -105,7 +105,7 @@ QString Darts::getModeDeJeu()
  * @brief retourne l'objet solution
  *
  * @fn Darts::getSolution
- * @return solution
+ * @return Solution* l'objet solution
  */
 Solution *Darts::getSolution() const
 {
@@ -113,10 +113,10 @@ Solution *Darts::getSolution() const
 }
 
 /**
- * @brief  Méthode qui permet de mettre à jour la volée Max
+ * @brief permet de mettre à jour la volée max
  *
  * @fn Darts::setVoleeMax
- * @param voleeMax
+ * @param voleeMax la volée max(int)
  */
 void Darts::setVoleeMax(int voleeMax)
 {
@@ -124,10 +124,10 @@ void Darts::setVoleeMax(int voleeMax)
 }
 
 /**
- * @brief permet de mettre à jour le numero de manche
+ * @brief permet de mettre à jour le numéro de manche
  *
  * @fn Darts::setManche
- * @param manche
+ * @param manche le numéro de manche (int)
  */
 void Darts::setManche(int manche)
 {
@@ -136,17 +136,17 @@ void Darts::setManche(int manche)
 
 
 /**
- * @brief Méthode qui permet d'initialiser la partie
+ * @brief initialise la partie
  *
  * @fn Darts::initialiserPartie
- * @param joueurList
- * @param modeJeu
+ * @param joueurList QStringList
+ * @param modeJeu QString
  */
 void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
 {
     nbJoueur = joueurList.size() - 1;
     ModeDeJeu = modeJeu;
-    qDebug() << "nombre de JOUEUR : " << nbJoueur;
+    qDebug() << Q_FUNC_INFO << "nbJoueur" << nbJoueur << "modeJeu" << modeJeu;
 
     if(ModeDeJeu == "501" || ModeDeJeu == "301")
     {
@@ -177,7 +177,7 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
     }
     else
     {
-        qDebug() << "Erreur Mode De Jeu" << endl;
+        qDebug() << Q_FUNC_INFO << "Erreur Mode De Jeu" << ModeDeJeu;
         reinitialiserPartie();
     }
     solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
@@ -208,7 +208,7 @@ void Darts::reinitialiserPartie()
 }
 
 /**
- * @brief Méthode qui permet de traiter la reception d'impact
+ * @brief permet de traiter la réception d'impact
  *
  * @fn Darts::receptionnerImpact
  * @param typePoint
@@ -224,20 +224,25 @@ void Darts::receptionnerImpact(int typePoint, int point)
     {
         pointLancer = point * 2;
     }
-    else
+    else if(typePoint == SIMPLE_POINT)
     {
         pointLancer = point;
     }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << "Erreur pointLancer" << pointLancer;
+    }
 
-    emit nouvelleImpact(typePoint, point, pointLancer);
-    qDebug() << joueurs[joueurActif].getNom() << " SCORE : "<<joueurs[joueurActif].getScore() - pointLancer << endl;
+    qDebug() << Q_FUNC_INFO << joueurs[joueurActif].getNom() << " SCORE : "<<joueurs[joueurActif].getScore() - pointLancer << endl;
+
+    emit nouvelImpact(typePoint, point, pointLancer);
     joueurs[joueurActif].setScore(joueurs[joueurActif].getScore() - pointLancer);
     testerImpact(typePoint);
     emit miseAJourPoint();
 }
 
 /**
- * @brief Methode qui teste si le joueur a gagné
+ * @brief teste si le joueur a gagné
  *
  * @fn Darts::testerImpact
  * @param typePoint
@@ -267,13 +272,13 @@ void Darts::testerImpact(int typePoint)
 }
 
 /**
- * @brief Méthode qui met à jour le score du joueur
+ * @brief met à jour le score du joueur
  *
  * @fn Darts::enleverPointImpact
  */
 void Darts::enleverPointImpact()
 {
-    if(joueurs[joueurActif].getScore() <= 0) //score Volées inferieur au score = Volée annulée
+    if(joueurs[joueurActif].getScore() <= 0) //score Volée inferieure au score = Volée annulée
     {
         joueurs[joueurActif].setScore(joueurs[joueurActif].getScoreManchePrecedente());
         emit voleeAnnulee();
@@ -289,7 +294,7 @@ void Darts::enleverPointImpact()
 }
 
 /**
- * @brief Méthode qui permet de gerer le changement de manche en fonction des flechettes de chaque joueur
+ * @brief permet de gérer le changement de manche en fonction des fléchettes de chaque joueur
  *
  * @fn Darts::gererManche
  */
@@ -312,7 +317,7 @@ void Darts::gererManche()
             controlerJoueurEliminer();
 
             setManche(getManche() + 1);
-            emit changerJoueurActif();
+            emit changementJoueurActif();
             calculerMoyenneVolees();
             emit nouvelleManche();
             solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
@@ -323,14 +328,14 @@ void Darts::gererManche()
 
             controlerJoueurEliminer();
 
-            emit changerJoueurActif();
+            emit changementJoueurActif();
             solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
         }
     }
 }
 
 /**
- * @brief Méthode qui change de joueur si le joueur actuel est eliminer
+ * @brief change de joueur si le joueur actuel est eliminé
  *
  * @fn Darts::testerSiJoueurEliminer
  */
@@ -353,7 +358,7 @@ void Darts::controlerJoueurEliminer()
 }
 
 /**
- * @brief Méthode qui test si le joueur est à 1 point à la fin de la manche
+ * @brief teste si le joueur est à 1 point à la fin de la manche
  *
  * @fn Darts::testerSiJoueurEliminer
  */
@@ -366,7 +371,7 @@ void Darts::testerSiJoueurEliminer()
 }
 
 /**
- * @brief Méthode qui calcule la moyenne des Volées de chaque joueur
+ * @brief calcule la moyenne des volées de chaque joueur
  *
  * @fn Darts::calculerMoyenneVolees
  */
@@ -388,7 +393,7 @@ void Darts::calculerMoyenneVolees()
 }
 
 /**
- * @brief Méthode qui teste la Volée pour savoir si elle est superieur à la Volée Max
+ * @brief teste la volée pour savoir si elle est superieure à la volée Max
  *
  * @fn Darts::gererVoleeMax
  */
@@ -401,7 +406,7 @@ void Darts::gererVoleeMax()
 }
 
 /**
- * @brief Méthode qui arrête la partie
+ * @brief arrête la partie
  *
  * @fn Darts::arreterPartie
  */
@@ -411,7 +416,7 @@ void Darts::arreterPartie()
 }
 
 /**
- * @brief Méthode qui calcule le gagnant de la partie
+ * @brief calcule le gagnant de la partie
  *
  * @fn Darts::calculerGagnant
  * @return QString

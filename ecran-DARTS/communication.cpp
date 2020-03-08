@@ -4,7 +4,7 @@
 /**
 * @file communication.cpp
 *
-* @brief classe qui s'occupe de la parti communication (configuration, reception trame)
+* @brief Définition de la classe Communication
 *
 * @author Bounoir Fabien
 *
@@ -128,7 +128,7 @@ void Communication::arreter()
 }
 
 /**
- * @brief Méthode appeler quand un nouveau client se connecte
+ * @brief Méthode appelée quand un nouveau client se connecte
  *
  * @fn Communication::nouveauClient
  */
@@ -167,7 +167,7 @@ void Communication::socketReadyRead()
 }
 
 /**
- * @brief Méthode qui decompose la trame reçu
+ * @brief Méthode qui decompose la trame reçue et signale l'état en fonction du type de trame
  *
  * @fn Communication::decomposerTrame
  */
@@ -225,7 +225,7 @@ void Communication::decomposerTrame()
 }
 
 /**
- * @brief fonction appelée quand l'appareil est deconnecté
+ * @brief méthode appelée quand la socket est déconnecté
  *
  * @fn Communication::socketDisconnected
  */
@@ -237,7 +237,7 @@ void Communication::socketDisconnected()
 }
 
 /**
- * @brief fonction appelée quand l'appareil est connecté
+ * @brief méthode appelée quand l'appareil est connecté
  *
  * @fn Communication::deviceConnected
  * @param adresse
@@ -261,7 +261,7 @@ void Communication::deviceConnected(const QBluetoothAddress &adresse)
 }
 
 /**
- * @brief fonction appelée quand l'appareil est deconnecté
+ * @brief méthode appelée quand l'appareil est deconnecté
  *
  * @fn Communication::deviceDisconnected
  * @param adresse
@@ -290,7 +290,7 @@ void Communication::error(QBluetoothLocalDevice::Error erreur)
 }
 
 /**
- * @brief  Méthode qui met a jour l'etat de la partie fin
+ * @brief Méthode qui met à jour l'état de la partie Fin
  *
  * @fn Communication::miseAJourEtatPartieFin
  */
@@ -300,7 +300,7 @@ void Communication::miseAJourEtatPartieFin()
 }
 
 /**
- * @brief  Méthode qui met a jour l'etat de la partie en cours
+ * @brief Méthode qui met à jour l'état de la partie EnCours
  *
  * @fn Communication::miseAJourEtatPartieEnCours
  */

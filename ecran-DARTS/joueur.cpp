@@ -5,7 +5,7 @@
 /**
 * @file joueur.cpp
 *
-* @brief joueur s'occupe du stockage du nom score et nombre de flechette du joueur
+* @brief Définition de la classe Joueur
 *
 * @author Bounoir Fabien
 *

@@ -3,7 +3,7 @@
 
 /**
  * @file solution.h
- * @brief Declaration de la classe solution
+ * @brief Déclaration de la classe solution
  *
  * @version 0.1
  *
@@ -14,6 +14,8 @@
 #include <QString>
 #include <QDebug>
 
+#define BULL                25
+
 // Rechercher en premier ?
 #define RECHERCHE_TRIPLE    1
 #define RECHERCHE_DOUBLE    2
@@ -21,8 +23,9 @@
 #define RECHERCHE_FINIE     4
 
 /**
- * @class Solution solution.h "solution.h"
- * @brief Declaration de la classe Solution
+ * @class Solution
+ * @brief Déclaration de la classe Solution
+ * @details Cette classe s'occupe de rechercher les différentes solutions pour finir la partie
 */
 class Solution : public QObject
 {
@@ -33,6 +36,7 @@ public:
 
 private:
     QString solution;                       //!< contient la solution pour finir la partie
+
     void transmettreSolution(int score);
     bool aTriple(int points, const int score);
     bool rechercherTriple(int &score, QString &combinaison, int start);
