@@ -3,7 +3,7 @@
 
 /**
  * @file communication.h
- * @brief Declaration de la classe Communication
+ * @brief Déclaration de la classe Communication
  *
  * @version 0.1
  *
@@ -21,6 +21,7 @@
  * @brief Définit le type de trame du protocole DARTS
  */
 #define TYPE_TRAME "$DART"
+
 /**
  * @def DELIMITEUR_FIN
  * @brief Définit le délimiteur de fin de trame du protocole DARTS
@@ -33,7 +34,8 @@ static const QString serviceNom(QStringLiteral("Ecran-Darts"));
 /**
 * @class Communication communication.h "communication.h"
 *
-* @brief Declaration de la classe Communication (Liaison Bluetooth)
+* @brief Déclaration de la classe Communication (via la liaison Bluetooth)
+* @details Cette classe s'occupe de la partie communication Bluetooth en mode serveur (configuration, réception et traitement des trames du protocole DART)
 */
 class Communication : public QObject
 {
@@ -42,7 +44,7 @@ public:
     explicit Communication(QObject *parent = nullptr);  //!< constructeur de la classe Communication
     ~Communication();                                   //!< destructeur de la classe Communication
 
-    Darts *getDarts() const;
+    Darts *getDarts() const;        //!< Méthode qui retourne l'objet Darts
     void parametrerBluetooth();     //!< Méthode qui configure la connexion Bluetooth en mode serveur
     void demarrer();                //!< Méthode qui démarre le serveur
     void arreter();                 //!< Méthode qui arrête le serveur
@@ -61,20 +63,20 @@ public:
 
 signals:
     void appareilConnecter();       //!< signal émis quand un nouvel appareil est connecté
-    void appareilDeconnecter();     //!< signal émis quand un l'appareil se déconnecté
-    void resetPartie();             //!< signal qui reset la partie en cour
-    void pause();                   //!< signal qui met en pause la partie
-    void play();                    //!< signal qui relance le chronometrage de la partie la partie
+    void appareilDeconnecter();     //!< signal émis quand un appareil se déconnecte
+    void resetPartie();             //!< signal qui reinitialisera la partie en cours
+    void pause();                   //!< signal qui mettra en pause la partie
+    void play();                    //!< signal qui relancera le chronometrage de la partie la partie
 
 public slots:
-    void deviceConnected(const QBluetoothAddress &adresse);         //!< Slot appelée quand un nouvelle appareil est connecté
-    void deviceDisconnected(const QBluetoothAddress &adresse);      //!< Slot appelée quand un l'appareil est déconnecté
-    void error(QBluetoothLocalDevice::Error erreur);                //!< Slot appelée quand il y a un erreur avec l'appareil bluetooth
-    void nouveauClient();                                           //!< Slot appelée quand un nouveau client veut se connecter
-    void socketReadyRead();                                         //!< Slot appelée quand une nouvelle trame est disponible
-    void socketDisconnected();                                      //!< Slot appelée quand l'appareil est deconnecté
-    void miseAJourEtatPartieFin();                                  //!< Slot appelée pour mettre a jour l'etat de la partie fin
-    void miseAJourEtatPartieEnCours();                              //!< Slot appelée pour mettre a jour l'etat de la partie en cours
+    void deviceConnected(const QBluetoothAddress &adresse);         //!< Slot appelé quand un nouvel appareil est connecté
+    void deviceDisconnected(const QBluetoothAddress &adresse);      //!< Slot appelé quand un appareil est déconnecté
+    void error(QBluetoothLocalDevice::Error erreur);                //!< Slot appelé quand il y a une erreur avec l'appareil bluetooth
+    void nouveauClient();                                           //!< Slot appelé quand un nouveau client veut se connecter
+    void socketReadyRead();                                         //!< Slot appelé quand une nouvelle trame est disponible
+    void socketDisconnected();                                      //!< Slot appelé quand la communication est deconnectée
+    void miseAJourEtatPartieFin();                                  //!< Slot appelé pour mettre à jour l'état de la partie à Fin
+    void miseAJourEtatPartieEnCours();                              //!< Slot appelé pour mettre à jour l'état de la partie à EnCours
 
 private:
     QBluetoothLocalDevice localDevice;          //!< L'interface Bluetooth de la Raspberry Pi
@@ -83,11 +85,10 @@ private:
     QBluetoothServiceInfo serviceInfo;          //!< Informations sur le service bluetooth
     QString localDeviceName = "Ecran-Darts";    //!< Nom du peripherique local
     QString trame;                              //!< La trame recue
-    Darts *darts;                               //!< Association objet darts
-    EtatPartie etatPartie;                      //!< contient l'etat de la partie
+    Darts *darts;                               //!< Association avec l'objet darts
+    EtatPartie etatPartie;                      //!< L'état de la partie
 
-    void decomposerTrame();                     //!< methode qui decompose la trame reçu
-
+    void decomposerTrame();                     //!< Méthode qui decompose la trame reçue
 };
 
 #endif // COMMUNICATION_H

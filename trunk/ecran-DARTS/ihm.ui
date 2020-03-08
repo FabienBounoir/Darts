@@ -100,7 +100,7 @@ QLabel
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -453,7 +453,7 @@ QLabel
                 </font>
                </property>
                <property name="text">
-                <string>- Moyenne des vollées :</string>
+                <string>- Moyenne des volées :</string>
                </property>
               </widget>
              </item>
@@ -571,7 +571,7 @@ QLabel
                 </font>
                </property>
                <property name="text">
-                <string>- Volées maximal : </string>
+                <string>- Volée maximale : </string>
                </property>
               </widget>
              </item>

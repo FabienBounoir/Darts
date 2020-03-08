@@ -3,7 +3,7 @@
 /**
 * @file solution.cpp
 *
-* @brief solution s'occupe de rechercher les differentes solution pour finir la partie
+* @brief Définition de la classe Solution
 *
 * @author Bounoir Fabien
 *
@@ -30,7 +30,7 @@ Solution::Solution(QObject *parent) : QObject(parent), solution("")
  */
 void Solution::transmettreSolution(int score)
 {
-    qDebug() << "Score = " << score << " : " << solution;
+    qDebug() << Q_FUNC_INFO << "Score = " << score << " : " << solution;
     emit solutionTrouver("Score = " + QString::number(score) + " : " + solution);
 }
 
@@ -104,9 +104,10 @@ bool Solution::rechercherDouble(int &score, QString &combinaison)
 {
     bool trouve = false;
     // Remarque : le 2 est plus facile que le D1 !
-    for(int i=25; i>1 && !trouve; i--)
+    for(int i=BULL; i>1 && !trouve; i--)
     {
-        if(i >= 21 && i <= 24)
+        // cibles inexistantes ?
+        if(i > 20)
             continue;
         if(aDouble(i, score))
         {
@@ -145,9 +146,10 @@ bool Solution::rechercherSimple(int &score, QString &combinaison)
 {
     bool trouve = false;
 
-    for(int i=25; i>0 && !trouve; i--)
+    for(int i=BULL; i>0 && !trouve; i--)
     {
-        if(i >= 21 && i <= 24)
+        // cibles inexistantes ?
+        if(i > 20)
             continue;
         if(aSimple(i, score))
         {
@@ -193,7 +195,7 @@ bool Solution::extraireDouble(int &score, int cible)
 }
 
 /**
- * @brief methode qui recherche la meilleur combinaison
+ * @brief methode qui recherche la meilleur combinaison pour finir
  *
  * @fn Solution::rechercher
  * @param score
@@ -285,13 +287,13 @@ void Solution::trouverSolution(int s, int flechettes)
     int score = 0;
     bool trouve = false;
     int nbFlechettes = 0;
-    //QVector<QString> solution;
     solution = "";
 
     trouve = false;
-    for(int i=25; i>0 && !trouve; i--)
+    for(int i=BULL; i>0 && !trouve; i--)
     {
-        if(i >= 21 && i <= 24)
+        // cibles inexistantes ?
+        if(i > 20)
             continue;
         score = s; // <- le score à determiner
         nbFlechettes = flechettes; // <- le nombre de fléchettes
@@ -309,7 +311,7 @@ void Solution::trouverSolution(int s, int flechettes)
     }
     if(!trouve)
     {
-        //cout << "Score = " << s << " : impossible" << endl;
+        //qDebug() << Q_FUNC_INFO << "Score = " << s << "impossible";
         rechercher(score, nbFlechettes+1, true);
         transmettreSolution(s);
     }

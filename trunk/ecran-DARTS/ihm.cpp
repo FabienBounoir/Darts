@@ -8,7 +8,7 @@
 /**
 * @file ihm.cpp
 *
-* @brief classe qui s'occupe de l'affichage dans l'ihm
+* @brief Définition de la classe Ihm
 *
 * @author Bounoir Fabien
 *
@@ -33,20 +33,18 @@ Ihm::Ihm(QWidget *parent) :
     communication = new Communication(this);
     darts = new Darts(this);
 
-    //Timer
-    timerHorloge = new QTimer(this); // Instancie dynamiquement le temporisateur du rafraichissement de l'heure
-    connect(timerHorloge, SIGNAL(timeout()),this,SLOT(actualiserHeure())); // Pour le déclenchement périodique de l'affichage de l'heure
-    timerHorloge->start(PERIODE_HORLOGE); // Toutes les secondes (1000 ms)
+    // Horloge
+    initialiserHorloge();
 
-    //raccourcis Quitter/ChangerPage
+    // Raccourcis Quitter/ChangerPage
     attribuerRaccourcisClavier();
 
-    //demarrer la communication bluetooth
+    // Démarrer la communication bluetooth
     communication->demarrer();
 
-    initialiserConnect();
+    initialiserEvenements();
 
-    nouvellePartie();
+    afficherNouvellePartie();
 }
 
 /**
@@ -60,26 +58,26 @@ Ihm::~Ihm()
 }
 
 /**
- * @brief Méthode qui initialise les connects
+ * @brief Méthode qui initialise les connexion signals/slots de Qt
  *
- * @fn Ihm::initialiserConnect
+ * @fn Ihm::initialiserEvenements
  */
-void Ihm::initialiserConnect()
+void Ihm::initialiserEvenements()
 {
-    connect(communication, SIGNAL(appareilConnecter()) ,this ,SLOT(nouvelleAppareilConnecter()));
-    connect(communication, SIGNAL(appareilDeconnecter() ),this ,SLOT(appareilDeconnecter()));
-    connect(communication->getDarts(), SIGNAL(nouvellePartie()),this ,SLOT(afficherPartie()));
-    connect(communication, SIGNAL(resetPartie()),this ,SLOT(nouvellePartie()));
-    connect(communication->getDarts(), SIGNAL(finPartie(QString, int)),this ,SLOT(partieFini(QString, int)));
-    connect(communication->getDarts(), SIGNAL(changerJoueurActif()) ,this ,SLOT(mettreAJourJoueur()));
-    connect(communication->getDarts(), SIGNAL(nouvelleImpact(int, int, int)) ,this ,SLOT(afficherImpact(int,int,int)));
-    connect(communication->getDarts(), SIGNAL(miseAJourPoint()), this , SLOT(miseAJourScore()));
-    connect(communication->getDarts(), SIGNAL(nouvelleManche()), this , SLOT(mettreAJourManche()));
-    connect(communication->getDarts(), SIGNAL(voleeAnnulee()), this , SLOT(AfficherVoleeAnnulee()));
-    connect(communication->getDarts(), SIGNAL(miseAJourMoyenneVolee()), this , SLOT(mettreAJourMoyenneVolee()));
-    connect(communication->getDarts()->getSolution(), SIGNAL(solutionTrouver(QString)), this , SLOT(mettreAJoursolution(QString)));
-    connect(communication, SIGNAL(pause()),this ,SLOT(mettrePausePartie()));
-    connect(communication, SIGNAL(play()),this ,SLOT(relancerpartie()));
+    connect(communication, SIGNAL(appareilConnecter()) , this, SLOT(afficherAttenteConfiguration()));
+    connect(communication, SIGNAL(afficherAttenteConnexion()), this, SLOT(afficherAttenteConnexion()));
+    connect(communication->getDarts(), SIGNAL(afficherNouvellePartie()), this, SLOT(afficherPartie()));
+    connect(communication, SIGNAL(resetPartie()), this, SLOT(afficherNouvellePartie()));
+    connect(communication->getDarts(), SIGNAL(finPartie(QString, int)), this, SLOT(finirPartie(QString, int)));
+    connect(communication->getDarts(), SIGNAL(changementJoueurActif()), this, SLOT(mettreAJourJoueur()));
+    connect(communication->getDarts(), SIGNAL(nouvelImpact(int, int, int)), this, SLOT(afficherImpact(int,int,int)));
+    connect(communication->getDarts(), SIGNAL(miseAJourPoint()), this, SLOT(mettreAJourScore()));
+    connect(communication->getDarts(), SIGNAL(nouvelleManche()), this, SLOT(mettreAJourManche()));
+    connect(communication->getDarts(), SIGNAL(voleeAnnulee()), this, SLOT(afficherVoleeAnnulee()));
+    connect(communication->getDarts(), SIGNAL(miseAJourMoyenneVolee()), this, SLOT(mettreAJourMoyenneVolee()));
+    connect(communication->getDarts()->getSolution(), SIGNAL(solutionTrouver(QString)), this, SLOT(mettreAJoursolution(QString)));
+    connect(communication, SIGNAL(pause()), this, SLOT(mettrePausePartie()));
+    connect(communication, SIGNAL(play()), this, SLOT(relancerpartie()));
 }
 
 /**
@@ -124,9 +122,9 @@ void Ihm::actualiserHeure()
 /**
  * @brief Méthode qui met à jour le score dans L'ihm
  *
- * @fn Ihm::miseAJourScore
+ * @fn Ihm::mettreAJourScore
  */
-void Ihm::miseAJourScore()
+void Ihm::mettreAJourScore()
 {
     QString score;
 
@@ -223,15 +221,15 @@ void Ihm::afficherPartie()
 
     ui->ecranDarts->setCurrentIndex(Ihm::PageJeu);
 
-    miseAJourScore();
+    mettreAJourScore();
 }
 
 /**
  * @brief Méthode qui affiche le message de statut "volée annulée"
  *
- * @fn Ihm::AfficherVoleeAnnulee
+ * @fn Ihm::afficherVoleeAnnulee
  */
-void Ihm::AfficherVoleeAnnulee()
+void Ihm::afficherVoleeAnnulee()
 {
     ui->labelStatut->setText("Volée annulée !");
 }
@@ -239,11 +237,11 @@ void Ihm::AfficherVoleeAnnulee()
 /**
  * @brief Méthode qui met à jour l'affichage quand la partie est fini
  *
- * @fn Ihm::partieFini
+ * @fn Ihm::finirPartie
  * @param gagnant
  * @param voleeMaxJoueur
  */
-void Ihm::partieFini(QString gagnant, int voleeMaxJoueur)
+void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
 {
     disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
     ui->winnerPartie->setText("Winner " + gagnant);
@@ -255,9 +253,9 @@ void Ihm::partieFini(QString gagnant, int voleeMaxJoueur)
 /**
  * @brief Methode qui met à jour l'affichage pour lancer une nouvelle partie
  *
- * @fn Ihm::nouvellePartie
+ * @fn Ihm::afficherNouvellePartie
  */
-void Ihm::nouvellePartie()
+void Ihm::afficherNouvellePartie()
 {
      ui->ecranDarts->setCurrentIndex(Ihm::PageAttente);
      ui->manche->setText("1");
@@ -314,9 +312,9 @@ void Ihm::fermerApplication()
 /**
  * @brief Méthode qui permet de mettre a jour le message de status "nouvelle appareil connecté"
  *
- * @fn Ihm::nouvelleAppareilConnecter
+ * @fn Ihm::afficherAttenteConfiguration
  */
-void Ihm::nouvelleAppareilConnecter()
+void Ihm::afficherAttenteConfiguration()
 {
     ui->labelStatutAttente->setText("Attente configuration de la partie");
 }
@@ -324,9 +322,9 @@ void Ihm::nouvelleAppareilConnecter()
 /**
  * @brief Méthode qui permet de mettre a jour le message de status "appareil deconnecté"
  *
- * @fn Ihm::appareilDeconnecter
+ * @fn Ihm::afficherAttenteConnexion
  */
-void Ihm::appareilDeconnecter()
+void Ihm::afficherAttenteConnexion()
 {
     ui->labelStatutAttente->setText("En attente de connexion ");
 }
@@ -386,4 +384,16 @@ void Ihm::relancerpartie()
     ui->labelTempsPartie->setStyleSheet("color: rgb(109, 43,107);");
     connect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // relancer le chronometrage de la partie
     qDebug() << "Partie relancer" << endl;
+}
+
+/**
+ * @brief initialise l'horloge pour un affichage périodique
+ *
+ * @fn Ihm::initialiserHorloge
+ */
+void Ihm::initialiserHorloge()
+{
+    timerHorloge = new QTimer(this); // Instancie dynamiquement le temporisateur du rafraichissement de l'heure
+    connect(timerHorloge, SIGNAL(timeout()),this,SLOT(actualiserHeure())); // Pour le déclenchement périodique de l'affichage de l'heure
+    timerHorloge->start(PERIODE_HORLOGE);  // Toutes les secondes (1000 ms)
 }

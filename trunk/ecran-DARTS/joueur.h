@@ -6,7 +6,7 @@
 
 /**
  * @file joueur.h
- * @brief Declaration de la classe Joueur
+ * @brief Déclaration de la classe Joueur
  *
  * @version 0.1
  *
@@ -14,8 +14,9 @@
  */
 
 /**
- * @class Joueur joueur.h "joueur.h"
- * @brief Declaration de la classe Joueur
+ * @class Joueur
+ * @brief Déclaration de la classe Joueur
+ * @details Cette classe s'occupe du stockage du nom, score et nombre de flechettes du joueur
 */
 class Joueur
 {
