@@ -189,7 +189,8 @@ void Communication::decomposerTrame()
             darts->reinitialiserPartie();
 
             QString modeJeu;
-            QStringList joueurs = extraireParametresTrameStart(modeJeu);
+            QStringList joueurs;
+            extraireParametresTrameStart(joueurs, modeJeu);
 
             darts->initialiserPartie(joueurs, modeJeu);
 
@@ -231,10 +232,8 @@ void Communication::decomposerTrame()
  *
  * @fn Communication::extraireParametresTrameStart
  */
-QStringList Communication::extraireParametresTrameStart(QString &modeJeu)
+void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &modeJeu)
 {
-    QStringList joueurs;
-
     modeJeu = trame.section(";",2,2);
 
     for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
@@ -248,8 +247,6 @@ QStringList Communication::extraireParametresTrameStart(QString &modeJeu)
             joueurs.push_back(trame.section(";",3+i,3+i));
         }
     }
-
-    return joueurs;
 }
 
 /**
