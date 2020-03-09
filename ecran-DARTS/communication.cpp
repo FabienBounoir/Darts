@@ -182,52 +182,36 @@ void Communication::decomposerTrame()
 {
     if(trame.startsWith(TYPE_TRAME) && trame.endsWith(DELIMITEUR_FIN))
     {
-        QStringList joueur;
         trame.remove(DELIMITEUR_FIN);
         if(trame.contains("START") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;START;2;fabien;erwan */
         {
             emit resetPartie();
             darts->reinitialiserPartie();
 
-            /**
-              * @todo Implémenter une méthode extraireParametresTrameStart() etc ...
-              */
-            for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
-            {
-                if(trame.section(";",3+i,3+i) == "")
-                {
-                    joueur.push_back("Joueur[" + QString::number(i) + "]");
-                }
-                else
-                {
-                    joueur.push_back(trame.section(";",3+i,3+i));
-                }
-            }
+            extraireParametresTrameStart();
 
-            darts->initialiserPartie(joueur, trame.section(";",2,2));
         }
         else if(trame.contains("GAME") && etatPartie == EtatPartie::EnCours)      /** $DART;GAME;3;7 */
         {
             darts->receptionnerImpact(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
         }
-        else if(trame.contains("PAUSE") && etatPartie == EtatPartie::EnCours)
+        else if(trame.contains("PAUSE") && etatPartie == EtatPartie::EnCours)     /** $DART;PAUSE */
         {
             emit pause();
             miseAJourEtatPartiePause();
         }
-        else if(trame.contains("PLAY") && etatPartie == EtatPartie::Pause)
+        else if(trame.contains("PLAY") && etatPartie == EtatPartie::Pause)       /** $DART;PLAY */
         {
             emit play();
             miseAJourEtatPartieEnCours();
         }
-        else if(trame.contains("RESET")) // quelque soit l'état de la partie
-        //else if(trame.contains("RESET") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Fin || etatPartie == EtatPartie::Pause))
+        else if(trame.contains("RESET")) // quelque soit l'état de la partie    /** $DART;RESET */
         {
             emit resetPartie();
             darts->reinitialiserPartie();
             miseAJourEtatPartieAttente();
         }
-        else if(trame.contains("STOP") && (etatPartie == EtatPartie::EnCours))
+        else if(trame.contains("STOP") && (etatPartie == EtatPartie::EnCours))  /** $DART;STOP */
         {
             miseAJourEtatPartieFin();
             darts->arreterPartie();
@@ -238,6 +222,31 @@ void Communication::decomposerTrame()
         }
     }
 }
+
+/**
+ * @brief Méthode qui decompose la trame Start
+ *
+ * @fn Communication::extraireParametresTrameStart
+ */
+void Communication::extraireParametresTrameStart()
+{
+    QStringList joueur;
+
+    for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
+    {
+        if(trame.section(";",3+i,3+i) == "")    //test si le joueur a un nom
+        {
+            joueur.push_back("Joueur[" + QString::number(i) + "]");
+        }
+        else
+        {
+            joueur.push_back(trame.section(";",3+i,3+i));
+        }
+    }
+
+    darts->initialiserPartie(joueur, trame.section(";",2,2));
+}
+
 
 /**
  * @brief méthode appelée quand la socket est déconnectée
@@ -271,7 +280,7 @@ void Communication::deviceConnected(const QBluetoothAddress &adresse)
     if(etatPartie == EtatPartie::Pause) // si l'appareil est reconnecte, la partie reprend
     {
         emit play();
-        etatPartie = EtatPartie::EnCours;
+        miseAJourEtatPartieEnCours();
     }
 }
 

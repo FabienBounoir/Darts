@@ -60,6 +60,11 @@ QLabel#labelTempsPartie
 	color: rgb(109, 43,107);
 }
 
+QLabel#labelHeureStatistique
+{
+	color: rgb(109, 43,107);
+}
+
 QLabel#winnerPartie
 {
 	image:url(:/ressources/fondStatus.png);

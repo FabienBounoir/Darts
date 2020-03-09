@@ -43,7 +43,7 @@ private:
     QTimer *timerHorloge;           //!< objet timerHorloge
     Communication *communication;   //!< objet communication
     Darts *darts;                   //!< objet darts
-    int compteurDureePartie;        //!< compteur de secondes pour la duréee d'une séance
+    int compteurDureePartie;        //!< compteur de secondes pour la durée d'une séance
 
     /**
      * @enum Page
