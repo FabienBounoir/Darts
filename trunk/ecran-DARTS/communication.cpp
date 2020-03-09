@@ -188,9 +188,10 @@ void Communication::decomposerTrame()
             emit resetPartie();
             darts->reinitialiserPartie();
 
-            QStringList joueurs = extraireParametresTrameStart();
+            QString modeJeu;
+            QStringList joueurs = extraireParametresTrameStart(modeJeu);
 
-            darts->initialiserPartie(joueurs, trame.section(";",2,2));
+            darts->initialiserPartie(joueurs, modeJeu);
 
         }
         else if(trame.contains("GAME") && etatPartie == EtatPartie::EnCours)      /** $DART;GAME;3;7 */
@@ -230,9 +231,11 @@ void Communication::decomposerTrame()
  *
  * @fn Communication::extraireParametresTrameStart
  */
-QStringList Communication::extraireParametresTrameStart()
+QStringList Communication::extraireParametresTrameStart(QString &modeJeu)
 {
     QStringList joueurs;
+
+    modeJeu = trame.section(";",2,2);
 
     for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
     {
