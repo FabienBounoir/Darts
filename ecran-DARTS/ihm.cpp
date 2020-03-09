@@ -4,6 +4,7 @@
 #include <QTime>
 #include <QAction>
 #include <QFileInfo>
+#include <QPainter>
 
 /**
 * @file ihm.cpp
@@ -69,16 +70,17 @@ void Ihm::initialiserEvenements()
 {
     connect(communication, SIGNAL(appareilConnecter()) , this, SLOT(afficherAttenteConfiguration()));
     connect(communication, SIGNAL(afficherAttenteConnexion()), this, SLOT(afficherAttenteConnexion()));
-    connect(communication->getDarts(), SIGNAL(afficherNouvellePartie()), this, SLOT(afficherPartie()));
+    connect(darts, SIGNAL(afficherNouvellePartie()), this, SLOT(afficherPartie()));
     connect(communication, SIGNAL(resetPartie()), this, SLOT(afficherNouvellePartie()));
-    connect(communication->getDarts(), SIGNAL(finPartie(QString, int)), this, SLOT(finirPartie(QString, int)));
-    connect(communication->getDarts(), SIGNAL(changementJoueurActif()), this, SLOT(mettreAJourJoueur()));
-    connect(communication->getDarts(), SIGNAL(nouvelImpact(int, int, int)), this, SLOT(afficherImpact(int,int,int)));
-    connect(communication->getDarts(), SIGNAL(miseAJourPoint()), this, SLOT(mettreAJourScore()));
-    connect(communication->getDarts(), SIGNAL(nouvelleManche()), this, SLOT(mettreAJourManche()));
-    connect(communication->getDarts(), SIGNAL(voleeAnnulee()), this, SLOT(afficherVoleeAnnulee()));
-    connect(communication->getDarts(), SIGNAL(miseAJourMoyenneVolee()), this, SLOT(mettreAJourMoyenneVolee()));
-    connect(communication->getDarts()->getSolution(), SIGNAL(solutionTrouver(QString)), this, SLOT(mettreAJoursolution(QString)));
+    connect(darts, SIGNAL(finPartie(QString, int)), this, SLOT(finirPartie(QString, int)));
+    connect(darts, SIGNAL(changementJoueurActif()), this, SLOT(mettreAJourJoueur()));
+    connect(darts, SIGNAL(nouvelImpact(int, int, int)), this, SLOT(afficherImpact(int,int)));
+    connect(darts, SIGNAL(miseAJourPoint()), this, SLOT(mettreAJourScore()));
+    connect(darts, SIGNAL(nouvelleManche()), this, SLOT(mettreAJourManche()));
+    connect(darts, SIGNAL(voleeAnnulee()), this, SLOT(afficherVoleeAnnulee()));
+    connect(darts, SIGNAL(miseAJourMoyenneVolee()), this, SLOT(mettreAJourMoyenneVolee()));
+    connect(darts->getSolution(), SIGNAL(solutionTrouver(QString)), this, SLOT(mettreAJoursolution(QString)));
+    connect(darts, SIGNAL(actualiserCible()), this, SLOT(mettreAJourCible()));
     connect(communication, SIGNAL(pause()), this, SLOT(mettrePausePartie()));
     connect(communication, SIGNAL(play()), this, SLOT(relancerpartie()));
 }
@@ -131,9 +133,9 @@ void Ihm::mettreAJourScore()
 {
     QString score;
 
-    for(int i = 0; i < communication->getDarts()->getListJoueur().size(); i++)
+    for(int i = 0; i < darts->getListJoueur().size(); i++)
     {
-        score += "         " + communication->getDarts()->getListJoueur()[i].getNom() + " : " + QString::number(communication->getDarts()->getListJoueur()[i].getScore()) + "\n";
+        score += "         " + darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getScore()) + "\n";
     }
     ui->scoreActuel->setText(score);
 }
@@ -145,7 +147,7 @@ void Ihm::mettreAJourScore()
  */
 void Ihm::mettreAJourManche()
 {
-    ui->manche->setText(QString::number(communication->getDarts()->getManche()));
+    ui->manche->setText(QString::number(darts->getManche()));
 }
 
 /**
@@ -156,16 +158,24 @@ void Ihm::mettreAJourManche()
  * @param point
  * @param score
  */
-void Ihm::afficherImpact(int typePoint, int point, int score)
+void Ihm::afficherImpact(int typePoint, int point)
 {
-    /** @todo ajouter la superposition des images pour avoir la volées compléte afficher **/
-
     qDebug() << Q_FUNC_INFO << "Type Point : " << typePoint << "point : " << point;
+
     if(QFileInfo("../ecran-DARTS/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png").exists())       //test si l'image existe
     {
-        ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png"));
+        QImage impact("../ecran-DARTS/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png");
+
+        QPixmap cibleImpacte = ui->labelVisualisationimpact->pixmap()->copy(); // on récupère l'image précédente;
+
+        QPainter p(&cibleImpacte);
+
+        p.drawImage(QPoint(0, 0), impact);
+
+        p.end();
+
+        ui->labelVisualisationimpact->setPixmap(cibleImpacte);
     }
-    ui->labelStatut->setText(QString::number(score) + " point(s)" );
 }
 
 /**
@@ -176,15 +186,15 @@ void Ihm::afficherImpact(int typePoint, int point, int score)
 void Ihm::mettreAJourJoueur()
 {
     QString nomjoueur;
-    for(int i = 0; i < communication->getDarts()->getListJoueur().size(); i++)
+    for(int i = 0; i < darts->getListJoueur().size(); i++)
     {
-        if(i == communication->getDarts()->getJoueurActif())    // test si le joueur est le joueur qui doit jouer
+        if(i == darts->getJoueurActif())    // test si le joueur est le joueur qui doit jouer
         {
-            nomjoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + " <--" + "\n";  //joueur joue
+            nomjoueur += "         " + darts->getListJoueur()[i].getNom() + " <--" + "\n";  //joueur joue
         }
         else
         {
-            nomjoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + "\n";       //joueur en attente de son tour
+            nomjoueur += "         " + darts->getListJoueur()[i].getNom() + "\n";       //joueur en attente de son tour
         }
     }
     ui->nomJoueur->setText(nomjoueur);
@@ -198,9 +208,9 @@ void Ihm::mettreAJourJoueur()
 void Ihm::mettreAJourMoyenneVolee()
 {
     QString moyenneVoleeJoueur;
-    for(int i = 0; i < communication->getDarts()->getListJoueur().size(); i++)
+    for(int i = 0; i < darts->getListJoueur().size(); i++)
     {
-        moyenneVoleeJoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + " : " + QString::number(communication->getDarts()->getListJoueur()[i].getMoyenneVolee()) +" \n";
+        moyenneVoleeJoueur += "         " + darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getMoyenneVolee()) +" \n";
         /** @bug fixer warning  */
     }
     ui->labelMoyenneVolees->setVisible(true);
@@ -216,7 +226,7 @@ void Ihm::mettreAJourMoyenneVolee()
  */
 void Ihm::afficherPartie()
 {
-    ui->typeJeu->setText(communication->getDarts()->getModeDeJeu());
+    ui->typeJeu->setText(darts->getModeDeJeu());
 
     mettreAJourJoueur();
     compteurDureePartie = 0;
@@ -249,7 +259,7 @@ void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
     disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
     ui->winnerPartie->setText("Winner " + gagnant);
     ui->voleeMax->setText(QString::number(voleeMaxJoueur) + " points");
-    ui->nbVolees->setText(QString::number(communication->getDarts()->getNbVolees()));
+    ui->nbVolees->setText(QString::number(darts->getNbVolees()));
     allerPage(Ihm::PageStatistique);
 }
 
@@ -409,4 +419,14 @@ void Ihm::initialiserHorloge()
     timerHorloge = new QTimer(this); // Instancie dynamiquement le temporisateur du rafraichissement de l'heure
     connect(timerHorloge, SIGNAL(timeout()),this,SLOT(actualiserHeure())); // Pour le déclenchement périodique de l'affichage de l'heure
     timerHorloge->start(PERIODE_HORLOGE);  // Toutes les secondes (1000 ms)
+}
+
+/**
+ * @brief methode qui reinitialise l'affichage de la cible
+ *
+ * @fn Ihm::mettreAJourCible
+ */
+void Ihm::mettreAJourCible()
+{
+    ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/ressources/cible.png"));
 }
