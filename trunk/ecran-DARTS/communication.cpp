@@ -18,12 +18,13 @@
  * @fn Communication::Communication
  * @param parent
  */
-Communication::Communication(QObject *parent) : QObject(parent), serveur(nullptr), socket(nullptr), trame("")
+Communication::Communication(Darts *darts, QObject *parent) : QObject(parent), darts(darts), serveur(nullptr), socket(nullptr), localDeviceName("Ecran-Darts"), trame("")
 {
-    darts = new Darts(this);
+    qDebug() << Q_FUNC_INFO;
 
     parametrerBluetooth();
-    etatPartie = EtatPartie::Attente;
+
+    miseAJourEtatPartieAttente();
 }
 
 /**
@@ -34,6 +35,7 @@ Communication::Communication(QObject *parent) : QObject(parent), serveur(nullptr
 Communication::~Communication()
 {
     arreter();
+    qDebug() << Q_FUNC_INFO;
 }
 
 /**
@@ -56,7 +58,7 @@ void Communication::parametrerBluetooth()
 {
     if (!localDevice.isValid())
     {
-        qDebug() << Q_FUNC_INFO << "Connection bluetooth valide : " << localDevice.isValid();
+        qDebug() << Q_FUNC_INFO << "Communication Bluetooth locale valide : " << localDevice.isValid();
         return;
     }
     else
@@ -90,6 +92,9 @@ void Communication::parametrerBluetooth()
  */
 void Communication::demarrer()
 {
+    if (!localDevice.isValid())
+        return;
+
     if (!serveur)
     {
         serveur = new QBluetoothServer(QBluetoothServiceInfo::RfcommProtocol, this);
@@ -107,6 +112,9 @@ void Communication::demarrer()
  */
 void Communication::arreter()
 {
+    if (!localDevice.isValid())
+        return;
+
     if (!serveur)
         return;
 
@@ -181,6 +189,9 @@ void Communication::decomposerTrame()
             emit resetPartie();
             darts->reinitialiserPartie();
 
+            /**
+              * @todo Implémenter une méthode extraireParametresTrameStart() etc ...
+              */
             for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
             {
                 if(trame.section(";",3+i,3+i) == "")
@@ -202,29 +213,34 @@ void Communication::decomposerTrame()
         else if(trame.contains("PAUSE") && etatPartie == EtatPartie::EnCours)
         {
             emit pause();
-            etatPartie = EtatPartie::Pause;
+            miseAJourEtatPartiePause();
         }
         else if(trame.contains("PLAY") && etatPartie == EtatPartie::Pause)
         {
             emit play();
-            etatPartie = EtatPartie::EnCours;
+            miseAJourEtatPartieEnCours();
         }
-        else if(trame.contains("RESET") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Fin || etatPartie == EtatPartie::Pause))
+        else if(trame.contains("RESET")) // quelque soit l'état de la partie
+        //else if(trame.contains("RESET") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Fin || etatPartie == EtatPartie::Pause))
         {
             emit resetPartie();
             darts->reinitialiserPartie();
-            etatPartie = EtatPartie::Attente;
+            miseAJourEtatPartieAttente();
         }
         else if(trame.contains("STOP") && (etatPartie == EtatPartie::EnCours))
         {
-            etatPartie = EtatPartie::Fin;
+            miseAJourEtatPartieFin();
             darts->arreterPartie();
+        }
+        else
+        {
+            qDebug() << Q_FUNC_INFO << trame;
         }
     }
 }
 
 /**
- * @brief méthode appelée quand la socket est déconnecté
+ * @brief méthode appelée quand la socket est déconnectée
  *
  * @fn Communication::socketDisconnected
  */
@@ -252,7 +268,7 @@ void Communication::deviceConnected(const QBluetoothAddress &adresse)
         message += " [" + QString::fromUtf8("non appairé") + "]" ;
     qDebug() << message << endl;
 
-    if(etatPartie == EtatPartie::Pause) // si l'appareil est reconnecte la partie reprend
+    if(etatPartie == EtatPartie::Pause) // si l'appareil est reconnecte, la partie reprend
     {
         emit play();
         etatPartie = EtatPartie::EnCours;
@@ -270,10 +286,10 @@ void Communication::deviceDisconnected(const QBluetoothAddress &adresse)
     qDebug() << Q_FUNC_INFO << adresse;
     emit afficherAttenteConnexion();
 
-    if(etatPartie == EtatPartie::EnCours) // si l'appareil ce deconnecte pendant la partie, il la met donc en pause
+    if(etatPartie == EtatPartie::EnCours) // si l'appareil se deconnecte pendant la partie, il la met donc en pause
     {
         emit pause();
-        etatPartie = EtatPartie::Pause;
+        miseAJourEtatPartiePause();
     }
 }
 
@@ -289,12 +305,35 @@ void Communication::error(QBluetoothLocalDevice::Error erreur)
 }
 
 /**
+ * @brief Méthode qui met à jour l'état de la partie Attente
+ *
+ * @fn Communication::miseAJourEtatPartieAttente
+ */
+void Communication::miseAJourEtatPartieAttente()
+{
+    qDebug() << Q_FUNC_INFO << "EtatPartie::Attente";
+    etatPartie = EtatPartie::Attente;
+}
+
+/**
+ * @brief Méthode qui met à jour l'état de la partie Pause
+ *
+ * @fn Communication::miseAJourEtatPartiePause
+ */
+void Communication::miseAJourEtatPartiePause()
+{
+    qDebug() << Q_FUNC_INFO << "EtatPartie::Pause";
+    etatPartie = EtatPartie::Pause;
+}
+
+/**
  * @brief Méthode qui met à jour l'état de la partie Fin
  *
  * @fn Communication::miseAJourEtatPartieFin
  */
 void Communication::miseAJourEtatPartieFin()
 {
+    qDebug() << Q_FUNC_INFO << "EtatPartie::Fin";
     etatPartie = EtatPartie::Fin;
 }
 
@@ -305,5 +344,6 @@ void Communication::miseAJourEtatPartieFin()
  */
 void Communication::miseAJourEtatPartieEnCours()
 {
+    qDebug() << Q_FUNC_INFO << "EtatPartie::EnCours";
     etatPartie = EtatPartie::EnCours;
 }
