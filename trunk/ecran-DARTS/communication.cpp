@@ -188,7 +188,9 @@ void Communication::decomposerTrame()
             emit resetPartie();
             darts->reinitialiserPartie();
 
-            extraireParametresTrameStart();
+            QStringList joueurs = extraireParametresTrameStart();
+
+            darts->initialiserPartie(joueurs, trame.section(";",2,2));
 
         }
         else if(trame.contains("GAME") && etatPartie == EtatPartie::EnCours)      /** $DART;GAME;3;7 */
@@ -228,25 +230,24 @@ void Communication::decomposerTrame()
  *
  * @fn Communication::extraireParametresTrameStart
  */
-void Communication::extraireParametresTrameStart()
+QStringList Communication::extraireParametresTrameStart()
 {
-    QStringList joueur;
+    QStringList joueurs;
 
     for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
     {
         if(trame.section(";",3+i,3+i) == "")    //test si le joueur a un nom
         {
-            joueur.push_back("Joueur[" + QString::number(i) + "]");
+            joueurs.push_back("Joueur[" + QString::number(i) + "]");
         }
         else
         {
-            joueur.push_back(trame.section(";",3+i,3+i));
+            joueurs.push_back(trame.section(";",3+i,3+i));
         }
     }
 
-    darts->initialiserPartie(joueur, trame.section(";",2,2));
+    return joueurs;
 }
-
 
 /**
  * @brief méthode appelée quand la socket est déconnectée

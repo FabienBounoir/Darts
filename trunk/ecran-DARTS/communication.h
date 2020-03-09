@@ -91,8 +91,8 @@ private:
     QString trame;                              //!< La trame recue    
     EtatPartie etatPartie;                      //!< L'état de la partie
 
-    void decomposerTrame();                     //!< Méthode qui decompose la trame reçue
-    void extraireParametresTrameStart();
+    void decomposerTrame();                         //!< Méthode qui decompose la trame reçue
+    QStringList extraireParametresTrameStart();     //!< Méthode qui extrrait les paramètres du trame START
 };
 
 #endif // COMMUNICATION_H
