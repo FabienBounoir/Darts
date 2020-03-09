@@ -15,8 +15,11 @@
 #include <QWidget>
 #include <QTimer>
 
-#define PERIODE_HORLOGE     1000 // en ms
-
+/**
+ * @def PERIODE_HORLOGE
+ * @brief Définit la périodicité de l'horloge en millisecondes
+ */
+#define PERIODE_HORLOGE     1000
 
 namespace Ui {
 class Ihm;
@@ -35,8 +38,33 @@ public:
     explicit Ihm(QWidget *parent = nullptr);
     ~Ihm();
 
+private:
+    Ui::Ihm *ui;                    //!< object de notre Ihm
+    QTimer *timerHorloge;           //!< objet timerHorloge
+    Communication *communication;   //!< objet communication
+    Darts *darts;                   //!< objet darts
+    int compteurDureePartie;        //!< compteur de secondes pour la duréee d'une séance
+
+    /**
+     * @enum Page
+     * @brief Définit les différentes pages de l'IHM
+     *     
+     */
+    enum Page
+    {
+        PageAttente = 0,
+        PageJeu,
+        PageStatistique,
+        NbPages
+    };
+
+    void attribuerRaccourcisClavier();
+    void initialiserEvenements();
+    void initialiserHorloge();
+
 public slots:
     void actualiserHeure();
+    void allerPage(Ihm::Page page);
     void allerPagePrecedente();
     void allerPageSuivante();
     void fermerApplication();
@@ -55,30 +83,6 @@ public slots:
     void mettreAJoursolution(QString solution);
     void mettrePausePartie();
     void relancerpartie();
-
-private:
-    Ui::Ihm *ui; /**< object de notre Ihm */
-    QTimer *timerHorloge; /**< objet timerHorloge */
-    Communication *communication; /**< objet communication */
-    Darts *darts; /**< objet darts */
-    int compteurDureePartie; //!< compteur de secondes pour la duréee d'une séance
-
-    /**
-     * @enum Page
-     * @brief Définit les différentes pages de l'IHM
-     *     
-     */
-    enum Page
-    {
-        PageAttente = 0,
-        PageJeu,
-        PageStatistique,
-        NbPages
-    };
-
-    void attribuerRaccourcisClavier();
-    void initialiserEvenements();
-    void initialiserHorloge();
 };
 
 #endif // IHM_H

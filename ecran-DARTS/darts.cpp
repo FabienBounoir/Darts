@@ -22,6 +22,7 @@
  */
 Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0), voleeMax(0), nbVolees(0), ModeDeJeu("")
 {
+    qDebug() << Q_FUNC_INFO;
     solution = new Solution(this);
 }
 
@@ -32,7 +33,7 @@ Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), j
  */
 Darts::~Darts()
 {
-
+    qDebug() << Q_FUNC_INFO;
 }
 
 /**

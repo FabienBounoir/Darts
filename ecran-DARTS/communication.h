@@ -12,6 +12,7 @@
 
 #include "darts.h"
 #include <QObject>
+#include <QString>
 #include <QBluetoothLocalDevice>
 #include <QBluetoothServer>
 #include <unistd.h>
@@ -41,7 +42,7 @@ class Communication : public QObject
 {
     Q_OBJECT
 public:
-    explicit Communication(QObject *parent = nullptr);  //!< constructeur de la classe Communication
+    explicit Communication(Darts *darts, QObject *parent = nullptr);  //!< constructeur de la classe Communication
     ~Communication();                                   //!< destructeur de la classe Communication
 
     Darts *getDarts() const;        //!< Méthode qui retourne l'objet Darts
@@ -75,17 +76,19 @@ public slots:
     void nouveauClient();                                           //!< Slot appelé quand un nouveau client veut se connecter
     void socketReadyRead();                                         //!< Slot appelé quand une nouvelle trame est disponible
     void socketDisconnected();                                      //!< Slot appelé quand la communication est deconnectée
+    void miseAJourEtatPartieAttente();                              //!< Slot appelé pour mettre à jour l'état de la partie à Attente
+    void miseAJourEtatPartiePause();                                //!< Slot appelé pour mettre à jour l'état de la partie à Pause
     void miseAJourEtatPartieFin();                                  //!< Slot appelé pour mettre à jour l'état de la partie à Fin
     void miseAJourEtatPartieEnCours();                              //!< Slot appelé pour mettre à jour l'état de la partie à EnCours
 
 private:
-    QBluetoothLocalDevice localDevice;          //!< L'interface Bluetooth de la Raspberry Pi
+    Darts *darts;                               //!< Association avec l'objet darts
     QBluetoothServer *serveur;                  //!< Le serveur Bluetooth
     QBluetoothSocket *socket;                   //!< La socket de communication Bluetooth
+    QBluetoothLocalDevice localDevice;          //!< L'interface Bluetooth de la Raspberry Pi    
     QBluetoothServiceInfo serviceInfo;          //!< Informations sur le service bluetooth
-    QString localDeviceName = "Ecran-Darts";    //!< Nom du peripherique local
-    QString trame;                              //!< La trame recue
-    Darts *darts;                               //!< Association avec l'objet darts
+    QString localDeviceName;                    //!< Nom du peripherique local
+    QString trame;                              //!< La trame recue    
     EtatPartie etatPartie;                      //!< L'état de la partie
 
     void decomposerTrame();                     //!< Méthode qui decompose la trame reçue

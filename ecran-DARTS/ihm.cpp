@@ -28,10 +28,12 @@ Ihm::Ihm(QWidget *parent) :
     compteurDureePartie(0)
 {
     ui->setupUi(this);
-    ui->ecranDarts->setCurrentIndex(Ihm::PageAttente);
+    qDebug() << Q_FUNC_INFO;
 
-    communication = new Communication(this);
+    allerPage(Ihm::PageAttente);
+
     darts = new Darts(this);
+    communication = new Communication(darts, this);
 
     // Horloge
     initialiserHorloge();
@@ -55,6 +57,7 @@ Ihm::Ihm(QWidget *parent) :
 Ihm::~Ihm()
 {
     delete ui;
+    qDebug() << Q_FUNC_INFO;
 }
 
 /**
@@ -283,6 +286,17 @@ void Ihm::allerPageSuivante()
     int ecranCourant = Page(ui->ecranDarts->currentIndex());
     int ecranSuivant = (ecranCourant+1)%int(Ihm::NbPages);
     ui->ecranDarts->setCurrentIndex(ecranSuivant);
+}
+
+/**
+ * @brief Méthode qui permet de changer de QStackedWidget avec la Précédente
+ *
+ * @fn Ihm::allerPage
+ * @partam page la page du QStackedWidget à afficher
+ */
+void Ihm::allerPage(Ihm::Page page)
+{
+    ui->ecranDarts->setCurrentIndex(page);
 }
 
 /**

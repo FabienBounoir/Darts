@@ -2,6 +2,7 @@
 #define JOUEUR_H
 
 #include <QObject>
+#include <QString>
 #include <QVector>
 
 /**
@@ -36,7 +37,6 @@ public:
     void setScoreManchePrecedente(int scoreManchePrecedente);
     void setNbFlechette(int nbFlechette);
     void addHistoriqueVolees(float volee);
-
 
 signals:
 
