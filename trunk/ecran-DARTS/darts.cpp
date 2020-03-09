@@ -237,6 +237,9 @@ void Darts::receptionnerImpact(int typePoint, int point)
         qDebug() << Q_FUNC_INFO << "Erreur pointLancer" << pointLancer;
     }
 
+    if(joueurs[joueurActif].getFlechette() == 3)
+        emit actualiserCible();
+
     qDebug() << Q_FUNC_INFO << joueurs[joueurActif].getNom() << " SCORE : "<<joueurs[joueurActif].getScore() - pointLancer << endl;
 
     emit nouvelImpact(typePoint, point, pointLancer);

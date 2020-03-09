@@ -39,17 +39,6 @@ Communication::~Communication()
 }
 
 /**
- * @brief retourne l'objet darts
- *
- * @fn Communication::getDarts
- * @return Darts
- */
-Darts *Communication::getDarts() const
-{
-    return darts;
-}
-
-/**
  * @brief configure la communication bluetooth
  *
  * @fn Communication::parametrerBluetooth

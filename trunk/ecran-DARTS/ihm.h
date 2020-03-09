@@ -70,7 +70,7 @@ public slots:
     void fermerApplication();
     void afficherAttenteConfiguration();
     void afficherAttenteConnexion();
-    void afficherImpact(int cercle, int point, int score);
+    void afficherImpact(int cercle, int point);
     void afficherPartie();
     void mettreAJourScore();
     void mettreAJourManche();
@@ -83,6 +83,7 @@ public slots:
     void mettreAJoursolution(QString solution);
     void mettrePausePartie();
     void relancerpartie();
+    void mettreAJourCible();
 };
 
 #endif // IHM_H

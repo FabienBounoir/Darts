@@ -45,7 +45,6 @@ public:
     explicit Communication(Darts *darts, QObject *parent = nullptr);  //!< constructeur de la classe Communication
     ~Communication();                                   //!< destructeur de la classe Communication
 
-    Darts *getDarts() const;        //!< Méthode qui retourne l'objet Darts
     void parametrerBluetooth();     //!< Méthode qui configure la connexion Bluetooth en mode serveur
     void demarrer();                //!< Méthode qui démarre le serveur
     void arreter();                 //!< Méthode qui arrête le serveur
