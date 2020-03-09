@@ -92,6 +92,7 @@ private:
     EtatPartie etatPartie;                      //!< L'état de la partie
 
     void decomposerTrame();                     //!< Méthode qui decompose la trame reçue
+    void extraireParametresTrameStart();
 };
 
 #endif // COMMUNICATION_H

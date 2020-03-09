@@ -92,7 +92,7 @@ void Ihm::attribuerRaccourcisClavier()
 {
     QAction *quitter = new QAction(this);
     //quitter->setShortcut(QKeySequence(QKeySequence::Quit));
-    quitter->setShortcut(QKeySequence(QKeySequence(Qt::Key_Up)));
+    quitter->setShortcut(QKeySequence(QKeySequence(Qt::Key_Up)));       //fleche du haut pour quitter l'application
     addAction(quitter);
     connect(quitter, SIGNAL(triggered()), this, SLOT(fermerApplication()));   // Pour fermer l'application
 
@@ -178,13 +178,13 @@ void Ihm::mettreAJourJoueur()
     QString nomjoueur;
     for(int i = 0; i < communication->getDarts()->getListJoueur().size(); i++)
     {
-        if(i == communication->getDarts()->getJoueurActif())
+        if(i == communication->getDarts()->getJoueurActif())    // test si le joueur est le joueur qui doit jouer
         {
-            nomjoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + " <--" + "\n";
+            nomjoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + " <--" + "\n";  //joueur joue
         }
         else
         {
-            nomjoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + "\n";
+            nomjoueur += "         " + communication->getDarts()->getListJoueur()[i].getNom() + "\n";       //joueur en attente de son tour
         }
     }
     ui->nomJoueur->setText(nomjoueur);
@@ -222,7 +222,7 @@ void Ihm::afficherPartie()
     compteurDureePartie = 0;
     connect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
 
-    ui->ecranDarts->setCurrentIndex(Ihm::PageJeu);
+    allerPage(Ihm::PageJeu);
 
     mettreAJourScore();
 }
@@ -250,7 +250,7 @@ void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
     ui->winnerPartie->setText("Winner " + gagnant);
     ui->voleeMax->setText(QString::number(voleeMaxJoueur) + " points");
     ui->nbVolees->setText(QString::number(communication->getDarts()->getNbVolees()));
-    ui->ecranDarts->setCurrentIndex(Ihm::PageStatistique);
+    allerPage(Ihm::PageStatistique);
 }
 
 /**
@@ -260,7 +260,7 @@ void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
  */
 void Ihm::afficherNouvellePartie()
 {
-     ui->ecranDarts->setCurrentIndex(Ihm::PageAttente);
+     allerPage(Ihm::PageAttente);
      ui->manche->setText("1");
      ui->nomJoueur->setText("");
      ui->scoreActuel->setText("");
@@ -292,7 +292,7 @@ void Ihm::allerPageSuivante()
  * @brief Méthode qui permet de changer de QStackedWidget avec la Précédente
  *
  * @fn Ihm::allerPage
- * @partam page la page du QStackedWidget à afficher
+ * @param la page du QStackedWidget à afficher
  */
 void Ihm::allerPage(Ihm::Page page)
 {
@@ -385,7 +385,6 @@ void Ihm::mettrePausePartie()
 {
     disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // mettre en pause le chronometrage de la partie
     ui->labelTempsPartie->setStyleSheet("color: rgb(179, 0,5);");
-    qDebug() << "Partie en pause" << endl;
 }
 
 /**

@@ -354,7 +354,7 @@ void Darts::controlerJoueurEliminer()
             calculerMoyenneVolees();
             emit nouvelleManche();
         }
-        else                            //si le joueur n'est pas le dernier de la manchev
+        else                            //si le joueur n'est pas le dernier de la manche
         {
             joueurActif++;
         }
