@@ -194,12 +194,6 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
  */
 void Darts::reinitialiserPartie()
 {
-    /** @todo delete les objets joueurs **/
-    /*for(QList<Joueur>::iterator it = joueurs.begin(); it != joueurs.end(); ++it)
-    {
-        delete *it;
-    }*/
-
     joueurs.clear();
     joueur.clear();
     ModeDeJeu = "";
@@ -220,27 +214,25 @@ void Darts::reinitialiserPartie()
  */
 void Darts::receptionnerImpact(int typePoint, int point)
 {
-    if(typePoint == TRIPLE_POINT)
-    {
-        pointLancer = point * 3;
-    }
-    else if(typePoint == DOUBLE_POINT)
-    {
-        pointLancer = point * 2;
-    }
-    else if(typePoint == SIMPLE_POINT || typePoint == ZERO_POINT)
-    {
-        pointLancer = point;
-    }
-    else
-    {
-        qDebug() << Q_FUNC_INFO << "Erreur pointLancer" << pointLancer;
+    switch(typePoint){
+        case TRIPLE_POINT:
+            pointLancer = point * TRIPLE_POINT;
+        break;
+        case DOUBLE_POINT:
+            pointLancer = point * DOUBLE_POINT;
+        break;
+        case SIMPLE_POINT || ZERO_POINT:
+            pointLancer = point;
+        break;
+        default:
+            qDebug() << Q_FUNC_INFO << "Erreur type de point :" << typePoint;
+        break;
     }
 
     if(joueurs[joueurActif].getFlechette() == 3)
         emit actualiserCible();
 
-    qDebug() << Q_FUNC_INFO << joueurs[joueurActif].getNom() << " SCORE : "<<joueurs[joueurActif].getScore() - pointLancer << endl;
+    qDebug() << Q_FUNC_INFO << joueurs[joueurActif].getNom() << " SCORE : " <<joueurs[joueurActif].getScore() - pointLancer << endl;
 
     emit nouvelImpact(typePoint, point, pointLancer);
     joueurs[joueurActif].setScore(joueurs[joueurActif].getScore() - pointLancer);
@@ -294,11 +286,9 @@ void Darts::enleverPointImpact()
     }
     else if(joueurs[joueurActif].getScore() == 1 && joueurs.size() == 1)    // test si le joueur est seul à jouer et si il est a 1 point == joueur eliminer donc fin de partie
     {
-        /** @todo ajouter la possibiliter que le joueur joue tout seul et que son score tombe a 1 point donc il est eliminer est la partie ce fini**/
         gererVoleeMax();
         emit finPartie("Perdu " + joueurs[joueurActif].getNom(), getVoleeMax());
         emit etatPartieFini();
-
     }
     else
     {
@@ -379,7 +369,7 @@ void Darts::controlerJoueurEliminer()
  */
 void Darts::testerSiJoueurEliminer()
 {
-    if(joueurs[joueurActif].getScore() == 1)
+    if(joueurs[joueurActif].getScore() == 1)    //joueur eliminé si tomber à 1 point
     {
         joueurs[joueurActif].setEliminer(true);
     }
@@ -431,7 +421,7 @@ void Darts::arreterPartie()
 }
 
 /**
- * @brief calcule le gagnant de la partie
+ * @brief calcule le gagnant de la partie si la parti doit s'arreter avant la fin
  *
  * @fn Darts::calculerGagnant
  * @return QString
@@ -439,10 +429,10 @@ void Darts::arreterPartie()
 QString Darts::calculerGagnant()
 {
     QString gagnant;
-    int scoreGagnant = 1000;
+    int scoreGagnant = 99999;
     for(int i = 0; i <= joueurs.size() - 1; i++)
     {
-        if(scoreGagnant > joueurs[i].getScore() && !joueurs[i].getEliminer()) // test le personne aillant le score le plus bas mais aussi qu'il ne soit pas eliminer
+        if(scoreGagnant > joueurs[i].getScore() && !joueurs[i].getEliminer()) // test le personne aillant le score le plus bas score mais aussi qu'il ne soit pas eliminer
         {
             scoreGagnant = joueurs[i].getScore();
             gagnant = joueurs[i].getNom();
