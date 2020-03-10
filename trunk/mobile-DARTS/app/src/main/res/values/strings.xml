@@ -4,4 +4,8 @@
     <string name="historique">Historique</string>
     <string name="joueurs">Joueurs</string>
     <string name="description">Jeu de fléchettes</string>
+    <string name="creer_une_partie">Créer une partie</string>
+    <string name="nom">Nom</string>
+    <string name="pr_nom">Prénom</string>
+    <string name="ajouter">Ajouter</string>
 </resources>

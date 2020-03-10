@@ -2,6 +2,7 @@ package projet.lasalle84.darts;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(element == boutonDemarrerPartie)
         {
             Log.d(TAG, "clic boutonDemarrerPartie");
+
         }
         else if(element == boutonGererJoueurs)
         {
