@@ -1,4 +1,4 @@
-#include "darts.h"
+ #include "darts.h"
 
 #include <QDebug>
 
@@ -261,14 +261,14 @@ void Darts::testerImpact(int typePoint)
     {
         gererVoleeMax();
         nbVolees++;
-        emit finPartie(joueurs[joueurActif].getNom(), getVoleeMax());
+        emit finPartie("Winner " + joueurs[joueurActif].getNom(), getVoleeMax());
         emit etatPartieFini();
     }
     else if(joueurs[joueurActif].getScore()  == 0 && (ModeDeJeu == "501" || ModeDeJeu == "301"))    //fin sans double
     {
         gererVoleeMax();
         nbVolees++;
-        emit finPartie(joueurs[joueurActif].getNom(), getVoleeMax());
+        emit finPartie("Winner " + joueurs[joueurActif].getNom(), getVoleeMax());
         emit etatPartieFini();
     }
     else
@@ -291,6 +291,14 @@ void Darts::enleverPointImpact()
         emit voleeAnnulee();
 
         joueurs[joueurActif].setNbFlechette(0);
+    }
+    else if(joueurs[joueurActif].getScore() == 1 && joueurs.size() == 1)    // test si le joueur est seul à jouer et si il est a 1 point == joueur eliminer donc fin de partie
+    {
+        /** @todo ajouter la possibiliter que le joueur joue tout seul et que son score tombe a 1 point donc il est eliminer est la partie ce fini**/
+        gererVoleeMax();
+        emit finPartie("Perdu " + joueurs[joueurActif].getNom(), getVoleeMax());
+        emit etatPartieFini();
+
     }
     else
     {
@@ -440,5 +448,5 @@ QString Darts::calculerGagnant()
             gagnant = joueurs[i].getNom();
         }
     }
-    return gagnant;
+    return "Winner " + gagnant;
 }

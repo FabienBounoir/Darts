@@ -257,7 +257,7 @@ void Ihm::afficherVoleeAnnulee()
 void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
 {
     disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
-    ui->winnerPartie->setText("Winner " + gagnant);
+    ui->winnerPartie->setText(gagnant);
     ui->voleeMax->setText(QString::number(voleeMaxJoueur) + " points");
     ui->nbVolees->setText(QString::number(darts->getNbVolees()));
     allerPage(Ihm::PageStatistique);
