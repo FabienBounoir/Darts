@@ -160,8 +160,6 @@ void Ihm::mettreAJourManche()
  */
 void Ihm::afficherImpact(int typePoint, int point)
 {
-    qDebug() << Q_FUNC_INFO << "Type Point : " << typePoint << "point : " << point;
-
     if(QFileInfo("../ecran-DARTS/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png").exists())       //test si l'image existe
     {
         QImage impact("../ecran-DARTS/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png");
@@ -208,10 +206,10 @@ void Ihm::mettreAJourJoueur()
 void Ihm::mettreAJourMoyenneVolee()
 {
     QString moyenneVoleeJoueur;
+    QString moyenneVolee;
     for(int i = 0; i < darts->getListJoueur().size(); i++)
     {
-        moyenneVoleeJoueur += "         " + darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getMoyenneVolee()) +" \n";
-        /** @bug fixer warning  */
+        moyenneVoleeJoueur += "         " + darts->getListJoueur()[i].getNom() + " : " + moyenneVolee.setNum(darts->getListJoueur()[i].getMoyenneVolee()) +" \n";
     }
     ui->labelMoyenneVolees->setVisible(true);
     ui->moyenneVolee->setText(moyenneVoleeJoueur);

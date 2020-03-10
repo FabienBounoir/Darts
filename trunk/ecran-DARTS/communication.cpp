@@ -52,16 +52,15 @@ void Communication::parametrerBluetooth()
     }
     else
     {
-        // Turn Bluetooth on
+        // active le bluetooth
         localDevice.powerOn();
 
-        // Read local device name
+        // lire le nom de l'appareil local
         localDeviceName = localDevice.name();
 
-        // Make it visible to others
+        // le rendre visible pour les autres
         localDevice.setHostMode(QBluetoothLocalDevice::HostConnectable);
 
-        // Get connected devices
         QList<QBluetoothAddress> remotes;
         remotes = localDevice.connectedDevices();
 
@@ -84,7 +83,7 @@ void Communication::demarrer()
     if (!localDevice.isValid())
         return;
 
-    if (!serveur)
+    if (!serveur)   //demarre le server si il n'est pas deja demarré
     {
         serveur = new QBluetoothServer(QBluetoothServiceInfo::RfcommProtocol, this);
         connect(serveur, SIGNAL(newConnection()), this, SLOT(nouveauClient()));
@@ -157,7 +156,7 @@ void Communication::socketReadyRead()
 
     trame = QString(donnees);
 
-    qDebug() << QString::fromUtf8("Données reçues : ") << QString(donnees);
+    qDebug() << QString::fromUtf8("Trame reçues : ") << QString(donnees);
 
     decomposerTrame();
 }
@@ -169,7 +168,7 @@ void Communication::socketReadyRead()
  */
 void Communication::decomposerTrame()
 {
-    if(trame.startsWith(TYPE_TRAME) && trame.endsWith(DELIMITEUR_FIN))
+    if(trame.startsWith(TYPE_TRAME) && trame.endsWith(DELIMITEUR_FIN)) //test si la trame est valide
     {
         trame.remove(DELIMITEUR_FIN);
         if(trame.contains("START") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;START;2;fabien;erwan */
@@ -225,7 +224,7 @@ void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &
 {
     modeJeu = trame.section(";",2,2);
 
-    for(int i = 0;i <= trame.section(";",3,3).toInt();i++)
+    for(int i = 0;i <= trame.section(";",3,3).toInt();i++)  //boucle qui recuperer les noms des differents joueurs
     {
         if(trame.section(";",3+i,3+i) == "")    //test si le joueur a un nom
         {
@@ -288,6 +287,7 @@ void Communication::deviceDisconnected(const QBluetoothAddress &adresse)
     if(etatPartie == EtatPartie::EnCours) // si l'appareil se deconnecte pendant la partie, il la met donc en pause
     {
         emit pause();
+
         miseAJourEtatPartiePause();
     }
 }
