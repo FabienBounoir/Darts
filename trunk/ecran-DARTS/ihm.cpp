@@ -26,6 +26,7 @@
 Ihm::Ihm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Ihm),
+    musicEcranAttente(CHEMIN_FICHIER_MUSIQUE,this),
     compteurDureePartie(0)
 {
     ui->setupUi(this);
@@ -94,7 +95,7 @@ void Ihm::initialiserEvenements()
 void Ihm::attribuerRaccourcisClavier()
 {
     QAction *quitter = new QAction(this);
-    //quitter->setShortcut(QKeySequence(QKeySequence::Quit));
+    /*quitter->setShortcut(QKeySequence(QKeySequence::Quit));*/ /** @bug sur le raspberry cela ne marche pas */
     quitter->setShortcut(QKeySequence(QKeySequence(Qt::Key_Up)));       //fleche du haut pour quitter l'application
     addAction(quitter);
     connect(quitter, SIGNAL(triggered()), this, SLOT(fermerApplication()));   // Pour fermer l'application
@@ -225,6 +226,10 @@ void Ihm::mettreAJourMoyenneVolee()
  */
 void Ihm::afficherPartie()
 {
+    /** @todo en cour de test */
+    musicEcranAttente.stop();
+    /** @todo en cour de test */
+
     ui->typeJeu->setText(darts->getModeDeJeu());
 
     mettreAJourJoueur();
@@ -255,6 +260,10 @@ void Ihm::afficherVoleeAnnulee()
  */
 void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
 {
+    /** @todo en cour de test */
+    musicEcranAttente.play();
+    /** @todo en cour de test */
+
     disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
     ui->winnerPartie->setText(gagnant);
     ui->voleeMax->setText(QString::number(voleeMaxJoueur) + " points");
@@ -283,6 +292,11 @@ void Ihm::afficherNouvellePartie()
      ui->moyenneVolees->setText("");
      ui->labelMoyenneVolees->setVisible(false);
      ui->labelMoyenneVoleesStatistique->setVisible(false);
+
+     /** @todo en cour de test */
+     musicEcranAttente.setLoops(QSound::Infinite);
+     musicEcranAttente.play();
+     /** @todo en cour de test */
 }
 
 /**
