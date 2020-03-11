@@ -253,14 +253,14 @@ void Darts::testerImpact(int typePoint)
     {
         gererVoleeMax();
         nbVolees++;
-        emit finPartie("Winner " + joueurs[joueurActif].getNom(), getVoleeMax());
+        emit finPartie("☻  Winner " + joueurs[joueurActif].getNom() + "  ☻", getVoleeMax());
         emit etatPartieFini();
     }
     else if(joueurs[joueurActif].getScore()  == 0 && (ModeDeJeu == "501" || ModeDeJeu == "301"))    //fin sans double
     {
         gererVoleeMax();
         nbVolees++;
-        emit finPartie("Winner " + joueurs[joueurActif].getNom(), getVoleeMax());
+        emit finPartie("☻  Winner " + joueurs[joueurActif].getNom() + "  ☻", getVoleeMax());
         emit etatPartieFini();
     }
     else
@@ -287,7 +287,7 @@ void Darts::enleverPointImpact()
     else if(joueurs[joueurActif].getScore() == 1 && joueurs.size() == 1)    // test si le joueur est seul à jouer et si il est a 1 point == joueur eliminer donc fin de partie
     {
         gererVoleeMax();
-        emit finPartie(joueurs[joueurActif].getNom() + " a perdu", getVoleeMax());
+        emit finPartie("↢  " + joueurs[joueurActif].getNom() + " a perdu  ↣", getVoleeMax());
         emit etatPartieFini();
         /** @todo si deux joueur, un a 1 point l'autre a gagner ?**/
     }

@@ -83,6 +83,7 @@ void Ihm::initialiserEvenements()
     connect(darts, SIGNAL(actualiserCible()), this, SLOT(mettreAJourCible()));
     connect(communication, SIGNAL(pause()), this, SLOT(mettrePausePartie()));
     connect(communication, SIGNAL(play()), this, SLOT(relancerpartie()));
+    connect(communication, SIGNAL(erreurBluetooth(QString)), this, SLOT(mettreAJourMessageStatut(QString)));
 }
 
 /**
@@ -188,11 +189,11 @@ void Ihm::mettreAJourJoueur()
     {
         if(i == darts->getJoueurActif())    // test si le joueur est le joueur qui doit jouer
         {
-            nomjoueur += "         " + darts->getListJoueur()[i].getNom() + " ⟻" + "\n";  //joueur joue
+            nomjoueur += "  ⟼ " + darts->getListJoueur()[i].getNom() + "\n";  //joueur joue
         }
         else
         {
-            nomjoueur += "         " + darts->getListJoueur()[i].getNom() + "\n";       //joueur en attente de son tour
+            nomjoueur += "             " + darts->getListJoueur()[i].getNom() + "\n";       //joueur en attente de son tour
         }
     }
     ui->nomJoueur->setText(nomjoueur);
@@ -427,4 +428,15 @@ void Ihm::initialiserHorloge()
 void Ihm::mettreAJourCible()
 {
     ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/ressources/cible.png"));
+}
+
+/**
+ * @brief methode qui met à jour le message de statut
+ *
+ * @fn Ihm::mettreAJourMessageStatut
+ * @param statut
+ */
+void Ihm::mettreAJourMessageStatut(QString statut)
+{
+    ui->labelStatutAttente->setText(statut);
 }

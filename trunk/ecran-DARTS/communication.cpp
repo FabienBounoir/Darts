@@ -48,6 +48,8 @@ void Communication::parametrerBluetooth()
     if (!localDevice.isValid())
     {
         qDebug() << Q_FUNC_INFO << "Communication Bluetooth locale valide : " << localDevice.isValid();
+        emit erreurBluetooth("Communication Bluetooth locale valide : " + QString::number(localDevice.isValid()));
+
         return;
     }
     else

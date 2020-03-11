@@ -1,9 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>ressources/logoDarts.png</file>
-        <file>ressources/background.png</file>
+        <file>ressources/background.jpg</file>
         <file>ressources/cible.png</file>
 	<file>ressources/fondStatus.png</file>
-	<!-- <file>ressources/fondHeure.png</file> -->
     </qresource>
 </RCC>
