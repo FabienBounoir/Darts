@@ -14,12 +14,14 @@
 #include "darts.h"
 #include <QWidget>
 #include <QTimer>
+#include <QSound>
 
 /**
  * @def PERIODE_HORLOGE
  * @brief Définit la périodicité de l'horloge en millisecondes
  */
 #define PERIODE_HORLOGE     1000
+#define CHEMIN_FICHIER_MUSIQUE "../ecran-DARTS/ressources/music.wav"
 
 namespace Ui {
 class Ihm;
@@ -43,6 +45,7 @@ private:
     QTimer *timerHorloge;           //!< objet timerHorloge
     Communication *communication;   //!< objet communication
     Darts *darts;                   //!< objet darts
+    QSound musicEcranAttente;       //!< objet musicEcranAttente
     int compteurDureePartie;        //!< compteur de secondes pour la durée d'une séance
 
     /**
