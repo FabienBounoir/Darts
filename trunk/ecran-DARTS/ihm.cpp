@@ -160,9 +160,9 @@ void Ihm::mettreAJourManche()
  */
 void Ihm::afficherImpact(int typePoint, int point)
 {
-    if(QFileInfo("../ecran-DARTS/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png").exists())       //test si l'image existe
+    if(QFileInfo(qApp->applicationDirPath() + "/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png").exists())       //test si l'image existe
     {
-        QImage impact("../ecran-DARTS/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png");
+        QImage impact(qApp->applicationDirPath() + "/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png");
 
         QPixmap cibleImpacte = ui->labelVisualisationimpact->pixmap()->copy(); // on récupère l'image précédente;
 
@@ -188,7 +188,7 @@ void Ihm::mettreAJourJoueur()
     {
         if(i == darts->getJoueurActif())    // test si le joueur est le joueur qui doit jouer
         {
-            nomjoueur += "         " + darts->getListJoueur()[i].getNom() + " <--" + "\n";  //joueur joue
+            nomjoueur += "         " + darts->getListJoueur()[i].getNom() + " ⟻" + "\n";  //joueur joue
         }
         else
         {

@@ -105,7 +105,7 @@ QLabel
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -484,6 +484,9 @@ QLabel
                <property name="text">
                 <string/>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
               </widget>
              </item>
              <item row="11" column="0">
@@ -495,6 +498,9 @@ QLabel
                </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
@@ -596,7 +602,7 @@ QLabel
                 <string>- Moyenne des volées : </string>
                </property>
                <property name="alignment">
-                <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                </property>
               </widget>
              </item>
@@ -659,11 +665,13 @@ QLabel
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="moyenneVolees">
+             <item row="4" column="1">
+              <widget class="QLabel" name="tempsPartie">
                <property name="font">
                 <font>
-                 <pointsize>25</pointsize>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
                 </font>
                </property>
                <property name="text">
@@ -671,11 +679,11 @@ QLabel
                </property>
               </widget>
              </item>
-             <item row="4" column="1">
-              <widget class="QLabel" name="tempsPartie">
+             <item row="0" column="1">
+              <widget class="QLabel" name="moyenneVolees">
                <property name="font">
                 <font>
-                 <pointsize>30</pointsize>
+                 <pointsize>25</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>

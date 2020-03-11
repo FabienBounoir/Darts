@@ -287,8 +287,9 @@ void Darts::enleverPointImpact()
     else if(joueurs[joueurActif].getScore() == 1 && joueurs.size() == 1)    // test si le joueur est seul à jouer et si il est a 1 point == joueur eliminer donc fin de partie
     {
         gererVoleeMax();
-        emit finPartie("Perdu " + joueurs[joueurActif].getNom(), getVoleeMax());
+        emit finPartie(joueurs[joueurActif].getNom() + " a perdu", getVoleeMax());
         emit etatPartieFini();
+        /** @todo si deux joueur, un a 1 point l'autre a gagner ?**/
     }
     else
     {
