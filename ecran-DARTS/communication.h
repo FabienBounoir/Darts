@@ -67,6 +67,7 @@ signals:
     void resetPartie();                 //!< signal qui reinitialisera la partie en cours
     void pause();                       //!< signal qui mettra en pause la partie
     void play();                        //!< signal qui relancera le chronometrage de la partie la partie
+    void erreurBluetooth(QString erreur);             //!< signal emit quand un probleme de configuration bluetooth est detecté
 
 public slots:
     void deviceConnected(const QBluetoothAddress &adresse);         //!< Slot appelé quand un nouvel appareil est connecté

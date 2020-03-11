@@ -84,6 +84,7 @@ public slots:
     void mettrePausePartie();
     void relancerpartie();
     void mettreAJourCible();
+    void mettreAJourMessageStatut(QString);
 };
 
 #endif // IHM_H

@@ -31,17 +31,17 @@
   <property name="styleSheet">
    <string notr="true"> QWidget#ecranAttente
 {
-	background-image:url(:/ressources/background.png);
+	background-image:url(:/ressources/background.jpg);
 }
 
 QWidget#ecranPartie
 {
-	background-image:url(:/ressources/background.png);
+	background-image:url(:/ressources/background.jpg);
 }
 
 QWidget#ecranStatistique
 {
-	background-image:url(:/ressources/background.png);
+	background-image:url(:/ressources/background.jpg);
 }
 
 QLabel#labelStatutAttente
@@ -105,7 +105,7 @@ QLabel
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -174,8 +174,8 @@ QLabel
              </property>
              <property name="maximumSize">
               <size>
-               <width>1000</width>
-               <height>1000</height>
+               <width>940</width>
+               <height>940</height>
               </size>
              </property>
              <property name="sizeIncrement">
@@ -211,7 +211,7 @@ QLabel
            <item>
             <widget class="QLabel" name="labelStatutAttente">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -243,7 +243,10 @@ QLabel
      <widget class="QWidget" name="ecranPartie">
       <layout class="QHBoxLayout" name="horizontalLayout_9">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0">
+         <property name="spacing">
+          <number>6</number>
+         </property>
          <item>
           <layout class="QVBoxLayout" name="verticalLayoutVisualisation">
            <item>
@@ -281,6 +284,9 @@ QLabel
                <weight>75</weight>
                <bold>true</bold>
               </font>
+             </property>
+             <property name="lineWidth">
+              <number>1</number>
              </property>
              <property name="text">
               <string/>
@@ -346,6 +352,9 @@ QLabel
                  <width>50</width>
                  <height>5</height>
                 </size>
+               </property>
+               <property name="lineWidth">
+                <number>1</number>
                </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -584,12 +593,21 @@ QLabel
                <property name="text">
                 <string>- Volée maximale : </string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
               </widget>
              </item>
              <item row="0" column="0">
               <widget class="QLabel" name="labelMoyenneVoleesStatistique">
                <property name="enabled">
                 <bool>true</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
                <property name="font">
                 <font>
@@ -618,6 +636,9 @@ QLabel
                <property name="text">
                 <string>- Nombre de volées : </string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
               </widget>
              </item>
              <item row="4" column="0">
@@ -635,6 +656,9 @@ QLabel
                <property name="text">
                 <string>- Durée partie : </string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
               </widget>
              </item>
              <item row="3" column="1">
@@ -648,6 +672,9 @@ QLabel
                </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                </property>
               </widget>
              </item>
@@ -663,6 +690,9 @@ QLabel
                <property name="text">
                 <string/>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
               </widget>
              </item>
              <item row="4" column="1">
@@ -677,19 +707,25 @@ QLabel
                <property name="text">
                 <string/>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
               </widget>
              </item>
              <item row="0" column="1">
               <widget class="QLabel" name="moyenneVolees">
                <property name="font">
                 <font>
-                 <pointsize>25</pointsize>
+                 <pointsize>30</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                </property>
               </widget>
              </item>
