@@ -147,33 +147,23 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
 {
     nbJoueur = joueurList.size() - 1;
     ModeDeJeu = modeJeu;
-    qDebug() << Q_FUNC_INFO << "nbJoueur" << nbJoueur << "modeJeu" << modeJeu;
+    qDebug() << Q_FUNC_INFO << "nbJoueur " << nbJoueur << " | Mode De Jeu " << ModeDeJeu;
 
-    if(ModeDeJeu == "501" || ModeDeJeu == "301")
+    if(ModeDeJeu.toInt() >= 101 && ModeDeJeu.toInt() <= 1001)
     {
         for(int i = 1; i < joueurList.size() ; i++)
         {
-            Joueur player(joueurList.at(i), modeJeu.toInt(), 3);
+            Joueur player(joueurList.at(i), ModeDeJeu.toInt(), 3);
             joueurs.push_back(player);
         }
         emit afficherNouvellePartie();
         emit changerEtatPartie();
     }
-    else if(ModeDeJeu == "501_DOUBLE_OUT")
+    else if(ModeDeJeu.contains("_DOUBLE_OUT") && (ModeDeJeu.section("_",0,0).toInt() >= 101 && ModeDeJeu.section("_",0,0).toInt() <= 1001))
     {
         for(int i = 1; i < joueurList.size() ; i++)
         {
-            Joueur player(joueurList.at(i), 501, 3);
-            joueurs.push_back(player);
-        }
-        emit afficherNouvellePartie();
-        emit changerEtatPartie();
-    }
-    else if(ModeDeJeu == "301_DOUBLE_OUT")
-    {
-        for(int i = 1; i < joueurList.size() ; i++)
-        {
-            Joueur player(joueurList.at(i), 301, 3);
+            Joueur player(joueurList.at(i), ModeDeJeu.section("_",0,0).toInt(), 3);
             joueurs.push_back(player);
         }
         emit afficherNouvellePartie();
@@ -181,8 +171,9 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << "Erreur Mode De Jeu" << ModeDeJeu;
+        qDebug() << Q_FUNC_INFO << "Erreur Mode De Jeu : " << ModeDeJeu;
         reinitialiserPartie();
+        return;
     }
     solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
 }
@@ -249,7 +240,7 @@ void Darts::receptionnerImpact(int typePoint, int point)
  */
 void Darts::testerImpact(int typePoint)
 {
-    if(joueurs[joueurActif].getScore()  == 0 && (typePoint == DOUBLE_POINT) && (ModeDeJeu == "501_DOUBLE_OUT" || ModeDeJeu == "301_DOUBLE_OUT")) //fin avec double
+    if(joueurs[joueurActif].getScore()  == 0 && (typePoint == DOUBLE_POINT) && (ModeDeJeu.contains("_DOUBLE_OUT"))) //fin avec double
     {
         gererVoleeMax();
         nbVolees++;
