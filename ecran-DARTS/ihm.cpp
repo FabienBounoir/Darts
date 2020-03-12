@@ -26,7 +26,7 @@
 Ihm::Ihm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Ihm),
-    musicEcranAttente(CHEMIN_FICHIER_MUSIQUE,this),
+    musique(CHEMIN_FICHIER_MUSIQUE,this),
     compteurDureePartie(0)
 {
     ui->setupUi(this);
@@ -226,9 +226,7 @@ void Ihm::mettreAJourMoyenneVolee()
  */
 void Ihm::afficherPartie()
 {
-    /** @todo en cour de test */
-    musicEcranAttente.stop();
-    /** @todo en cour de test */
+    musique.stop();
 
     ui->typeJeu->setText(darts->getModeDeJeu());
 
@@ -260,9 +258,7 @@ void Ihm::afficherVoleeAnnulee()
  */
 void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
 {
-    /** @todo en cour de test */
-    musicEcranAttente.play();
-    /** @todo en cour de test */
+    musique.play();
 
     disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
     ui->winnerPartie->setText(gagnant);
@@ -293,10 +289,10 @@ void Ihm::afficherNouvellePartie()
      ui->labelMoyenneVolees->setVisible(false);
      ui->labelMoyenneVoleesStatistique->setVisible(false);
 
-     /** @todo en cour de test */
-     musicEcranAttente.setLoops(QSound::Infinite);
-     musicEcranAttente.play();
-     /** @todo en cour de test */
+     //configuration musique
+     musique.setLoops(QSound::Infinite);
+     //jouer la musique
+     musique.play();
 }
 
 /**

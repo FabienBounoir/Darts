@@ -212,8 +212,12 @@ void Darts::receptionnerImpact(int typePoint, int point)
         case DOUBLE_POINT:
             pointLancer = point * DOUBLE_POINT;
         break;
-        case SIMPLE_POINT || ZERO_POINT:
+        case SIMPLE_POINT:
             pointLancer = point;
+        break;
+        case  ZERO_POINT:
+            /** @todo emmetre son "OUT" **/
+            pointLancer = point * ZERO_POINT;
         break;
         default:
             qDebug() << Q_FUNC_INFO << "Erreur type de point :" << typePoint;
@@ -236,7 +240,6 @@ void Darts::receptionnerImpact(int typePoint, int point)
  *
  * @fn Darts::testerImpact
  * @param typePoint
- * @param pointLancer
  */
 void Darts::testerImpact(int typePoint)
 {
@@ -303,9 +306,14 @@ void Darts::gererManche()
 
         gererVoleeMax();
         testerSiJoueurEliminer();
+        testerNombreJoueurRestand();
 
         joueurs[joueurActif].addHistoriqueVolees((joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore()));
         joueurs[joueurActif].setScoreManchePrecedente(joueurs[joueurActif].getScore());
+
+        /** @todo test si : (joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore() == 180)
+            emettre son.
+        **/
 
         if(joueurActif == nbJoueur - 1)  //equivalent a la fin de manche
         {
@@ -365,6 +373,8 @@ void Darts::testerSiJoueurEliminer()
     {
         joueurs[joueurActif].setEliminer(true);
     }
+
+
 }
 
 /**
@@ -430,5 +440,28 @@ QString Darts::calculerGagnant()
             gagnant = joueurs[i].getNom();
         }
     }
-    return "Winner " + gagnant;
+    return "↢  Winner " + gagnant + "  ↣";
+}
+
+/**
+ * @brief teste s'il reste qu'un joueur n'etant pas éliminer
+ *
+ * @fn Darts::testerNombreJoueurRestand
+ */
+void Darts::testerNombreJoueurRestand()
+{
+    int eliminer = 0;
+
+    for(int i = 0; i <= joueurs.size() - 1; i++)
+    {
+        if(joueurs[i].getEliminer())
+        {
+            eliminer++;
+        }
+    }
+
+    if(eliminer == joueurs.size() - 1)
+    {
+        arreterPartie();
+    }
 }
