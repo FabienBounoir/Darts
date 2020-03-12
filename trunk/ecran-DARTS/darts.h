@@ -45,7 +45,6 @@ public:
     Solution *getSolution() const;
     void setVoleeMax(int voleeMax);
     void setManche(int manche);
-    void calculerMoyenneVolees();
     void receptionnerImpact(int cercle, int point);
     void initialiserPartie(QStringList joueur, QString modeJeu);
     void reinitialiserPartie();
@@ -85,6 +84,8 @@ private:
     void testerImpact(int cercle);
     void testerSiJoueurEliminer();
     void controlerJoueurEliminer();
+    void calculerMoyenneVolees();
+    void testerNombreJoueurRestand();
 };
 
 #endif // DARTS_H

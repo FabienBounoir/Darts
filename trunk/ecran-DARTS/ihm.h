@@ -45,7 +45,7 @@ private:
     QTimer *timerHorloge;           //!< objet timerHorloge
     Communication *communication;   //!< objet communication
     Darts *darts;                   //!< objet darts
-    QSound musicEcranAttente;       //!< objet musicEcranAttente
+    QSound musique;                 //!< objet musique
     int compteurDureePartie;        //!< compteur de secondes pour la durée d'une séance
 
     /**

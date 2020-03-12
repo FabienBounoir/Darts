@@ -1,7 +1,6 @@
 #ifndef JOUEUR_H
 #define JOUEUR_H
 
-#include <QObject>
 #include <QString>
 #include <QVector>
 
@@ -38,18 +37,14 @@ public:
     void setNbFlechette(int nbFlechette);
     void addHistoriqueVolees(float volee);
 
-signals:
-
-public slots:
-
 private:
-    QString nom; /**< contient le nom du joueur */
-    QVector<float> historiqueVolees; /**< contient l'historique des volées du joueur */
-    int score; /**< contient le score du joueur */
-    float moyenneVolee; /**< contient la moyenne des volées du joueur */
-    int scoreManchePrecedente; /**< contient le score de la manche precedente */
-    int nbFlechette; /**< contient le nombre de flechette restante au joueur */
-    bool elimine; /**< contient un etat true/false pour savoir si le joueur est eliminé. */
+    QString nom; //!< contient le nom du joueur
+    QVector<float> historiqueVolees; //!< contient l'historique des volées du joueur
+    int score; //!< contient le score du joueur
+    float moyenneVolee; //!< contient la moyenne des volées du joueur
+    int scoreManchePrecedente; //!< contient le score de la manche precedente
+    int nbFlechette; //!< contient le nombre de flechette restante au joueur
+    bool elimine; //!< contient un etat true/false pour savoir si le joueur est eliminé.
 };
 
 #endif // JOUEUR_H
