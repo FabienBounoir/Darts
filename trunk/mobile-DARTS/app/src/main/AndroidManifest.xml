@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivitéCréerPartie"></activity>
+        <activity android:name=".ActiviteCreerPartie"></activity>
         <activity android:name=".ActiviteAjouterJoueur" />
         <activity android:name=".ActivitePartie" />
         <activity android:name=".MainActivity">

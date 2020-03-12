@@ -7,6 +7,8 @@ package projet.lasalle84.darts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+
 /**
  * @class ActivitePartie
  * @brief Déclaration de la classe ActivitePartie
