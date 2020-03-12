@@ -8,4 +8,10 @@
     <string name="nom">Nom</string>
     <string name="pr_nom">Prénom</string>
     <string name="ajouter">Ajouter</string>
+    <string name="ajouter_joueur">Ajouter Joueur</string>
+
+    <string-array name="ModeDeJeu">
+        <item>501 Double Out</item>
+        <item>301 Double Out</item>
+    </string-array>
 </resources>

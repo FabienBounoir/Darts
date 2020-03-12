@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(element == boutonDemarrerPartie)
         {
             Log.d(TAG, "clic boutonDemarrerPartie");
+            Intent activiteCreerPartie = new Intent(MainActivity.this, ActiviteCreerPartie.class);
+            startActivity(activiteCreerPartie);
 
         }
         else if(element == boutonGererJoueurs)
