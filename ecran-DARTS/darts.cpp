@@ -1,6 +1,7 @@
  #include "darts.h"
 
 #include <QDebug>
+#include <QSound>
 
 
 /**
@@ -216,7 +217,7 @@ void Darts::receptionnerImpact(int typePoint, int point)
             pointLancer = point;
         break;
         case  ZERO_POINT:
-            /** @todo emmetre son "OUT" **/
+            QSound::play("../ecran-DARTS/ressources/out.wav");
             pointLancer = point * ZERO_POINT;
         break;
         default:
@@ -309,11 +310,11 @@ void Darts::gererManche()
         testerNombreJoueurRestand();
 
         joueurs[joueurActif].addHistoriqueVolees((joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore()));
-        joueurs[joueurActif].setScoreManchePrecedente(joueurs[joueurActif].getScore());
 
-        /** @todo test si : (joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore() == 180)
-            emettre son.
-        **/
+        if((joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore()) == 180)
+            QSound::play("../ecran-DARTS/ressources/180.wav");
+
+        joueurs[joueurActif].setScoreManchePrecedente(joueurs[joueurActif].getScore());
 
         if(joueurActif == nbJoueur - 1)  //equivalent a la fin de manche
         {
