@@ -15,10 +15,11 @@
 #include <QObject>
 #include <QVector>
 
-#define TRIPLE_POINT 3
-#define DOUBLE_POINT 2
-#define SIMPLE_POINT 1
-#define ZERO_POINT 0
+#define TRIPLE_POINT        3
+#define DOUBLE_POINT        2
+#define SIMPLE_POINT        1
+#define ZERO_POINT          0
+#define BULL                25
 
 class Joueur;
 class Solution;
@@ -87,6 +88,7 @@ private:
     void controlerJoueurEliminer();
     void calculerMoyenneVolees();
     void testerNombreJoueurRestand();
+    void testerPoint(int typePoint, int point);
 };
 
 #endif // DARTS_H

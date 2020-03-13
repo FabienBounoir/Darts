@@ -244,6 +244,7 @@ void Ihm::mettreAJourMoyenneVolee()
         moyenneVoleeJoueur += "         " + darts->getListJoueur()[i].getNom() + " : " + moyenneVolee.setNum(darts->getListJoueur()[i].getMoyenneVolee()) +" \n";
     }
     ui->labelMoyenneVolees->setVisible(true);
+    ui->lineScoreActuel->setVisible(true);
     ui->moyenneVolee->setText(moyenneVoleeJoueur);
     ui->labelMoyenneVoleesStatistique->setVisible(true);
     ui->moyenneVolees->setText(moyenneVoleeJoueur);
@@ -316,6 +317,7 @@ void Ihm::afficherNouvellePartie()
      ui->voleeMax->setText("");
      ui->moyenneVolees->setText("");
      ui->labelMoyenneVolees->setVisible(false);
+     ui->lineScoreActuel->setVisible(false);
      ui->labelMoyenneVoleesStatistique->setVisible(false);
 
      mettreAJourCible();
