@@ -27,7 +27,8 @@ Ihm::Ihm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Ihm),
     musique(CHEMIN_FICHIER_MUSIQUE,this),
-    compteurDureePartie(0)
+    compteurDureePartie(0),
+    MessageStatut("Volée ➤")
 {
     ui->setupUi(this);
     qDebug() << Q_FUNC_INFO;
@@ -75,7 +76,7 @@ void Ihm::initialiserEvenements()
     connect(communication, SIGNAL(resetPartie()), this, SLOT(afficherNouvellePartie()));
     connect(darts, SIGNAL(finPartie(QString, int)), this, SLOT(finirPartie(QString, int)));
     connect(darts, SIGNAL(changementJoueurActif()), this, SLOT(mettreAJourJoueur()));
-    connect(darts, SIGNAL(nouvelImpact(int, int, int)), this, SLOT(afficherImpact(int,int)));
+    connect(darts, SIGNAL(nouvelImpact(int, int, int)), this, SLOT(afficherImpact(int,int,int)));
     connect(darts, SIGNAL(miseAJourPoint()), this, SLOT(mettreAJourScore()));
     connect(darts, SIGNAL(nouvelleManche()), this, SLOT(mettreAJourManche()));
     connect(darts, SIGNAL(voleeAnnulee()), this, SLOT(afficherVoleeAnnulee()));
@@ -161,7 +162,7 @@ void Ihm::mettreAJourManche()
  * @param point
  * @param score
  */
-void Ihm::afficherImpact(int typePoint, int point)
+void Ihm::afficherImpact(int typePoint, int point, int score)
 {
     if(QFileInfo(qApp->applicationDirPath() + "/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png").exists())       //test si l'image existe
     {
@@ -177,7 +178,27 @@ void Ihm::afficherImpact(int typePoint, int point)
 
         ui->labelVisualisationimpact->setPixmap(cibleImpacte);
     }
+
+    mettreAJourMessageStatut(typePoint, point, score);
 }
+
+void Ihm::mettreAJourMessageStatut(int typePoint, int point, int score)
+{
+
+    switch(typePoint){
+        case TRIPLE_POINT:
+            MessageStatut += " T" + QString::number(point);
+        break;
+        case DOUBLE_POINT:
+            MessageStatut += " D" + QString::number(point);
+        break;
+        default:
+            MessageStatut += " " + QString::number(point);
+        break;
+    }
+    ui->labelStatut->setText(MessageStatut);
+}
+
 
 /**
  * @brief Méthode qui initialise l'affichage du mode et des joueurs de la partie
@@ -281,7 +302,6 @@ void Ihm::afficherNouvellePartie()
      ui->scoreActuel->setText("");
      ui->typeJeu->setText("");
      ui->winnerPartie->setText("Winner ....");
-     ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/ressources/cible.png"));
      ui->labelStatut->setText("");
      ui->moyenneVolee->setText("");
      ui->nbVolees->setText("");
@@ -289,6 +309,8 @@ void Ihm::afficherNouvellePartie()
      ui->moyenneVolees->setText("");
      ui->labelMoyenneVolees->setVisible(false);
      ui->labelMoyenneVoleesStatistique->setVisible(false);
+
+     mettreAJourCible();
 
      //configuration musique
      musique.setLoops(QSound::Infinite);
@@ -449,6 +471,7 @@ void Ihm::initialiserHorloge()
 void Ihm::mettreAJourCible()
 {
     ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/ressources/cible.png"));
+    MessageStatut = "Volée ➤";
 }
 
 /**
