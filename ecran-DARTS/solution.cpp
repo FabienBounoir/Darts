@@ -31,7 +31,7 @@ Solution::Solution(QObject *parent) : QObject(parent), solution("")
 void Solution::transmettreSolution(int score)
 {
     qDebug() << Q_FUNC_INFO << "Score = " << score << " : " << solution;
-    emit solutionTrouver(QString::number(score) + " ➤ " + solution);
+    emit solutionTrouver("⚠️     " + QString::number(score) + " ➤ " + solution + "     ⚠️");
 }
 
 /**
@@ -313,6 +313,6 @@ void Solution::trouverSolution(int s, int flechettes)
     {
         //qDebug() << Q_FUNC_INFO << "Score = " << s << "impossible";
         rechercher(score, nbFlechettes+1, true);
-        transmettreSolution(s);
+        //transmettreSolution(s);       //activer pour avoir l'aide tout le temps meme quand on peut pas finir
     }
 }

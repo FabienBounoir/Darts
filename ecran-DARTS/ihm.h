@@ -48,6 +48,7 @@ private:
     QSound musique;                 //!< objet musique
     int compteurDureePartie;        //!< compteur de secondes pour la durée d'une séance
     QPixmap SauverImpactEncours;
+    QString MessageStatut;
 
     /**
      * @enum Page
@@ -66,6 +67,8 @@ private:
     void initialiserEvenements();
     void initialiserHorloge();
 
+    void mettreAJourMessageStatut(int typePoint, int point, int score);
+
 public slots:
     void actualiserHeure();
     void allerPage(Ihm::Page page);
@@ -74,7 +77,7 @@ public slots:
     void fermerApplication();
     void afficherAttenteConfiguration();
     void afficherAttenteConnexion();
-    void afficherImpact(int cercle, int point);
+    void afficherImpact(int cercle, int point, int score);
     void afficherPartie();
     void mettreAJourScore();
     void mettreAJourManche();
