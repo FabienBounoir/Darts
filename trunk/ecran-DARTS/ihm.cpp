@@ -404,6 +404,8 @@ void Ihm::mettrePausePartie()
 {
     disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // mettre en pause le chronometrage de la partie
     ui->labelTempsPartie->setStyleSheet("color: rgb(179, 0,5);");
+    SauverImpactEncours = ui->labelVisualisationimpact->pixmap()->copy();
+    ui->labelVisualisationimpact->setPixmap(QPixmap(":pause.png"));
 }
 
 /**
@@ -413,6 +415,7 @@ void Ihm::mettrePausePartie()
  */
 void Ihm::relancerpartie()
 {
+    ui->labelVisualisationimpact->setPixmap(SauverImpactEncours);
     ui->labelTempsPartie->setStyleSheet("color: rgb(109, 43,107);");
     connect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // relancer le chronometrage de la partie
     qDebug() << "Partie relancer" << endl;
