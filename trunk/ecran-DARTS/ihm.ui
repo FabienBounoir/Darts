@@ -39,40 +39,65 @@ QWidget#ecranPartie
 	background-image:url(:/ressources/background.jpg);
 }
 
+QWidget#actualiterPartie
+{
+	background-image:url(:/ressources/fondActualiterPartie.png);
+	background-repeat: no-repeat;
+}
 QVBoxLayout#verticalLayoutInformation
 {
 	background: gray;
 }
 
-/*QLabel#labelMoyenneVolees
+QLabel#labelMoyenneVolees
 {
-	image:url(:/ressources/fondScore.png);
-	background: gray;
+	color: rgb(109, 43,107);
 }
 
 QLabel#labelNomjoueurs
 {
-	image:url(:/ressources/fondScore.png);
-	background: gray;
+	color: rgb(109, 43,107);
 }
 
 QLabel#nomJoueur
 {
-	/*image:url(:/ressources/fondScore.png);
-	background: gray;
+	color: rgb(109, 43,107);
 }
 
 QLabel#scoreActuel
 {
-	/*image:url(:/ressources/fondScore.png);
-	background: gray;
+	color: rgb(109, 43,107);
 }
 
 QLabel#moyenneVolee
 {
-	/*image:url(:/ressources/fondScore.png);
-	background: gray;
-}*/
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelScoreActuel
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelManche
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelTypeJeu
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#typeJeu
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#manche
+{
+	color: rgb(109, 43,107);
+}
 
 QWidget#ecranStatistique
 {
@@ -112,9 +137,13 @@ QLabel#labelStatut
 	color: rgb(109, 43,107);
 }
 
+#lineManche, #lineNomJoueurs, #lineScoreActuel, #lineSeparateurTypeJeu {
+    background-color: rgb(109, 43,107);
+}
+
 QLabel
 {
-	color: rgb(255,255,255);
+	color: rgb(255, 255,255);
 }
 </string>
   </property>
@@ -278,7 +307,7 @@ QLabel
      <widget class="QWidget" name="ecranPartie">
       <layout class="QHBoxLayout" name="horizontalLayout_9">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0,0">
+        <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0">
          <property name="spacing">
           <number>6</number>
          </property>
@@ -350,265 +379,464 @@ QLabel
           </spacer>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayoutSeparateur">
-           <property name="spacing">
-            <number>6</number>
-           </property>
-           <property name="sizeConstraint">
-            <enum>QLayout::SetDefaultConstraint</enum>
-           </property>
-           <item>
-            <widget class="Line" name="line">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="lineWidth">
-              <number>3</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayoutInformation">
-           <property name="spacing">
-            <number>6</number>
-           </property>
-           <item>
-            <layout class="QFormLayout" name="formLayoutInformation">
-             <property name="verticalSpacing">
-              <number>6</number>
-             </property>
-             <item row="0" column="0">
-              <widget class="QLabel" name="labelTypeJeu">
-               <property name="font">
-                <font>
-                 <pointsize>27</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>➳ Type de jeu :</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="typeJeu">
-               <property name="font">
-                <font>
-                 <pointsize>27</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0" colspan="2">
-              <widget class="Line" name="lineSeparateurTypeJeu">
-               <property name="minimumSize">
-                <size>
-                 <width>50</width>
-                 <height>5</height>
-                </size>
-               </property>
-               <property name="lineWidth">
-                <number>20</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0" colspan="2">
-              <widget class="QLabel" name="labelNomjoueurs">
-               <property name="font">
-                <font>
-                 <pointsize>27</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>➳ Nom des joueurs :</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0" colspan="2">
-              <widget class="Line" name="lineNomJoueurs">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="lineWidth">
-                <number>50</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="labelManche">
-               <property name="font">
-                <font>
-                 <pointsize>27</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>➳ Manche : </string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="1">
-              <widget class="QLabel" name="manche">
-               <property name="font">
-                <font>
-                 <pointsize>27</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>1</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0" colspan="2">
-              <widget class="Line" name="lineManche">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="lineWidth">
-                <number>3</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="0" colspan="2">
-              <widget class="QLabel" name="labelScoreActuel">
-               <property name="font">
-                <font>
-                 <pointsize>27</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>➳ Score actuel : </string>
-               </property>
-              </widget>
-             </item>
-             <item row="9" column="0" colspan="2">
-              <widget class="Line" name="lineScoreActuel">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="lineWidth">
-                <number>3</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="nomJoueur">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>22</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="8" column="0">
-              <widget class="QLabel" name="scoreActuel">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>22</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="11" column="0">
-              <widget class="QLabel" name="moyenneVolee">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>22</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="10" column="0">
-              <widget class="QLabel" name="labelMoyenneVolees">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>27</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>➳ Moyenne des volées :</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
+          <widget class="QWidget" name="actualiterPartie" native="true">
+           <layout class="QVBoxLayout" name="verticalLayoutInformation">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <item>
+             <layout class="QFormLayout" name="formLayoutInformation">
+              <property name="verticalSpacing">
+               <number>6</number>
+              </property>
+              <property name="rightMargin">
+               <number>10</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="QLabel" name="labelTypeJeu">
+                <property name="font">
+                 <font>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"> QWidget#ecranAttente
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QWidget#ecranPartie
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QWidget#actualiterPartie
+{
+	background-image:url(:/ressources/fondActualiterPartie.png);
+}
+QVBoxLayout#verticalLayoutInformation
+{
+	background: gray;
+}
+
+QLabel#labelMoyenneVolees
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelNomjoueurs
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#nomJoueur
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#scoreActuel
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#moyenneVolee
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelScoreActuel
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelManche
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelTypeJeu
+{
+	color: rgb(109, 43,107);
+}
+
+QWidget#ecranStatistique
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QLabel#labelStatutAttente
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelHeureAttente
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelTempsPartie
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelHeureStatistique
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#winnerPartie
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelStatut
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel
+{
+	color: rgb(255,255,255);
+}
+</string>
+                </property>
+                <property name="text">
+                 <string>➳ Type de jeu :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="typeJeu">
+                <property name="font">
+                 <font>
+                  <pointsize>27</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" colspan="2">
+               <widget class="Line" name="lineSeparateurTypeJeu">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>5</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>900</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="lineWidth">
+                 <number>20</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="2">
+               <widget class="QLabel" name="labelNomjoueurs">
+                <property name="font">
+                 <font>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>➳ Nom des joueurs :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0" colspan="2">
+               <widget class="Line" name="lineNomJoueurs">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="lineWidth">
+                 <number>50</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="labelManche">
+                <property name="font">
+                 <font>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"> QWidget#ecranAttente
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QWidget#ecranPartie
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QWidget#actualiterPartie
+{
+	background-image:url(:/ressources/fondActualiterPartie.png);
+}
+QVBoxLayout#verticalLayoutInformation
+{
+	background: gray;
+}
+
+QLabel#labelMoyenneVolees
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelNomjoueurs
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#nomJoueur
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#scoreActuel
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#moyenneVolee
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelScoreActuel
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelManche
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelTypeJeu
+{
+	color: rgb(109, 43,107);
+}
+
+QWidget#ecranStatistique
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QLabel#labelStatutAttente
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelHeureAttente
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelTempsPartie
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelHeureStatistique
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#winnerPartie
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelStatut
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel
+{
+	color: rgb(255,255,255);
+}
+</string>
+                </property>
+                <property name="text">
+                 <string>➳ Manche : </string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QLabel" name="manche">
+                <property name="font">
+                 <font>
+                  <pointsize>27</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="0" colspan="2">
+               <widget class="Line" name="lineManche">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="lineWidth">
+                 <number>3</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="0" colspan="2">
+               <widget class="QLabel" name="labelScoreActuel">
+                <property name="font">
+                 <font>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>➳ Score actuel : </string>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="0" colspan="2">
+               <widget class="Line" name="lineScoreActuel">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="lineWidth">
+                 <number>3</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="nomJoueur">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>22</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="0">
+               <widget class="QLabel" name="scoreActuel">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>22</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="0">
+               <widget class="QLabel" name="moyenneVolee">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>22</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="0">
+               <widget class="QLabel" name="labelMoyenneVolees">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>➳ Moyenne des volées :</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
          </item>
         </layout>
        </item>
