@@ -84,9 +84,12 @@ public class ActiviteAjouterJoueur extends AppCompatActivity implements View.OnC
 
     @Override
     public void finish() {
-        Intent retour = new Intent();
-        retour.putExtra("Joueur", saisir.getText().toString());
-        setResult(RESULT_OK,retour);
-        super.finish();
+        if (saisir.getText() != null)
+        {
+            Intent retour = new Intent();
+            retour.putExtra("Joueur", saisir.getText().toString());
+            setResult(RESULT_OK, retour);
+            super.finish();
+        }
     }
 }

@@ -9,6 +9,8 @@
     <string name="pr_nom">Prénom</string>
     <string name="ajouter">Ajouter</string>
     <string name="ajouter_joueur">Ajouter Joueur</string>
+    <string name="liste_des_joueurs">Liste des Joueurs :</string>
+    <string name="lancer_la_partie">Lancer la partie</string>
 
     <string-array name="ModeDeJeu">
         <item>501 Double Out</item>
