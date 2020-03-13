@@ -47,6 +47,7 @@ private:
     Darts *darts;                   //!< objet darts
     QSound musique;                 //!< objet musique
     int compteurDureePartie;        //!< compteur de secondes pour la durée d'une séance
+    QPixmap SauverImpactEncours;
 
     /**
      * @enum Page

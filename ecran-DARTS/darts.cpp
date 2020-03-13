@@ -217,7 +217,7 @@ void Darts::receptionnerImpact(int typePoint, int point)
             pointLancer = point;
         break;
         case  ZERO_POINT:
-            QSound::play("../ecran-DARTS/ressources/out.wav");
+            QSound::play("../ecran-DARTS/ressources/out1.wav");
             pointLancer = point * ZERO_POINT;
         break;
         default:
