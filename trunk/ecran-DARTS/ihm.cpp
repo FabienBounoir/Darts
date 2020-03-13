@@ -139,6 +139,7 @@ void Ihm::mettreAJourScore()
     {
         score += "         " + darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getScore()) + "\n";
     }
+    //ui->nomJoueur->setStyleSheet()
     ui->scoreActuel->setText(score);
 }
 
@@ -190,11 +191,11 @@ void Ihm::mettreAJourJoueur()
     {
         if(i == darts->getJoueurActif())    // test si le joueur est le joueur qui doit jouer
         {
-            nomjoueur += "  ⟼ " + darts->getListJoueur()[i].getNom() + "\n";  //joueur joue
+            nomjoueur += "      ⟼ " + darts->getListJoueur()[i].getNom() + "\n";  //joueur joue
         }
         else
         {
-            nomjoueur += "             " + darts->getListJoueur()[i].getNom() + "\n";       //joueur en attente de son tour
+            nomjoueur += "                 " + darts->getListJoueur()[i].getNom() + "\n";       //joueur en attente de son tour
         }
     }
     ui->nomJoueur->setText(nomjoueur);
@@ -403,9 +404,16 @@ void Ihm::mettreAJoursolution(QString solution)
 void Ihm::mettrePausePartie()
 {
     disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // mettre en pause le chronometrage de la partie
-    ui->labelTempsPartie->setStyleSheet("color: rgb(179, 0,5);");
     SauverImpactEncours = ui->labelVisualisationimpact->pixmap()->copy();
-    ui->labelVisualisationimpact->setPixmap(QPixmap(":pause.png"));
+    QImage pause(":pause.png");
+    QPixmap cibleImpacte = ui->labelVisualisationimpact->pixmap()->copy(); // on récupère l'image précédente;
+    QPainter p(&cibleImpacte);
+    p.drawImage(QPoint(0, 0), pause);
+    p.end();
+    ui->labelVisualisationimpact->setPixmap(cibleImpacte);
+
+    ui->labelTempsPartie->setStyleSheet("color: rgb(179, 0,5);");
+
 }
 
 /**

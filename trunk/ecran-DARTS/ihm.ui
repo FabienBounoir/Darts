@@ -39,6 +39,41 @@ QWidget#ecranPartie
 	background-image:url(:/ressources/background.jpg);
 }
 
+QVBoxLayout#verticalLayoutInformation
+{
+	background: gray;
+}
+
+/*QLabel#labelMoyenneVolees
+{
+	image:url(:/ressources/fondScore.png);
+	background: gray;
+}
+
+QLabel#labelNomjoueurs
+{
+	image:url(:/ressources/fondScore.png);
+	background: gray;
+}
+
+QLabel#nomJoueur
+{
+	/*image:url(:/ressources/fondScore.png);
+	background: gray;
+}
+
+QLabel#scoreActuel
+{
+	/*image:url(:/ressources/fondScore.png);
+	background: gray;
+}
+
+QLabel#moyenneVolee
+{
+	/*image:url(:/ressources/fondScore.png);
+	background: gray;
+}*/
+
 QWidget#ecranStatistique
 {
 	background-image:url(:/ressources/background.jpg);
@@ -132,7 +167,7 @@ QLabel
              </property>
              <property name="font">
               <font>
-               <pointsize>30</pointsize>
+               <pointsize>35</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -243,7 +278,7 @@ QLabel
      <widget class="QWidget" name="ecranPartie">
       <layout class="QHBoxLayout" name="horizontalLayout_9">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0">
+        <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0,0">
          <property name="spacing">
           <number>6</number>
          </property>
@@ -253,7 +288,7 @@ QLabel
             <widget class="QLabel" name="labelTempsPartie">
              <property name="font">
               <font>
-               <pointsize>30</pointsize>
+               <pointsize>35</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -299,6 +334,22 @@ QLabel
           </layout>
          </item>
          <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Preferred</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>250</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <layout class="QVBoxLayout" name="verticalLayoutSeparateur">
            <property name="spacing">
             <number>6</number>
@@ -308,6 +359,15 @@ QLabel
            </property>
            <item>
             <widget class="Line" name="line">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="lineWidth">
+              <number>3</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -317,8 +377,14 @@ QLabel
          </item>
          <item>
           <layout class="QVBoxLayout" name="verticalLayoutInformation">
+           <property name="spacing">
+            <number>6</number>
+           </property>
            <item>
             <layout class="QFormLayout" name="formLayoutInformation">
+             <property name="verticalSpacing">
+              <number>6</number>
+             </property>
              <item row="0" column="0">
               <widget class="QLabel" name="labelTypeJeu">
                <property name="font">
@@ -329,7 +395,7 @@ QLabel
                 </font>
                </property>
                <property name="text">
-                <string>- Type de jeu :</string>
+                <string>➳ Type de jeu :</string>
                </property>
               </widget>
              </item>
@@ -354,7 +420,7 @@ QLabel
                 </size>
                </property>
                <property name="lineWidth">
-                <number>1</number>
+                <number>20</number>
                </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -371,7 +437,7 @@ QLabel
                 </font>
                </property>
                <property name="text">
-                <string>- Nom des joueurs :</string>
+                <string>➳ Nom des joueurs :</string>
                </property>
               </widget>
              </item>
@@ -382,6 +448,9 @@ QLabel
                  <width>0</width>
                  <height>0</height>
                 </size>
+               </property>
+               <property name="lineWidth">
+                <number>50</number>
                </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -398,7 +467,7 @@ QLabel
                 </font>
                </property>
                <property name="text">
-                <string>- Manche : </string>
+                <string>➳ Manche : </string>
                </property>
               </widget>
              </item>
@@ -422,6 +491,9 @@ QLabel
                  <height>0</height>
                 </size>
                </property>
+               <property name="lineWidth">
+                <number>3</number>
+               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -437,7 +509,7 @@ QLabel
                 </font>
                </property>
                <property name="text">
-                <string>- Score actuel : </string>
+                <string>➳ Score actuel : </string>
                </property>
               </widget>
              </item>
@@ -449,8 +521,71 @@ QLabel
                  <height>0</height>
                 </size>
                </property>
+               <property name="lineWidth">
+                <number>3</number>
+               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="nomJoueur">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>22</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0">
+              <widget class="QLabel" name="scoreActuel">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>22</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="11" column="0">
+              <widget class="QLabel" name="moyenneVolee">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>22</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
@@ -467,49 +602,7 @@ QLabel
                 </font>
                </property>
                <property name="text">
-                <string>- Moyenne des volées :</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="nomJoueur">
-               <property name="font">
-                <font>
-                 <pointsize>22</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="8" column="0">
-              <widget class="QLabel" name="scoreActuel">
-               <property name="font">
-                <font>
-                 <pointsize>22</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="11" column="0">
-              <widget class="QLabel" name="moyenneVolee">
-               <property name="font">
-                <font>
-                 <pointsize>22</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                <string>➳ Moyenne des volées :</string>
                </property>
               </widget>
              </item>
@@ -535,7 +628,7 @@ QLabel
            </property>
            <property name="font">
             <font>
-             <pointsize>30</pointsize>
+             <pointsize>35</pointsize>
              <weight>75</weight>
              <bold>true</bold>
             </font>
