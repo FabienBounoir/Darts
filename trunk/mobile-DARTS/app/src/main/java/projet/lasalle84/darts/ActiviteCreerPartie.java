@@ -6,7 +6,6 @@ package projet.lasalle84.darts;
  */
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,17 +15,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import java.util.List;
-
 public class ActiviteCreerPartie extends AppCompatActivity implements View.OnClickListener
 {
 
     private static final String TAG = "IHMCreerPartie"; //!< le TAG de la classe pour les logs
 
-    private Button ajouterJoueur;
+    private Button boutonAjouterJoueur;
     private Spinner modeDeJeu;
-    private ListView Joueur;
-    private ArrayAdapter<Joueur> Adaptateur;
+    private ListView listViewJoueur;
+    private ArrayAdapter<String> Adaptateur;
+    private Button boutonLancerPartie;
     /**
      * @brief Méthode appelée à la création de l'activité
      *
@@ -40,8 +38,8 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_creer_partie);
         recupererWidgets();
         initialiserWidgets();
-        Adaptateur = new ArrayAdapter<Joueur>(this,android.R.layout.simple_spinner_item);
-        //Joueur.setAdapter(Adaptateur);
+        Adaptateur = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item);
+        listViewJoueur.setAdapter(Adaptateur);
     }
 
     /**
@@ -56,12 +54,19 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
     {
         Log.d(TAG, "onClick()");
 
-        if(element == ajouterJoueur)
+        if(element == boutonAjouterJoueur)
         {
-            Log.d(TAG, "clic ajouterJoueur");
+            Log.d(TAG, "clic boutonAjouterJoueur");
             Intent intent = new Intent(ActiviteCreerPartie.this, ActiviteAjouterJoueur.class);
             startActivityForResult(intent,1);
         }
+        else if (element == boutonLancerPartie)
+        {
+            Log.d(TAG,"clic boutonLancerPartie");
+            Intent intent = new Intent(ActiviteCreerPartie.this, ActivitePartie.class);
+            startActivity(intent);
+        }
+
     }
 
     /**
@@ -72,9 +77,11 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
     {
         Log.d(TAG, "recupererWidgets()");
 
-        ajouterJoueur = (Button) findViewById(R.id.AjouterJoueur);
+        boutonAjouterJoueur = (Button) findViewById(R.id.AjouterJoueur);
         modeDeJeu = (Spinner) findViewById(R.id.modeJeu);
-        Joueur = (ListView) findViewById(R.id.Listejoueur);
+        listViewJoueur = (ListView) findViewById(R.id.Listejoueur);
+        boutonLancerPartie = (Button) findViewById(R.id.boutonLancerPartie);
+
 
     }
 
@@ -85,7 +92,8 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
     private void initialiserWidgets()
     {
         Log.d(TAG, "initialiserWidgets()");
-        ajouterJoueur.setOnClickListener(this);
+        boutonAjouterJoueur.setOnClickListener(this);
+        boutonLancerPartie.setOnClickListener(this);
     }
 
     /**
@@ -100,8 +108,7 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
             if (resultCode == RESULT_OK) {
                 String nomJoueur = data.getStringExtra("Joueur");
                 Log.d(TAG,"nom du joueur: " + nomJoueur);
-                Joueur MonJoueur = new Joueur(nomJoueur);
-                Adaptateur.add(MonJoueur);
+                Adaptateur.add(nomJoueur);
             }
         }
     }
