@@ -21,7 +21,7 @@
  * @brief Définit la périodicité de l'horloge en millisecondes
  */
 #define PERIODE_HORLOGE     1000
-#define CHEMIN_FICHIER_MUSIQUE "../ecran-DARTS/ressources/music.wav"
+#define CHEMIN_FICHIER_MUSIQUE "../ecran-DARTS/son/music.wav"
 
 namespace Ui {
 class Ihm;
@@ -47,8 +47,8 @@ private:
     Darts *darts;                   //!< objet darts
     QSound musique;                 //!< objet musique
     int compteurDureePartie;        //!< compteur de secondes pour la durée d'une séance
-    QPixmap SauverImpactEncours;
-    QString MessageStatut;
+    QPixmap SauverImpactEncours;    //!< Pixmap qui sauvegarde l'etat de la cible
+    QString MessageStatut;          //!< contient le message de statut qui est afficher
 
     /**
      * @enum Page
@@ -66,8 +66,7 @@ private:
     void attribuerRaccourcisClavier();
     void initialiserEvenements();
     void initialiserHorloge();
-
-    void mettreAJourMessageStatut(int typePoint, int point, int score);
+    void mettreAJourMessageStatut(int typePoint, int point);
 
 public slots:
     void actualiserHeure();
@@ -77,7 +76,7 @@ public slots:
     void fermerApplication();
     void afficherAttenteConfiguration();
     void afficherAttenteConnexion();
-    void afficherImpact(int cercle, int point, int score);
+    void afficherImpact(int cercle, int point);
     void afficherPartie();
     void mettreAJourScore();
     void mettreAJourManche();
@@ -92,6 +91,7 @@ public slots:
     void relancerpartie();
     void mettreAJourCible();
     void mettreAJourMessageStatut(QString);
+    void jouerSon(QString son);
 };
 
 #endif // IHM_H

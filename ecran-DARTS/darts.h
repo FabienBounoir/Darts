@@ -62,6 +62,7 @@ signals:
     void afficherNouvellePartie();      //!< signal émis quand il y a une nouvelle partie
     void changerEtatPartie();           //!< signal émis pour changer l'etat de la partie
     void actualiserCible();             //!< signal émis pour changer actualiser l'affichage de la cible
+    void jouerSon(QString son);         //!< signal émis pour Lancer un son
 
 public slots:
 

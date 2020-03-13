@@ -1,8 +1,6 @@
  #include "darts.h"
 
 #include <QDebug>
-#include <QSound>
-
 
 /**
 * @file darts.cpp
@@ -136,7 +134,6 @@ void Darts::setManche(int manche)
     this->manche = manche;
 }
 
-
 /**
  * @brief initialise la partie
  *
@@ -217,7 +214,7 @@ void Darts::receptionnerImpact(int typePoint, int point)
             pointLancer = point;
         break;
         case  ZERO_POINT:
-            QSound::play("../ecran-DARTS/ressources/out1.wav");
+            emit jouerSon("out1.wav");
             pointLancer = point * ZERO_POINT;
         break;
         default:
@@ -284,7 +281,6 @@ void Darts::enleverPointImpact()
         gererVoleeMax();
         emit finPartie("↢  " + joueurs[joueurActif].getNom() + " a perdu  ↣", getVoleeMax());
         emit etatPartieFini();
-        /** @todo si deux joueur, un a 1 point l'autre a gagner ?**/
     }
     else
     {
@@ -312,7 +308,7 @@ void Darts::gererManche()
         joueurs[joueurActif].addHistoriqueVolees((joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore()));
 
         if((joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore()) == 180)
-            QSound::play("../ecran-DARTS/ressources/180.wav");
+            emit jouerSon("180.wav");
 
         joueurs[joueurActif].setScoreManchePrecedente(joueurs[joueurActif].getScore());
 

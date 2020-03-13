@@ -76,7 +76,7 @@ void Ihm::initialiserEvenements()
     connect(communication, SIGNAL(resetPartie()), this, SLOT(afficherNouvellePartie()));
     connect(darts, SIGNAL(finPartie(QString, int)), this, SLOT(finirPartie(QString, int)));
     connect(darts, SIGNAL(changementJoueurActif()), this, SLOT(mettreAJourJoueur()));
-    connect(darts, SIGNAL(nouvelImpact(int, int, int)), this, SLOT(afficherImpact(int,int,int)));
+    connect(darts, SIGNAL(nouvelImpact(int, int, int)), this, SLOT(afficherImpact(int,int)));
     connect(darts, SIGNAL(miseAJourPoint()), this, SLOT(mettreAJourScore()));
     connect(darts, SIGNAL(nouvelleManche()), this, SLOT(mettreAJourManche()));
     connect(darts, SIGNAL(voleeAnnulee()), this, SLOT(afficherVoleeAnnulee()));
@@ -86,6 +86,7 @@ void Ihm::initialiserEvenements()
     connect(communication, SIGNAL(pause()), this, SLOT(mettrePausePartie()));
     connect(communication, SIGNAL(play()), this, SLOT(relancerpartie()));
     connect(communication, SIGNAL(erreurBluetooth(QString)), this, SLOT(mettreAJourMessageStatut(QString)));
+    connect(darts, SIGNAL(jouerSon(QString)), this, SLOT(jouerSon(QString)));
 }
 
 /**
@@ -96,7 +97,6 @@ void Ihm::initialiserEvenements()
 void Ihm::attribuerRaccourcisClavier()
 {
     QAction *quitter = new QAction(this);
-    /*quitter->setShortcut(QKeySequence(QKeySequence::Quit));*/ /** @bug sur le raspberry cela ne marche pas */
     quitter->setShortcut(QKeySequence(QKeySequence(Qt::Key_Up)));       //fleche du haut pour quitter l'application
     addAction(quitter);
     connect(quitter, SIGNAL(triggered()), this, SLOT(fermerApplication()));   // Pour fermer l'application
@@ -162,7 +162,7 @@ void Ihm::mettreAJourManche()
  * @param point
  * @param score
  */
-void Ihm::afficherImpact(int typePoint, int point, int score)
+void Ihm::afficherImpact(int typePoint, int point)
 {
     if(QFileInfo(qApp->applicationDirPath() + "/impact/IMPACT_" + QString::number(typePoint) + "_" + QString::number(point) + ".png").exists())       //test si l'image existe
     {
@@ -179,10 +179,17 @@ void Ihm::afficherImpact(int typePoint, int point, int score)
         ui->labelVisualisationimpact->setPixmap(cibleImpacte);
     }
 
-    mettreAJourMessageStatut(typePoint, point, score);
+    mettreAJourMessageStatut(typePoint, point);
 }
 
-void Ihm::mettreAJourMessageStatut(int typePoint, int point, int score)
+/**
+ * @brief   methode qui met à jour le message de statut de la Volée en cour
+ *
+ * @fn Ihm::mettreAJourMessageStatut
+ * @param typePoint
+ * @param point
+ */
+void Ihm::mettreAJourMessageStatut(int typePoint, int point)
 {
 
     switch(typePoint){
@@ -196,6 +203,7 @@ void Ihm::mettreAJourMessageStatut(int typePoint, int point, int score)
             MessageStatut += " " + QString::number(point);
         break;
     }
+    ui->labelStatut->setStyleSheet("color: rgb(109, 43,107);");
     ui->labelStatut->setText(MessageStatut);
 }
 
@@ -415,6 +423,7 @@ void Ihm::afficherDureePartie()
  */
 void Ihm::mettreAJoursolution(QString solution)
 {
+    ui->labelStatut->setStyleSheet("color: rgb(179, 0,5);");
     ui->labelStatut->setText(solution);
 }
 
@@ -483,4 +492,16 @@ void Ihm::mettreAJourCible()
 void Ihm::mettreAJourMessageStatut(QString statut)
 {
     ui->labelStatutAttente->setText(statut);
+}
+
+
+/**
+ * @brief Methode qui permet de jouer un son
+ *
+ * @fn Ihm::jouerSon
+ * @param son
+ */
+void Ihm::jouerSon(QString son)
+{
+    QSound::play("../ecran-DARTS/son/" + son);
 }
