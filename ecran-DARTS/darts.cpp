@@ -195,6 +195,25 @@ void Darts::reinitialiserPartie()
 }
 
 /**
+ * @brief methode qui test les Impact pour savoir quel son jouer
+ *
+ * @fn Darts::testerPoint
+ * @param typePoint
+ * @param point
+ */
+void Darts::testerPoint(int typePoint, int point)
+{
+    if(typePoint == DOUBLE_POINT && point == BULL)
+    {
+        jouerSon("D25.wav");
+    }
+    else if(typePoint == ZERO_POINT && point == 0)
+    {
+        jouerSon("out.wav");
+    }
+}
+
+/**
  * @brief permet de traiter la réception d'impact
  *
  * @fn Darts::receptionnerImpact
@@ -214,13 +233,14 @@ void Darts::receptionnerImpact(int typePoint, int point)
             pointLancer = point;
         break;
         case  ZERO_POINT:
-            emit jouerSon("out1.wav");
             pointLancer = point * ZERO_POINT;
         break;
         default:
             qDebug() << Q_FUNC_INFO << "Erreur type de point :" << typePoint;
         break;
     }
+
+    testerPoint(typePoint, point);
 
     if(joueurs[joueurActif].getFlechette() == 3)
         emit actualiserCible();
