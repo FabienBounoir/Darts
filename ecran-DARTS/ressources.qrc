@@ -4,7 +4,6 @@
         <file>ressources/background.jpg</file>
         <file>ressources/cible.png</file>
 	<file>ressources/fondStatus.png</file>
-        <file>ressources/fondStatus.png</file>
         <file alias="pause.png">ressources/pause.png</file>
 	<file>ressources/fondActualiterPartie.png</file>
     </qresource>
