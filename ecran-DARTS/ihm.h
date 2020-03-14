@@ -21,7 +21,7 @@
  * @brief Définit la périodicité de l'horloge en millisecondes
  */
 #define PERIODE_HORLOGE     1000
-#define CHEMIN_FICHIER_MUSIQUE "../ecran-DARTS/son/music.wav"
+#define CHEMIN_FICHIER_MUSIQUE "../ecran-DARTS/son/"
 
 namespace Ui {
 class Ihm;
@@ -46,6 +46,7 @@ private:
     Communication *communication;   //!< objet communication
     Darts *darts;                   //!< objet darts
     QSound musique;                 //!< objet musique
+    QSound musiquePause;            //!< objet musiquePause
     int compteurDureePartie;        //!< compteur de secondes pour la durée d'une séance
     QPixmap SauverImpactEncours;    //!< Pixmap qui sauvegarde l'etat de la cible
     QString MessageStatut;          //!< contient le message de statut qui est afficher

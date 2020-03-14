@@ -26,7 +26,8 @@
 Ihm::Ihm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Ihm),
-    musique(CHEMIN_FICHIER_MUSIQUE,this),
+    musique(CHEMIN_FICHIER_MUSIQUE "music.wav",this),
+    musiquePause(CHEMIN_FICHIER_MUSIQUE "pause.wav",this),
     compteurDureePartie(0),
     MessageStatut("Volée ➤")
 {
@@ -220,11 +221,11 @@ void Ihm::mettreAJourJoueur()
     {
         if(i == darts->getJoueurActif())    // test si le joueur est le joueur qui doit jouer
         {
-            nomjoueur += " ⟼ " + darts->getListJoueur()[i].getNom() + "\n";  //joueur joue
+            nomjoueur += "   ⟼ " + darts->getListJoueur()[i].getNom() + "\n";  //joueur joue
         }
         else
         {
-            nomjoueur += "       " + darts->getListJoueur()[i].getNom() + "\n";       //joueur en attente de son tour //
+            nomjoueur += "            " + darts->getListJoueur()[i].getNom() + "\n";       //joueur en attente de son tour //
         }
     }
     ui->nomJoueur->setText(nomjoueur);
@@ -238,10 +239,9 @@ void Ihm::mettreAJourJoueur()
 void Ihm::mettreAJourMoyenneVolee()
 {
     QString moyenneVoleeJoueur;
-    QString moyenneVolee;
     for(int i = 0; i < darts->getListJoueur().size(); i++)
     {
-        moyenneVoleeJoueur += darts->getListJoueur()[i].getNom() + " : " + moyenneVolee.setNum(darts->getListJoueur()[i].getMoyenneVolee()) +" \n"; //"         " +
+        moyenneVoleeJoueur += darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getMoyenneVolee()) +" \n"; //"         " +
     }
     ui->labelMoyenneVolees->setVisible(true);
     ui->lineScoreActuel->setVisible(true);
@@ -324,6 +324,8 @@ void Ihm::afficherNouvellePartie()
 
      //configuration musique
      musique.setLoops(QSound::Infinite);
+     musiquePause.setLoops(QSound::Infinite);
+     musiquePause.stop();
      //jouer la musique
      musique.play();
 }
@@ -447,6 +449,7 @@ void Ihm::mettrePausePartie()
 
     ui->labelTempsPartie->setStyleSheet("color: rgb(179, 0,5);");
 
+    musiquePause.play();
 }
 
 /**
@@ -460,6 +463,7 @@ void Ihm::relancerpartie()
     ui->labelTempsPartie->setStyleSheet("color: rgb(109, 43,107);");
     connect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // relancer le chronometrage de la partie
     qDebug() << "Partie relancer" << endl;
+    musiquePause.stop();
 }
 
 /**

@@ -27,11 +27,11 @@ public:
     int getScore() const;
     int getScoreManchePrecedente() const;
     int getFlechette() const;
-    float getMoyenneVolee() const;
+    int getMoyenneVolee() const;
     QVector<float> getHistoriqueVolees() const;
     bool getEliminer() const;
     void setEliminer(bool elimine);
-    void setMoyenneVolee(float moyenneVolee);
+    void setMoyenneVolee(int moyenneVolee);
     void setScore(int score);
     void setScoreManchePrecedente(int scoreManchePrecedente);
     void setNbFlechette(int nbFlechette);
@@ -41,7 +41,7 @@ private:
     QString nom; //!< contient le nom du joueur
     QVector<float> historiqueVolees; //!< contient l'historique des volées du joueur
     int score; //!< contient le score du joueur
-    float moyenneVolee; //!< contient la moyenne des volées du joueur
+    int moyenneVolee; //!< contient la moyenne des volées du joueur
     int scoreManchePrecedente; //!< contient le score de la manche precedente
     int nbFlechette; //!< contient le nombre de flechette restante au joueur
     bool elimine; //!< contient un etat true/false pour savoir si le joueur est eliminé.
