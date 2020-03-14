@@ -138,7 +138,7 @@ void Ihm::mettreAJourScore()
 
     for(int i = 0; i < darts->getListJoueur().size(); i++)
     {
-        score += "         " + darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getScore()) + "\n";
+        score += darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getScore()) + "\n"; // "         " +
     }
     //ui->nomJoueur->setStyleSheet()
     ui->scoreActuel->setText(score);
@@ -220,11 +220,11 @@ void Ihm::mettreAJourJoueur()
     {
         if(i == darts->getJoueurActif())    // test si le joueur est le joueur qui doit jouer
         {
-            nomjoueur += "      ⟼ " + darts->getListJoueur()[i].getNom() + "\n";  //joueur joue
+            nomjoueur += " ⟼ " + darts->getListJoueur()[i].getNom() + "\n";  //joueur joue
         }
         else
         {
-            nomjoueur += "                 " + darts->getListJoueur()[i].getNom() + "\n";       //joueur en attente de son tour
+            nomjoueur += "       " + darts->getListJoueur()[i].getNom() + "\n";       //joueur en attente de son tour //
         }
     }
     ui->nomJoueur->setText(nomjoueur);
@@ -241,7 +241,7 @@ void Ihm::mettreAJourMoyenneVolee()
     QString moyenneVolee;
     for(int i = 0; i < darts->getListJoueur().size(); i++)
     {
-        moyenneVoleeJoueur += "         " + darts->getListJoueur()[i].getNom() + " : " + moyenneVolee.setNum(darts->getListJoueur()[i].getMoyenneVolee()) +" \n";
+        moyenneVoleeJoueur += darts->getListJoueur()[i].getNom() + " : " + moyenneVolee.setNum(darts->getListJoueur()[i].getMoyenneVolee()) +" \n"; //"         " +
     }
     ui->labelMoyenneVolees->setVisible(true);
     ui->lineScoreActuel->setVisible(true);
@@ -506,4 +506,9 @@ void Ihm::mettreAJourMessageStatut(QString statut)
 void Ihm::jouerSon(QString son)
 {
     QSound::play("../ecran-DARTS/son/" + son);
+    if(!QFileInfo("../ecran-DARTS/son/" + son).exists())       //test si le son existe
+    {
+        qDebug() << "Pour avoir les son ajouter le pack Disponible a cette adresse :"<<endl;
+        qDebug() << "https://drive.google.com/file/d/1vlS_oySnAM7ocsf9FyaZ1P4JyHIQrLiR/view?usp=sharing"<<endl;
+    }
 }

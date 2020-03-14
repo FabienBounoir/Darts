@@ -169,7 +169,7 @@ QLabel
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -380,22 +380,70 @@ QLabel
          </item>
          <item>
           <widget class="QWidget" name="actualiterPartie" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>10</horstretch>
+             <verstretch>10</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>728</width>
+             <height>1053</height>
+            </size>
+           </property>
            <layout class="QVBoxLayout" name="verticalLayoutInformation">
             <property name="spacing">
              <number>6</number>
             </property>
             <item>
-             <layout class="QFormLayout" name="formLayoutInformation">
-              <property name="verticalSpacing">
-               <number>6</number>
-              </property>
+             <layout class="QGridLayout" name="gridLayout_2" columnminimumwidth="0,0,0,0">
               <property name="rightMargin">
                <number>10</number>
               </property>
-              <item row="0" column="0">
-               <widget class="QLabel" name="labelTypeJeu">
+              <property name="verticalSpacing">
+               <number>6</number>
+              </property>
+              <item row="5" column="2">
+               <widget class="QLabel" name="manche">
                 <property name="font">
                  <font>
+                  <family>Courier 10 Pitch</family>
+                  <pointsize>27</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="0">
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>60</width>
+                  <height>10</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <widget class="QLabel" name="labelTypeJeu">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Courier 10 Pitch</family>
                   <pointsize>27</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
@@ -506,77 +554,21 @@ QLabel
 </string>
                 </property>
                 <property name="text">
-                 <string>➳ Type de jeu :</string>
+                 <string>➳ Jeu :</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
-               <widget class="QLabel" name="typeJeu">
-                <property name="font">
-                 <font>
-                  <pointsize>27</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0" colspan="2">
-               <widget class="Line" name="lineSeparateurTypeJeu">
+              <item row="11" column="1" colspan="2">
+               <widget class="QLabel" name="moyenneVolee">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>5</width>
-                  <height>5</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>900</width>
-                  <height>5</height>
-                 </size>
-                </property>
-                <property name="lineWidth">
-                 <number>20</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0" colspan="2">
-               <widget class="QLabel" name="labelNomjoueurs">
-                <property name="font">
-                 <font>
-                  <pointsize>27</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>➳ Nom des joueurs :</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="nomJoueur">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="font">
                  <font>
+                  <family>Courier 10 Pitch</family>
                   <pointsize>22</pointsize>
                  </font>
                 </property>
@@ -584,30 +576,30 @@ QLabel
                  <string/>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>
-              <item row="4" column="0" colspan="2">
-               <widget class="Line" name="lineNomJoueurs">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>5</height>
-                 </size>
+              <item row="7" column="0" colspan="3">
+               <widget class="QLabel" name="labelScoreActuel">
+                <property name="font">
+                 <font>
+                  <family>Courier 10 Pitch</family>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
                 </property>
-                <property name="lineWidth">
-                 <number>50</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                <property name="text">
+                 <string>➳ Score actuel : </string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="0">
+              <item row="5" column="0" colspan="2">
                <widget class="QLabel" name="labelManche">
                 <property name="font">
                  <font>
+                  <family>Courier 10 Pitch</family>
                   <pointsize>27</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
@@ -722,49 +714,22 @@ QLabel
                 </property>
                </widget>
               </item>
-              <item row="5" column="1">
-               <widget class="QLabel" name="manche">
+              <item row="2" column="0" colspan="2">
+               <widget class="QLabel" name="labelNomjoueurs">
                 <property name="font">
                  <font>
-                  <pointsize>27</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>1</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0" colspan="2">
-               <widget class="Line" name="lineManche">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>5</height>
-                 </size>
-                </property>
-                <property name="lineWidth">
-                 <number>3</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="0" colspan="2">
-               <widget class="QLabel" name="labelScoreActuel">
-                <property name="font">
-                 <font>
+                  <family>Courier 10 Pitch</family>
                   <pointsize>27</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
                 <property name="text">
-                 <string>➳ Score actuel : </string>
+                 <string>➳ Joueurs :</string>
                 </property>
                </widget>
               </item>
-              <item row="8" column="0">
+              <item row="8" column="1" colspan="2">
                <widget class="QLabel" name="scoreActuel">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
@@ -774,6 +739,7 @@ QLabel
                 </property>
                 <property name="font">
                  <font>
+                  <family>Courier 10 Pitch</family>
                   <pointsize>22</pointsize>
                  </font>
                 </property>
@@ -785,7 +751,38 @@ QLabel
                 </property>
                </widget>
               </item>
-              <item row="9" column="0" colspan="2">
+              <item row="11" column="3">
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="10" column="0" colspan="4">
+               <widget class="QLabel" name="labelMoyenneVolees">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Courier 10 Pitch</family>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>➳ Moyenne des volées :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="0" colspan="4">
                <widget class="Line" name="lineScoreActuel">
                 <property name="minimumSize">
                  <size>
@@ -801,33 +798,99 @@ QLabel
                 </property>
                </widget>
               </item>
-              <item row="10" column="0">
-               <widget class="QLabel" name="labelMoyenneVolees">
-                <property name="enabled">
-                 <bool>true</bool>
+              <item row="6" column="0" colspan="4">
+               <widget class="Line" name="lineManche">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>5</height>
+                 </size>
                 </property>
-                <property name="font">
-                 <font>
-                  <pointsize>27</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
+                <property name="lineWidth">
+                 <number>3</number>
                 </property>
-                <property name="text">
-                 <string>➳ Moyenne des volées :</string>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
                 </property>
                </widget>
               </item>
-              <item row="11" column="0">
-               <widget class="QLabel" name="moyenneVolee">
+              <item row="4" column="0" colspan="4">
+               <widget class="Line" name="lineNomJoueurs">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="lineWidth">
+                 <number>50</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" colspan="4">
+               <widget class="Line" name="lineSeparateurTypeJeu">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>5</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>900</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="lineWidth">
+                 <number>20</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2" colspan="2">
+               <widget class="QLabel" name="typeJeu">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="font">
                  <font>
+                  <family>Courier 10 Pitch</family>
+                  <pointsize>27</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0" colspan="3">
+               <widget class="QLabel" name="nomJoueur">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Courier 10 Pitch</family>
                   <pointsize>22</pointsize>
                  </font>
                 </property>
@@ -835,9 +898,25 @@ QLabel
                  <string/>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                 </property>
                </widget>
+              </item>
+              <item row="8" column="0">
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>60</width>
+                  <height>10</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </item>
@@ -912,6 +991,7 @@ QLabel
               <widget class="QLabel" name="labelVoleesMaxStatistique">
                <property name="font">
                 <font>
+                 <family>Courier 10 Pitch</family>
                  <pointsize>30</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -938,6 +1018,7 @@ QLabel
                </property>
                <property name="font">
                 <font>
+                 <family>Courier 10 Pitch</family>
                  <pointsize>30</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -955,6 +1036,7 @@ QLabel
               <widget class="QLabel" name="labelNombreVoleesStatistique">
                <property name="font">
                 <font>
+                 <family>Courier 10 Pitch</family>
                  <pointsize>30</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -975,13 +1057,14 @@ QLabel
                </property>
                <property name="font">
                 <font>
+                 <family>Courier 10 Pitch</family>
                  <pointsize>30</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
                <property name="text">
-                <string>- Durée partie : </string>
+                <string>- Durée : </string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -992,6 +1075,7 @@ QLabel
               <widget class="QLabel" name="voleeMax">
                <property name="font">
                 <font>
+                 <family>Courier 10 Pitch</family>
                  <pointsize>30</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -1009,6 +1093,7 @@ QLabel
               <widget class="QLabel" name="nbVolees">
                <property name="font">
                 <font>
+                 <family>Courier 10 Pitch</family>
                  <pointsize>30</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -1026,6 +1111,7 @@ QLabel
               <widget class="QLabel" name="tempsPartie">
                <property name="font">
                 <font>
+                 <family>Courier 10 Pitch</family>
                  <pointsize>30</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -1043,6 +1129,7 @@ QLabel
               <widget class="QLabel" name="moyenneVolees">
                <property name="font">
                 <font>
+                 <family>Courier 10 Pitch</family>
                  <pointsize>30</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
