@@ -299,6 +299,7 @@ void Darts::enleverPointImpact()
     else if(joueurs[joueurActif].getScore() == 1 && joueurs.size() == 1)    // test si le joueur est seul à jouer et si il est a 1 point == joueur eliminer donc fin de partie
     {
         gererVoleeMax();
+        emit jouerSon("perdu.wav");
         emit finPartie("↢  " + joueurs[joueurActif].getNom() + " a perdu  ↣", getVoleeMax());
         emit etatPartieFini();
     }
@@ -403,7 +404,7 @@ void Darts::calculerMoyenneVolees()
 {
     for(int i = 0; i <= joueurs.size() - 1; i++)
     {
-        float moyenneVolee = 0;
+        int moyenneVolee = 0;
 
         for(int j = 0; j < joueurs[i].getHistoriqueVolees().size(); j++)
         {

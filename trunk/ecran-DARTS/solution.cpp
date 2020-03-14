@@ -33,7 +33,7 @@ Solution::Solution(QObject *parent) : QObject(parent), solution("")
 void Solution::transmettreSolution(int score)
 {
     qDebug() << Q_FUNC_INFO << "Score = " << score << " : " << solution;
-    emit solutionTrouver( QString::number(score) + " ➤ " + solution);
+    emit solutionTrouver("↣  " + QString::number(score) + " ➤ " + solution + "  ↢");
 }
 
 /**

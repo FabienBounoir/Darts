@@ -76,7 +76,7 @@ int Joueur::getFlechette() const
  * @fn Joueur::getFlechette
  * @return float
  */
-float Joueur::getMoyenneVolee() const
+int Joueur::getMoyenneVolee() const
 {
     return this->moyenneVolee;
 }
@@ -120,7 +120,7 @@ void Joueur::setEliminer(bool elimine)
  * @fn Joueur::setMoyenneVolee
  * @param moyenneVolee
  */
-void Joueur::setMoyenneVolee(float moyenneVolee)
+void Joueur::setMoyenneVolee(int moyenneVolee)
 {
     this->moyenneVolee = moyenneVolee;
 }

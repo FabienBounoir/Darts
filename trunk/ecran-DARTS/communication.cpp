@@ -212,7 +212,7 @@ void Communication::decomposerTrame()
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << trame;
+            qDebug() << "trame erreur: " << trame;
         }
     }
 }
