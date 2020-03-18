@@ -20,11 +20,11 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
 
     private static final String TAG = "IHMCreerPartie"; //!< le TAG de la classe pour les logs
 
-    private Button boutonAjouterJoueur;
-    private Spinner modeDeJeu;
-    private ListView listViewJoueur;
-    private ArrayAdapter<String> Adaptateur;
-    private Button boutonLancerPartie;
+    private Button boutonAjouterJoueur;         //!< Bouton Ajouter un joueur
+    private Spinner modeDeJeu;                  //!< Menu déroulant pour choisir le mode de jeu
+    private ListView listViewJoueur;            //!< ListView avec les nom des joueurs
+    private ArrayAdapter<String> Adaptateur;    //!< Adapter pour afficher sur ListView
+    private Button boutonLancerPartie;          //!< Bouton pour lancer une partie
     /**
      * @brief Méthode appelée à la création de l'activité
      *

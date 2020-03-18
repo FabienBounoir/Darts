@@ -8,27 +8,46 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+/**
+ * @file TReception.java
+ * @brief Déclaration de la classe Partie
+ * @author Menella Erwan
+ */
 
-
-import static android.content.ContentValues.TAG;
-
-public class TReception extends Thread
+/**
+ * @class TReception
+ * @brief Déclaration de la classe TReception
+ */
+class TReception extends Thread
 {
-    Handler handlerUI;
-    private boolean fini;
-    InputStream receiveStream;
+    private Handler handlerUI;                  //!< Handler pour faire passer la trame arrivant
+    private boolean estFini;                    //!< Thread est fini ?
+    private InputStream receiveStream;          //!< Input du Bluetooth
+    private final String TAG = "TReception";    //!< TAG
 
-    TReception(Handler h)
+    /**
+     * @brief Constructeur de la classe TReception
+     * @fn TReception::TReception(Handler handler)
+     * @param handler
+     */
+    TReception(Handler handler, InputStream flux)
     {
-        handlerUI = h;
-        fini = false;
+        Log.d(TAG,"TReception()" );
+        handlerUI = handler;
+        estFini = false;
+        receiveStream = flux;
     }
 
+    /**
+     * @brief Execution du Thread pour écouter les trames du Bluetooth
+     * @fn TReception::run()
+     */
     @Override
     public void run()
     {
+        Log.d(TAG,"run()" );
         BufferedReader reception = new BufferedReader(new InputStreamReader(receiveStream));
-        while(!fini)
+        while(!estFini)
         {
             try
             {
@@ -48,7 +67,7 @@ public class TReception extends Thread
             }
             catch (IOException e)
             {
-                //System.out.println("<Socket> error read");
+                System.out.println("<Socket> error read");
                 e.printStackTrace();
             }
             try
@@ -62,11 +81,16 @@ public class TReception extends Thread
         }
     }
 
+    /**
+     * @brief Arrêt du Thread pour écouter les trames du Bluetooth
+     * @fn TReception::arreter()
+     */
     public void arreter()
     {
-        if(!fini)
+        Log.d(TAG,"arreter()" );
+        if(!estFini)
         {
-            fini = true;
+            estFini = true;
         }
         try
         {

@@ -11,6 +11,9 @@
     <string name="ajouter_joueur">Ajouter Joueur</string>
     <string name="liste_des_joueurs">Liste des Joueurs :</string>
     <string name="lancer_la_partie">Lancer la partie</string>
+    <string name="button">Button</string>
+    <string name="se_connecter">Se Connecter</string>
+    <string name="tir_manqu">Tir manqué</string>
 
     <string-array name="ModeDeJeu">
         <item>501 Double Out</item>

@@ -11,25 +11,41 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+/**
+ * @file Peripherique.java
+ * @brief Déclaration de la classe Peripherique
+ * @author Menella Erwan
+ */
+
+/**
+ * @class Peripherique
+ * @brief Déclaration de la classe Peripherique
+ */
+
 public class Peripherique extends Thread
 {
-    private BluetoothDevice device;
-    private String nom;
-    private String adresse;
-    private Handler handler;
-    private BluetoothSocket socket = null;
-    private InputStream receiveStream = null;
-    private OutputStream sendStream = null;
-    private TReception tReception;
-    public final static int CODE_CONNEXION = 0;
-    public final static int CODE_RECEPTION = 1;
-    public final static int CODE_DECONNEXION = 2;
-    private final static String TAG = "Peripherique";
+    private BluetoothDevice device;                     //!< Objet BluetoothDevice
+    private String nom;                                 //!< Nom du peripherique bluetooth
+    private String adresse;                             //!< Adresse du peripherique bluetooth
+    private Handler handler;                            //!< Handler permet de traiter les trames
+    private BluetoothSocket socket = null;              //!< Socket Bluetooth
+    private InputStream receiveStream = null;           //!< Input du Bluetooth
+    private OutputStream sendStream = null;             //!< Output du BLuetooth
+    private TReception tReception;                      //!< Thread pour traiter les trames
+    public final static int CODE_CONNEXION = 0;         //!< Code de Connection
+    public final static int CODE_RECEPTION = 1;         //!< Code de Reception
+    public final static int CODE_DECONNEXION = 2;       //!< Code de Deconnexion
+    private final static String TAG = "Peripherique";   //!< TAG pour log
 
 
-
+    /**
+     * @brief Constructeur de la classe Peripherique
+     * @fn Peripherique::Peripherique(BluetoothDevice device, Handler handler)
+     * @param device,handler
+     */
     public Peripherique(BluetoothDevice device, Handler handler)
     {
+        Log.d(TAG,"Peripherique()");
         if(device != null)
         {
             this.device = device;
@@ -47,6 +63,7 @@ public class Peripherique extends Thread
 
         try
         {
+            assert device != null;
             socket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
             receiveStream = socket.getInputStream();
             sendStream = socket.getOutputStream();
@@ -58,11 +75,16 @@ public class Peripherique extends Thread
         }
 
         if(socket != null)
-            tReception = new TReception(handler);
-        }
+            tReception = new TReception(handler,receiveStream);
+    }
 
+    /**
+     * @brief Méthode pour se connecter sur le perihperique en Bluetooth
+     * @fn Peripherique::connecter()
+     */
     public void connecter()
     {
+        Log.d(TAG,"connecter()");
         new Thread()
         {
             @Override public void run()
@@ -76,6 +98,7 @@ public class Peripherique extends Thread
                     handler.sendMessage(msg);
 
                     tReception.start();
+                    Log.d(TAG,"connecter reussi");
 
                 }
                 catch (IOException e)
@@ -87,8 +110,13 @@ public class Peripherique extends Thread
         }.start();
     }
 
+    /**
+     * @brief Méthode pour se deconnecter sur le perihperique en Bluetooth
+     * @fn Peripherique::deconnecter()
+     */
     public boolean deconnecter()
     {
+        Log.d(TAG,"deconnecter()");
         try
         {
             tReception.arreter();
@@ -104,8 +132,13 @@ public class Peripherique extends Thread
         }
     }
 
+    /**
+     * @brief Méthode pour envoyer une trame en Bluetooth
+     * @fn Peripherique::envoyer()
+     */
     public void envoyer(final String data)
     {
+        Log.d(TAG,"envoyer() ");
         if(socket == null) {
             Log.d(TAG,"ANNULE");
             return;
@@ -120,6 +153,7 @@ public class Peripherique extends Thread
                     {
                         sendStream.write(data.getBytes());
                         sendStream.flush();
+                        Log.d(TAG,"trame envoyer");
                     }
                 }
                 catch (IOException e)

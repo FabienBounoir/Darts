@@ -15,8 +15,8 @@ public class TypeJeu
     /**
      * Attributs
      */
-    private boolean doubleOut;  //!<
-    private int pointDepart;    //!<
+    private boolean doubleOut;  //!< Le mode est en Double Out ?
+    private int pointDepart;    //!< Point de depart du mode de jeu
 
     /**
      * Constantes
