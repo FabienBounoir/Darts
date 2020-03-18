@@ -7,22 +7,44 @@
     tools:context=".ActivitePartie">
 
     <LinearLayout
-        android:layout_width="766dp"
-        android:layout_height="1022dp"
+        android:id="@+id/Affichagejoueur"
+        android:layout_width="409dp"
+        android:layout_height="0dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="300dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/creer_une_partie" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/SeConnecter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="232dp"
+        android:layout_marginEnd="304dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/se_connecter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Affichagejoueur" />
+
+    <Button
+        android:id="@+id/TirManque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="22dp"
+        android:text="@string/tir_manqu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/SeConnecter"
+        app:layout_constraintTop_toBottomOf="@+id/Affichagejoueur" />
 </androidx.constraintlayout.widget.ConstraintLayout>

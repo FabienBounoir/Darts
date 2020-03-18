@@ -14,10 +14,10 @@ import java.util.Queue;
  */
 public class Partie
 {
-    private int nbJoueurs;              //!<
-    private int nbManche;               //!<
-    private TypeJeu typeJeu;            //!<
-    private Queue<Joueur> lesJoueurs;   //!<
+    private int nbJoueurs;              //!< Nombre de joueur
+    private int nbManche;               //!< Nombre de manche
+    private TypeJeu typeJeu;            //!< Mode de jeu
+    private Queue<Joueur> lesJoueurs;   //!< Les objets Joueur stocker dans un conteneur (Queue)
 
     /**
      * @brief Constructeur de la classe Partie

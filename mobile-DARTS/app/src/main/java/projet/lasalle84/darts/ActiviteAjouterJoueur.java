@@ -23,8 +23,8 @@ import java.io.Serializable;
 public class ActiviteAjouterJoueur extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "IHMAjouterJoueur"; //!< le TAG de la classe pour les logs
-    private Button boutonValider;
-    private EditText saisir;
+    private Button boutonValider;   //!< Bouton valider
+    private EditText saisir;        //!< Zone de saisir du nom du joueur
     /**
      * @brief Méthode appelée à la création de l'activité
      *
@@ -33,6 +33,7 @@ public class ActiviteAjouterJoueur extends AppCompatActivity implements View.OnC
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG,"onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajouter_joueur);
         recupererWidget();
@@ -47,6 +48,7 @@ public class ActiviteAjouterJoueur extends AppCompatActivity implements View.OnC
      */
     public void recupererWidget()
     {
+        Log.d(TAG,"recupererWidget()");
         boutonValider = (Button) findViewById(R.id.bouton);
         saisir = (EditText) findViewById(R.id.Nom);
     }
@@ -59,6 +61,7 @@ public class ActiviteAjouterJoueur extends AppCompatActivity implements View.OnC
      */
     public void initiliserWidget()
     {
+        Log.d(TAG,"initiliserWidget()");
         boutonValider.setOnClickListener(this);
         saisir.setOnClickListener(this);
 
@@ -71,19 +74,26 @@ public class ActiviteAjouterJoueur extends AppCompatActivity implements View.OnC
      * @param element le widget cliqué
      */
     @Override
-    public void onClick(View view)
+    public void onClick(View element)
     {
         Log.d(TAG,"Onclick()");
 
-        if(view == boutonValider)
+        if(element == boutonValider)
         {
             Log.d(TAG, "clic BoutonValider ");
             finish();
         }
     }
 
+    /**
+     * @brief Méthode appelée lors l'utilisateur valide
+     *
+     * @fn ActiviteAjouterJoueur::finish()
+     */
     @Override
     public void finish() {
+        Log.d(TAG,"finish()");
+
         if (saisir.getText() != null)
         {
             Intent retour = new Intent();
