@@ -11,6 +11,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,22 +23,24 @@ import java.util.Set;
  * @class ActivitePartie
  * @brief Déclaration de la classe ActivitePartie
  */
-public class ActivitePartie extends AppCompatActivity implements View.OnClickListener{
+public class ActivitePartie extends AppCompatActivity implements View.OnClickListener
+{
     /**
-     * @brief Méthode appelée à la création de l'activité
-     *
-     * @fn ActivitePartie::onCreate(Bundle savedInstanceState)
-     * @param savedInstanceState
+     * Constantes
      */
-    private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;     //!< Code que le bluetooth est ativer
-    private final static String TAG = "IHMPartie";                  //!< Tag pour Log
+    private final static String TAG = "IHMPartie";                                  //!< Tag pour Log
+    private final static String NOM_PERIPHERIQUE_BLUETOOTH_ECRAN = "ecran-darts";   //!< le nom du périphérique Bluetooth du module écran
+    private final static String NOM_PERIPHERIQUE_BLUETOOTH_CIBLE = "impact-darts";  //!< le nom du périphérique Bluetooth du module cible
+    private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;                     //!< Code que le bluetooth est ativer
+    /**
+     * Attributs
+     */
     private BluetoothAdapter bluetoothAdapter;                      //!<
     private Set<BluetoothDevice> devices;                           //!< Les peripheriques qui sont appairés
-    private Peripherique raspberry;                                 //!< Peripherique raspberry connecté en Bluetooth
-    private Peripherique darts;                                     //!< Peripherique darts connecté en Bluetooth
-    private Handler handler;                                        //!<
-    private Button Seconnecter;
-    private Button tirManque;
+    private Peripherique raspberry = null;                          //!< Peripherique raspberry connecté en Bluetooth
+    private Peripherique darts = null;                              //!< Peripherique darts connecté en Bluetooth
+    private Button boutonSeConnecter;                               //!< Le bouton de connexion
+    private Button boutonTirManque;                                 //!< Le bouton
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -46,16 +49,17 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
      * @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         Log.d(TAG,"onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partie);
-        recupererWidget();
-        initialiserWidget();
 
-        ActiverBlutooth();
+        recupererWidgets();
+        initialiserWidgets();
+
+        activerBluetooth();
         recupererPeripheriques();
-
     }
 
     /**
@@ -67,17 +71,15 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View element)
     {
-        Log.d(TAG, "onClick()");
+        Log.d(TAG, "onClick() " + element.toString());
 
-        if (element == Seconnecter)
+        if (element == boutonSeConnecter)
         {
-            Log.d(TAG, "click Seconnecter");
-            connecterPeripheriqueBluetooth(raspberry,"48:2C:A0:27:A3:90");
-            Seconnecter.setVisibility(View.GONE);
-            tirManque.setVisibility(View.VISIBLE);
+            connecterPeripheriquesBluetooth();
+            boutonSeConnecter.setVisibility(View.GONE);
+            boutonTirManque.setVisibility(View.VISIBLE);
         }
     }
-
 
     /**
      * @brief Récupère les widgets du layout de l'activité
@@ -85,11 +87,11 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
      * @fn ActivitePartie::recupererWidgets()
      *
      */
-    public void recupererWidget()
+    public void recupererWidgets()
     {
-        Log.d(TAG,"recupererWidget()");
-        Seconnecter = (Button) findViewById(R.id.SeConnecter);
-        tirManque = (Button) findViewById(R.id.TirManque);
+        Log.d(TAG,"recupererWidgets()");
+        boutonSeConnecter = (Button) findViewById(R.id.SeConnecter);
+        boutonTirManque = (Button) findViewById(R.id.TirManque);
     }
 
     /**
@@ -98,13 +100,12 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
      * @fn ActivitePartie::initialiserWidgets()
      *
      */
-    public void initialiserWidget()
+    public void initialiserWidgets()
     {
-        Log.d(TAG,"initialiserWidget()");
-        tirManque.setVisibility(View.GONE);
-        tirManque.setOnClickListener(this);
-        Seconnecter.setOnClickListener(this);
-
+        Log.d(TAG,"initialiserWidgets()");
+        boutonTirManque.setVisibility(View.GONE);
+        boutonTirManque.setOnClickListener(this);
+        boutonSeConnecter.setOnClickListener(this);
     }
 
     /**
@@ -113,24 +114,27 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
      * @fn ActivitePartie::ActiverBlutooth()
      *
      */
-    public void ActiverBlutooth()
+    public void activerBluetooth()
     {
-        Log.d(TAG,"ActiverBlutooth()");
+        Log.d(TAG,"activerBlutooth()");
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null)
         {
+            Log.d(TAG,"Bluetooth non activé !");
             Toast.makeText(getApplicationContext(), "Bluetooth non activé !", Toast.LENGTH_SHORT).show();
         }
         else
         {
             if (!bluetoothAdapter.isEnabled())
             {
+                Log.d(TAG,"Bluetooth non activé !");
                 Toast.makeText(getApplicationContext(), "Bluetooth non activé !", Toast.LENGTH_SHORT).show();
                 Intent activeBlueTooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(activeBlueTooth, REQUEST_CODE_ENABLE_BLUETOOTH);
             }
             else
             {
+                Log.d(TAG,"Bluetooth activé !");
                 Toast.makeText(getApplicationContext(), "Bluetooth activé", Toast.LENGTH_SHORT).show();
             }
         }
@@ -160,53 +164,110 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * @brief Récupère les Péripheriques qui sont appairés
+     * @brief Récupère les péripheriques Bluetooth qui sont appairés
      *
      * @fn ActivitePartie::recupererPeripheriques()
      *
      */
     public void recupererPeripheriques()
     {
-        Log.d(TAG,"afficherPeripheriques()");
+        Log.d(TAG,"recupererPeripheriques()");
         devices = bluetoothAdapter.getBondedDevices();
-
     }
 
     /**
      * @brief Se connecter sur un péripherique via son adresse
      *
-     * @fn ActivitePartie::connecterLesPeripheriqueBluetooth(String adresse)
-     *
+     * @fn ActivitePartie::connecterPeripheriquesBluetooth
      */
-    public void connecterPeripheriqueBluetooth(Peripherique monPeripherique,String adresse)
+    public void connecterPeripheriquesBluetooth()
     {
-        Log.d(TAG,"connecterPeripheriqueBluetooth()");
-        handler = new Handler();
+        Log.d(TAG,"connecterPeripheriquesBluetooth()");
 
+        String nomPeripherique = NOM_PERIPHERIQUE_BLUETOOTH_ECRAN;
         for (BluetoothDevice device : devices)
         {
-            if (device.getAddress().equals(adresse))
+            if(device.getName().contains(nomPeripherique))
             {
-                monPeripherique = new Peripherique(device,handler);
-                Log.d(TAG,"Adresse du nouveau peripherique "+ device.getAddress());
+                raspberry = new Peripherique(device, handler);
+                Log.d(TAG,"Adresse du péripherique raspberrypi " + device.getAddress());
+                break;
             }
         }
 
-        monPeripherique.connecter();
+        nomPeripherique = NOM_PERIPHERIQUE_BLUETOOTH_CIBLE;
+        for (BluetoothDevice device : devices)
+        {
+            if(device.getName().contains(nomPeripherique))
+            {
+                darts = new Peripherique(device, handler);
+                Log.d(TAG,"Adresse du péripherique darts " + device.getAddress());
+                break;
+            }
+        }
+
+        if(raspberry != null)
+            raspberry.connecter();
+        if(darts != null)
+            darts.connecter();
     }
 
     /**
      * @brief Envoie une trame à un péripherique
      *
-     * @fn ActivitePartie::envoyerTrame(Peripherique peripherique,String trame)
+     * @fn ActivitePartie::envoyerTrame(Peripherique peripherique, String trame)
      *
      */
-    public void envoyerTrame(Peripherique peripherique,String trame)
+    public void envoyerTrame(Peripherique peripherique, String trame)
     {
-        Log.d(TAG,"connecterLesPeripheriqueBluetooth()");
-        peripherique.envoyer(trame);
+        Log.d(TAG,"envoyerTrame() " + peripherique.getNom());
+        if(peripherique != null)
+            peripherique.envoyer(trame);
     }
+
+    // Gère les communications avec le thread réseau
+    final private Handler handler = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            super.handleMessage(msg);
+
+            Bundle b = msg.getData();
+
+            switch(b.getInt("etat"))
+            {
+                case Peripherique.CODE_ERREUR_CONNECTER:
+                    Log.d(TAG,"<Bluetooth> Erreur " + b.getString("nom") + " [" + b.getString("adresse") + "] connecter");
+                    break;
+                case Peripherique.CODE_ERREUR_RECEVOIR:
+                    Log.d(TAG,"<Bluetooth> Erreur " + b.getString("nom") + " [" + b.getString("adresse") + "] envoyer");
+                    //reconnecter ?
+                    break;
+                case Peripherique.CODE_ERREUR_ENVOYER:
+                    Log.d(TAG,"<Bluetooth> Erreur " + b.getString("nom") + " [" + b.getString("adresse") + "] envoyer");
+                    //reconnecter ?
+                    break;
+                case Peripherique.CODE_CONNEXION:
+                    Log.d(TAG,"<Bluetooth> Connexion " + b.getString("nom") + " [" + b.getString("adresse") + "] ok");
+                    break;
+                case Peripherique.CODE_RECEPTION:
+                    String donnees = b.getString("donnees");
+                    if(donnees.contains("\r\n"))
+                    {
+                        Log.d(TAG,"<Bluetooth> Données reçues " + b.getString("nom") + " [" + b.getString("adresse") + "] : " + donnees.replace("\r\n", ""));
+                    }
+                    else
+                    {
+                        Log.d(TAG,"<Bluetooth> Données reçues " + b.getString("nom") + " [" + b.getString("adresse") + "] : " + donnees);
+                    }
+                    break;
+                case Peripherique.CODE_DECONNEXION:
+                    Log.d(TAG,"<Bluetooth> Déconnexion " + b.getString("nom") + " [" + b.getString("adresse") + "] ok");
+                    break;
+                default:
+                    Log.d(TAG,"<Bluetooth> code état inconnu ! ");
+            }
+        }
+    };
 }
-
-
-

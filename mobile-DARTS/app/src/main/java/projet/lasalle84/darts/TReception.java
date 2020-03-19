@@ -1,5 +1,6 @@
 package projet.lasalle84.darts;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -20,19 +21,29 @@ import java.io.InputStreamReader;
  */
 class TReception extends Thread
 {
+    /**
+     * Constantes
+     */
+    private final String TAG = "TReception";    //!< TAG
+    /**
+     * Attributs
+     */
+    private Peripherique peripherique;
     private Handler handlerUI;                  //!< Handler pour faire passer la trame arrivant
     private boolean estFini;                    //!< Thread est fini ?
     private InputStream receiveStream;          //!< Input du Bluetooth
-    private final String TAG = "TReception";    //!< TAG
 
     /**
      * @brief Constructeur de la classe TReception
      * @fn TReception::TReception(Handler handler)
+     * @param peripherique
      * @param handler
+     * @param flux
      */
-    TReception(Handler handler, InputStream flux)
+    TReception(Peripherique peripherique, Handler handler, InputStream flux)
     {
-        Log.d(TAG,"TReception()" );
+        Log.d(TAG,"TReception() " + peripherique.getNom() + "[" + peripherique.getAdresse() + "]");
+        this.peripherique = peripherique;
         handlerUI = handler;
         estFini = false;
         receiveStream = flux;
@@ -45,7 +56,7 @@ class TReception extends Thread
     @Override
     public void run()
     {
-        Log.d(TAG,"run()" );
+        Log.d(TAG,"début run() " + peripherique.getNom() + "[" + peripherique.getAdresse() + "]");
         BufferedReader reception = new BufferedReader(new InputStreamReader(receiveStream));
         while(!estFini)
         {
@@ -58,17 +69,28 @@ class TReception extends Thread
                 }
                 if(trame.length() > 0)
                 {
-                    Log.d(TAG, "run() trame : " + trame);
+                    Log.d(TAG, "run() trame reçue : " + trame);
                     Message msg = Message.obtain();
-                    msg.what = Peripherique.CODE_RECEPTION;
-                    msg.obj = trame;
+                    Bundle b = new Bundle();
+                    b.putString("nom", peripherique.getNom());
+                    b.putString("adresse", peripherique.getAdresse());
+                    b.putInt("etat", Peripherique.CODE_RECEPTION);
+                    b.putString("donnees", trame);
+                    msg.setData(b);
                     handlerUI.sendMessage(msg);
                 }
             }
             catch (IOException e)
             {
-                System.out.println("<Socket> error read");
                 e.printStackTrace();
+                Log.d(TAG, "run() Erreur socket read : " + peripherique.getNom());
+                Message msg = Message.obtain();
+                Bundle b = new Bundle();
+                b.putString("nom", peripherique.getNom());
+                b.putString("adresse", peripherique.getAdresse());
+                b.putInt("etat", Peripherique.CODE_ERREUR_RECEVOIR);
+                msg.setData(b);
+                handlerUI.sendMessage(msg);
             }
             try
             {
@@ -79,6 +101,15 @@ class TReception extends Thread
                 e.printStackTrace();
             }
         }
+        Message msg = Message.obtain();
+        Bundle b = new Bundle();
+        b.putString("nom", peripherique.getNom());
+        b.putString("adresse", peripherique.getAdresse());
+        b.putInt("etat", Peripherique.CODE_DECONNEXION);
+        b.putString("donnees", "");
+        msg.setData(b);
+        handlerUI.sendMessage(msg);
+        Log.d(TAG,"fin run() " + peripherique.getNom() + "[" + peripherique.getAdresse() + "]");
     }
 
     /**
@@ -87,7 +118,7 @@ class TReception extends Thread
      */
     public void arreter()
     {
-        Log.d(TAG,"arreter()" );
+        Log.d(TAG,"arreter() " + peripherique.getNom() + "[" + peripherique.getAdresse() + "]");
         if(!estFini)
         {
             estFini = true;
