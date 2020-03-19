@@ -89,6 +89,7 @@ private:
     void calculerMoyenneVolees();
     void testerNombreJoueurRestand();
     void testerPoint(int typePoint, int point);
+    void calculerPoints(int point, int typePoint);
 };
 
 #endif // DARTS_H

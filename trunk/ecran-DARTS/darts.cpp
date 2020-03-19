@@ -222,23 +222,7 @@ void Darts::testerPoint(int typePoint, int point)
  */
 void Darts::receptionnerImpact(int typePoint, int point)
 {
-    switch(typePoint){
-        case TRIPLE_POINT:
-            pointLancer = point * TRIPLE_POINT;
-        break;
-        case DOUBLE_POINT:
-            pointLancer = point * DOUBLE_POINT;
-        break;
-        case SIMPLE_POINT:
-            pointLancer = point;
-        break;
-        case  ZERO_POINT:
-            pointLancer = point * ZERO_POINT;
-        break;
-        default:
-            qDebug() << Q_FUNC_INFO << "Erreur type de point :" << typePoint;
-        break;
-    }
+    calculerPoints(point, typePoint);
 
     testerPoint(typePoint, point);
 
@@ -481,5 +465,34 @@ void Darts::testerNombreJoueurRestand()
     if(eliminer == joueurs.size() - 1)
     {
         arreterPartie();
+    }
+}
+
+/**
+ * @brief teste s'il reste qu'un joueur n'etant pas éliminer
+ *
+ * @fn Darts::calculerPoints
+ * @param point la zone
+ * @param typePoint un simple, double ou triple
+ */
+void Darts::calculerPoints(int point, int typePoint)
+{
+    switch(typePoint)
+    {
+        case TRIPLE_POINT:
+            pointLancer = point * TRIPLE_POINT;
+        break;
+        case DOUBLE_POINT:
+            pointLancer = point * DOUBLE_POINT;
+        break;
+        case SIMPLE_POINT:
+            pointLancer = point;
+        break;
+        case  ZERO_POINT:
+            pointLancer = point * ZERO_POINT;
+        break;
+        default:
+            qDebug() << Q_FUNC_INFO << "Erreur type de point :" << typePoint;
+        break;
     }
 }
