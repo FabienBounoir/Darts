@@ -2,6 +2,7 @@ package projet.lasalle84.darts;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -24,6 +25,19 @@ import java.util.UUID;
 
 public class Peripherique extends Thread
 {
+    /**
+     * Constantes
+     */
+    private final static String TAG = "Peripherique";   //!< TAG pour log
+    public final static int CODE_CONNEXION = 0;         //!< Code de Connection
+    public final static int CODE_RECEPTION = 1;         //!< Code de Reception
+    public final static int CODE_DECONNEXION = 2;       //!< Code de Deconnexion
+    public final static int CODE_ERREUR_ENVOYER = -1;   //!< Code erreur lors de l'envoi
+    public final static int CODE_ERREUR_RECEVOIR = -2;  //!< Code erreur lors de la réception
+    public final static int CODE_ERREUR_CONNECTER = -3; //!< Code erreur lors de la connexion
+    /**
+     * Attributs
+     */
     private BluetoothDevice device;                     //!< Objet BluetoothDevice
     private String nom;                                 //!< Nom du peripherique bluetooth
     private String adresse;                             //!< Adresse du peripherique bluetooth
@@ -32,11 +46,6 @@ public class Peripherique extends Thread
     private InputStream receiveStream = null;           //!< Input du Bluetooth
     private OutputStream sendStream = null;             //!< Output du BLuetooth
     private TReception tReception;                      //!< Thread pour traiter les trames
-    public final static int CODE_CONNEXION = 0;         //!< Code de Connection
-    public final static int CODE_RECEPTION = 1;         //!< Code de Reception
-    public final static int CODE_DECONNEXION = 2;       //!< Code de Deconnexion
-    private final static String TAG = "Peripherique";   //!< TAG pour log
-
 
     /**
      * @brief Constructeur de la classe Peripherique
@@ -45,7 +54,7 @@ public class Peripherique extends Thread
      */
     public Peripherique(BluetoothDevice device, Handler handler)
     {
-        Log.d(TAG,"Peripherique()");
+        Log.d(TAG,"Peripherique() " + device.getName() + "[" + device.getAddress() + "]");
         if(device != null)
         {
             this.device = device;
@@ -75,7 +84,27 @@ public class Peripherique extends Thread
         }
 
         if(socket != null)
-            tReception = new TReception(handler,receiveStream);
+            tReception = new TReception(this, handler, receiveStream);
+    }
+
+    /**
+     * @brief Méthode qui retourne le nom du périphérique
+     * @fn Peripherique::getNom()
+     * @return nom le nom du périphérique
+     */
+    public String getNom()
+    {
+        return nom;
+    }
+
+    /**
+     * @brief Méthode qui retourne l'adresse du périphérique
+     * @fn Peripherique::getAdresse()
+     * @return adresse l'adresse du périphérique
+     */
+    public String getAdresse()
+    {
+        return adresse;
     }
 
     /**
@@ -84,7 +113,7 @@ public class Peripherique extends Thread
      */
     public void connecter()
     {
-        Log.d(TAG,"connecter()");
+        Log.d(TAG,"connecter() " + device.getName() + "[" + device.getAddress() + "]");
         new Thread()
         {
             @Override public void run()
@@ -94,17 +123,29 @@ public class Peripherique extends Thread
                     socket.connect();
 
                     Message msg = Message.obtain();
-                    msg.arg1 = CODE_CONNEXION;
+                    Bundle b = new Bundle();
+                    b.putString("nom", getNom());
+                    b.putString("adresse", getAdresse());
+                    b.putInt("etat", CODE_CONNEXION);
+                    msg.setData(b);
                     handler.sendMessage(msg);
 
+                    // on démarre le thread de réception
                     tReception.start();
-                    Log.d(TAG,"connecter reussi");
+                    Log.d(TAG,"connexion reussie " + getNom());
 
                 }
                 catch (IOException e)
                 {
-                    System.out.println("<Socket> error connect");
                     e.printStackTrace();
+                    Log.d(TAG,"erreur connexion " + getNom());
+                    Message msg = Message.obtain();
+                    Bundle b = new Bundle();
+                    b.putString("nom", getNom());
+                    b.putString("adresse", getAdresse());
+                    b.putInt("etat", CODE_ERREUR_CONNECTER);
+                    msg.setData(b);
+                    handler.sendMessage(msg);
                 }
             }
         }.start();
@@ -116,7 +157,7 @@ public class Peripherique extends Thread
      */
     public boolean deconnecter()
     {
-        Log.d(TAG,"deconnecter()");
+        Log.d(TAG,"deconnecter() " + device.getName() + "[" + device.getAddress() + "]");
         try
         {
             tReception.arreter();
@@ -138,9 +179,10 @@ public class Peripherique extends Thread
      */
     public void envoyer(final String data)
     {
-        Log.d(TAG,"envoyer() ");
-        if(socket == null) {
-            Log.d(TAG,"ANNULE");
+        Log.d(TAG,"envoyer() " + device.getName() + "[" + device.getAddress() + "]");
+        if(socket == null)
+        {
+            Log.d(TAG,"pas d'envoi");
             return;
         }
         new Thread()
@@ -153,16 +195,22 @@ public class Peripherique extends Thread
                     {
                         sendStream.write(data.getBytes());
                         sendStream.flush();
-                        Log.d(TAG,"trame envoyer");
+                        Log.d(TAG, "envoyer() trame envoyée : " + data);
                     }
                 }
                 catch (IOException e)
                 {
-                    System.out.println("<Socket> error send");
                     e.printStackTrace();
+                    Log.d(TAG, "envoyer() Erreur socket write : " + getNom());
+                    Message msg = Message.obtain();
+                    Bundle b = new Bundle();
+                    b.putString("nom", getNom());
+                    b.putString("adresse", getAdresse());
+                    b.putInt("etat", CODE_ERREUR_ENVOYER);
+                    msg.setData(b);
+                    handler.sendMessage(msg);
                 }
             }
         }.start();
     }
-
 }
