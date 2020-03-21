@@ -21,7 +21,12 @@
  * @brief Définit la périodicité de l'horloge en millisecondes
  */
 #define PERIODE_HORLOGE     1000
-#define CHEMIN_FICHIER_MUSIQUE "../ecran-DARTS/son/"
+
+/**
+ * @def CHEMIN_FICHIER_MUSIQUE
+ * @brief Définit le chemin pour les sons
+ */
+#define CHEMIN_FICHIER_MUSIQUE "/son/"
 
 namespace Ui {
 class Ihm;
@@ -41,15 +46,15 @@ public:
     ~Ihm();
 
 private:
-    Ui::Ihm *ui;                    //!< object de notre Ihm
-    QTimer *timerHorloge;           //!< objet timerHorloge
-    Communication *communication;   //!< objet communication
-    Darts *darts;                   //!< objet darts
-    QSound musique;                 //!< objet musique
-    QSound musiquePause;            //!< objet musiquePause
-    int compteurDureePartie;        //!< compteur de secondes pour la durée d'une séance
-    QPixmap SauverImpactEncours;    //!< Pixmap qui sauvegarde l'etat de la cible
-    QString MessageStatut;          //!< contient le message de statut qui est afficher
+    Ui::Ihm *ui;                        //!< object de notre Ihm
+    QTimer *timerHorloge;               //!< objet timerHorloge
+    Communication *communication;       //!< objet communication
+    Darts *darts;                       //!< objet darts
+    QSound musique;                     //!< objet musique
+    QSound musiquePause;                //!< objet musiquePause
+    int compteurDureePartie;            //!< compteur de secondes pour la durée d'une séance
+    QPixmap sauvegardeImpactEncours;    //!< sauvegarde le pixmap de l'état de la cible
+    QString messageStatut;              //!< contient le message de statut qui est affiché
 
     /**
      * @enum Page
