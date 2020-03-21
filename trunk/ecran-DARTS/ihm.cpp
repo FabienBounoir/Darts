@@ -26,30 +26,30 @@
 Ihm::Ihm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Ihm),
-    musique(CHEMIN_FICHIER_MUSIQUE "music.wav",this),
-    musiquePause(CHEMIN_FICHIER_MUSIQUE "pause.wav",this),
+    musique(qApp->applicationDirPath() + CHEMIN_FICHIER_MUSIQUE + "music.wav",this),
+    musiquePause(qApp->applicationDirPath() + CHEMIN_FICHIER_MUSIQUE + "pause.wav",this),
     compteurDureePartie(0),
-    MessageStatut("Volée ➤")
+    messageStatut("Volée ➤")
 {
     ui->setupUi(this);
     qDebug() << Q_FUNC_INFO;
 
-    allerPage(Ihm::PageAttente);
-
     darts = new Darts(this);
     communication = new Communication(darts, this);
 
-    // Horloge
+    // Initialiser l'horloge
     initialiserHorloge();
 
-    // Raccourcis Quitter/ChangerPage
+    // Raccourcis Quitter/ChangerPage (mode debug)
     attribuerRaccourcisClavier();
 
     // Démarrer la communication bluetooth
     communication->demarrer();
 
+    // Initialiser les connexions signal/slot
     initialiserEvenements();
 
+    // Afficher la page d'attente
     afficherNouvellePartie();
 }
 
@@ -195,17 +195,17 @@ void Ihm::mettreAJourMessageStatut(int typePoint, int point)
 
     switch(typePoint){
         case TRIPLE_POINT:
-            MessageStatut += " T" + QString::number(point);
+            messageStatut += " T" + QString::number(point);
         break;
         case DOUBLE_POINT:
-            MessageStatut += " D" + QString::number(point);
+            messageStatut += " D" + QString::number(point);
         break;
         default:
-            MessageStatut += " " + QString::number(point);
+            messageStatut += " " + QString::number(point);
         break;
     }
     ui->labelStatut->setStyleSheet("color: rgb(109, 43,107);");
-    ui->labelStatut->setText(MessageStatut);
+    ui->labelStatut->setText(messageStatut);
 }
 
 
@@ -291,7 +291,7 @@ void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
 {
     musique.play();
 
-    disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
+    disconnect(timerHorloge, SIGNAL(timeout()), this, SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
     ui->winnerPartie->setText(gagnant);
     ui->voleeMax->setText(QString::number(voleeMaxJoueur) + " points");
     ui->nbVolees->setText(QString::number(darts->getNbVolees()));
@@ -322,11 +322,11 @@ void Ihm::afficherNouvellePartie()
 
      mettreAJourCible();
 
-     //configuration musique
+     // configurer la musique
      musique.setLoops(QSound::Infinite);
      musiquePause.setLoops(QSound::Infinite);
      musiquePause.stop();
-     //jouer la musique
+     // jouer la musique
      musique.play();
 }
 
@@ -394,7 +394,7 @@ void Ihm::afficherAttenteConfiguration()
  */
 void Ihm::afficherAttenteConnexion()
 {
-    ui->labelStatutAttente->setText("En attente de connexion ");
+    ui->labelStatutAttente->setText("En attente de connexion");
 }
 
 /**
@@ -439,14 +439,13 @@ void Ihm::mettreAJoursolution(QString solution)
 void Ihm::mettrePausePartie()
 {
     disconnect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // mettre en pause le chronometrage de la partie
-    SauverImpactEncours = ui->labelVisualisationimpact->pixmap()->copy();
+    sauvegardeImpactEncours = ui->labelVisualisationimpact->pixmap()->copy();
     QImage pause(":pause.png");
     QPixmap cibleImpacte = ui->labelVisualisationimpact->pixmap()->copy(); // on récupère l'image précédente;
     QPainter p(&cibleImpacte);
     p.drawImage(QPoint(0, 0), pause);
     p.end();
     ui->labelVisualisationimpact->setPixmap(cibleImpacte);
-
     ui->labelTempsPartie->setStyleSheet("color: rgb(179, 0,5);");
 
     musiquePause.play();
@@ -459,7 +458,7 @@ void Ihm::mettrePausePartie()
  */
 void Ihm::relancerpartie()
 {
-    ui->labelVisualisationimpact->setPixmap(SauverImpactEncours);
+    ui->labelVisualisationimpact->setPixmap(sauvegardeImpactEncours);
     ui->labelTempsPartie->setStyleSheet("color: rgb(109, 43,107);");
     connect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // relancer le chronometrage de la partie
     qDebug() << "Partie relancer" << endl;
@@ -485,8 +484,8 @@ void Ihm::initialiserHorloge()
  */
 void Ihm::mettreAJourCible()
 {
-    ui->labelVisualisationimpact->setPixmap(QPixmap("../ecran-DARTS/ressources/cible.png"));
-    MessageStatut = "Volée ➤";
+    ui->labelVisualisationimpact->setPixmap(QPixmap(":/ressources/cible.png"));
+    messageStatut = "Volée ➤";
 }
 
 /**
@@ -509,10 +508,10 @@ void Ihm::mettreAJourMessageStatut(QString statut)
  */
 void Ihm::jouerSon(QString son)
 {
-    QSound::play("../ecran-DARTS/son/" + son);
-    if(!QFileInfo("../ecran-DARTS/son/" + son).exists())       //test si le son existe
+    QSound::play(qApp->applicationDirPath() + CHEMIN_FICHIER_MUSIQUE + son);
+    if(!QFileInfo(qApp->applicationDirPath() + CHEMIN_FICHIER_MUSIQUE + son).exists())
     {
-        qDebug() << "Pour avoir les son ajouter le pack Disponible a cette adresse :"<<endl;
-        qDebug() << "https://drive.google.com/file/d/1vlS_oySnAM7ocsf9FyaZ1P4JyHIQrLiR/view?usp=sharing"<<endl;
+        qDebug() << Q_FUNC_INFO << "Pour avoir les sons, ajouter le pack disponible à cette adresse :"<<endl;
+        qDebug() << Q_FUNC_INFO << "https://drive.google.com/file/d/1vlS_oySnAM7ocsf9FyaZ1P4JyHIQrLiR/view?usp=sharing"<<endl;
     }
 }
