@@ -9,7 +9,7 @@
 /**
 * @file ihm.cpp
 *
-* @brief Définition de la classe Ihm
+* @brief Définition de la classe Ihm (Module Ecran-DARTS)
 *
 * @author Bounoir Fabien
 *
@@ -161,7 +161,6 @@ void Ihm::mettreAJourManche()
  * @fn Ihm::afficherImpact
  * @param typePoint
  * @param point
- * @param score
  */
 void Ihm::afficherImpact(int typePoint, int point)
 {
@@ -186,7 +185,7 @@ void Ihm::afficherImpact(int typePoint, int point)
 /**
  * @brief   methode qui met à jour le message de statut de la Volée en cour
  *
- * @fn Ihm::mettreAJourMessageStatut
+ * @fn Ihm::mettreAJourMessageStatut(int typePoint, int point)
  * @param typePoint
  * @param point
  */
@@ -346,7 +345,7 @@ void Ihm::allerPageSuivante()
  * @brief Méthode qui permet de changer de QStackedWidget avec la Précédente
  *
  * @fn Ihm::allerPage
- * @param la page du QStackedWidget à afficher
+ * @param page la page du QStackedWidget à afficher
  */
 void Ihm::allerPage(Ihm::Page page)
 {
@@ -491,7 +490,7 @@ void Ihm::mettreAJourCible()
 /**
  * @brief methode qui met à jour le message de statut
  *
- * @fn Ihm::mettreAJourMessageStatut
+ * @fn Ihm::mettreAJourMessageStatut(QString statut)
  * @param statut
  */
 void Ihm::mettreAJourMessageStatut(QString statut)

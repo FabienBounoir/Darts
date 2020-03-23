@@ -3,7 +3,7 @@
 /**
 * @file solution.cpp
 *
-* @brief Définition de la classe Solution
+* @brief Définition de la classe Solution (Module Ecran-DARTS)
 *
 * @author Bounoir Fabien
 *

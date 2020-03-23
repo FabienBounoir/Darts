@@ -5,7 +5,7 @@
 /**
 * @file darts.cpp
 *
-* @brief Définition de la classe Darts
+* @brief Définition de la classe Darts (Module Ecran-DARTS)
 *
 * @author Bounoir Fabien
 *
