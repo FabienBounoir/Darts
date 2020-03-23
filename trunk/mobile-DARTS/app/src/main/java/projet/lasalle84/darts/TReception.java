@@ -29,7 +29,7 @@ class TReception extends Thread
      * Attributs
      */
     private Peripherique peripherique;
-    private Handler handlerUI;                  //!< Handler pour faire passer la trame arrivant
+    private Handler handler;                  //!< Handler pour faire passer la trame arrivant
     private boolean estFini;                    //!< Thread est fini ?
     private InputStream receiveStream;          //!< Input du Bluetooth
 
@@ -44,7 +44,7 @@ class TReception extends Thread
     {
         Log.d(TAG,"TReception() " + peripherique.getNom() + "[" + peripherique.getAdresse() + "]");
         this.peripherique = peripherique;
-        handlerUI = handler;
+        this.handler = handler;
         estFini = false;
         receiveStream = flux;
     }
@@ -77,7 +77,7 @@ class TReception extends Thread
                     b.putInt("etat", Peripherique.CODE_RECEPTION);
                     b.putString("donnees", trame);
                     msg.setData(b);
-                    handlerUI.sendMessage(msg);
+                    handler.sendMessage(msg);
                 }
             }
             catch (IOException e)
@@ -90,7 +90,7 @@ class TReception extends Thread
                 b.putString("adresse", peripherique.getAdresse());
                 b.putInt("etat", Peripherique.CODE_ERREUR_RECEVOIR);
                 msg.setData(b);
-                handlerUI.sendMessage(msg);
+                handler.sendMessage(msg);
             }
             try
             {
@@ -108,7 +108,7 @@ class TReception extends Thread
         b.putInt("etat", Peripherique.CODE_DECONNEXION);
         b.putString("donnees", "");
         msg.setData(b);
-        handlerUI.sendMessage(msg);
+        handler.sendMessage(msg);
         Log.d(TAG,"fin run() " + peripherique.getNom() + "[" + peripherique.getAdresse() + "]");
     }
 

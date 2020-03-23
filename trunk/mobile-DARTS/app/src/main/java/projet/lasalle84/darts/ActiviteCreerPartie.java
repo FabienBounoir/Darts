@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.io.Serializable;
+import java.util.Vector;
+
 public class ActiviteCreerPartie extends AppCompatActivity implements View.OnClickListener
 {
 
@@ -38,8 +41,7 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_creer_partie);
         recupererWidgets();
         initialiserWidgets();
-        Adaptateur = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item);
-        listViewJoueur.setAdapter(Adaptateur);
+
     }
 
     /**
@@ -63,10 +65,30 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
         else if (element == boutonLancerPartie)
         {
             Log.d(TAG,"clic boutonLancerPartie");
-            Intent intent = new Intent(ActiviteCreerPartie.this, ActivitePartie.class);
-            startActivity(intent);
+            LancerPartie();
         }
 
+    }
+
+    /**
+     * @brief Méthode pour lancer la partie
+     * @fn ActiviteCreerPartie::LancerPartie()
+     */
+    public void LancerPartie()
+    {
+        Vector<Joueur>mesJoueurs = new Vector<>();
+        for (int i = 0; i < Adaptateur.getCount(); i++)
+        {
+            mesJoueurs.add(new Joueur(Adaptateur.getItem(i)));
+            Log.d(TAG,"Joueur" + i + " = " + Adaptateur.getItem(i));
+        }
+
+        Intent intent = new Intent(ActiviteCreerPartie.this, ActivitePartie.class);
+        intent.putExtra("TypeMode",modeDeJeu.getSelectedItemPosition());
+        Log.d(TAG,"TypeMode = " + modeDeJeu.getSelectedItemPosition());
+        intent.putExtra("LesJoueurs", mesJoueurs);
+        startActivity(intent);
+        finish();
     }
 
     /**
@@ -94,6 +116,8 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
         Log.d(TAG, "initialiserWidgets()");
         boutonAjouterJoueur.setOnClickListener(this);
         boutonLancerPartie.setOnClickListener(this);
+        Adaptateur = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item);
+        listViewJoueur.setAdapter(Adaptateur);
     }
 
     /**

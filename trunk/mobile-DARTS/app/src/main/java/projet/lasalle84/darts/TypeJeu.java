@@ -6,6 +6,8 @@ package projet.lasalle84.darts;
  * @author Menella Erwan
  */
 
+import android.util.Log;
+
 /**
  * @class TypeJeu
  * @brief Déclaration de la classe TypeJeu
@@ -25,6 +27,7 @@ public class TypeJeu
     private final static int PARTIE_501_DOUBLE_OUT = 1;
     private final static int PARTIE_301 = 2;
     private final static int PARTIE_301_DOUBLE_OUT = 3;
+    private final static String TAG = "TypeJeu";
 
     /**
      * @brief Constructeur par défaut de la classe TypeJeu
@@ -77,10 +80,7 @@ public class TypeJeu
                 this.pointDepart = 301;
                 this.doubleOut = true;
                 break;
-            default:
-                this.pointDepart = 501;
-                this.doubleOut = true;
-                break;
+
         }
     }
     public int getPointDepart()
@@ -101,5 +101,17 @@ public class TypeJeu
     public void setDoubleOut(boolean doubleOut)
     {
         this.doubleOut = doubleOut;
+    }
+
+    public String getTypeJeu()
+    {
+        String typeJeu = Integer.toString(this.getPointDepart());
+        if (doubleOut)
+        {
+            typeJeu = typeJeu.concat("_DOUBLE_OUT");
+        }
+        Log.d(TAG, "getTypeJeu: "+ typeJeu);
+        return typeJeu;
+
     }
 }
