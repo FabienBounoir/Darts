@@ -3,7 +3,7 @@
 
 /**
  * @file darts.h
- * @brief Déclaration de la classe Darts
+ * @brief Déclaration de la classe Darts (Module Ecran-DARTS)
  *
  * @version 0.1
  *
@@ -26,7 +26,7 @@ class Solution;
 
 /**
  * @class Darts
- * @brief Déclaration de la classe Darts
+ * @brief Déclaration de la classe Darts (Module Ecran-DARTS)
  * @details Cette classe s'occuper du déroulement d'une partie
 */
 class Darts : public QObject
@@ -46,8 +46,8 @@ public:
     Solution *getSolution() const;
     void setVoleeMax(int voleeMax);
     void setManche(int manche);
-    void receptionnerImpact(int cercle, int point);
-    void initialiserPartie(QStringList joueur, QString modeJeu);
+    void receptionnerImpact(int typePoint, int point);
+    void initialiserPartie(QStringList joueurList, QString modeJeu);
     void reinitialiserPartie();
     void arreterPartie();
 
@@ -83,7 +83,7 @@ private:
     void gererManche();
     void gererVoleeMax();
     QString calculerGagnant();
-    void testerImpact(int cercle);
+    void testerImpact(int typePoint);
     void testerSiJoueurEliminer();
     void controlerJoueurEliminer();
     void calculerMoyenneVolees();

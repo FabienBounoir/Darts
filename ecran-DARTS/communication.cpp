@@ -4,7 +4,7 @@
 /**
 * @file communication.cpp
 *
-* @brief Définition de la classe Communication
+* @brief Définition de la classe Communication (Module Ecran-DARTS)
 *
 * @author Bounoir Fabien
 *
@@ -16,6 +16,7 @@
  * @brief constructeur de la classe Communication
  *
  * @fn Communication::Communication
+ * @param darts
  * @param parent
  */
 Communication::Communication(Darts *darts, QObject *parent) : QObject(parent), darts(darts), serveur(nullptr), socket(nullptr), localDeviceName("Ecran-Darts"), trame("")

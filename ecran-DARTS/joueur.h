@@ -6,7 +6,7 @@
 
 /**
  * @file joueur.h
- * @brief Déclaration de la classe Joueur
+ * @brief Déclaration de la classe Joueur (Module Ecran-DARTS)
  *
  * @version 0.1
  *
@@ -15,7 +15,7 @@
 
 /**
  * @class Joueur
- * @brief Déclaration de la classe Joueur
+ * @brief Déclaration de la classe Joueur (Module Ecran-DARTS)
  * @details Cette classe s'occupe du stockage du nom, score et nombre de flechettes du joueur
 */
 class Joueur

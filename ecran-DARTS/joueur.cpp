@@ -5,7 +5,7 @@
 /**
 * @file joueur.cpp
 *
-* @brief Définition de la classe Joueur
+* @brief Définition de la classe Joueur (Module Ecran-DARTS)
 *
 * @author Bounoir Fabien
 *
@@ -16,7 +16,7 @@
 /**
  * @brief constructeur de la classe Joueur
  *
- * @fn Joueur::Joueur
+ * @fn Joueur::Joueur(QString nom, int score , int nbFlechette)
  * @param nom
  * @param score
  * @param nbFlechette
@@ -129,7 +129,7 @@ void Joueur::setMoyenneVolee(int moyenneVolee)
 /**
  * @brief permet de mettre à jour le score du joueur
  *
- * @fn Joueur::setScore
+ * @fn Joueur::setScore(int score)
  * @param score
  */
 void Joueur::setScore(int score)

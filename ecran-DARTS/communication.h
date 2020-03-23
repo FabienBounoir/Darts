@@ -3,7 +3,7 @@
 
 /**
  * @file communication.h
- * @brief Déclaration de la classe Communication
+ * @brief Déclaration de la classe Communication (Module Ecran-DARTS)
  *
  * @version 0.1
  *
@@ -35,7 +35,7 @@ static const QString serviceNom(QStringLiteral("Ecran-Darts"));
 /**
 * @class Communication communication.h "communication.h"
 *
-* @brief Déclaration de la classe Communication (via la liaison Bluetooth)
+* @brief Déclaration de la classe Communication via la liaison Bluetooth (Module Ecran-DARTS)
 * @details Cette classe s'occupe de la partie communication Bluetooth en mode serveur (configuration, réception et traitement des trames du protocole DART)
 */
 class Communication : public QObject
@@ -51,7 +51,7 @@ public:
 
     /**
      * @brief contient les different etat de la partie
-     * @enum EtatSeance
+     * @enum EtatPartie
      */
     enum EtatPartie
     {

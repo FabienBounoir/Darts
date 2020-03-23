@@ -3,7 +3,7 @@
 
 /**
  * @file ihm.h
- * @brief Déclaration de la classe Ihm
+ * @brief Déclaration de la classe Ihm (Module Ecran-DARTS)
  *
  * @version 0.1
  *
@@ -34,7 +34,7 @@ class Ihm;
 
 /**
  * @class Ihm
- * @brief Déclaration de la classe Ihm
+ * @brief Déclaration de la classe Ihm (Module Ecran-DARTS)
  * @details Cette classe s'occupe de l'affichage sur l'écran
 */
 class Ihm : public QWidget
@@ -82,7 +82,7 @@ public slots:
     void fermerApplication();
     void afficherAttenteConfiguration();
     void afficherAttenteConnexion();
-    void afficherImpact(int cercle, int point);
+    void afficherImpact(int typePoint, int point);
     void afficherPartie();
     void mettreAJourScore();
     void mettreAJourManche();

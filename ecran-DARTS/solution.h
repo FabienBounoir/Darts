@@ -3,7 +3,7 @@
 
 /**
  * @file solution.h
- * @brief Déclaration de la classe solution
+ * @brief Déclaration de la classe solution (Module Ecran-DARTS)
  *
  * @version 0.1
  *
@@ -24,7 +24,7 @@
 
 /**
  * @class Solution
- * @brief Déclaration de la classe Solution
+ * @brief Déclaration de la classe Solution (Module Ecran-DARTS)
  * @details Cette classe s'occupe de rechercher les différentes solutions pour finir la partie
 */
 class Solution : public QObject
@@ -32,7 +32,7 @@ class Solution : public QObject
     Q_OBJECT
 public:
     explicit Solution(QObject *parent = nullptr);
-    void trouverSolution(int score, int flechettes);
+    void trouverSolution(int s, int flechettes);
 
 private:
     QString solution;                       //!< contient la solution pour finir la partie
