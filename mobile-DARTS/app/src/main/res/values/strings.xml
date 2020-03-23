@@ -16,7 +16,9 @@
     <string name="tir_manqu">Tir manqué</string>
 
     <string-array name="ModeDeJeu">
+        <item>501</item>
         <item>501 Double Out</item>
+        <item>301</item>
         <item>301 Double Out</item>
     </string-array>
 </resources>

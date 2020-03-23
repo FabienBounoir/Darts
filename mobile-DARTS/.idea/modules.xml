@@ -6,6 +6,8 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/mobile-DARTS-Darts.iml" filepath="$PROJECT_DIR$/mobile-DARTS-Darts.iml" group="Darts" />
       <module fileurl="file://$PROJECT_DIR$/app/mobile-DARTS-app.iml" filepath="$PROJECT_DIR$/app/mobile-DARTS-app.iml" group="Darts/app" />
+      <module fileurl="file://$PROJECT_DIR$/trunk-mobile-DARTS-Darts.iml" filepath="$PROJECT_DIR$/trunk-mobile-DARTS-Darts.iml" group="Darts" />
+      <module fileurl="file://$PROJECT_DIR$/app/trunk-mobile-DARTS-app.iml" filepath="$PROJECT_DIR$/app/trunk-mobile-DARTS-app.iml" group="Darts/app" />
     </modules>
   </component>
 </project>

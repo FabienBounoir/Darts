@@ -6,12 +6,18 @@ package projet.lasalle84.darts;
  * @author Menella Erwan
  */
 
+
+import android.util.Log;
+import java.io.Serializable;
+
+
 /**
  * @class Joueur
  * @brief Déclaration de la classe Joueur
  */
-public class Joueur
+public class Joueur implements Serializable
 {
+    private static final String TAG = "Joueur" ;
     private String nom; //!< Le nom du joueur
     private int score; //!< Le score du joueur
 
@@ -67,6 +73,17 @@ public class Joueur
      * @param score le score du joueur
      */
     public void setScore(int score) {
+        Log.d(TAG, this.nom + " setScore " + score);
         this.score = score;
+    }
+
+    public boolean retirerPoint(int scoreLancer)
+    {
+        if (this.score - scoreLancer < 0)
+        {
+            this.score = this.score - scoreLancer;
+            return true;
+        }
+        return false;
     }
 }
