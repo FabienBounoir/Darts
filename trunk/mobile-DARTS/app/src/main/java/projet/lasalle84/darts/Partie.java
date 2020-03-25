@@ -31,6 +31,7 @@ public class Partie
     private final static String TAG = "Partie";                                     //!< Tag pour Log
     private final static String NOM_PERIPHERIQUE_BLUETOOTH_ECRAN = "ecran-darts";   //!< le nom du périphérique Bluetooth du module écran
     private final static String NOM_PERIPHERIQUE_BLUETOOTH_CIBLE = "impact-darts";  //!< le nom du périphérique Bluetooth du module cible
+    public final static int NB_FLECHETTE = 3;
     /**
      * Code HandlerUI
      */
@@ -39,7 +40,7 @@ public class Partie
     public final static int IMPACT = 2;
     public final static int GAGNANT = 3;
 
-    public final static int NB_FLECHETTE = 3;
+
 
     /**
      * Attributs
@@ -56,6 +57,7 @@ public class Partie
     private int impact[] = null;
     private boolean impactEstRecuperer;
     private boolean estFini = false;
+    private boolean estDoubleImpact = false;
 
     /**
      * @brief Constructeur de la classe Partie
@@ -160,23 +162,30 @@ public class Partie
                 Joueur monJoueur = it.next();
                 Log.d(TAG, "c'est le tour à " + monJoueur.getNom());
                 actualiserJoueurIHM(monJoueur.getNom());
+                int pointVolley = 0;
 
                 for(int i = 0; i < NB_FLECHETTE; i++)
                 {
                     impactEstRecuperer = false;
-                    int pointLancer = attendreImpact();
-
-                    if(!monJoueur.retirerPoint(pointLancer))
+                    attendreImpact();
+                    pointVolley =+ impact[0]*impact[1];
+                    if(!monJoueur.retirerPoint(pointVolley))
                     {
                         i = NB_FLECHETTE;
+                        pointVolley = 0;
                     }
-                    else if (monJoueur.getScore() == 0)
+                    else if (monJoueur.getScore() == 0 && !typeJeu.estDoubleOut())
+                    {
+                        envoyerGagnantIHM(monJoueur);
+                    }
+                    else if (monJoueur.getScore() == 0 && typeJeu.estDoubleOut() && estDoubleImpact)
                     {
                         envoyerGagnantIHM(monJoueur);
                     }
 
-                    actualiserScoreIHM(monJoueur, i);
+
                 }
+                actualiserScoreIHM(monJoueur, monJoueur.getScore());
             }
         }while (!estFini);
 
@@ -195,6 +204,7 @@ public class Partie
         {
             Joueur monJoueur = it.next();
             monJoueur.setScore(typeJeu.getPointDepart());
+            actualiserScoreIHM(monJoueur,typeJeu.getPointDepart());
             nomJoueurTrame = nomJoueurTrame.concat(monJoueur.getNom() + ";");
         }
 
@@ -255,18 +265,17 @@ public class Partie
      * @fn Partie::attendreImpact()
      *
      */
-    public int attendreImpact() {
+    public void attendreImpact() {
         Log.d(TAG, "attendreImpact()");
         while (!impactEstRecuperer)
         {
             sleep(1000);
 
         }
-        int score = impact[0]*impact[1];
         envoyerTrame(raspberry,"$DART;GAME;" + impact[0] + ";" + impact[1] + "\r\n");
         impactIHM(impact[0],impact[1]);
-        Log.d(TAG, "attendreImpact: "+score);
-        return score;
+        Log.d(TAG, "Type cible: " + impact[0] + "Numero Cible:" + impact[1]);
+
     }
 
     /**
@@ -295,19 +304,19 @@ public class Partie
                 //TODO PAUSE
                 break;
             case "PLAY":
-                //TODO
+                //TODO PLAY
                 break;
             case "STOP":
-                //TODO
+                //TODO STOP
                 break;
             case "RESET":
-                //TODO
+                //TODO RESET
                 break;
             case "HEARTBEAT ":
-                //TODO
+                //TODO HEARTBEAT
                 break;
             case "ACK":
-                //TODO
+                //TODO ACK
                 break;
         }
     }
@@ -318,12 +327,14 @@ public class Partie
      * @fn Partie::actualiserScoreIHM(Joueur monJoueur, int nbFlechette)
      *
      */
-    public void actualiserScoreIHM(Joueur monJoueur, int nbFlechette)
+    public void actualiserScoreIHM(Joueur monJoueur, int score)
     {
+        Log.d(TAG, "actualiserScoreIHM()");
         Message msg = Message.obtain();
         Bundle b = new Bundle();
         b.putInt("action",SET_SCORE);
-        b.putInt("score", nbFlechette);
+        b.putString("joueur", monJoueur.getNom());
+        b.putInt("score", score);
         msg.setData(b);
         handlerUI.sendMessage(msg);
     }
@@ -336,6 +347,7 @@ public class Partie
      */
     public void actualiserJoueurIHM(String monJoueur)
     {
+        Log.d(TAG, "actualiserJoueurIHM()");
         Message msg = Message.obtain();
         Bundle b = new Bundle();
         b.putInt("action",JOUEUR_SUIVANT);
@@ -352,6 +364,7 @@ public class Partie
      */
     public void impactIHM(int typePoint, int numeroCible)
     {
+        Log.d(TAG, "impactIHM()");
         Message msg = Message.obtain();
         Bundle b = new Bundle();
         b.putInt("action",IMPACT);
@@ -364,10 +377,11 @@ public class Partie
     /**
      * @brief Envoyer le gagnant a IHM
      *
-     * @fn Partie::gagnantIHM(Joueur monJoueur)
+     * @fn Partie::envoyerGagnantIHM(Joueur monJoueur)
      *
      */
     public void envoyerGagnantIHM(Joueur monJoueur) {
+        Log.d(TAG, "envoyerGagnantIHM()");
         estFini = true;
         Message msg = Message.obtain();
         Bundle b = new Bundle();
