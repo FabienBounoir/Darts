@@ -79,7 +79,7 @@ public class Joueur implements Serializable
 
     public boolean retirerPoint(int scoreLancer)
     {
-        if (this.score - scoreLancer < 0)
+        if (this.score - scoreLancer >= 0)
         {
             this.score = this.score - scoreLancer;
             return true;

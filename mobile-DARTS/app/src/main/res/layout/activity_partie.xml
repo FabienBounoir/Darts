@@ -18,21 +18,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/SeConnecter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="232dp"
-        android:layout_marginEnd="304dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/se_connecter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Affichagejoueur" />
+        <ListView
+            android:id="@+id/MesJoueur"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/TirManque"
@@ -45,21 +37,33 @@
         android:text="@string/tir_manqu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Affichagejoueur"
-        app:layout_constraintVertical_bias="0.794" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/LancerPartie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="106dp"
         android:layout_marginTop="232dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="20dp"
         android:text="@string/lancer_la_partie"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/SeConnecter"
+        app:layout_constraintTop_toBottomOf="@+id/Affichagejoueur" />
+
+    <TextView
+        android:id="@+id/Impact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="177dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginBottom="254dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Affichagejoueur" />
 </androidx.constraintlayout.widget.ConstraintLayout>
