@@ -88,7 +88,7 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
         Log.d(TAG,"TypeMode = " + modeDeJeu.getSelectedItemPosition());
         intent.putExtra("LesJoueurs", mesJoueurs);
         startActivity(intent);
-        finish();
+        super.finish();
     }
 
     /**

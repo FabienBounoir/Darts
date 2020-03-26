@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,14 +35,7 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
      * Constantes
      */
     private final static String TAG = "IHMPartie";                                  //!< Tag pour Log
-    private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;                     //!< Code que le bluetooth est ativer
-    /**
-     * Code HandlerUI
-     */
-    public final static int JOUEUR_SUIVANT = 0;
-    public final static int SET_SCORE = 1;
-    public final static int IMPACT = 2;
-    public final static int GAGNANT = 3;
+    private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;                     //!< Code que le bluetooth est activé
     /**
      * Attributs
      */
@@ -206,14 +200,14 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
                     actualiserScoreIHM(b.getString("joueur"), b.getInt("score"));
                     break;
                 case Partie.IMPACT:
-                    Log.d(TAG, "IMPACT" + "Joueur: " + b.getString("joueur") + " TypePoint: " + b.getInt("typePoint") + " NumeroCible: " + b.getInt("numeroCible"));
+                    Log.d(TAG, "IMPACT " + "Joueur: " + b.getString("joueur") + " TypePoint: " + b.getInt("typePoint") + " NumeroCible: " + b.getInt("numeroCible"));
                     b.getInt("typePoint");
                     b.getInt("numeroCible");
                     afficherImpact( b.getInt("typePoint"),b.getInt("numeroCible"));
                     break;
                 case Partie.GAGNANT:
-                    Log.d(TAG, "GAGNANT");
-                    b.getString("gagnant");
+                    Log.d(TAG, "GAGNANT " + b.getString("gagnant"));
+                    afficheGagnant(b.getString("gagnant"));
                     break;
 
             }
@@ -322,23 +316,31 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public void AfficheGagnant(String gagnant)
+    /**
+     * @brief Méthode qui affiche IHM de fin
+     *
+     * @fn ActivitePartie::AfficheGagnant(String gagnant)
+     *
+     */
+    public void afficheGagnant(String gagnant)
     {
-        Intent IHMGagnant = new Intent();
+        Log.d(TAG, "afficheGagnant()");
+        Intent IHMGagnant = new Intent(ActivitePartie.this, ActiviteFinPartie.class);
         List<Joueur>lesJoueur = new ArrayList<Joueur>();
         for (int i = 0; i < mesJoueurs.size(); i++)
         {
             if (mesJoueurs.get(i).getNom().equals(gagnant))
             {
-                IHMGagnant.putExtra("gagnant", mesJoueurs.get(i));
+                IHMGagnant.putExtra("gagnant", mesJoueurs.get(i).getNom());
             }
             else
             {
                 lesJoueur.add(mesJoueurs.get(i));
             }
 
-            IHMGagnant.putExtra("joueurs", (Parcelable) lesJoueur);
-
+            IHMGagnant.putExtra("joueurs", (Serializable) lesJoueur);
+            startActivity(IHMGagnant);
+            super.finish();
         }
     }
 }

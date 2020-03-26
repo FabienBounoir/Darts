@@ -14,6 +14,7 @@
     <string name="button">Button</string>
     <string name="se_connecter">Se Connecter</string>
     <string name="tir_manqu">Tir manqué</string>
+    <string name="fin_de_la_partie">Fin de la Partie</string>
 
     <string-array name="ModeDeJeu">
         <item>501</item>
