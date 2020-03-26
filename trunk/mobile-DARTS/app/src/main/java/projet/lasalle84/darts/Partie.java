@@ -79,8 +79,6 @@ public class Partie
 
     }
 
-
-
     /**
      * @brief Récupère les péripheriques Bluetooth qui sont appairés
      *
@@ -131,6 +129,19 @@ public class Partie
     }
 
     /**
+     * @brief Deconnecter les periphériques bluetooth
+     *
+     * @fn Partie::deconnecterPeripheriquesBluetooth()
+     *
+     */
+    public void deconnecterPeripheriquesBluetooth()
+    {
+        Log.d(TAG, "deconnecterPeripheriquesBluetooth()");
+        raspberry.deconnecter();
+        darts.deconnecter();
+    }
+
+    /**
      * @brief Envoie une trame à un péripherique
      *
      * @fn Partie::envoyerTrame(Peripherique peripherique, String trame)
@@ -177,18 +188,21 @@ public class Partie
                     else if (monJoueur.getScore() == 0 && !typeJeu.estDoubleOut())
                     {
                         envoyerGagnantIHM(monJoueur);
+                        i = NB_FLECHETTE;
+                        estFini = true;
                     }
                     else if (monJoueur.getScore() == 0 && typeJeu.estDoubleOut() && estDoubleImpact)
                     {
                         envoyerGagnantIHM(monJoueur);
+                        i = NB_FLECHETTE;
+                        estFini = true;
                     }
-
 
                 }
                 actualiserScoreIHM(monJoueur, monJoueur.getScore());
             }
         }while (!estFini);
-
+        deconnecterPeripheriquesBluetooth();
     }
 
     /**
@@ -198,6 +212,7 @@ public class Partie
      *
      */
     public void initialiserPartie() {
+        Log.d(TAG, "initialiserPartie()");
         Iterator<Joueur> it = lesJoueurs.iterator();
         String nomJoueurTrame = new String();
         while(it.hasNext())
@@ -211,7 +226,6 @@ public class Partie
         envoyerTrame(raspberry,"$DARTS;START;" + typeJeu.getTypeJeu() + ";" + lesJoueurs.size() + ";" + nomJoueurTrame + "\r\n");
     }
 
-    // Gère les communications avec le thread réseau
 
     private Handler handlerBluetooth = new Handler()
     {
@@ -274,6 +288,16 @@ public class Partie
         }
         envoyerTrame(raspberry,"$DART;GAME;" + impact[0] + ";" + impact[1] + "\r\n");
         impactIHM(impact[0],impact[1]);
+
+        if (impact[0] == 2)
+        {
+            estDoubleImpact = true;
+        }
+        else
+        {
+            estDoubleImpact = false;
+        }
+
         Log.d(TAG, "Type cible: " + impact[0] + "Numero Cible:" + impact[1]);
 
     }
