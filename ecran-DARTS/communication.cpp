@@ -190,6 +190,10 @@ void Communication::decomposerTrame()
         {
             darts->receptionnerImpact(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
         }
+        else if(trame.contains("REGLE") && etatPartie == EtatPartie::EnCours)     /** $DART;REGLE */
+        {
+            emit afficherRegle();
+        }
         else if(trame.contains("PAUSE") && etatPartie == EtatPartie::EnCours)     /** $DART;PAUSE */
         {
             emit pause();

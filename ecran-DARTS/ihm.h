@@ -106,7 +106,8 @@ public slots:
     void mettreAJourCible();
     void mettreAJourMessageStatut(QString);
     void jouerSon(QString son);
-    void lancerRegle(QString regle);
+    void lancerRegle();
+    void stateChanged(QMediaPlayer::State state);
 };
 
 #endif // IHM_H
