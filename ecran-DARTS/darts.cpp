@@ -9,7 +9,7 @@
 *
 * @author Bounoir Fabien
 *
-* @version 0.1
+* @version 0.2
 *
 */
 
@@ -495,4 +495,25 @@ void Darts::calculerPoints(int point, int typePoint)
             qDebug() << Q_FUNC_INFO << "Erreur type de point :" << typePoint;
         break;
     }
+}
+
+/**
+ * @brief Methode qui teste le mode de jeu
+ *
+ * @fn Darts::testerModeDeJeu
+ * @return QString
+ */
+QString Darts::testerModeDeJeu()
+{
+    QString regle ="";
+
+    if(getModeDeJeu().contains("DOUBLE_OUT"))
+    {
+        regle = "DOUBLE_OUT";
+    }
+    else
+    {
+        regle = "SANS_DOUBLE_OUT";
+    }
+    return regle;
 }

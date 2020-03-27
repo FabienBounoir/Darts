@@ -5,7 +5,7 @@
  * @file ihm.h
  * @brief Déclaration de la classe Ihm (Module Ecran-DARTS)
  *
- * @version 0.1
+ * @version 0.2
  *
  * @author Bounoir Fabien
  */
@@ -56,10 +56,11 @@ private:
     QSound musique;                     //!< objet musique
     QSound musiquePause;                //!< objet musiquePause
     int compteurDureePartie;            //!< compteur de secondes pour la durée d'une séance
-    int etatPartie;
+    int sauverEtatPartie;               //!< Contient l'etat de la partie avant l'affichage des règles
     QPixmap sauvegardeImpactEncours;    //!< sauvegarde le pixmap de l'état de la cible
     QString messageStatut;              //!< contient le message de statut qui est affiché
 
+    //objet pour l'affichage video
     QMediaPlayer *player;               //!< objet player
     QVideoWidget *videoWidget;          //!< objet videoWidget
 
@@ -82,6 +83,7 @@ private:
     void initialiserHorloge();
     void mettreAJourMessageStatut(int typePoint, int point);
     void initialiserAffichageRegle();
+    void testerEtatPartie();
 
 public slots:
     void actualiserHeure();
@@ -109,6 +111,7 @@ public slots:
     void jouerSon(QString son);
     void lancerRegle(QString regle);
     void stateChanged(QMediaPlayer::State state);
+    void error(QMediaPlayer::Error error);
 };
 
 #endif // IHM_H
