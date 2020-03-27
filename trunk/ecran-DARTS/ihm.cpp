@@ -13,7 +13,7 @@
 *
 * @author Bounoir Fabien
 *
-* @version 0.1
+* @version 0.2
 *
 */
 
@@ -484,7 +484,7 @@ void Ihm::initialiserHorloge()
 }
 
 /**
- * @brief methode qui reinitialise l'affichage de la cible
+ * @brief Méthode qui reinitialise l'affichage de la cible
  *
  * @fn Ihm::mettreAJourCible
  */
@@ -495,7 +495,7 @@ void Ihm::mettreAJourCible()
 }
 
 /**
- * @brief methode qui met à jour le message de statut
+ * @brief Méthode qui met à jour le message de statut
  *
  * @fn Ihm::mettreAJourMessageStatut(QString statut)
  * @param statut
@@ -523,7 +523,7 @@ void Ihm::jouerSon(QString son)
 }
 
 /**
- * @brief methode qui initialise l'affichage video des regles
+ * @brief Méthode qui initialise l'affichage vidéo des règles
  *
  * @fn Ihm::initialiserAffichageRegle
  */
@@ -537,55 +537,84 @@ void Ihm::initialiserAffichageRegle()
     player->setVideoOutput(videoWidget);
 
     connect(player, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(stateChanged(QMediaPlayer::State)));
+    connect(player, SIGNAL(error(QMediaPlayer::Error)), this, SLOT(error(QMediaPlayer::Error)));
 }
 
 /**
- * @brief methode qui lance la video explicatif des regle suivant le type de jeu
+ * @brief Méthode qui lance la vidéo explicative des regles suivant le type de jeu
  *
  * @fn Ihm::lancerRegle
  * @param regle
  */
 void Ihm::lancerRegle(QString regle)
 {
-    etatPartie = communication->getEtatPartie();
+    sauverEtatPartie = communication->getEtatPartie();
     communication->miseAJourEtatPartieRegle();
 
     player->setMedia(QUrl::fromLocalFile(QCoreApplication::applicationDirPath() + QString("/" + regle + ".mp4")));
-    mettrePausePartie();
+
     musiquePause.stop();
     musique.stop();
     allerPage(Ihm::PageRegle);
     player->play();
 }
 
+/**
+ * @brief Méthode appelée pour remettre l'état dans lequel était la partie avant l'affichage des règles
+ *
+ * @fn Ihm::testerEtatPartie
+ */
+void Ihm::testerEtatPartie()
+{
+    if(sauverEtatPartie == 1)
+    {
+        communication->miseAJourEtatPartieEnCours();
+        allerPage(Ihm::PageJeu);
+        relancerpartie();
+    }
+    else if(sauverEtatPartie == 3)
+    {
+        communication->miseAJourEtatPartiePause();
+        musiquePause.play();
+        allerPage(Ihm::PageJeu);
+    }
+    else if(sauverEtatPartie == 0)
+    {
+        communication->miseAJourEtatPartieAttente();
+        musique.play();
+        allerPage(Ihm::PageAttente);
+    }
+    else if(sauverEtatPartie == 2)
+    {
+        communication->miseAJourEtatPartieFin();
+        musique.play();
+        allerPage(Ihm::PageStatistique);
+    }
+}
+
+/**
+ * @brief Méthode appelée quand l'état de la vidéo change
+ *
+ * @fn Ihm::stateChanged
+ * @param state
+ */
 void Ihm::stateChanged(QMediaPlayer::State state)
 {
     qDebug() << Q_FUNC_INFO << state;
     if(state == QMediaPlayer::StoppedState)
     {
-        if(etatPartie == 1)
-        {
-            communication->miseAJourEtatPartieEnCours();
-            allerPage(Ihm::PageJeu);
-            relancerpartie();
-        }
-        else if(etatPartie == 3)
-        {
-            communication->miseAJourEtatPartiePause();
-            musiquePause.play();
-            allerPage(Ihm::PageJeu);
-        }
-        else if(etatPartie == 0)
-        {
-            communication->miseAJourEtatPartieAttente();
-            musique.play();
-            allerPage(Ihm::PageAttente);
-        }
-        else if(etatPartie == 2)
-        {
-            communication->miseAJourEtatPartieFin();
-            musique.play();
-            allerPage(Ihm::PageStatistique);
-        }
+        testerEtatPartie();
     }
+}
+
+/**
+ * @brief Méthode appelée quand il y a une erreur de vidéo
+ *
+ * @fn Ihm::error
+ * @param error
+ */
+void Ihm::error(QMediaPlayer::Error error)
+{
+    qDebug() << Q_FUNC_INFO << player->errorString() << error;
+    testerEtatPartie();
 }

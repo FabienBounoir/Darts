@@ -5,7 +5,7 @@
  * @file darts.h
  * @brief Déclaration de la classe Darts (Module Ecran-DARTS)
  *
- * @version 0.1
+ * @version 0.2
  *
  * @author Bounoir Fabien
  */
@@ -50,6 +50,7 @@ public:
     void initialiserPartie(QStringList joueurList, QString modeJeu);
     void reinitialiserPartie();
     void arreterPartie();
+    QString testerModeDeJeu();
 
 signals:
     void miseAJourPoint();              //!< signal émis pour mettre à jour les points des joueurs

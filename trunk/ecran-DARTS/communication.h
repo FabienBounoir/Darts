@@ -5,7 +5,7 @@
  * @file communication.h
  * @brief Déclaration de la classe Communication (Module Ecran-DARTS)
  *
- * @version 0.1
+ * @version 0.2
  *
  * @author Bounoir Fabien
  */
@@ -103,7 +103,6 @@ private:
     void extraireParametresTrameStart(QStringList &joueurs, QString &modeJeu);     //!< Méthode qui extrrait les paramètres du trame START
     void extraireParametresTrameRegle();
     void reamorcerPartie();
-    QString testerModeDeJeu();
 };
 
 #endif // COMMUNICATION_H

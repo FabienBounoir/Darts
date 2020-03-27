@@ -8,7 +8,7 @@
 *
 * @author Bounoir Fabien
 *
-* @version 0.1
+* @version 0.2
 *
 */
 
@@ -39,6 +39,12 @@ Communication::~Communication()
     qDebug() << Q_FUNC_INFO;
 }
 
+/**
+ * @brief Methode qui retourne l'etat de la partie
+ *
+ * @fn Communication::getEtatPartie
+ * @return int
+ */
 int Communication::getEtatPartie()
 {
     return etatPartie;
@@ -251,7 +257,7 @@ void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &
 
     if(trame.section(";",3,3) == "1")
     {
-        emit afficherRegle(testerModeDeJeu());
+        emit afficherRegle(darts->testerModeDeJeu());
     }
 
 }
@@ -265,33 +271,21 @@ void Communication::extraireParametresTrameRegle()
 {
     QString regle ="";
 
+    if(etatPartie != EtatPartie::Pause)
+        emit pause();
+
     if(trame.section(";",2,2).contains("DOUBLE_OUT"))
     {
         emit afficherRegle("DOUBLE_OUT");
     }
-    else if(trame.section(";",2,2) == "" && (etatPartie == EtatPartie::EnCours))
+    else if(trame.section(";",2,2) == "" && (etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Pause))
     {
-        emit afficherRegle(testerModeDeJeu());
+        emit afficherRegle(darts->testerModeDeJeu());
     }
     else
     {
         emit afficherRegle("SANS_DOUBLE_OUT");
     }
-}
-
-QString Communication::testerModeDeJeu()
-{
-    QString regle ="";
-
-    if(darts->getModeDeJeu().contains("DOUBLE_OUT"))
-    {
-        regle = "DOUBLE_OUT";
-    }
-    else
-    {
-        regle = "SANS_DOUBLE_OUT";
-    }
-    return regle;
 }
 
 /**
