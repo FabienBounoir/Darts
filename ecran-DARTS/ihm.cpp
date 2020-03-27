@@ -310,8 +310,8 @@ void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
  */
 void Ihm::afficherNouvellePartie()
 {
-     allerPage(Ihm::PageAttente);
      player->stop();
+     allerPage(Ihm::PageAttente);
      ui->manche->setText("1");
      ui->nomJoueur->setText("");
      ui->scoreActuel->setText("");
@@ -572,16 +572,19 @@ void Ihm::stateChanged(QMediaPlayer::State state)
         else if(etatPartie == 3)
         {
             communication->miseAJourEtatPartiePause();
+            musiquePause.play();
             allerPage(Ihm::PageJeu);
         }
         else if(etatPartie == 0)
         {
             communication->miseAJourEtatPartieAttente();
+            musique.play();
             allerPage(Ihm::PageAttente);
         }
         else if(etatPartie == 2)
         {
             communication->miseAJourEtatPartieFin();
+            musique.play();
             allerPage(Ihm::PageStatistique);
         }
     }

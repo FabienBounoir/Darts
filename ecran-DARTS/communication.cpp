@@ -193,7 +193,7 @@ void Communication::decomposerTrame()
         {
             darts->receptionnerImpact(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
         }
-        else if(trame.contains("REGLE")&& !(etatPartie == EtatPartie::EnCours))   /** $DART;REGLE */
+        else if(trame.contains("REGLE")&& etatPartie != EtatPartie::Regle)   /** $DART;REGLE */
         {
             extraireParametresTrameRegle();
         }
@@ -301,9 +301,9 @@ QString Communication::testerModeDeJeu()
  */
 void Communication::reamorcerPartie()
 {
-    miseAJourEtatPartieAttente();
     emit resetPartie();
     darts->reinitialiserPartie();
+    miseAJourEtatPartieAttente();
 }
 
 /**
