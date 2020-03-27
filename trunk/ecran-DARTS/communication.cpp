@@ -181,10 +181,8 @@ void Communication::decomposerTrame()
 
             QString modeJeu;
             QStringList joueurs;
+
             extraireParametresTrameStart(joueurs, modeJeu);
-
-            darts->initialiserPartie(joueurs, modeJeu);
-
         }
         else if(trame.contains("GAME") && etatPartie == EtatPartie::EnCours)      /** $DART;GAME;3;7 */
         {
@@ -206,9 +204,7 @@ void Communication::decomposerTrame()
         }
         else if(trame.contains("RESET")) // quelque soit l'état de la partie    /** $DART;RESET */
         {
-            emit resetPartie();
-            darts->reinitialiserPartie();
-            miseAJourEtatPartieAttente();
+            reamorcerPartie();
         }
         else if(trame.contains("STOP") && (etatPartie == EtatPartie::EnCours))  /** $DART;STOP */
         {
@@ -231,17 +227,40 @@ void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &
 {
     modeJeu = trame.section(";",2,2);
 
-    for(int i = 0;i <= trame.section(";",3,3).toInt();i++)  //boucle qui recuperer les noms des differents joueurs
+    if(trame.section(";",4,4).toInt() == 0)
+        return;
+
+    for(int i = 0;i <= trame.section(";",4,4).toInt();i++)  //boucle qui recuperer les noms des differents joueurs
     {
-        if(trame.section(";",3+i,3+i) == "")    //test si le joueur a un nom
+        if(trame.section(";",4+i,4+i) == "")    //test si le joueur a un nom
         {
             joueurs.push_back("Joueur[" + QString::number(i) + "]");
         }
         else
         {
-            joueurs.push_back(trame.section(";",3+i,3+i));
+            joueurs.push_back(trame.section(";",4+i,4+i));
         }
     }
+
+    darts->initialiserPartie(joueurs, modeJeu);
+
+    if(trame.section(";",3,3) == "1")
+    {
+        emit afficherRegle();
+    }
+
+}
+
+/**
+ * @brief Méthode qui reinitialise la partie
+ *
+ * @fn Communication::reamorcerPartie
+ */
+void Communication::reamorcerPartie()
+{
+    emit resetPartie();
+    darts->reinitialiserPartie();
+    miseAJourEtatPartieAttente();
 }
 
 /**

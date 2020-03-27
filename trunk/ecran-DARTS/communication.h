@@ -94,6 +94,7 @@ private:
     void extraireParametresTrameStart(QStringList &joueurs, QString &modeJeu);     //!< Méthode qui extrrait les paramètres du trame START
     void miseAJourEtatPartieAttente();                              //!< Méthode appelé pour mettre à jour l'état de la partie à Attente
     void miseAJourEtatPartiePause();                                //!< Méthode appelé pour mettre à jour l'état de la partie à Pause
+    void reamorcerPartie();
 };
 
 #endif // COMMUNICATION_H
