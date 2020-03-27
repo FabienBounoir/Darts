@@ -39,6 +39,11 @@ Communication::~Communication()
     qDebug() << Q_FUNC_INFO;
 }
 
+int Communication::getEtatPartie()
+{
+    return etatPartie;
+}
+
 /**
  * @brief configure la communication bluetooth
  *
@@ -188,9 +193,9 @@ void Communication::decomposerTrame()
         {
             darts->receptionnerImpact(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
         }
-        else if(trame.contains("REGLE") && etatPartie == EtatPartie::EnCours)     /** $DART;REGLE */
+        else if(trame.contains("REGLE")&& !(etatPartie == EtatPartie::EnCours))   /** $DART;REGLE */
         {
-            emit afficherRegle();
+            extraireParametresTrameRegle();
         }
         else if(trame.contains("PAUSE") && etatPartie == EtatPartie::EnCours)     /** $DART;PAUSE */
         {
@@ -246,9 +251,47 @@ void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &
 
     if(trame.section(";",3,3) == "1")
     {
-        emit afficherRegle();
+        emit afficherRegle(testerModeDeJeu());
     }
 
+}
+
+/**
+ * @brief Méthode qui decompose la trame regle
+ *
+ * @fn Communication::extraireParametresTrameRegle
+ */
+void Communication::extraireParametresTrameRegle()
+{
+    QString regle ="";
+
+    if(trame.section(";",2,2).contains("DOUBLE_OUT"))
+    {
+        emit afficherRegle("DOUBLE_OUT");
+    }
+    else if(trame.section(";",2,2) == "" && (etatPartie == EtatPartie::EnCours))
+    {
+        emit afficherRegle(testerModeDeJeu());
+    }
+    else
+    {
+        emit afficherRegle("SANS_DOUBLE_OUT");
+    }
+}
+
+QString Communication::testerModeDeJeu()
+{
+    QString regle ="";
+
+    if(darts->getModeDeJeu().contains("DOUBLE_OUT"))
+    {
+        regle = "DOUBLE_OUT";
+    }
+    else
+    {
+        regle = "SANS_DOUBLE_OUT";
+    }
+    return regle;
 }
 
 /**
@@ -258,9 +301,9 @@ void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &
  */
 void Communication::reamorcerPartie()
 {
+    miseAJourEtatPartieAttente();
     emit resetPartie();
     darts->reinitialiserPartie();
-    miseAJourEtatPartieAttente();
 }
 
 /**
@@ -371,4 +414,15 @@ void Communication::miseAJourEtatPartieEnCours()
 {
     qDebug() << Q_FUNC_INFO << "EtatPartie::EnCours";
     etatPartie = EtatPartie::EnCours;
+}
+
+/**
+ * @brief Méthode qui met à jour l'état de la partie en regle
+ *
+ * @fn Communication::miseAJourEtatPartieRegle
+ */
+void Communication::miseAJourEtatPartieRegle()
+{
+    qDebug() << Q_FUNC_INFO << "EtatPartie::Regle";
+    etatPartie = EtatPartie::Regle;
 }

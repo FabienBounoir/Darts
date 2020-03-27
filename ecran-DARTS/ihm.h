@@ -56,6 +56,7 @@ private:
     QSound musique;                     //!< objet musique
     QSound musiquePause;                //!< objet musiquePause
     int compteurDureePartie;            //!< compteur de secondes pour la durée d'une séance
+    int etatPartie;
     QPixmap sauvegardeImpactEncours;    //!< sauvegarde le pixmap de l'état de la cible
     QString messageStatut;              //!< contient le message de statut qui est affiché
 
@@ -106,7 +107,7 @@ public slots:
     void mettreAJourCible();
     void mettreAJourMessageStatut(QString);
     void jouerSon(QString son);
-    void lancerRegle();
+    void lancerRegle(QString regle);
     void stateChanged(QMediaPlayer::State state);
 };
 

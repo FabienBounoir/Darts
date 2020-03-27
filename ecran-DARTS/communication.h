@@ -48,6 +48,11 @@ public:
     void parametrerBluetooth();     //!< Méthode qui configure la connexion Bluetooth en mode serveur
     void demarrer();                //!< Méthode qui démarre le serveur
     void arreter();                 //!< Méthode qui arrête le serveur
+    int getEtatPartie();
+
+    void miseAJourEtatPartieRegle();
+    void miseAJourEtatPartieAttente();                              //!< Méthode appelé pour mettre à jour l'état de la partie à Attente
+    void miseAJourEtatPartiePause();                                //!< Méthode appelé pour mettre à jour l'état de la partie à Pause
 
     /**
      * @brief contient les different etat de la partie
@@ -58,7 +63,8 @@ public:
         Attente = 0,
         EnCours = 1,
         Fin = 2,
-        Pause
+        Pause = 3,
+        Regle
     };
 
 signals:
@@ -68,7 +74,11 @@ signals:
     void pause();                       //!< signal qui mettra en pause la partie
     void play();                        //!< signal qui relancera le chronometrage de la partie la partie
     void erreurBluetooth(QString erreur);             //!< signal emit quand un probleme de configuration bluetooth est detecté
-    void afficherRegle();
+    void afficherRegle(QString regle);
+
+public slots:
+    void miseAJourEtatPartieFin();                                  //!< Slot appelé pour mettre à jour l'état de la partie à Fin
+    void miseAJourEtatPartieEnCours();                              //!< Slot appelé pour mettre à jour l'état de la partie à EnCours
 
 private slots:
     void deviceConnected(const QBluetoothAddress &adresse);         //!< Slot appelé quand un nouvel appareil est connecté
@@ -77,8 +87,7 @@ private slots:
     void nouveauClient();                                           //!< Slot appelé quand un nouveau client veut se connecter
     void socketReadyRead();                                         //!< Slot appelé quand une nouvelle trame est disponible
     void socketDisconnected();                                      //!< Slot appelé quand la communication est deconnectée
-    void miseAJourEtatPartieFin();                                  //!< Slot appelé pour mettre à jour l'état de la partie à Fin
-    void miseAJourEtatPartieEnCours();                              //!< Slot appelé pour mettre à jour l'état de la partie à EnCours
+
 
 private:
     Darts *darts;                               //!< Association avec l'objet darts
@@ -92,9 +101,9 @@ private:
 
     void decomposerTrame();                     //!< Méthode qui decompose la trame reçue
     void extraireParametresTrameStart(QStringList &joueurs, QString &modeJeu);     //!< Méthode qui extrrait les paramètres du trame START
-    void miseAJourEtatPartieAttente();                              //!< Méthode appelé pour mettre à jour l'état de la partie à Attente
-    void miseAJourEtatPartiePause();                                //!< Méthode appelé pour mettre à jour l'état de la partie à Pause
+    void extraireParametresTrameRegle();
     void reamorcerPartie();
+    QString testerModeDeJeu();
 };
 
 #endif // COMMUNICATION_H
