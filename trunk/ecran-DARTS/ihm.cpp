@@ -91,7 +91,7 @@ void Ihm::initialiserEvenements()
     connect(communication, SIGNAL(play()), this, SLOT(relancerpartie()));
     connect(communication, SIGNAL(erreurBluetooth(QString)), this, SLOT(mettreAJourMessageStatut(QString)));
     connect(darts, SIGNAL(jouerSon(QString)), this, SLOT(jouerSon(QString)));
-    connect(communication, SIGNAL(afficherRegle()), this, SLOT(lancerRegle()));
+    connect(communication, SIGNAL(afficherRegle(QString)), this, SLOT(lancerRegle(QString)));
 
 }
 
@@ -293,6 +293,7 @@ void Ihm::afficherVoleeAnnulee()
  */
 void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
 {
+    player->stop();
     musique.play();
 
     disconnect(timerHorloge, SIGNAL(timeout()), this, SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
@@ -544,22 +545,15 @@ void Ihm::initialiserAffichageRegle()
  * @fn Ihm::lancerRegle
  * @param regle
  */
-void Ihm::lancerRegle()
+void Ihm::lancerRegle(QString regle)
 {
-    QString regle ="";
-
-    if(darts->getModeDeJeu().contains("DOUBLE_OUT"))
-    {
-        regle = "DOUBLE_OUT";
-    }
-    else
-    {
-        regle = "SANS_DOUBLE_OUT";
-    }
+    etatPartie = communication->getEtatPartie();
+    communication->miseAJourEtatPartieRegle();
 
     player->setMedia(QUrl::fromLocalFile(QCoreApplication::applicationDirPath() + QString("/" + regle + ".mp4")));
     mettrePausePartie();
     musiquePause.stop();
+    musique.stop();
     allerPage(Ihm::PageRegle);
     player->play();
 }
@@ -569,7 +563,26 @@ void Ihm::stateChanged(QMediaPlayer::State state)
     qDebug() << Q_FUNC_INFO << state;
     if(state == QMediaPlayer::StoppedState)
     {
-        allerPage(Ihm::PageJeu);
-        relancerpartie();
+        if(etatPartie == 1)
+        {
+            communication->miseAJourEtatPartieEnCours();
+            allerPage(Ihm::PageJeu);
+            relancerpartie();
+        }
+        else if(etatPartie == 3)
+        {
+            communication->miseAJourEtatPartiePause();
+            allerPage(Ihm::PageJeu);
+        }
+        else if(etatPartie == 0)
+        {
+            communication->miseAJourEtatPartieAttente();
+            allerPage(Ihm::PageAttente);
+        }
+        else if(etatPartie == 2)
+        {
+            communication->miseAJourEtatPartieFin();
+            allerPage(Ihm::PageStatistique);
+        }
     }
 }

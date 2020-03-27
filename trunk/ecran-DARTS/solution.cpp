@@ -284,7 +284,7 @@ bool Solution::rechercher(int score, int nbFlechettes, bool still)
  * @param s
  * @param flechettes
  */
-void Solution::trouverSolution(int s, int flechettes)
+void Solution::trouverSolution(int scoreJoueur, int flechettes)
 {
     int score = 0;
     bool trouve = false;
@@ -297,7 +297,7 @@ void Solution::trouverSolution(int s, int flechettes)
         // cibles inexistantes ?
         if(i > 20)
             continue;
-        score = s; // <- le score à determiner
+        score = scoreJoueur; // <- le score à determiner
         nbFlechettes = flechettes; // <- le nombre de fléchettes
         if(extraireDouble(score, i))
         {
@@ -305,7 +305,7 @@ void Solution::trouverSolution(int s, int flechettes)
             if(rechercher(score, nbFlechettes) || score == 0)
             {
                 solution += " D" + QString::number(i) + "*";
-                transmettreSolution(s);
+                transmettreSolution(scoreJoueur);
                 trouve = true;
                 break;
             }
@@ -315,6 +315,6 @@ void Solution::trouverSolution(int s, int flechettes)
     {
         //qDebug() << Q_FUNC_INFO << "Score = " << s << "impossible";
         rechercher(score, nbFlechettes+1, true);
-        //transmettreSolution(s);       //activer pour avoir l'aide tout le temps meme quand on peut pas finir
+        //transmettreSolution(scoreJoueur);       //activer pour avoir l'aide tout le temps meme quand on peut pas finir
     }
 }
