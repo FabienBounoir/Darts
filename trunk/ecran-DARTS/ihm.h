@@ -16,6 +16,9 @@
 #include <QTimer>
 #include <QSound>
 
+#include <QtMultimedia>
+#include <QtMultimediaWidgets>
+
 /**
  * @def PERIODE_HORLOGE
  * @brief Définit la périodicité de l'horloge en millisecondes
@@ -56,6 +59,9 @@ private:
     QPixmap sauvegardeImpactEncours;    //!< sauvegarde le pixmap de l'état de la cible
     QString messageStatut;              //!< contient le message de statut qui est affiché
 
+    QMediaPlayer *player;               //!< objet player
+    QVideoWidget *videoWidget;          //!< objet videoWidget
+
     /**
      * @enum Page
      * @brief Définit les différentes pages de l'IHM
@@ -64,6 +70,7 @@ private:
     enum Page
     {
         PageAttente = 0,
+        PageRegle,
         PageJeu,
         PageStatistique,
         NbPages
@@ -73,6 +80,7 @@ private:
     void initialiserEvenements();
     void initialiserHorloge();
     void mettreAJourMessageStatut(int typePoint, int point);
+    void initialiserAffichageRegle();
 
 public slots:
     void actualiserHeure();
@@ -98,6 +106,7 @@ public slots:
     void mettreAJourCible();
     void mettreAJourMessageStatut(QString);
     void jouerSon(QString son);
+    void lancerRegle(QString regle);
 };
 
 #endif // IHM_H

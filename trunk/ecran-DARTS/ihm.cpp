@@ -51,6 +51,9 @@ Ihm::Ihm(QWidget *parent) :
 
     // Afficher la page d'attente
     afficherNouvellePartie();
+
+    //configuration affichage des regles
+    initialiserAffichageRegle();
 }
 
 /**
@@ -513,4 +516,31 @@ void Ihm::jouerSon(QString son)
         qDebug() << Q_FUNC_INFO << "Pour avoir les sons, ajouter le pack disponible à cette adresse :"<<endl;
         qDebug() << Q_FUNC_INFO << "https://drive.google.com/file/d/1vlS_oySnAM7ocsf9FyaZ1P4JyHIQrLiR/view?usp=sharing"<<endl;
     }
+}
+
+/**
+ * @brief methode qui initialise l'affichage video des regles
+ *
+ * @fn Ihm::initialiserAffichageRegle
+ */
+void Ihm::initialiserAffichageRegle()
+{
+    player = new QMediaPlayer;
+
+
+    videoWidget = new QVideoWidget(this);
+    ui->verticalLayoutRegle->addWidget(videoWidget);
+    player->setVideoOutput(videoWidget);
+}
+
+/**
+ * @brief methode qui lance la video explicatif des regle suivant le type de jeu
+ *
+ * @fn Ihm::lancerRegle
+ * @param regle
+ */
+void Ihm::lancerRegle(QString regle)
+{
+    player->setMedia(QUrl::fromLocalFile(QCoreApplication::applicationDirPath() + QString("/" + regle)));
+    player->play();
 }
