@@ -49,11 +49,11 @@ Ihm::Ihm(QWidget *parent) :
     // Initialiser les connexions signal/slot
     initialiserEvenements();
 
-    // Afficher la page d'attente
-    afficherNouvellePartie();
-
     //configuration affichage des regles
     initialiserAffichageRegle();
+
+    //Afficher la page d'attente
+    afficherNouvellePartie();
 }
 
 /**
@@ -91,6 +91,8 @@ void Ihm::initialiserEvenements()
     connect(communication, SIGNAL(play()), this, SLOT(relancerpartie()));
     connect(communication, SIGNAL(erreurBluetooth(QString)), this, SLOT(mettreAJourMessageStatut(QString)));
     connect(darts, SIGNAL(jouerSon(QString)), this, SLOT(jouerSon(QString)));
+    connect(communication, SIGNAL(afficherRegle()), this, SLOT(lancerRegle()));
+
 }
 
 /**
@@ -308,6 +310,7 @@ void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
 void Ihm::afficherNouvellePartie()
 {
      allerPage(Ihm::PageAttente);
+     player->stop();
      ui->manche->setText("1");
      ui->nomJoueur->setText("");
      ui->scoreActuel->setText("");
@@ -531,6 +534,8 @@ void Ihm::initialiserAffichageRegle()
     videoWidget = new QVideoWidget(this);
     ui->verticalLayoutRegle->addWidget(videoWidget);
     player->setVideoOutput(videoWidget);
+
+    connect(player, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(stateChanged(QMediaPlayer::State)));
 }
 
 /**
@@ -539,8 +544,32 @@ void Ihm::initialiserAffichageRegle()
  * @fn Ihm::lancerRegle
  * @param regle
  */
-void Ihm::lancerRegle(QString regle)
+void Ihm::lancerRegle()
 {
-    player->setMedia(QUrl::fromLocalFile(QCoreApplication::applicationDirPath() + QString("/" + regle)));
+    QString regle ="";
+
+    if(darts->getModeDeJeu().contains("DOUBLE_OUT"))
+    {
+        regle = "DOUBLE_OUT";
+    }
+    else
+    {
+        regle = "SANS_DOUBLE_OUT";
+    }
+
+    player->setMedia(QUrl::fromLocalFile(QCoreApplication::applicationDirPath() + QString("/" + regle + ".mp4")));
+    mettrePausePartie();
+    musiquePause.stop();
+    allerPage(Ihm::PageRegle);
     player->play();
+}
+
+void Ihm::stateChanged(QMediaPlayer::State state)
+{
+    qDebug() << Q_FUNC_INFO << state;
+    if(state == QMediaPlayer::StoppedState)
+    {
+        allerPage(Ihm::PageJeu);
+        relancerpartie();
+    }
 }
