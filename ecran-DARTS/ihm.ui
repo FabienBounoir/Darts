@@ -34,6 +34,11 @@
 	background-image:url(:/ressources/background.jpg);
 }
 
+QWidget#ecranRegle
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
 QWidget#ecranPartie
 {
 	background-image:url(:/ressources/background.jpg);
@@ -301,6 +306,13 @@ QLabel
           </layout>
          </item>
         </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="ecranRegle">
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayoutRegle"/>
        </item>
       </layout>
      </widget>
