@@ -64,7 +64,7 @@ public:
         EnCours = 1,
         Fin = 2,
         Pause = 3,
-        Regle
+        Regle       //etat attente pendant la lecture des regles, seul un trame reset peut etre recu pour arreter la lecture.
     };
 
 signals:

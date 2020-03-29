@@ -491,6 +491,7 @@ void Ihm::initialiserHorloge()
 void Ihm::mettreAJourCible()
 {
     ui->labelVisualisationimpact->setPixmap(QPixmap(":/ressources/cible.png"));
+    sauvegardeImpactEncours = ui->labelVisualisationimpact->pixmap()->copy();
     messageStatut = "Volée ➤";
 }
 
