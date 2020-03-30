@@ -532,7 +532,6 @@ void Ihm::initialiserAffichageRegle()
 {
     player = new QMediaPlayer;
 
-
     videoWidget = new QVideoWidget(this);
     ui->verticalLayoutRegle->addWidget(videoWidget);
     player->setVideoOutput(videoWidget);
@@ -567,29 +566,29 @@ void Ihm::lancerRegle(QString regle)
  */
 void Ihm::testerEtatPartie()
 {
-    if(sauverEtatPartie == 1)
-    {
-        communication->miseAJourEtatPartieEnCours();
-        allerPage(Ihm::PageJeu);
-        relancerpartie();
-    }
-    else if(sauverEtatPartie == 3)
-    {
-        communication->miseAJourEtatPartiePause();
-        musiquePause.play();
-        allerPage(Ihm::PageJeu);
-    }
-    else if(sauverEtatPartie == 0)
+    if(sauverEtatPartie == 0)
     {
         communication->miseAJourEtatPartieAttente();
         musique.play();
         allerPage(Ihm::PageAttente);
+    }
+    else if(sauverEtatPartie == 1)
+    {
+        communication->miseAJourEtatPartieEnCours();
+        allerPage(Ihm::PageJeu);
+        relancerpartie();
     }
     else if(sauverEtatPartie == 2)
     {
         communication->miseAJourEtatPartieFin();
         musique.play();
         allerPage(Ihm::PageStatistique);
+    }
+    else if(sauverEtatPartie == 3)
+    {
+        communication->miseAJourEtatPartiePause();
+        musiquePause.play();
+        allerPage(Ihm::PageJeu);
     }
 }
 

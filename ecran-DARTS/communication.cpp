@@ -257,6 +257,9 @@ void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &
 
     if(trame.section(";",3,3) == "1")
     {
+        if(etatPartie != EtatPartie::Pause)
+            emit pause();
+
         emit afficherRegle(darts->testerModeDeJeu());
     }
 
