@@ -162,8 +162,6 @@ void Ihm::mettreAJourScore()
                 premierJoueurAfficher--;
                 dernierJoueurAfficher--;
             }
-            qDebug() << "premierJoueur : " << premierJoueurAfficher << endl;
-            qDebug() << "dernierJoueur : " << dernierJoueurAfficher << endl;
         }
     }
     for(int i = premierJoueurAfficher; i < dernierJoueurAfficher; i++)
@@ -266,8 +264,6 @@ void Ihm::mettreAJourJoueur()
                 premierJoueurAfficher--;
                 dernierJoueurAfficher--;
             }
-            qDebug() << "premierJoueur : " << premierJoueurAfficher << endl;
-            qDebug() << "dernierJoueur : " << dernierJoueurAfficher << endl;
         }
     }
 
@@ -316,8 +312,6 @@ void Ihm::mettreAJourMoyenneVolee()
                 premierJoueurAfficher--;
                 dernierJoueurAfficher--;
             }
-            qDebug() << "premierJoueur : " << premierJoueurAfficher << endl;
-            qDebug() << "dernierJoueur : " << dernierJoueurAfficher << endl;
         }
     }*/
     for(int i = premierJoueurAfficher; i < dernierJoueurAfficher; i++)
@@ -377,6 +371,7 @@ void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
     ui->winnerPartie->setText(gagnant);
     ui->voleeMax->setText(QString::number(voleeMaxJoueur) + " points");
     ui->nbVolees->setText(QString::number(darts->getNbVolees()));
+    communication->miseAJourEtatPartieFin();
     allerPage(Ihm::PageStatistique);
 }
 
@@ -596,8 +591,8 @@ void Ihm::jouerSon(QString son)
     QSound::play(qApp->applicationDirPath() + CHEMIN_FICHIER_MUSIQUE + son);
     if(!QFileInfo(qApp->applicationDirPath() + CHEMIN_FICHIER_MUSIQUE + son).exists())
     {
-        qDebug() << Q_FUNC_INFO << "Pour avoir les sons, ajouter le pack disponible à cette adresse :"<<endl;
-        qDebug() << Q_FUNC_INFO << "https://drive.google.com/file/d/1vlS_oySnAM7ocsf9FyaZ1P4JyHIQrLiR/view?usp=sharing"<<endl;
+        qDebug() << Q_FUNC_INFO << "Pour avoir les sons, ajouter le pack disponible à cette adresse dans le build de votre application:"<<endl;
+        qDebug() << Q_FUNC_INFO << "https://drive.google.com/file/d/1vH0tLe8lsu2VQLISDL94nJBA2arfLcbG/view?usp=sharing"<<endl;
     }
 }
 

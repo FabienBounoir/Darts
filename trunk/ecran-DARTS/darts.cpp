@@ -492,7 +492,7 @@ void Darts::calculerPoints(int point, int typePoint)
             pointLancer = point * ZERO_POINT;
         break;
         default:
-            qDebug() << Q_FUNC_INFO << "Erreur type de point :" << typePoint;
+            qDebug() << Q_FUNC_INFO << "type de point non valide:" << typePoint;
         break;
     }
 }
