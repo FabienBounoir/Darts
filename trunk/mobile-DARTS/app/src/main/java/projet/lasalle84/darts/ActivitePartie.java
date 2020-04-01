@@ -371,8 +371,15 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
 
             IHMGagnant.putExtra("joueurs", (Serializable) lesJoueur);
             startActivity(IHMGagnant);
-            super.finish();
+            finish();
         }
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        maPartie.deconnecterPeripheriquesBluetooth();
     }
 }
 
