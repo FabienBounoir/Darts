@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet Darts: README</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="iconeDarts.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projet Darts
+   &#160;<span id="projectnumber">0.1</span>
+   </div>
+   <div id="projectbrief">BTS SN 2020</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">README </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h2>Projet DARTS</h2>
+<p>Le système <b>DARTS</b> est un système numérique permettant de jouer au jeu de fléchettes électroniques.</p>
+<p>Le système DARTS est décomposé en trois modules, dont deux modules sont réalisés par des étudiants IR :</p>
+<ul>
+<li>Module de gestion de partie​ (<b>Mobile-DARTS</b>)​ : les joueurs paramètrent et lancent la partie à partir d'une application sur un terminal mobile (sous Android) ;</li>
+<li>Module de détection des impacts​ (Cible-DARTS)​ : la cible est équipée de capteurs permettant d'identifier la zone impactée par les fléchettes envoyées par les joueurs ;</li>
+<li>Module de visualisation de partie​ (<b>Écran-DARTS</b>) ​ : les joueurs, les arbitres et le public peuvent visualiser en “temps réel” le déroulement de la partie (nombre de manche, point restant dans la manche, moyenne des volées, ...) sur un écran de télévision.</li>
+</ul>
+<h2>Module de gestion de partie (Mobile-DARTS) : Erwan Menella</h2>
+<p>Sur le terminal mobile Android, l'application doit permettre de paramétrer et démarrer une partie.</p>
+<p>Pour cela, les joueurs pourront :</p>
+<ul>
+<li>saisir leur nom</li>
+<li>paramétrer la partie :<ul>
+<li>le type de jeu : 501 double out, 301 double out, ...</li>
+<li>le nombre de joueurs,</li>
+<li>le nombre de manches gagnantes,</li>
+</ul>
+</li>
+<li>lancer la partie</li>
+<li>gérer et visualiser le déroulement de la partie :<ul>
+<li>changer automatiquement de joueur</li>
+<li>affichage du nombre de points</li>
+<li>renseigner le module Cible d'une fléchette hors cible</li>
+</ul>
+</li>
+</ul>
+<p>Pour démarrer une partie, il est nécessaire d'être connecté en Bluetooth avec le module Cible-DARTS. La connexion avec le module Écran-DARTS n'est pas indispensable pour le fonctionnement du système DARTS. On pourra visualiser sur l'interface l'état de connexion de chaque module.</p>
+<p>Le terminal mobile possède une base de données permettant de stocker les statistiques des joueurs pour chaque partie.</p>
+<h2>Module de visualisation de partie (Écran-DARTS) : Fabien Bounoir</h2>
+<p>Ce module correspond à la partie "affichage" du système. Il a pour objectifs de réaliser la récupération d'informations​ envoyées par le terminal mobile, ​le calcul et l'affichage les statistiques pour la partie actuelle. Il communique en Bluetooth uniquement avec le terminal mobile Android.</p>
+<p>Sur l'écran, les joueurs pourront visualiser en continu :</p>
+<ul>
+<li>le nom des joueurs (si existant), la durée écoulée de la partie ;</li>
+<li>le type de jeu en cours, le score et le nombre de manches gagnées par chaque joueur</li>
+<li>la plus haute et la moyenne des volées de chaque joueur</li>
+</ul>
+<p>Les données visualisées sont donc :</p>
+<ul>
+<li>Le type de jeu</li>
+<li>Le numéro de la manche</li>
+<li>Le score de la partie en cours</li>
+<li>La moyenne des volées</li>
+</ul>
+<p><a href="https://svn.riouxsvn.com/darts-2020">Dépôt SVN</a></p>
+<h2>Numéro de version : 0.1</h2>
+<h2>Auteurs</h2>
+<dl class="section author"><dt>Auteur</dt><dd><em>Erwan</em> Menella <a href="#" onclick="location.href='mai'+'lto:'+'men'+'el'+'la.'+'er'+'wan'+'@g'+'mai'+'l.'+'com'; return false;">menel<span style="display: none;">.nosp@m.</span>la.e<span style="display: none;">.nosp@m.</span>rwan@<span style="display: none;">.nosp@m.</span>gmai<span style="display: none;">.nosp@m.</span>l.com</a></dd>
+<dd>
+<em>Fabien</em> Bounoir <a href="#" onclick="location.href='mai'+'lto:'+'bou'+'no'+'irf'+'ab'+'ien'+'@g'+'mai'+'l.'+'com'; return false;">bouno<span style="display: none;">.nosp@m.</span>irfa<span style="display: none;">.nosp@m.</span>bien@<span style="display: none;">.nosp@m.</span>gmai<span style="display: none;">.nosp@m.</span>l.com</a></dd></dl>
+<h2>Base de données SQLite</h2>
+<div class="fragment"></div><!-- fragment --> </div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Mercredi 1 Avril 2020 14:54:09 pour Projet Darts par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

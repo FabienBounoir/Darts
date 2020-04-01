@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet Darts:  Fichier source de solution.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="iconeDarts.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projet Darts
+   &#160;<span id="projectnumber">0.1</span>
+   </div>
+   <div id="projectbrief">BTS SN 2020</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_1b9df84290f783b52d803dcb375bf8bd.html">ecran-DARTS</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">solution.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="solution_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef SOLUTION_H</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define SOLUTION_H</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;QDebug&gt;</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="solution_8h.html#ac26e54839269cea6c170f2699af4ead2">   17</a></span>&#160;<span class="preprocessor">#define BULL                25</span></div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// Rechercher en premier ?</span></div><div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="solution_8h.html#a911c709f6e0d892d5aa2c1da0d3f2d02">   20</a></span>&#160;<span class="preprocessor">#define RECHERCHE_TRIPLE    1</span></div><div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="solution_8h.html#af2093607a1488c24e74beed2dc996bf4">   21</a></span>&#160;<span class="preprocessor">#define RECHERCHE_DOUBLE    2</span></div><div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="solution_8h.html#a472930bff329899e6d9f3096fb778325">   22</a></span>&#160;<span class="preprocessor">#define RECHERCHE_SIMPLE    3</span></div><div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="solution_8h.html#a40ef173938ecf3bea081d59950fedce7">   23</a></span>&#160;<span class="preprocessor">#define RECHERCHE_FINIE     4</span></div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div><div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_solution.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_solution.html">Solution</a> : <span class="keyword">public</span> <a class="code" href="class_q_object.html">QObject</a></div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    Q_OBJECT</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_solution.html#a378d4a570c95a6d4c013996fef75c6f0">Solution</a>(<a class="code" href="class_q_object.html">QObject</a> *parent = <span class="keyword">nullptr</span>);</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_solution.html#a9ab0b0fd2b557f5abda8bd1a6da641e4">trouverSolution</a>(<span class="keywordtype">int</span> s, <span class="keywordtype">int</span> flechettes);</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">private</span>:</div><div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_solution.html#a03b47dedfe8a8f8244f7e633cbaa30fb">   38</a></span>&#160;    QString <a class="code" href="class_solution.html#a03b47dedfe8a8f8244f7e633cbaa30fb">solution</a>;                       </div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_solution.html#a334ffddf70bd379a0af7c7e93750d6b5">transmettreSolution</a>(<span class="keywordtype">int</span> score);</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_solution.html#af8062e8e2997f8a7451e439ce23dd544">aTriple</a>(<span class="keywordtype">int</span> points, <span class="keyword">const</span> <span class="keywordtype">int</span> score);</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_solution.html#a7f3302e8292858a51795f08751d54ef9">rechercherTriple</a>(<span class="keywordtype">int</span> &amp;score, QString &amp;combinaison, <span class="keywordtype">int</span> start);</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_solution.html#ad79929c887a394883a154ea2ca9c3aac">aDouble</a>(<span class="keywordtype">int</span> points, <span class="keyword">const</span> <span class="keywordtype">int</span> score);</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_solution.html#aa54574bee5bde60d55a9da346a61cf48">rechercherDouble</a>(<span class="keywordtype">int</span> &amp;score, QString &amp;combinaison);</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_solution.html#a932ab2aea629d049202e8f8e38cc01b3">aSimple</a>(<span class="keywordtype">int</span> points, <span class="keyword">const</span> <span class="keywordtype">int</span> score);</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_solution.html#ab8223455a5a35aceb7de18970f94db48">rechercherSimple</a>(<span class="keywordtype">int</span> &amp;score, QString &amp;combinaison);</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_solution.html#add9d51c9612fa89361df0908e10779b8">estDouble</a>(<span class="keywordtype">int</span> points, <span class="keyword">const</span> <span class="keywordtype">int</span> score);</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_solution.html#a34c3bf5ce00cdf428f2e07741806499d">extraireDouble</a>(<span class="keywordtype">int</span> &amp;score, <span class="keywordtype">int</span> cible);</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_solution.html#a857b1b362fc0d5eb08e2eb7302dce27f">rechercher</a>(<span class="keywordtype">int</span> score, <span class="keywordtype">int</span> nbFlechettes, <span class="keywordtype">bool</span> still=<span class="keyword">false</span>);</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;signals:</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_solution.html#a052b7ba921e7b211d14f2bbbc6b63832">solutionTrouver</a>(QString solution);</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">public</span> slots:</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif // SOLUTION_H</span></div><div class="ttc" id="class_solution_html_a9ab0b0fd2b557f5abda8bd1a6da641e4"><div class="ttname"><a href="class_solution.html#a9ab0b0fd2b557f5abda8bd1a6da641e4">Solution::trouverSolution</a></div><div class="ttdeci">void trouverSolution(int s, int flechettes)</div><div class="ttdoc">methode qui trouve la meilleur solution </div><div class="ttdef"><b>Definition:</b> solution.cpp:285</div></div>
+<div class="ttc" id="class_solution_html_a03b47dedfe8a8f8244f7e633cbaa30fb"><div class="ttname"><a href="class_solution.html#a03b47dedfe8a8f8244f7e633cbaa30fb">Solution::solution</a></div><div class="ttdeci">QString solution</div><div class="ttdoc">contient la solution pour finir la partie </div><div class="ttdef"><b>Definition:</b> solution.h:38</div></div>
+<div class="ttc" id="class_solution_html_a334ffddf70bd379a0af7c7e93750d6b5"><div class="ttname"><a href="class_solution.html#a334ffddf70bd379a0af7c7e93750d6b5">Solution::transmettreSolution</a></div><div class="ttdeci">void transmettreSolution(int score)</div><div class="ttdoc">methode qui emet un signal pour que l&amp;#39;Ihm affiche la solution trouver </div><div class="ttdef"><b>Definition:</b> solution.cpp:31</div></div>
+<div class="ttc" id="class_solution_html"><div class="ttname"><a href="class_solution.html">Solution</a></div><div class="ttdoc">Déclaration de la classe Solution (Module Ecran-DARTS) </div><div class="ttdef"><b>Definition:</b> solution.h:30</div></div>
+<div class="ttc" id="class_solution_html_a052b7ba921e7b211d14f2bbbc6b63832"><div class="ttname"><a href="class_solution.html#a052b7ba921e7b211d14f2bbbc6b63832">Solution::solutionTrouver</a></div><div class="ttdeci">void solutionTrouver(QString solution)</div></div>
+<div class="ttc" id="class_solution_html_af8062e8e2997f8a7451e439ce23dd544"><div class="ttname"><a href="class_solution.html#af8062e8e2997f8a7451e439ce23dd544">Solution::aTriple</a></div><div class="ttdeci">bool aTriple(int points, const int score)</div><div class="ttdoc">test si le triple choisie et possible </div><div class="ttdef"><b>Definition:</b> solution.cpp:45</div></div>
+<div class="ttc" id="class_solution_html_a857b1b362fc0d5eb08e2eb7302dce27f"><div class="ttname"><a href="class_solution.html#a857b1b362fc0d5eb08e2eb7302dce27f">Solution::rechercher</a></div><div class="ttdeci">bool rechercher(int score, int nbFlechettes, bool still=false)</div><div class="ttdoc">methode qui recherche la meilleur combinaison pour finir </div><div class="ttdef"><b>Definition:</b> solution.cpp:206</div></div>
+<div class="ttc" id="class_solution_html_a932ab2aea629d049202e8f8e38cc01b3"><div class="ttname"><a href="class_solution.html#a932ab2aea629d049202e8f8e38cc01b3">Solution::aSimple</a></div><div class="ttdeci">bool aSimple(int points, const int score)</div><div class="ttdoc">test si le simple choisie et possible </div><div class="ttdef"><b>Definition:</b> solution.cpp:130</div></div>
+<div class="ttc" id="class_solution_html_aa54574bee5bde60d55a9da346a61cf48"><div class="ttname"><a href="class_solution.html#aa54574bee5bde60d55a9da346a61cf48">Solution::rechercherDouble</a></div><div class="ttdeci">bool rechercherDouble(int &amp;score, QString &amp;combinaison)</div><div class="ttdoc">methode qui recherche le meilleur double pour la solution </div><div class="ttdef"><b>Definition:</b> solution.cpp:103</div></div>
+<div class="ttc" id="class_solution_html_a378d4a570c95a6d4c013996fef75c6f0"><div class="ttname"><a href="class_solution.html#a378d4a570c95a6d4c013996fef75c6f0">Solution::Solution</a></div><div class="ttdeci">Solution(QObject *parent=nullptr)</div><div class="ttdoc">constructeur de la classe Solution </div><div class="ttdef"><b>Definition:</b> solution.cpp:20</div></div>
+<div class="ttc" id="class_solution_html_ab8223455a5a35aceb7de18970f94db48"><div class="ttname"><a href="class_solution.html#ab8223455a5a35aceb7de18970f94db48">Solution::rechercherSimple</a></div><div class="ttdeci">bool rechercherSimple(int &amp;score, QString &amp;combinaison)</div><div class="ttdoc">methode qui recherche le meilleur simple pour la solution </div><div class="ttdef"><b>Definition:</b> solution.cpp:145</div></div>
+<div class="ttc" id="class_solution_html_a7f3302e8292858a51795f08751d54ef9"><div class="ttname"><a href="class_solution.html#a7f3302e8292858a51795f08751d54ef9">Solution::rechercherTriple</a></div><div class="ttdeci">bool rechercherTriple(int &amp;score, QString &amp;combinaison, int start)</div><div class="ttdoc">methode qui recherche le meilleur triple pour la solution </div><div class="ttdef"><b>Definition:</b> solution.cpp:63</div></div>
+<div class="ttc" id="class_solution_html_add9d51c9612fa89361df0908e10779b8"><div class="ttname"><a href="class_solution.html#add9d51c9612fa89361df0908e10779b8">Solution::estDouble</a></div><div class="ttdeci">bool estDouble(int points, const int score)</div><div class="ttdoc">methode qui test si les points son double </div><div class="ttdef"><b>Definition:</b> solution.cpp:172</div></div>
+<div class="ttc" id="class_solution_html_a34c3bf5ce00cdf428f2e07741806499d"><div class="ttname"><a href="class_solution.html#a34c3bf5ce00cdf428f2e07741806499d">Solution::extraireDouble</a></div><div class="ttdeci">bool extraireDouble(int &amp;score, int cible)</div><div class="ttdoc">methode qui cherche le double pour finir la partie </div><div class="ttdef"><b>Definition:</b> solution.cpp:187</div></div>
+<div class="ttc" id="class_solution_html_ad79929c887a394883a154ea2ca9c3aac"><div class="ttname"><a href="class_solution.html#ad79929c887a394883a154ea2ca9c3aac">Solution::aDouble</a></div><div class="ttdeci">bool aDouble(int points, const int score)</div><div class="ttdoc">test si le double choisie et possible </div><div class="ttdef"><b>Definition:</b> solution.cpp:86</div></div>
+<div class="ttc" id="class_q_object_html"><div class="ttname"><a href="class_q_object.html">QObject</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Mercredi 1 Avril 2020 14:54:09 pour Projet Darts par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>
