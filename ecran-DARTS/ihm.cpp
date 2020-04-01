@@ -402,7 +402,7 @@ void Ihm::afficherNouvellePartie()
      ui->labelMoyenneVolees->setVisible(false);
      ui->lineScoreActuel->setVisible(false);
      ui->labelMoyenneVoleesStatistique->setVisible(false);
-
+     ui->ecranPartie->setStyleSheet("QWidget#ecranPartie{background-image:url(:/ressources/background.jpg);}");
      mettreAJourCible();
 
      // configurer la musique
@@ -493,6 +493,7 @@ void Ihm::afficherDureePartie()
     QTime dureeSeance = duree.addSecs(compteurDureePartie);
     if(compteurDureePartie >= 3600)
     {
+        ui->ecranPartie->setStyleSheet("QWidget#ecranPartie{background-image:url(:/ressources/backgroundHeure.jpg);}");
         ui->labelTempsPartie->setText(dureeSeance.toString("hh : mm : ss"));
         ui->tempsPartie->setText(dureeSeance.toString("hh : mm : ss"));
     }
