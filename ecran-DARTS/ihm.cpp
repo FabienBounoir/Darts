@@ -141,12 +141,35 @@ void Ihm::actualiserHeure()
 void Ihm::mettreAJourScore()
 {
     QString score;
+    int premierJoueurAfficher = 0;
+    int dernierJoueurAfficher = darts->getListJoueur().size();
 
-    for(int i = 0; i < darts->getListJoueur().size(); i++)
+    if(darts->getListJoueur().size() > 7)
+    {
+        premierJoueurAfficher = darts->getJoueurActif();
+        dernierJoueurAfficher = darts->getJoueurActif() + 6;
+
+        while(dernierJoueurAfficher > darts->getListJoueur().size() || premierJoueurAfficher < 0)
+        {
+            if(premierJoueurAfficher < 0)
+            {
+                premierJoueurAfficher++;
+                dernierJoueurAfficher++;
+            }
+
+            if(dernierJoueurAfficher > darts->getListJoueur().size())
+            {
+                premierJoueurAfficher--;
+                dernierJoueurAfficher--;
+            }
+            qDebug() << "premierJoueur : " << premierJoueurAfficher << endl;
+            qDebug() << "dernierJoueur : " << dernierJoueurAfficher << endl;
+        }
+    }
+    for(int i = premierJoueurAfficher; i < dernierJoueurAfficher; i++)
     {
         score += darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getScore()) + "\n"; // "         " +
     }
-    //ui->nomJoueur->setStyleSheet()
     ui->scoreActuel->setText(score);
 }
 
@@ -221,7 +244,34 @@ void Ihm::mettreAJourMessageStatut(int typePoint, int point)
 void Ihm::mettreAJourJoueur()
 {
     QString nomjoueur;
-    for(int i = 0; i < darts->getListJoueur().size(); i++)
+
+    int premierJoueurAfficher = 0;
+    int dernierJoueurAfficher = darts->getListJoueur().size();
+
+    if(darts->getListJoueur().size() > 7)
+    {
+        premierJoueurAfficher = darts->getJoueurActif();
+        dernierJoueurAfficher = darts->getJoueurActif() + 6;
+
+        while(dernierJoueurAfficher > darts->getListJoueur().size() || premierJoueurAfficher < 0)
+        {
+            if(premierJoueurAfficher < 0)
+            {
+                premierJoueurAfficher++;
+                dernierJoueurAfficher++;
+            }
+
+            if(dernierJoueurAfficher > darts->getListJoueur().size())
+            {
+                premierJoueurAfficher--;
+                dernierJoueurAfficher--;
+            }
+            qDebug() << "premierJoueur : " << premierJoueurAfficher << endl;
+            qDebug() << "dernierJoueur : " << dernierJoueurAfficher << endl;
+        }
+    }
+
+    for(int i = premierJoueurAfficher; i < dernierJoueurAfficher; i++)
     {
         if(i == darts->getJoueurActif())    // test si le joueur est le joueur qui doit jouer
         {
@@ -243,7 +293,34 @@ void Ihm::mettreAJourJoueur()
 void Ihm::mettreAJourMoyenneVolee()
 {
     QString moyenneVoleeJoueur;
-    for(int i = 0; i < darts->getListJoueur().size(); i++)
+
+    int premierJoueurAfficher = 0;
+    int dernierJoueurAfficher = darts->getListJoueur().size();
+
+    /** @todo chercher solution pour l'affichage de la moyenne lorsque superieur à 7*/
+    /*if(darts->getListJoueur().size() > 7)
+    {
+        premierJoueurAfficher = darts->getJoueurActif();
+        dernierJoueurAfficher = darts->getJoueurActif() + 6;
+
+        while(dernierJoueurAfficher > darts->getListJoueur().size() || premierJoueurAfficher < 0)
+        {
+            if(premierJoueurAfficher < 0)
+            {
+                premierJoueurAfficher++;
+                dernierJoueurAfficher++;
+            }
+
+            if(dernierJoueurAfficher > darts->getListJoueur().size())
+            {
+                premierJoueurAfficher--;
+                dernierJoueurAfficher--;
+            }
+            qDebug() << "premierJoueur : " << premierJoueurAfficher << endl;
+            qDebug() << "dernierJoueur : " << dernierJoueurAfficher << endl;
+        }
+    }*/
+    for(int i = premierJoueurAfficher; i < dernierJoueurAfficher; i++)
     {
         moyenneVoleeJoueur += darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getMoyenneVolee()) +" \n"; //"         " +
     }
