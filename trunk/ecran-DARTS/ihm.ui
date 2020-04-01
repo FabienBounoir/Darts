@@ -36,7 +36,7 @@
 
 QWidget#ecranRegle
 {
-	background-image:url(:/ressources/background.jpg);
+	background: purple;
 }
 
 QWidget#ecranPartie
@@ -174,7 +174,7 @@ QLabel
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">

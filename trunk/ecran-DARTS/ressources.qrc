@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>ressources/logoDarts.png</file>
         <file>ressources/background.jpg</file>
+	<file>ressources/backgroundHeure.jpg</file>
         <file>ressources/cible.png</file>
 	<file>ressources/fondStatus.png</file>
         <file alias="pause.png">ressources/pause.png</file>
