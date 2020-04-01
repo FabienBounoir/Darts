@@ -20,6 +20,7 @@ public class Joueur implements Serializable
     private static final String TAG = "Joueur" ;
     private String nom; //!< Le nom du joueur
     private int score; //!< Le score du joueur
+    private boolean estEliminer;
 
     /**
      * @brief Constructeur de la classe Joueur
@@ -31,6 +32,7 @@ public class Joueur implements Serializable
     {
         this.nom = nom;
         this.score = 0;
+        estEliminer = false;
     }
 
     /**
@@ -77,13 +79,45 @@ public class Joueur implements Serializable
         this.score = score;
     }
 
+    /**
+     * @brief fonction qui permet de retirer le score et retourner si le score a était retiré
+     *
+     * @fn Joueur::retirerPoint(int scoreLancer)
+     * @param scoreLancer à retirer
+     */
     public boolean retirerPoint(int scoreLancer)
     {
         if (this.score - scoreLancer >= 0)
         {
             this.score = this.score - scoreLancer;
+            if (this.score == 1)
+            {
+                estEliminer = true;
+            }
             return true;
         }
         return false;
     }
+
+    /**
+     * @brief Accesseur set si le joueur est eliminer
+     *
+     * @fn Joueur::setEstEliminer(boolean estEliminer)
+     * @param estEliminer si le joueur est eliminer
+     */
+    public void setEstEliminer(boolean estEliminer)
+    {
+        this.estEliminer = estEliminer;
+    }
+
+    /**
+     * @brief Accesseur get si le joueur est eliminer
+     *
+     * @fn Joueur::setEstEliminer(boolean estEliminer)
+     */
+    public boolean EstEliminer()
+    {
+        return estEliminer;
+    }
+
 }

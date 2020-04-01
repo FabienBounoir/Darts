@@ -28,8 +28,8 @@ class TReception extends Thread
     /**
      * Attributs
      */
-    private Peripherique peripherique;
-    private Handler handler;                  //!< Handler pour faire passer la trame arrivant
+    private Peripherique peripherique;          // Peripherique à écouter
+    private Handler handler;                    //!< Handler pour faire passer la trame arrivant
     private boolean estFini;                    //!< Thread est fini ?
     private InputStream receiveStream;          //!< Input du Bluetooth
 

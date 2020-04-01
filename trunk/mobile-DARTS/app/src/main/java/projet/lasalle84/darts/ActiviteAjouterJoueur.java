@@ -97,7 +97,7 @@ public class ActiviteAjouterJoueur extends AppCompatActivity implements View.OnC
         if (saisir.getText() != null)
         {
             Intent retour = new Intent();
-            retour.putExtra("Joueur", saisir.getText().toString());
+            retour.putExtra("Joueur", saisir.getText().toString().trim());
             setResult(RESULT_OK, retour);
             super.finish();
         }

@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -27,13 +28,12 @@ public class ActiviteFinPartie extends AppCompatActivity implements View.OnClick
     /**
      *Attributs
      */
-    private TextView texteGagnant = null;
-    private ListView classement = null;
-    private Button partieFini = null;
-    private ArrayList<Joueur> lesJoueur = null;
-    private String nomGagnant = null;
-    private ArrayAdapter<String> adapteur = null;
-    private ListView listViewJoueur = null;
+    private TextView texteGagnant = null;           //<! Widget texte avec le nom du gagnant
+    private ListView classement = null;             //<! Widget avec la liste des joueurs avec leur score
+    private Button partieFini = null;               //<! Bouton pour fermer la page
+    private ArrayList<Joueur> lesJoueur = null;     //<! Conteneur avec des objets Joueur
+    private String nomGagnant = null;               //<! Nom du Gagnant
+    private ArrayAdapter<String> adapteur = null;   //<! Adapteur avec le classement des joueurs
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -107,27 +107,23 @@ public class ActiviteFinPartie extends AppCompatActivity implements View.OnClick
 
     }
 
+    /**
+     * @brief Méthode permet de trier les joueur par rapport au score
+     *
+     * @fn ActiviteFinPartie::trierLesJoueurs()
+     */
     public void trierLesJoueurs()
     {
         Log.d(TAG, "trierLesJoueurs()");
-        List<Joueur>joueursTrier = new ArrayList<Joueur>();
-        int scoreMax = 0;
+        lesJoueur.sort(Comparator.comparingInt(Joueur::getScore));
 
-        for (int i = 0; i < lesJoueur.size(); i++)
-        {
-            if (lesJoueur.get(i).getScore() >= scoreMax)
-            {
-                joueursTrier.add(lesJoueur.get(i));
-            }
-            else
-            {
-                joueursTrier.add(lesJoueur.get(1-i));
-            }
-        }
-        lesJoueur.clear();
-        lesJoueur.addAll(joueursTrier);
     }
 
+    /**
+     * @brief Méthode appelée à la création de l'activité
+     *
+     * @fn ActiviteFinPartie::afficherJoueurs()
+     */
     public void afficherJoueurs()
     {
         Log.d(TAG, "afficherJoueurs()");
