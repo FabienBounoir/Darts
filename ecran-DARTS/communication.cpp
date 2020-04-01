@@ -159,7 +159,6 @@ void Communication::nouveauClient()
  */
 void Communication::socketReadyRead()
 {
-    qDebug() << Q_FUNC_INFO;
     QByteArray donnees;
 
     while (socket->bytesAvailable())
@@ -170,7 +169,7 @@ void Communication::socketReadyRead()
 
     trame = QString(donnees);
 
-    qDebug() << QString::fromUtf8("Trame reçues : ") << QString(donnees);
+    qDebug() << Q_FUNC_INFO << QString::fromUtf8("Trame reçues : ") << QString(donnees);
 
     decomposerTrame();
 }
@@ -219,12 +218,12 @@ void Communication::decomposerTrame()
         }
         else if(trame.contains("STOP") && (etatPartie == EtatPartie::EnCours))  /** $DART;STOP */
         {
-            miseAJourEtatPartieFin();
             darts->arreterPartie();
         }
         else
         {
-            qDebug() << "trame erreur: " << trame;
+            qDebug() << "Trame erreur: " << trame;
+            qDebug() << "Etat Partie: " << etatPartie;
         }
     }
 }
@@ -310,9 +309,8 @@ void Communication::reamorcerPartie()
  */
 void Communication::socketDisconnected()
 {
-    qDebug() << Q_FUNC_INFO;
     QString message = QString::fromUtf8("Périphérique déconnecté ");
-    qDebug() << message;
+    qDebug() << Q_FUNC_INFO << message;
 }
 
 /**

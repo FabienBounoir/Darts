@@ -311,7 +311,6 @@ void Solution::trouverSolution(int scoreJoueur, int flechettes)
     }
     if(!trouve)
     {
-        //qDebug() << Q_FUNC_INFO << "Score = " << s << "impossible";
         rechercher(score, nbFlechettes+1, true);
         //transmettreSolution(scoreJoueur);       //activer pour avoir l'aide tout le temps meme quand on peut pas finir
     }
