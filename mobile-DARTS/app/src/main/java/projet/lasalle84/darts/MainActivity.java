@@ -110,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boutonDemarrerPartie.setOnClickListener(this);
         boutonGererJoueurs.setOnClickListener(this);
         boutonVoirHistorique.setOnClickListener(this);
+
+        boutonGererJoueurs.setVisibility(View.INVISIBLE);
+        boutonVoirHistorique.setVisibility(View.INVISIBLE);
     }
 }
 

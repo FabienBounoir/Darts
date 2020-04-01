@@ -39,9 +39,7 @@ public class Partie
     public final static int SET_SCORE = 1;
     public final static int IMPACT = 2;
     public final static int GAGNANT = 3;
-
-
-
+    public final static int CONNEXION_CIBLE = 4;
     /**
      * Attributs
      */
@@ -49,15 +47,15 @@ public class Partie
     private int nbManche;                                           //!< Nombre de manche
     private TypeJeu typeJeu;                                        //!< Mode de jeu
     private ArrayList<Joueur> lesJoueurs;                           //!< Les objets Joueur stocker dans un conteneur (Queue)
-    private BluetoothAdapter bluetoothAdapter;                      //!<
+    private BluetoothAdapter bluetoothAdapter;                      //!< Bluetooth Adapteur
     private Set<BluetoothDevice> devices;                           //!< Les peripheriques qui sont appairés
     private Peripherique raspberry = null;                          //!< Peripherique raspberry connecté en Bluetooth
     private Peripherique darts = null;                              //!< Peripherique darts connecté en Bluetooth
     private Handler handlerUI = null;                               //!< Handler pour gérer l'interface
-    private int impact[] = null;
-    private boolean impactEstRecuperer;
-    private boolean estFini = false;
-    private boolean estDoubleImpact = false;
+    private int impact[] = null;                                    //!< Les impacts
+    private boolean impactEstRecuperer;                             //!< Booléen pour savoir quand on reçoit une trame impact
+    private boolean estFini = false;                                //!< Booléen si la partie est fini
+    private boolean estDoubleImpact = false;                        //!< Booléen si la derniere impact est du type double
 
     /**
      * @brief Constructeur de la classe Partie
@@ -74,6 +72,7 @@ public class Partie
         this.handlerUI = handlerUI;
         this.nbManche = 0;
         this.nbJoueurs = this.lesJoueurs.size();
+        impact = new int[2];
         recupererPeripheriques();
         connecterPeripheriquesBluetooth();
 
@@ -137,8 +136,15 @@ public class Partie
     public void deconnecterPeripheriquesBluetooth()
     {
         Log.d(TAG, "deconnecterPeripheriquesBluetooth()");
-        raspberry.deconnecter();
-        darts.deconnecter();
+        if (raspberry != null)
+        {
+            raspberry.deconnecter();
+        }
+
+        if (darts != null)
+        {
+            darts.deconnecter();
+        }
     }
 
     /**
@@ -149,9 +155,11 @@ public class Partie
      */
     public void envoyerTrame(Peripherique peripherique, String trame)
     {
-        Log.d(TAG,"envoyerTrame() " + peripherique.getNom());
         if(peripherique != null)
+        {
+            Log.d(TAG,"envoyerTrame() " + peripherique.getNom());
             peripherique.envoyer(trame);
+        }
     }
     /**
      * @brief Démarrer la partie
@@ -177,6 +185,11 @@ public class Partie
 
                 for(int i = 0; i < NB_FLECHETTE; i++)
                 {
+                    if (monJoueur.getScore() == 1 && typeJeu.estDoubleOut())
+                    {
+                        i = NB_FLECHETTE;
+                    }
+
                     impactEstRecuperer = false;
                     attendreImpact();
                     pointVolley =+ impact[0]*impact[1];
@@ -202,7 +215,6 @@ public class Partie
                 actualiserScoreIHM(monJoueur, monJoueur.getScore());
             }
         }while (!estFini);
-        deconnecterPeripheriquesBluetooth();
     }
 
     /**
@@ -250,6 +262,7 @@ public class Partie
                     break;
                 case Peripherique.CODE_CONNEXION:
                     Log.d(TAG,"<Bluetooth> Connexion " + b.getString("nom") + " [" + b.getString("adresse") + "] ok");
+                    envoyerConnexionIHM(b.getString("nom"));
                     break;
                 case Peripherique.CODE_RECEPTION:
                     String donnees = b.getString("donnees");
@@ -318,7 +331,6 @@ public class Partie
         {
             case "GAME":
                 Log.d(TAG, "traitementTrame: GAME");
-                impact = new int[2];
                 impact[0] = Integer.parseInt(trameDecoupe[2]);
                 impact[1] = Integer.parseInt(trameDecoupe[3]);
                 impactEstRecuperer = true;
@@ -407,11 +419,42 @@ public class Partie
     public void envoyerGagnantIHM(Joueur monJoueur) {
         Log.d(TAG, "envoyerGagnantIHM()");
         estFini = true;
+        deconnecterPeripheriquesBluetooth();
         Message msg = Message.obtain();
         Bundle b = new Bundle();
         b.putInt("action",GAGNANT);
         b.putString("gagnant",monJoueur.getNom());
         msg.setData(b);
         handlerUI.sendMessage(msg);
+    }
+
+    public void cibleManquer()
+    {
+        impact[0] = 0;
+        impact[1] = 0;
+        impactEstRecuperer = true;
+    }
+
+    public void envoyerConnexionIHM(String peripherique)
+    {
+        if (peripherique.equals(NOM_PERIPHERIQUE_BLUETOOTH_CIBLE))
+        {
+            Log.d(TAG, "envoyerConnexionIHM()");
+            Message msg = Message.obtain();
+            Bundle b = new Bundle();
+            b.putInt("action",CONNEXION_CIBLE);
+            msg.setData(b);
+            handlerUI.sendMessage(msg);
+        }
+    }
+
+    public void pause()
+    {
+        //TODO pause()
+    }
+
+    public void reprendre()
+    {
+        //TODO reprendre()
     }
 }

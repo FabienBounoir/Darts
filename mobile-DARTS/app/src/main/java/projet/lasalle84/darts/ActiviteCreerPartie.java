@@ -76,11 +76,23 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
      */
     public void LancerPartie()
     {
+        Log.d(TAG, "LancerPartie()");
         Vector<Joueur>mesJoueurs = new Vector<>();
-        for (int i = 0; i < Adaptateur.getCount(); i++)
+        if(Adaptateur.getCount() == 0)
         {
-            mesJoueurs.add(new Joueur(Adaptateur.getItem(i)));
-            Log.d(TAG,"Joueur" + i + " = " + Adaptateur.getItem(i));
+            for (int i = 0; i < 4; i++)
+            {
+                mesJoueurs.add(new Joueur("Joueur" + i));
+                Log.d(TAG, "Joueur" + i + " = " + "Joueur" + i);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < Adaptateur.getCount(); i++)
+            {
+                mesJoueurs.add(new Joueur(Adaptateur.getItem(i)));
+                Log.d(TAG, "Joueur" + i + " = " + Adaptateur.getItem(i));
+            }
         }
 
         Intent intent = new Intent(ActiviteCreerPartie.this, ActivitePartie.class);

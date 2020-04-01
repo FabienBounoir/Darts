@@ -39,15 +39,16 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
     /**
      * Attributs
      */
-    private Button boutonTirManque = null;                                 //!< Le bouton
-    private Button boutonLancerPartie = null;
-    private ArrayList<Joueur> mesJoueurs = null;
-    private BluetoothAdapter bluetoothAdapter = null;
-    private Partie maPartie = null;
-    private TypeJeu modeJeu = null;
-    private ArrayAdapter<String> adapteur = null;
-    private ListView listJoueur = null;
-    private TextView affichageImpact = null;
+    private Button boutonTirManque = null;                                  //!< Le bouton si la cible a était manquée
+    private Button boutonLancerPartie = null;                               //!< Bouton pour lancer la partie
+    private ArrayList<Joueur> mesJoueurs = null;                            //!< liste de Joueur
+    private BluetoothAdapter bluetoothAdapter = null;                       //!< Bluetooth Adapteur
+    private Partie maPartie = null;                                         //!< La partie
+    private TypeJeu modeJeu = null;                                         //!< Object Type de Jeu
+    private ArrayAdapter<String> adapteur = null;                           //!< Adapteur qui affiche quelle joueur doit joueur et score
+    private ListView listJoueur = null;                                     //!< Listview
+    private TextView affichageImpact = null;                                //!< Texte qui affiche la volley actuelle
+    private Button boutonPause = null;                                      //!< Bouton Pause
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -69,6 +70,11 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
         maPartie = new Partie(mesJoueurs, modeJeu, bluetoothAdapter, handlerUI);
     }
 
+    /**
+     * @brief Méthode qui permet charger des joueurs et les paramètre de la partie
+     *
+     * @fn ActivitePartie::ChargerLesParametre()
+     */
     public void ChargerLesParametre()
     {
         mesJoueurs = new ArrayList<Joueur>();
@@ -103,6 +109,23 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
                     maPartie.demarrer();
                 }
             }.start();
+            boutonLancerPartie.setVisibility(View.INVISIBLE);
+            boutonTirManque.setVisibility(View.VISIBLE);
+        }
+        else if (element == boutonTirManque)
+        {
+            maPartie.cibleManquer();
+        }
+        else if (element == boutonPause)
+        {
+            if (boutonPause.getText().equals("Pause"))
+            {
+                boutonPause.setText("Reprendre");
+            }
+            else
+            {
+                boutonPause.setText("Pause");
+            }
         }
 
 
@@ -143,6 +166,7 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
         boutonLancerPartie = (Button) findViewById(R.id.LancerPartie);
         listJoueur = (ListView) findViewById(R.id.MesJoueur);
         affichageImpact = (TextView) findViewById(R.id.Impact);
+        boutonPause = (Button) findViewById(R.id.Pause);
     }
 
     /**
@@ -155,7 +179,11 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
     {
         Log.d(TAG,"initialiserWidgets()");
         boutonTirManque.setOnClickListener(this);
+        boutonTirManque.setVisibility(View.INVISIBLE);
+        boutonLancerPartie.setVisibility(View.INVISIBLE);
         boutonLancerPartie.setOnClickListener(this);
+        boutonPause.setVisibility(View.INVISIBLE); // Fonction Pause non-fonctionnel
+        boutonPause.setOnClickListener(this);
     }
 
     /**
@@ -209,7 +237,10 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
                     Log.d(TAG, "GAGNANT " + b.getString("gagnant"));
                     afficheGagnant(b.getString("gagnant"));
                     break;
-
+                case Partie.CONNEXION_CIBLE:
+                    Log.d(TAG, "CONNEXION_CIBLE ");
+                    boutonLancerPartie.setVisibility(View.VISIBLE);
+                    break;
             }
         }
     };
