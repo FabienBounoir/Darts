@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet Darts: Changelog</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="iconeDarts.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projet Darts
+   &#160;<span id="projectnumber">0.1</span>
+   </div>
+   <div id="projectbrief">BTS SN 2020</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Changelog </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p>r92 | fbounoir | 2020-04-01 13:50:07 +0200 (mer. 01 avril 2020) | 2 lignes</p>
+<p>modification du style sheet de l'application pour prendre en compte lorsque la partie dure plus que 1 heure</p>
+<p>r90 | fbounoir | 2020-04-01 11:42:11 +0200 (mer. 01 avril 2020) | 2 lignes</p>
+<p>Modification affichage <a class="el" href="class_joueur.html" title="Déclaration de la classe Joueur (Module Ecran-DARTS) ">Joueur</a> et Score &ndash;&gt; pour un meilleur affichage lorsqu'il y a trop de joueur</p>
+<p>r89 | emenella | 2020-04-01 11:24:40 +0200 (mer. 01 avril 2020) | 1 ligne</p>
+<p>Ajout et modification de commentaire + configuration par defauts si il y a aucun joueur reseigner</p>
+<p>r88 | fbounoir | 2020-03-30 23:12:16 +0200 (lun. 30 mars 2020) | 1 ligne</p>
+<p>correction de bug qui ne mettait pas en pause la partie lors du lancement du jeu</p>
+<p>r87 | fbounoir | 2020-03-29 20:01:44 +0200 (dim. 29 mars 2020) | 4 lignes</p>
+<p>correction d'un bug : -&gt; lors du lancement d'une partie avec l'affichage des regles, cela provoquer un bug qui enlever l'affichage de la cible.</p>
+<p>r86 | fbounoir | 2020-03-27 23:39:07 +0100 (ven. 27 mars 2020) | 6 lignes</p>
+<p>ajout commentaire de code</p>
+<p>changement d'iteration</p>
+<p>correction du bug qui relancer l'affichage du logo Pause quand on recoit une trame REGLE alors qu'on est en Pause</p>
+<p>r85 | fbounoir | 2020-03-27 21:08:06 +0100 (ven. 27 mars 2020) | 2 lignes</p>
+<p>rectification bug de son lors du lancement des video des regles correctif verification trame REGLE</p>
+<p>r84 | fbounoir | 2020-03-27 19:00:27 +0100 (ven. 27 mars 2020) | 1 ligne</p>
+<p>modification trame REGLE et ca gestion</p>
+<p>r83 | fbounoir | 2020-03-27 15:56:58 +0100 (ven. 27 mars 2020) | 3 lignes</p>
+<p>modification trame START pour accueillir le nouveau parametre &ndash;&gt;afficher regle (1= true / 0 = false)</p>
+<p>r82 | fbounoir | 2020-03-27 14:58:02 +0100 (ven. 27 mars 2020) | 2 lignes</p>
+<p>ajout de la gestion trame REGLE cette trame et valide quand la partie et deja en cours</p>
+<p>r81 | fbounoir | 2020-03-27 12:09:28 +0100 (ven. 27 mars 2020) | 1 ligne</p>
+<p>ajout de l'ecran regle pour visualiser les regles du jeu</p>
+<p>r80 | emenella | 2020-03-26 17:09:50 +0100 (jeu. 26 mars 2020) | 1 ligne</p>
+<p>Ajout IHM de fin partie</p>
+<p>r77 | emenella | 2020-03-25 17:42:06 +0100 (mer. 25 mars 2020) | 1 ligne</p>
+<p>IHM du déroulement d'une partie avec le score des joueur, les impact de la volley et indication du joueur qui doit jouer.</p>
+<p>r76 | tvaira | 2020-03-23 18:25:54 +0100 (lun. 23 mars 2020) | 1 ligne</p>
+<p>Maj Doxyfile</p>
+<p>r75 | emenella | 2020-03-23 18:24:34 +0100 (lun. 23 mars 2020) | 1 ligne</p>
+<p>Déroulement de la partie + envoyer des message vers IHM</p>
+<p>r74 | tvaira | 2020-03-23 18:22:43 +0100 (lun. 23 mars 2020) | 2 lignes</p>
+<p>Révision de code pour Doxygen</p>
+<p>r73 | tvaira | 2020-03-21 07:47:58 +0100 (sam. 21 mars 2020) | 2 lignes</p>
+<p>Révision de code</p>
+<p>r72 | tvaira | 2020-03-19 09:52:17 +0100 (jeu. 19 mars 2020) | 1 ligne</p>
+<p>Révision de code</p>
+<p>r71 | tvaira | 2020-03-19 08:18:29 +0100 (jeu. 19 mars 2020) | 2 lignes</p>
+<p>Ajout de la méthode calculerPoints()</p>
+<p>r70 | emenella | 2020-03-18 09:28:43 +0100 (mer. 18 mars 2020) | 1 ligne</p>
+<p>Ajout du Bluetooth (connection : OK, envoyer : OK, recevoir : En Cours)</p>
+<p>r69 | tvaira | 2020-03-18 08:07:15 +0100 (mer. 18 mars 2020) | 1 ligne</p>
+<p>fichier à ignorer</p>
+<p>r68 | fbounoir | 2020-03-14 22:55:40 +0100 (sam. 14 mars 2020) | 5 lignes</p>
+<p>modification affichage :</p><ul>
+<li>la moyenne n'affiche plus les decimales.</li>
+<li>changement de la police de la partie actualiter de la partie pour etre compatible avec la raspberry</li>
+<li>ajout de fleche pour mettre en avant la possibiliter de finir la partie</li>
+<li>modification de son de l'ihm</li>
+</ul>
+<p>r67 | fbounoir | 2020-03-14 11:37:07 +0100 (sam. 14 mars 2020) | 4 lignes</p>
+<p>modification Police interface jeu. modification layout ecran de jeu</p>
+<p>r66 | fbounoir | 2020-03-14 00:47:14 +0100 (sam. 14 mars 2020) | 1 ligne</p>
+<p>correction probleme declaration fichier ressource.qrc</p>
+<p>r65 | fbounoir | 2020-03-14 00:35:15 +0100 (sam. 14 mars 2020) | 1 ligne</p>
+<p>modification design IHM</p>
+<p>r64 | fbounoir | 2020-03-13 20:29:12 +0100 (ven. 13 mars 2020) | 2 lignes</p>
+<p>remédiation de code ajout de commentaire de code</p>
+<p>r63 | fbounoir | 2020-03-13 20:10:01 +0100 (ven. 13 mars 2020) | 4 lignes</p>
+<p>modification affichage : modification affichage de la partie (score, type ...)</p>
+<p>ajout d'un fond pour la partie affichage de la partie.</p>
+<p>r62 | fbounoir | 2020-03-13 19:14:58 +0100 (ven. 13 mars 2020) | 2 lignes</p>
+<p>modification affichage : message de statut sur l'ecran de Jeu</p>
+<p>r61 | fbounoir | 2020-03-13 17:11:05 +0100 (ven. 13 mars 2020) | 1 ligne</p>
+<p>modification etat Pause partie</p>
+<p>r60 | emenella | 2020-03-13 17:07:36 +0100 (ven. 13 mars 2020) | 1 ligne</p>
+<p>Mis en place du bluetooth</p>
+<p>r59 | emenella | 2020-03-13 17:02:18 +0100 (ven. 13 mars 2020) | 1 ligne</p>
+<p>Mis en place du bluetooth</p>
+<p>r58 | emenella | 2020-03-13 16:57:59 +0100 (ven. 13 mars 2020) | 1 ligne</p>
+<p>Mis en place du bluetooth</p>
+<p>r57 | fbounoir | 2020-03-13 14:16:47 +0100 (ven. 13 mars 2020) | 1 ligne</p>
+<p>ajout icone Pause</p>
+<p>r56 | fbounoir | 2020-03-12 22:39:15 +0100 (jeu. 12 mars 2020) | 1 ligne</p>
+<p>ajout son Ecran d'attente</p>
+<p>r55 | emenella | 2020-03-12 15:42:53 +0100 (jeu. 12 mars 2020) | 1 ligne</p>
+<p>Ajout de methode pour recuperer le nom du joueur</p>
+<p>r54 | fbounoir | 2020-03-12 15:30:09 +0100 (jeu. 12 mars 2020) | 1 ligne</p>
+<p>optimisation du code</p>
+<p>r53 | fbounoir | 2020-03-11 22:24:16 +0100 (mer. 11 mars 2020) | 1 ligne</p>
+<p>optimisation du code</p>
+<p>r52 | fbounoir | 2020-03-11 19:34:09 +0100 (mer. 11 mars 2020) | 4 lignes</p>
+<p>ajout compatibiliter Mode de Jeu : 101 à 1001 &ndash;&gt; Sans double out 101 à 1001 &ndash;&gt; avec double out</p>
+<p>r51 | fbounoir | 2020-03-11 18:55:21 +0100 (mer. 11 mars 2020) | 4 lignes</p>
+<p>optimisation du code optimisation du visuel compression background</p>
+<p>r50 | fbounoir | 2020-03-11 12:20:37 +0100 (mer. 11 mars 2020) | 1 ligne</p>
+<p>ajout des Visuel Imapct dans le depot</p>
+<p>r49 | fbounoir | 2020-03-10 19:19:35 +0100 (mar. 10 mars 2020) | 1 ligne</p>
+<p>optimisation du code</p>
+<p>r48 | fbounoir | 2020-03-10 16:54:17 +0100 (mar. 10 mars 2020) | 2 lignes</p>
+<p>ajout possibiliter de jouer seul si le joueur tombe a 1 point il est eliminer</p>
+<p>r47 | emenella | 2020-03-10 16:46:51 +0100 (mar. 10 mars 2020) | 1 ligne</p>
+<p>Ajout d'activité pour créer une partie et des joueurs</p>
+<p>r46 | emenella | 2020-03-10 16:45:49 +0100 (mar. 10 mars 2020) | 1 ligne</p>
+<p>Ajout d'activité pour créer une partie et des joueurs</p>
+<p>r45 | fbounoir | 2020-03-09 22:27:57 +0100 (lun. 09 mars 2020) | 1 ligne</p>
+<p>ajout de la visualisation de la volées entière au lieu d'avoir juste l'impact actuel</p>
+<p>r44 | tvaira | 2020-03-09 18:30:02 +0100 (lun. 09 mars 2020) | 1 ligne</p>
+<p>Modification méthode extraireParametresTrameStart()</p>
+<p>r43 | tvaira | 2020-03-09 18:27:39 +0100 (lun. 09 mars 2020) | 1 ligne</p>
+<p>Modification méthode extraireParametresTrameStart()</p>
+<p>r42 | tvaira | 2020-03-09 18:24:15 +0100 (lun. 09 mars 2020) | 1 ligne</p>
+<p>Modification méthode extraireParametresTrameStart()</p>
+<p>r41 | fbounoir | 2020-03-09 17:20:58 +0100 (lun. 09 mars 2020) | 1 ligne</p>
+<p>amelioration du code</p>
+<p>r40 | tvaira | 2020-03-09 08:25:31 +0100 (lun. 09 mars 2020) | 2 lignes</p>
+<p>Révision de code (2° partie)</p>
+<p>r39 | fbounoir | 2020-03-08 11:45:28 +0100 (dim. 08 mars 2020) | 1 ligne</p>
+<p>correction de signaux manquant</p>
+<p>r38 | tvaira | 2020-03-08 10:18:52 +0100 (dim. 08 mars 2020) | 1 ligne</p>
+<p>Revision de code</p>
+<p>r37 | tvaira | 2020-03-08 09:15:14 +0100 (dim. 08 mars 2020) | 2 lignes</p>
+<p>Révision de code</p>
+<p>r36 | fbounoir | 2020-03-06 19:23:27 +0100 (ven. 06 mars 2020) | 1 ligne</p>
+<p>mise à jour du code pour accueilir le nouveau protocol de transmission V0.2</p>
+<p>r35 | fbounoir | 2020-03-06 11:58:56 +0100 (ven. 06 mars 2020) | 1 ligne</p>
+<p>ajout de la suppresion des joueurs</p>
+<p>r34 | fbounoir | 2020-03-05 19:14:12 +0100 (jeu. 05 mars 2020) | 1 ligne</p>
+<p>ajout de la gestion des joueurs eliminer (passer au joueur suivant si eliminer)</p>
+<p>r33 | fbounoir | 2020-03-05 18:08:09 +0100 (jeu. 05 mars 2020) | 1 ligne</p>
+<p>ajout de la mise en pause de la partie si l'appareil bluetooth se deconnecte</p>
+<p>r32 | fbounoir | 2020-03-05 16:09:14 +0100 (jeu. 05 mars 2020) | 2 lignes</p>
+<p>correction probleme protocol trame PLAY</p>
+<p>r31 | fbounoir | 2020-03-05 15:05:13 +0100 (jeu. 05 mars 2020) | 1 ligne</p>
+<p>ajout gestion trame PAUSE &amp; START</p>
+<p>r30 | fbounoir | 2020-03-04 21:07:34 +0100 (mer. 04 mars 2020) | 1 ligne</p>
+<p>ajout commentaire de code pour la classe <a class="el" href="class_solution.html" title="Déclaration de la classe Solution (Module Ecran-DARTS) ">Solution</a></p>
+<p>r29 | fbounoir | 2020-03-04 20:04:33 +0100 (mer. 04 mars 2020) | 1 ligne</p>
+<p>ajout recherche meilleur solution possible pour finir la partie</p>
+<p>r28 | fbounoir | 2020-03-04 19:05:58 +0100 (mer. 04 mars 2020) | 1 ligne</p>
+<p>ajout classe <a class="el" href="class_solution.html" title="Déclaration de la classe Solution (Module Ecran-DARTS) ">Solution</a></p>
+<p>r27 | fbounoir | 2020-03-04 15:36:16 +0100 (mer. 04 mars 2020) | 1 ligne</p>
+<p>ajout chronometre partie</p>
+<p>r26 | fbounoir | 2020-02-19 12:15:59 +0100 (mer. 19 févr. 2020) | 7 lignes</p>
+<p>ajout compatibiliter avec les modes 501_DOUBLE_OUT 301_DOUBLE_OUT 501 301</p>
+<p>et optimisation du code</p>
+<p>r25 | fbounoir | 2020-02-18 22:53:37 +0100 (mar. 18 févr. 2020) | 1 ligne</p>
+<p>correction d'un bug qui empêchent la remise à zéro du volé max en changeant de partie</p>
+<p>r24 | fbounoir | 2020-02-18 14:40:35 +0100 (mar. 18 févr. 2020) | 1 ligne</p>
+<p>ajout de la gestion des joueurs n'ayant pas de nom</p>
+<p>r23 | fbounoir | 2020-02-18 12:06:15 +0100 (mar. 18 févr. 2020) | 2 lignes</p>
+<p>ajout de la gestion de la trame STOP</p>
+<p>r22 | fbounoir | 2020-02-16 23:49:40 +0100 (dim. 16 févr. 2020) | 1 ligne</p>
+<p>ajout calcule Moyenne volées</p>
+<p>r21 | fbounoir | 2020-02-16 13:27:07 +0100 (dim. 16 févr. 2020) | 1 ligne</p>
+<p>commencement creation moyenne Volées</p>
+<p>r20 | fbounoir | 2020-02-16 10:39:03 +0100 (dim. 16 févr. 2020) | 1 ligne</p>
+<p>ajout comptage nombre de Volées</p>
+<p>r19 | fbounoir | 2020-02-16 10:07:29 +0100 (dim. 16 févr. 2020) | 1 ligne</p>
+<p>ajout visualisation joueur en train de jouer</p>
+<p>r18 | fbounoir | 2020-02-15 22:33:55 +0100 (sam. 15 févr. 2020) | 1 ligne</p>
+<p>mise a jour documentation Methode / Attribut</p>
+<p>r17 | fbounoir | 2020-02-15 22:33:23 +0100 (sam. 15 févr. 2020) | 1 ligne</p>
+<p>ajout Methode qui met a jour la Volées Max</p>
+<p>r16 | fbounoir | 2020-02-15 21:49:46 +0100 (sam. 15 févr. 2020) | 1 ligne</p>
+<p>ajout calcule volée Max</p>
+<p>r15 | fbounoir | 2020-02-15 21:01:26 +0100 (sam. 15 févr. 2020) | 1 ligne</p>
+<p>ajout test pour finir partie</p>
+<p>r14 | tvaira | 2020-02-15 11:17:59 +0100 (sam. 15 févr. 2020) | 4 lignes</p>
+<p>Ajout Doxygen pour les define Ajout des TODO Vérification du code</p>
+<p>r13 | fbounoir | 2020-02-15 01:53:43 +0100 (sam. 15 févr. 2020) | 1 ligne</p>
+<p>ajout classe <a class="el" href="class_joueur.html" title="Déclaration de la classe Joueur (Module Ecran-DARTS) ">Joueur</a></p>
+<p>r12 | fbounoir | 2020-02-14 16:25:09 +0100 (ven. 14 févr. 2020) | 1 ligne</p>
+<p>ajout initialisation point joueur</p>
+<p>r11 | fbounoir | 2020-02-14 14:35:10 +0100 (ven. 14 févr. 2020) | 1 ligne</p>
+<p>ajout methode calcul point Impact</p>
+<p>r10 | fbounoir | 2020-02-14 11:40:03 +0100 (ven. 14 févr. 2020) | 1 ligne</p>
+<p>ajout classe <a class="el" href="class_darts.html" title="Déclaration de la classe Darts (Module Ecran-DARTS) ">Darts</a></p>
+<p>r9 | emenella | 2020-02-14 08:06:05 +0100 (ven. 14 févr. 2020) | 1 ligne</p>
+<p>Ajout du projet Android</p>
+<p>r8 | fbounoir | 2020-02-13 21:01:44 +0100 (jeu. 13 févr. 2020) | 1 ligne</p>
+<p>ajout fichier Doxyfile</p>
+<p>r7 | fbounoir | 2020-02-13 20:08:23 +0100 (jeu. 13 févr. 2020) | 1 ligne</p>
+<p>ajout methode decomposer trame</p>
+<p>r6 | fbounoir | 2020-02-13 16:13:12 +0100 (jeu. 13 févr. 2020) | 1 ligne</p>
+<p>ajout connection bluetooth en mode serveur</p>
+<p>r5 | fbounoir | 2020-02-12 22:52:48 +0100 (mer. 12 févr. 2020) | 1 ligne</p>
+<p>ajout classe communication</p>
+<p>r4 | fbounoir | 2020-02-12 16:16:51 +0100 (mer. 12 févr. 2020) | 1 ligne</p>
+<p>ajout fichier ressources.qrc</p>
+<p>r3 | fbounoir | 2020-02-12 15:47:20 +0100 (mer. 12 févr. 2020) | 1 ligne</p>
+<p>mise a jour <a class="el" href="class_ihm.html" title="Déclaration de la classe Ihm (Module Ecran-DARTS) ">Ihm</a></p>
+<p>r2 | fbounoir | 2020-02-12 11:44:10 +0100 (mer. 12 févr. 2020) | 1 ligne</p>
+<p>demarrage projet</p>
+<p>r1 | www-data | 2020-02-01 15:05:21 +0100 (sam. 01 févr. 2020) | 1 ligne</p>
+<p>Creating initial repository structure </p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Mercredi 1 Avril 2020 14:54:09 pour Projet Darts par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

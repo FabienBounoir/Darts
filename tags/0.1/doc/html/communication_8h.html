@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet Darts: Référence du fichier communication.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="iconeDarts.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projet Darts
+   &#160;<span id="projectnumber">0.1</span>
+   </div>
+   <div id="projectbrief">BTS SN 2020</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_1b9df84290f783b52d803dcb375bf8bd.html">ecran-DARTS</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier communication.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Déclaration de la classe <a class="el" href="class_communication.html" title="Déclaration de la classe Communication via la liaison Bluetooth (Module Ecran-DARTS) ...">Communication</a> (Module Ecran-DARTS)  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="darts_8h_source.html">darts.h</a>&quot;</code><br />
+<code>#include &lt;QObject&gt;</code><br />
+<code>#include &lt;QString&gt;</code><br />
+<code>#include &lt;QBluetoothLocalDevice&gt;</code><br />
+<code>#include &lt;QBluetoothServer&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+</div>
+<p><a href="communication_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html">Communication</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclaration de la classe <a class="el" href="class_communication.html" title="Déclaration de la classe Communication via la liaison Bluetooth (Module Ecran-DARTS) ...">Communication</a> via la liaison Bluetooth (Module Ecran-DARTS)  <a href="class_communication.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a8da23fa25560c54c52884746a5d1cc69"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#a8da23fa25560c54c52884746a5d1cc69">TYPE_TRAME</a>&#160;&#160;&#160;&quot;$DART&quot;</td></tr>
+<tr class="memdesc:a8da23fa25560c54c52884746a5d1cc69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le type de trame du protocole DARTS.  <a href="#a8da23fa25560c54c52884746a5d1cc69">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8da23fa25560c54c52884746a5d1cc69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafcc0c7b4996f7783c9f4e766a233487"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#aafcc0c7b4996f7783c9f4e766a233487">DELIMITEUR_FIN</a>&#160;&#160;&#160;&quot;\r\n&quot;</td></tr>
+<tr class="memdesc:aafcc0c7b4996f7783c9f4e766a233487"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le délimiteur de fin de trame du protocole DARTS.  <a href="#aafcc0c7b4996f7783c9f4e766a233487">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aafcc0c7b4996f7783c9f4e766a233487"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a89b03bf9986896053fdab3d4f80d7c04"><td class="memItemLeft" align="right" valign="top">static const QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#a89b03bf9986896053fdab3d4f80d7c04">serviceUuid</a> (QStringLiteral(&quot;00001101-0000-1000-8000-00805F9B34FB&quot;))</td></tr>
+<tr class="separator:a89b03bf9986896053fdab3d4f80d7c04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28fc73dd6a464ea3a1cdb210ee7a1925"><td class="memItemLeft" align="right" valign="top">static const QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#a28fc73dd6a464ea3a1cdb210ee7a1925">serviceNom</a> (QStringLiteral(&quot;Ecran-<a class="el" href="class_darts.html">Darts</a>&quot;))</td></tr>
+<tr class="separator:a28fc73dd6a464ea3a1cdb210ee7a1925"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><dl class="section version"><dt>Version</dt><dd>0.2</dd></dl>
+<dl class="section author"><dt>Auteur</dt><dd>Bounoir Fabien </dd></dl>
+</div><h2 class="groupheader">Documentation des macros</h2>
+<a id="aafcc0c7b4996f7783c9f4e766a233487"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafcc0c7b4996f7783c9f4e766a233487">&#9670;&nbsp;</a></span>DELIMITEUR_FIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELIMITEUR_FIN&#160;&#160;&#160;&quot;\r\n&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Référencé par <a class="el" href="class_communication.html#aaf5333662717e69837d2d39164e5a303">Communication::decomposerTrame()</a>.</p>
+
+</div>
+</div>
+<a id="a8da23fa25560c54c52884746a5d1cc69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8da23fa25560c54c52884746a5d1cc69">&#9670;&nbsp;</a></span>TYPE_TRAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TYPE_TRAME&#160;&#160;&#160;&quot;$DART&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Référencé par <a class="el" href="class_communication.html#aaf5333662717e69837d2d39164e5a303">Communication::decomposerTrame()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a28fc73dd6a464ea3a1cdb210ee7a1925"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28fc73dd6a464ea3a1cdb210ee7a1925">&#9670;&nbsp;</a></span>serviceNom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static const QString serviceNom </td>
+          <td>(</td>
+          <td class="paramtype">QStringLiteral(&quot;Ecran-<a class="el" href="class_darts.html">Darts</a>&quot;)&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Référencé par <a class="el" href="class_communication.html#af29ea9a1c2ce29436f2331c322f6ebbf">Communication::demarrer()</a>.</p>
+
+</div>
+</div>
+<a id="a89b03bf9986896053fdab3d4f80d7c04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89b03bf9986896053fdab3d4f80d7c04">&#9670;&nbsp;</a></span>serviceUuid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static const QString serviceUuid </td>
+          <td>(</td>
+          <td class="paramtype">QStringLiteral(&quot;00001101-0000-1000-8000-00805F9B34FB&quot;)&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Référencé par <a class="el" href="class_communication.html#af29ea9a1c2ce29436f2331c322f6ebbf">Communication::demarrer()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Mercredi 1 Avril 2020 14:54:09 pour Projet Darts par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

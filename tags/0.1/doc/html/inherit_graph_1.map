@@ -1,0 +1,7 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="node2" href="$classprojet_1_1lasalle84_1_1darts_1_1_activite_ajouter_joueur.html" title="Déclaration de la classe ActiviteAjouterJoueur (Module Mobile&#45;DARTS) " alt="" coords="188,71,379,112"/>
+<area shape="rect" id="node3" href="$classprojet_1_1lasalle84_1_1darts_1_1_activite_creer_partie.html" title="Déclaration de la classe ActiviteCreerPartie (Module Mobile&#45;DARTS) " alt="" coords="188,136,379,177"/>
+<area shape="rect" id="node4" href="$classprojet_1_1lasalle84_1_1darts_1_1_activite_fin_partie.html" title="Déclaration de la classe ActiviteFinPartie (Module Mobile&#45;DARTS) " alt="" coords="188,201,379,243"/>
+<area shape="rect" id="node5" href="$classprojet_1_1lasalle84_1_1darts_1_1_activite_partie.html" title="Déclaration de la classe ActivitePartie (Module Mobile&#45;DARTS) " alt="" coords="188,267,379,308"/>
+<area shape="rect" id="node6" href="$classprojet_1_1lasalle84_1_1darts_1_1_main_activity.html" title="Déclaration de la classe MainActivity (Module Mobile&#45;DARTS) " alt="" coords="196,5,371,47"/>
+</map>
