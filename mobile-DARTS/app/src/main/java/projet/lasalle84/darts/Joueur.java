@@ -85,13 +85,14 @@ public class Joueur implements Serializable
      * @fn Joueur::retirerPoint(int scoreLancer)
      * @param scoreLancer à retirer
      */
-    public boolean retirerPoint(int scoreLancer)
+    public boolean retirerPoint(int scoreLancer, Partie maPartie)
     {
         if (this.score - scoreLancer >= 0)
         {
             this.score = this.score - scoreLancer;
-            if (this.score == 1)
+            if (this.score == 1 && maPartie.getTypeJeu().estDoubleOut())
             {
+                Log.d(TAG, this.getNom() + " est éliminé");
                 estEliminer = true;
             }
             return true;
@@ -115,7 +116,7 @@ public class Joueur implements Serializable
      *
      * @fn Joueur::setEstEliminer(boolean estEliminer)
      */
-    public boolean EstEliminer()
+    public boolean estEliminer()
     {
         return estEliminer;
     }

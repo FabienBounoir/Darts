@@ -185,30 +185,32 @@ public class Partie
 
                 for(int i = 0; i < NB_FLECHETTE; i++)
                 {
-                    if (monJoueur.getScore() == 1 && typeJeu.estDoubleOut())
+                    if (monJoueur.estEliminer())
                     {
                         i = NB_FLECHETTE;
                     }
-
-                    impactEstRecuperer = false;
-                    attendreImpact();
-                    pointVolley =+ impact[0]*impact[1];
-                    if(!monJoueur.retirerPoint(pointVolley))
+                    else
                     {
-                        i = NB_FLECHETTE;
-                        pointVolley = 0;
-                    }
-                    else if (monJoueur.getScore() == 0 && !typeJeu.estDoubleOut())
-                    {
-                        envoyerGagnantIHM(monJoueur);
-                        i = NB_FLECHETTE;
-                        estFini = true;
-                    }
-                    else if (monJoueur.getScore() == 0 && typeJeu.estDoubleOut() && estDoubleImpact)
-                    {
-                        envoyerGagnantIHM(monJoueur);
-                        i = NB_FLECHETTE;
-                        estFini = true;
+                        impactEstRecuperer = false;
+                        attendreImpact();
+                        pointVolley =+ impact[0]*impact[1];
+                        if(!monJoueur.retirerPoint(pointVolley, this))
+                        {
+                            i = NB_FLECHETTE;
+                            pointVolley = 0;
+                        }
+                        else if (monJoueur.getScore() == 0 && !typeJeu.estDoubleOut())
+                        {
+                            envoyerGagnantIHM(monJoueur);
+                            i = NB_FLECHETTE;
+                            estFini = true;
+                        }
+                        else if (monJoueur.getScore() == 0 && typeJeu.estDoubleOut() && estDoubleImpact)
+                        {
+                            envoyerGagnantIHM(monJoueur);
+                            i = NB_FLECHETTE;
+                            estFini = true;
+                        }
                     }
 
                 }
@@ -251,14 +253,15 @@ public class Partie
             {
                 case Peripherique.CODE_ERREUR_CONNECTER:
                     Log.d(TAG,"<Bluetooth> Erreur " + b.getString("nom") + " [" + b.getString("adresse") + "] connecter");
+                    connecterPeripheriquesBluetooth();
                     break;
                 case Peripherique.CODE_ERREUR_RECEVOIR:
                     Log.d(TAG,"<Bluetooth> Erreur " + b.getString("nom") + " [" + b.getString("adresse") + "] envoyer");
-                    //reconnecter ?
+                    connecterPeripheriquesBluetooth();
                     break;
                 case Peripherique.CODE_ERREUR_ENVOYER:
                     Log.d(TAG,"<Bluetooth> Erreur " + b.getString("nom") + " [" + b.getString("adresse") + "] envoyer");
-                    //reconnecter ?
+                    connecterPeripheriquesBluetooth();
                     break;
                 case Peripherique.CODE_CONNEXION:
                     Log.d(TAG,"<Bluetooth> Connexion " + b.getString("nom") + " [" + b.getString("adresse") + "] ok");
@@ -456,5 +459,9 @@ public class Partie
     public void reprendre()
     {
         //TODO reprendre()
+    }
+
+    public TypeJeu getTypeJeu() {
+        return typeJeu;
     }
 }
