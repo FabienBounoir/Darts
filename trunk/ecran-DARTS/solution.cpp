@@ -11,8 +11,6 @@
 *
 */
 
-/** @todo ajouter la recherche de solution pour le mode sans double out !*/
-
 /**
  * @brief constructeur de la classe Solution
  *
