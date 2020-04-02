@@ -12,18 +12,29 @@
 */
 
 /**
- * @brief constructeur de la classe Solution
+ * @brief Constructeur de la classe Solution
  *
  * @fn Solution::Solution
  * @param parent
  */
 Solution::Solution(QObject *parent) : QObject(parent), solution("")
 {
-
+   qDebug() << Q_FUNC_INFO;
 }
 
 /**
- * @brief methode qui emet un signal pour que l'Ihm affiche la solution trouver
+ * @brief Destructeur de la classe Solution
+ *
+ * @fn Solution::~Solution
+ */
+Solution::~Solution()
+{
+   qDebug() << Q_FUNC_INFO;
+}
+
+
+/**
+ * @brief Méthode qui émet un signal pour que l'Ihm affiche la solution trouver
  *
  * @fn Solution::transmettreSolution
  * @param score
@@ -35,7 +46,7 @@ void Solution::transmettreSolution(int score)
 }
 
 /**
- * @brief test si le triple choisie et possible
+ * @brief Test si la triple choisie et possible
  *
  * @fn Solution::aTriple
  * @param points
@@ -52,7 +63,7 @@ bool Solution::aTriple(int points, const int score)
 }
 
 /**
- * @brief methode qui recherche le meilleur triple pour la solution
+ * @brief Méthode qui recherche le meilleur triple pour la solution
  *
  * @fn Solution::rechercherTriple
  * @param score
@@ -76,7 +87,7 @@ bool Solution::rechercherTriple(int &score, QString &combinaison, int start=20)
 }
 
 /**
- * @brief test si le double choisie et possible
+ * @brief Test si le double choisie et possible
  *
  * @fn Solution::aDouble
  * @param points
@@ -93,7 +104,7 @@ bool Solution::aDouble(int points, const int score)
 }
 
 /**
- * @brief methode qui recherche le meilleur double pour la solution
+ * @brief Méthode qui recherche le meilleur double pour la solution
  *
  * @fn Solution::rechercherDouble
  * @param score
@@ -120,7 +131,7 @@ bool Solution::rechercherDouble(int &score, QString &combinaison)
 }
 
 /**
- * @brief test si le simple choisie et possible
+ * @brief Test si le simple choisi et possible
  *
  * @fn Solution::aSimple
  * @param points
@@ -135,7 +146,7 @@ bool Solution::aSimple(int points, const int score)
 }
 
 /**
- * @brief methode qui recherche le meilleur simple pour la solution
+ * @brief Méthode qui recherche le meilleur simple pour la solution
  *
  * @fn Solution::rechercherSimple
  * @param score
@@ -162,7 +173,7 @@ bool Solution::rechercherSimple(int &score, QString &combinaison)
 }
 
 /**
- * @brief methode qui test si les points son double
+ * @brief Méthode qui teste si les points son double
  *
  * @fn Solution::estDouble
  * @param points
@@ -177,7 +188,7 @@ bool Solution::estDouble(int points, const int score)
 }
 
 /**
- * @brief methode qui cherche le double pour finir la partie
+ * @brief Méthode qui cherche le double pour finir la partie
  *
  * @fn Solution::extraireDouble
  * @param score
@@ -195,7 +206,7 @@ bool Solution::extraireDouble(int &score, int cible)
 }
 
 /**
- * @brief methode qui recherche la meilleur combinaison pour finir
+ * @brief Méthode qui recherche la meilleure combinaison pour finir
  *
  * @fn Solution::rechercher
  * @param score
@@ -276,7 +287,7 @@ bool Solution::rechercher(int score, int nbFlechettes, bool still)
 }
 
 /**
- * @brief methode qui trouve la meilleur solution
+ * @brief Méthode qui trouve la meilleure solution
  *
  * @fn Solution::trouverSolution
  * @param s
@@ -312,6 +323,6 @@ void Solution::trouverSolution(int scoreJoueur, int flechettes)
     if(!trouve)
     {
         rechercher(score, nbFlechettes+1, true);
-        //transmettreSolution(scoreJoueur);       //activer pour avoir l'aide tout le temps meme quand on peut pas finir
+        //transmettreSolution(scoreJoueur);       //activer pour avoir l'aide tout le temps même quand on ne peut pas finir
     }
 }

@@ -14,7 +14,7 @@
 */
 
 /**
- * @brief constructeur de la classe Darts
+ * @brief Constructeur de la classe Darts
  *
  * @fn Darts::Darts
  * @param parent
@@ -26,7 +26,7 @@ Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), j
 }
 
 /**
- * @brief destructeur de la classe Darts
+ * @brief Destructeur de la classe Darts
  *
  * @fn Darts::~Darts
  */
@@ -36,7 +36,7 @@ Darts::~Darts()
 }
 
 /**
- * @brief retourne la manche
+ * @brief Retourne la manche
  *
  * @fn Darts::getManche
  * @return int le numéro de manche
@@ -47,7 +47,7 @@ int Darts::getManche() const
 }
 
 /**
- * @brief retourne une liste des joueurs
+ * @brief Retourne une liste des joueurs
  *
  * @fn Darts::getListJoueur
  * @return QList<Joueur> la liste des joueurs
@@ -58,7 +58,7 @@ QList<Joueur> Darts::getListJoueur() const
 }
 
 /**
- * @brief retourne la volée max
+ * @brief Retourne la volée max
  *
  * @fn Darts::getVoleeMax
  * @return int la volée max
@@ -69,7 +69,7 @@ int Darts::getVoleeMax()
 }
 
 /**
- * @brief retourne le numéro du joueur actif
+ * @brief Retourne le numéro du joueur actif
  *
  * @fn Darts::getJoueurActif
  * @return int le numéro du joueur actif
@@ -80,7 +80,7 @@ int Darts::getJoueurActif()
 }
 
 /**
- * @brief retourne le nombre de volées de la partie
+ * @brief Retourne le nombre de volées de la partie
  *
  * @fn Darts::getNbVolees
  * @return int le nombre de volées de la partie
@@ -91,7 +91,7 @@ int Darts::getNbVolees()
 }
 
 /**
- * @brief retourne le mode de jeu
+ * @brief Retourne le mode de jeu
  *
  * @fn Darts::getModeDeJeu
  * @return QString le mode de jeu
@@ -113,7 +113,7 @@ Solution *Darts::getSolution() const
 }
 
 /**
- * @brief permet de mettre à jour la volée max
+ * @brief Permets de mettre à jour le volé max
  *
  * @fn Darts::setVoleeMax
  * @param voleeMax la volée max(int)
@@ -124,7 +124,7 @@ void Darts::setVoleeMax(int voleeMax)
 }
 
 /**
- * @brief permet de mettre à jour le numéro de manche
+ * @brief Permets de mettre à jour le numéro de manche
  *
  * @fn Darts::setManche
  * @param manche le numéro de manche (int)
@@ -135,7 +135,7 @@ void Darts::setManche(int manche)
 }
 
 /**
- * @brief initialise la partie
+ * @brief Initialise la partie
  *
  * @fn Darts::initialiserPartie
  * @param joueurList QStringList
@@ -195,7 +195,7 @@ void Darts::reinitialiserPartie()
 }
 
 /**
- * @brief methode qui test les Impact pour savoir quel son jouer
+ * @brief Méthode qui teste les Impact pour savoir quel son jouer
  *
  * @fn Darts::testerPoint
  * @param typePoint
@@ -214,7 +214,7 @@ void Darts::testerPoint(int typePoint, int point)
 }
 
 /**
- * @brief permet de traiter la réception d'impact
+ * @brief Permets de traiter la réception d'impact
  *
  * @fn Darts::receptionnerImpact
  * @param typePoint
@@ -238,7 +238,7 @@ void Darts::receptionnerImpact(int typePoint, int point)
 }
 
 /**
- * @brief teste si le joueur a gagné
+ * @brief Teste si le joueur a gagné
  *
  * @fn Darts::testerImpact
  * @param typePoint
@@ -267,7 +267,7 @@ void Darts::testerImpact(int typePoint)
 }
 
 /**
- * @brief met à jour le score du joueur
+ * @brief Met à jours le score du joueur
  *
  * @fn Darts::enleverPointImpact
  */
@@ -280,7 +280,7 @@ void Darts::enleverPointImpact()
 
         joueurs[joueurActif].setNbFlechette(0);
     }
-    else if(joueurs[joueurActif].getScore() == 1 && joueurs.size() == 1)    // test si le joueur est seul à jouer et si il est a 1 point == joueur eliminer donc fin de partie
+    else if(joueurs[joueurActif].getScore() == 1 && joueurs.size() == 1)    // test si le joueur est seul à jouer et s'il est a 1 point == joueur éliminer donc fin de partie
     {
         gererVoleeMax();
         emit jouerSon("perdu.wav");
@@ -296,7 +296,7 @@ void Darts::enleverPointImpact()
 }
 
 /**
- * @brief permet de gérer le changement de manche en fonction des fléchettes de chaque joueur
+ * @brief Permets de gérer le changement de manche en fonction des fléchettes de chaque joueur
  *
  * @fn Darts::gererManche
  */
@@ -342,9 +342,9 @@ void Darts::gererManche()
 }
 
 /**
- * @brief change de joueur si le joueur actuel est eliminé
+ * @brief Change de joueur si le joueur actuel est éliminé
  *
- * @fn Darts::testerSiJoueurEliminer
+ * @fn Darts::controlerJoueurEliminer
  */
 void Darts::controlerJoueurEliminer()
 {
@@ -365,7 +365,7 @@ void Darts::controlerJoueurEliminer()
 }
 
 /**
- * @brief teste si le joueur est à 1 point à la fin de la manche
+ * @brief Teste si le joueur est à 1 point à la fin de la manche
  *
  * @fn Darts::testerSiJoueurEliminer
  */
@@ -380,7 +380,7 @@ void Darts::testerSiJoueurEliminer()
 }
 
 /**
- * @brief calcule la moyenne des volées de chaque joueur
+ * @brief Calcule la moyenne des volées de chaque joueur
  *
  * @fn Darts::calculerMoyenneVolees
  */
@@ -402,7 +402,7 @@ void Darts::calculerMoyenneVolees()
 }
 
 /**
- * @brief teste la volée pour savoir si elle est superieure à la volée Max
+ * @brief Teste la volée pour savoir si elle est supérieure à la volée Max
  *
  * @fn Darts::gererVoleeMax
  */
@@ -425,7 +425,7 @@ void Darts::arreterPartie()
 }
 
 /**
- * @brief calcule le gagnant de la partie si la parti doit s'arreter avant la fin
+ * @brief Calcule le gagnant de la partie si la partie doit s'arrêter avant la fin
  *
  * @fn Darts::calculerGagnant
  * @return QString
@@ -446,7 +446,7 @@ QString Darts::calculerGagnant()
 }
 
 /**
- * @brief teste s'il reste qu'un joueur n'etant pas éliminer
+ * @brief Teste s'il reste qu'un joueur n'était pas éliminé
  *
  * @fn Darts::testerNombreJoueurRestand
  */
@@ -469,7 +469,7 @@ void Darts::testerNombreJoueurRestand()
 }
 
 /**
- * @brief teste s'il reste qu'un joueur n'etant pas éliminer
+ * @brief Teste s'il reste qu'un joueur n'était pas éliminé
  *
  * @fn Darts::calculerPoints
  * @param point la zone
@@ -498,7 +498,7 @@ void Darts::calculerPoints(int point, int typePoint)
 }
 
 /**
- * @brief Methode qui teste le mode de jeu
+ * @brief Méthode qui teste le mode de jeu
  *
  * @fn Darts::testerModeDeJeu
  * @return QString

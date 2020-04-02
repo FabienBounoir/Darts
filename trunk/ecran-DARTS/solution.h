@@ -32,6 +32,7 @@ class Solution : public QObject
     Q_OBJECT
 public:
     explicit Solution(QObject *parent = nullptr);
+    ~Solution();
     void trouverSolution(int s, int flechettes);
 
 private:

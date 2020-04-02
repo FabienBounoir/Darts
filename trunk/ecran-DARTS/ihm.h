@@ -56,8 +56,8 @@ private:
     QSound musique;                     //!< objet musique
     QSound musiquePause;                //!< objet musiquePause
     int compteurDureePartie;            //!< compteur de secondes pour la durée d'une séance
-    int sauverEtatPartie;               //!< Contient l'etat de la partie avant l'affichage des règles
-    QPixmap sauvegardeImpactEncours;    //!< sauvegarde le pixmap de l'état de la cible
+    int sauverEtatPartie;               //!< Contient l'état de la partie avant l'affichage des règles
+    QPixmap sauvegardeImpactEncours;    //!< sauvegarde le QPixmap de l'état de la cible
     QString messageStatut;              //!< contient le message de statut qui est affiché
 
     //objet pour l'affichage video

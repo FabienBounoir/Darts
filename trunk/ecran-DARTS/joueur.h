@@ -16,7 +16,7 @@
 /**
  * @class Joueur
  * @brief Déclaration de la classe Joueur (Module Ecran-DARTS)
- * @details Cette classe s'occupe du stockage du nom, score et nombre de flechettes du joueur
+ * @details Cette classe s'occupe du stockage du nom, score et nombre de fléchettes du joueur
 */
 class Joueur
 {
@@ -44,7 +44,7 @@ private:
     int moyenneVolee; //!< contient la moyenne des volées du joueur
     int scoreManchePrecedente; //!< contient le score de la manche precedente
     int nbFlechette; //!< contient le nombre de flechette restante au joueur
-    bool elimine; //!< contient un etat true/false pour savoir si le joueur est eliminé.
+    bool elimine; //!< contient un état true/false pour savoir si le joueur est éliminé.
 };
 
 #endif // JOUEUR_H

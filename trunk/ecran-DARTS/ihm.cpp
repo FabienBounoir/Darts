@@ -18,7 +18,7 @@
 */
 
 /**
- * @brief constructeur de la classe Ihm
+ * @brief Constructeur de la classe Ihm
  *
  * @fn Ihm::Ihm
  * @param parent
@@ -57,7 +57,7 @@ Ihm::Ihm(QWidget *parent) :
 }
 
 /**
- * @brief destructeur de la classe Ihm
+ * @brief Destructeur de la classe Ihm
  *
  * @fn Ihm::~Ihm
  */
@@ -209,7 +209,7 @@ void Ihm::afficherImpact(int typePoint, int point)
 }
 
 /**
- * @brief   methode qui met à jour le message de statut de la Volée en cour
+ * @brief Méthode qui met à jour le message de statut de la volée en cours
  *
  * @fn Ihm::mettreAJourMessageStatut(int typePoint, int point)
  * @param typePoint
@@ -326,7 +326,7 @@ void Ihm::mettreAJourMoyenneVolee()
 }
 
 /**
- * @brief Méthode qui met a jour le mode et jeu et la page actif
+ * @brief Méthode qui met a jour le mode de jeu et la page actif
  *
  * @fn Ihm::afficherPartie
  */
@@ -376,7 +376,7 @@ void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
 }
 
 /**
- * @brief Methode qui met à jour l'affichage pour lancer une nouvelle partie
+ * @brief Méthode qui met à jour l'affichage pour lancer une nouvelle partie
  *
  * @fn Ihm::afficherNouvellePartie
  */
@@ -503,6 +503,7 @@ void Ihm::afficherDureePartie()
  * @brief Affiche les solutions possibles pour finir la parties
  *
  * @fn Ihm::mettreAJoursolution
+ * @param solution
  */
 void Ihm::mettreAJoursolution(QString solution)
 {
@@ -511,7 +512,7 @@ void Ihm::mettreAJoursolution(QString solution)
 }
 
 /**
- * @brief met en pause le chronometrage de la partie
+ * @brief Mets en pause le chronométrage de la partiee
  *
  * @fn Ihm::mettrePausePartie
  */
@@ -531,7 +532,7 @@ void Ihm::mettrePausePartie()
 }
 
 /**
- * @brief relancer le chronometrage de la partie
+ * @brief relancer le chronométrage de la partie
  *
  * @fn Ihm::relancerpartie
  */
@@ -540,7 +541,7 @@ void Ihm::relancerpartie()
     ui->labelVisualisationimpact->setPixmap(sauvegardeImpactEncours);
     ui->labelTempsPartie->setStyleSheet("color: rgb(109, 43,107);");
     connect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // relancer le chronometrage de la partie
-    qDebug() << "Partie relancer" << endl;
+    qDebug() << Q_FUNC_INFO << endl;
     musiquePause.stop();
 }
 
@@ -581,7 +582,7 @@ void Ihm::mettreAJourMessageStatut(QString statut)
 
 
 /**
- * @brief Methode qui permet de jouer un son
+ * @brief Méthode qui permet de jouer un son
  *
  * @fn Ihm::jouerSon
  * @param son

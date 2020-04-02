@@ -14,7 +14,7 @@
 */
 
 /**
- * @brief constructeur de la classe Joueur
+ * @brief Constructeur de la classe Joueur
  *
  * @fn Joueur::Joueur(QString nom, int score , int nbFlechette)
  * @param nom
@@ -27,7 +27,7 @@ Joueur::Joueur(QString nom, int score , int nbFlechette): nom(nom), score(score)
 }
 
 /**
- * @brief retourne le nom du joueur
+ * @brief Retourne le nom du joueur
  *
  * @fn Joueur::getNom
  * @return QString
@@ -38,7 +38,7 @@ QString Joueur::getNom() const
 }
 
 /**
- * @brief retourne le score du joueur
+ * @brief Retourne le score du joueur
  *
  * @fn Joueur::getScore
  * @return int
@@ -49,7 +49,7 @@ int Joueur::getScore() const
 }
 
 /**
- * @brief retourne le score de la manche precedente
+ * @brief Retourne le score de la manche precedente
  *
  * @fn Joueur::getScoreManchePrecedente
  * @return int
@@ -60,7 +60,7 @@ int Joueur::getScoreManchePrecedente() const
 }
 
 /**
- * @brief retourne le nombre de flechette du joueur
+ * @brief Retourne le nombre de flechette du joueur
  *
  * @fn Joueur::getFlechette
  * @return int
@@ -71,9 +71,9 @@ int Joueur::getFlechette() const
 }
 
 /**
- * @brief retourne la moyenne des volees
+ * @brief Retourne la moyenne des volees
  *
- * @fn Joueur::getFlechette
+ * @fn Joueur::getMoyenneVolee
  * @return float
  */
 int Joueur::getMoyenneVolee() const
@@ -82,7 +82,7 @@ int Joueur::getMoyenneVolee() const
 }
 
 /**
- * @brief retourne le vector contenant tous les scores des volées precedente
+ * @brief Retourne le vector contenant tous les scores des volées precedente
  *
  * @fn Joueur::getHistoriqueVolees
  * @return QVector<float>
@@ -93,7 +93,7 @@ QVector<float> Joueur::getHistoriqueVolees() const
 }
 
 /**
- * @brief retourne un etat true/false pour savoir si le joueur est eliminé
+ * @brief Retourne un etat true/false pour savoir si le joueur est eliminé
  *
  * @fn Joueur::getEliminer
  * @return bool
@@ -115,7 +115,7 @@ void Joueur::setEliminer(bool elimine)
 }
 
 /**
- * @brief permet de mettre à jour la moyenne des volées
+ * @brief Permets de mettre à jour la moyenne des volées
  *
  * @fn Joueur::setMoyenneVolee
  * @param moyenneVolee
@@ -127,7 +127,7 @@ void Joueur::setMoyenneVolee(int moyenneVolee)
 
 
 /**
- * @brief permet de mettre à jour le score du joueur
+ * @brief Permets de mettre à jour le score du joueur
  *
  * @fn Joueur::setScore(int score)
  * @param score
@@ -138,7 +138,7 @@ void Joueur::setScore(int score)
 }
 
 /**
- * @brief permet de mettre à jour le score de la manche precedente
+ * @brief Permets de mettre à jour le score de la manche précédente
  *
  * @fn Joueur::setScoreManchePrecedente
  * @param scoreManchePrecedente
@@ -149,7 +149,7 @@ void Joueur::setScoreManchePrecedente(int scoreManchePrecedente)
 }
 
 /**
- * @brief permet de mettre à jour le nombre de flechette du joueur
+ * @brief Permets de mettre à jour le nombre de fléchette du joueur
  *
  * @fn Joueur::setNbFlechette
  * @param nbFlechette

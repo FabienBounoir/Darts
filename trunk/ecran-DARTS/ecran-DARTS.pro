@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2020-02-12T11:55:51
+# Project created by Bounoir Fabien 2020-02-12T11:55:51
 #
 #-------------------------------------------------
 
@@ -19,8 +19,6 @@ TEMPLATE = app
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
-
-#DEFINES += QT_NO_DEBUG_OUTPUT
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
