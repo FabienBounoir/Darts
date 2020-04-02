@@ -64,7 +64,7 @@ public:
         EnCours = 1,
         Fin = 2,
         Pause = 3,
-        Regle       //etat attente pendant la lecture des regles, seul un trame reset peut etre recu pour arreter la lecture.
+        Regle       //État attente pendant la lecture des règles, seule une trame reset peut être reçu pour arrêter la lecture.
     };
 
 signals:
@@ -100,7 +100,7 @@ private:
     EtatPartie etatPartie;                      //!< L'état de la partie
 
     void decomposerTrame();                     //!< Méthode qui decompose la trame reçue
-    void extraireParametresTrameStart(QStringList &joueurs, QString &modeJeu);     //!< Méthode qui extrrait les paramètres du trame START
+    void extraireParametresTrameStart(QStringList &joueurs, QString &modeJeu);     //!< Méthode qui extrait les paramètres de la trame START
     void extraireParametresTrameRegle();
     void reamorcerPartie();
 };

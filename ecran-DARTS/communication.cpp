@@ -40,7 +40,7 @@ Communication::~Communication()
 }
 
 /**
- * @brief Methode qui retourne l'etat de la partie
+ * @brief Méthode qui retourne l'état de la partie
  *
  * @fn Communication::getEtatPartie
  * @return int
@@ -51,7 +51,7 @@ int Communication::getEtatPartie()
 }
 
 /**
- * @brief configure la communication bluetooth
+ * @brief configure la communication Bluetooth
  *
  * @fn Communication::parametrerBluetooth
  */
@@ -88,7 +88,7 @@ void Communication::parametrerBluetooth()
 }
 
 /**
- * @brief demarre le serveur
+ * @brief Démarre le serveur
  *
  * @fn Communication::demarrer
  */
@@ -97,7 +97,7 @@ void Communication::demarrer()
     if (!localDevice.isValid())
         return;
 
-    if (!serveur)   //demarre le server si il n'est pas deja demarré
+    if (!serveur)   //Démarre le serveur s'il n'est pas déjà démarré
     {
         serveur = new QBluetoothServer(QBluetoothServiceInfo::RfcommProtocol, this);
         connect(serveur, SIGNAL(newConnection()), this, SLOT(nouveauClient()));
@@ -222,8 +222,7 @@ void Communication::decomposerTrame()
         }
         else
         {
-            qDebug() << "Trame erreur: " << trame;
-            qDebug() << "Etat Partie: " << etatPartie;
+            qDebug() << Q_FUNC_INFO << "Trame erreur: " << trame;
         }
     }
 }
@@ -232,6 +231,8 @@ void Communication::decomposerTrame()
  * @brief Méthode qui decompose la trame Start
  *
  * @fn Communication::extraireParametresTrameStart
+ * @param joueurs
+ * @param modeJeu
  */
 void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &modeJeu)
 {
@@ -303,7 +304,7 @@ void Communication::reamorcerPartie()
 }
 
 /**
- * @brief méthode appelée quand la socket est déconnectée
+ * @brief Méthode appelée quand le socket est déconnecté
  *
  * @fn Communication::socketDisconnected
  */
@@ -314,7 +315,7 @@ void Communication::socketDisconnected()
 }
 
 /**
- * @brief méthode appelée quand l'appareil est connecté
+ * @brief Méthode appelée quand l'appareil est connecté
  *
  * @fn Communication::deviceConnected
  * @param adresse
@@ -338,7 +339,7 @@ void Communication::deviceConnected(const QBluetoothAddress &adresse)
 }
 
 /**
- * @brief méthode appelée quand l'appareil est deconnecté
+ * @brief Méthode appelée quand l'appareil est deconnecté
  *
  * @fn Communication::deviceDisconnected
  * @param adresse
