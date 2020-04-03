@@ -216,7 +216,7 @@ void Communication::decomposerTrame()
         {
             reamorcerPartie();
         }
-        else if(trame.contains("STOP") && (etatPartie == EtatPartie::EnCours))  /** $DART;STOP */
+        else if(trame.contains("STOP") && (etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Pause))  /** $DART;STOP */
         {
             darts->arreterPartie();
         }
