@@ -36,6 +36,7 @@ Communication::Communication(Darts *darts, QObject *parent) : QObject(parent), d
 Communication::~Communication()
 {
     arreter();
+    localDevice.setHostMode(QBluetoothLocalDevice::HostPoweredOff);
     qDebug() << Q_FUNC_INFO;
 }
 
@@ -72,8 +73,13 @@ void Communication::parametrerBluetooth()
         // lire le nom de l'appareil local
         localDeviceName = localDevice.name();
 
-        // le rendre visible pour les autres
-        localDevice.setHostMode(QBluetoothLocalDevice::HostConnectable);
+
+        //localDevice.setHostMode(QBluetoothLocalDevice::HostConnectable);
+
+        //ou
+
+        //les appareil qui ne sont pas jumelé peuvent decouvrir ecran-DARTS
+        localDevice.setHostMode(QBluetoothLocalDevice::HostDiscoverable);
 
         QList<QBluetoothAddress> remotes;
         remotes = localDevice.connectedDevices();
@@ -184,7 +190,7 @@ void Communication::decomposerTrame()
     if(trame.startsWith(TYPE_TRAME) && trame.endsWith(DELIMITEUR_FIN)) //test si la trame est valide
     {
         trame.remove(DELIMITEUR_FIN);
-        if(trame.contains("START") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;START;2;fabien;erwan */
+        if(trame.contains("START") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;START;501;1;2;fabien;erwan */
         {
             emit resetPartie();
             darts->reinitialiserPartie();
@@ -238,7 +244,7 @@ void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &
 {
     modeJeu = trame.section(";",2,2);
 
-    if(trame.section(";",4,4).toInt() == 0)
+    if(trame.section(";",4,4).toInt() == 0) //test effectuer pour verifier que la trame n'est pas une trame de la version du protocol DARTS 0.2
         return;
 
     for(int i = 0;i <= trame.section(";",4,4).toInt();i++)  //boucle qui recuperer les noms des differents joueurs

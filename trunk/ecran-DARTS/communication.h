@@ -29,7 +29,7 @@
  */
 #define DELIMITEUR_FIN "\r\n"
 
-static const QString serviceUuid(QStringLiteral("00001101-0000-1000-8000-00805F9B34FB"));
+static const QString serviceUuid(QStringLiteral("0000110a-0000-1000-8000-00805f9b34fb"));
 static const QString serviceNom(QStringLiteral("Ecran-Darts"));
 
 /**
