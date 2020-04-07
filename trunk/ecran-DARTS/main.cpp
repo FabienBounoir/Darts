@@ -26,3 +26,17 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+
+// Pour la documentation Doxygen
+
+/**
+ * @brief
+ * La classe QObject est la classe de base de tous les objets Qt. Elle permet à ces objets Qt de disposer entre autres du mécanisme de communication signal/slot
+ * @class QObject
+ */
+
+/**
+ * @brief
+ * La classe QWidget est la classe de base de tous les objets graphiques d'interface utilisateur
+ * @class QWidget
+ */
