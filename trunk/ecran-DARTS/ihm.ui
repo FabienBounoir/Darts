@@ -36,7 +36,7 @@
 
 QWidget#ecranRegle
 {
-	background: purple;
+	background: rgb(109, 43,107);
 }
 
 QWidget#ecranPartie
@@ -46,9 +46,17 @@ QWidget#ecranPartie
 
 QWidget#actualiterPartie
 {
-	background-image:url(:/ressources/fondActualiterPartie.png);
-	background-repeat: no-repeat;
+	background-color: rgb(205, 205,205);
+    border-style: outset;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(109, 43,107);
+    min-width: 10em;
+    padding: 6px;
+	/*background-image:url(:/ressources/fondActualiterPartie.png);
+	background-repeat: no-repeat;*/
 }
+
 QVBoxLayout#verticalLayoutInformation
 {
 	background: gray;
@@ -111,7 +119,15 @@ QWidget#ecranStatistique
 
 QLabel#labelStatutAttente
 {
-	image:url(:/ressources/fondStatus.png);
+	 background-color: rgb(205, 205,205);
+    border-style: outset;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(109, 43,107);
+    min-width: 10em;
+    padding: 6px;
+
+	/*image:url(:/ressources/fondStatus.png);*/
 	color: rgb(109, 43,107);
 }
 
@@ -132,13 +148,28 @@ QLabel#labelHeureStatistique
 
 QLabel#winnerPartie
 {
-	image:url(:/ressources/fondStatus.png);
+	 background-color: rgb(205, 205,205);
+    border-style: outset;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(109, 43,107);
+    min-width: 10em;
+    padding: 6px;
+	/*image:url(:/ressources/fondStatus.png);*/
 	color: rgb(109, 43,107);
 }
 
 QLabel#labelStatut
 {
-	image:url(:/ressources/fondStatus.png);
+	 background-color: rgb(205, 205,205);
+    border-style: outset;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(109, 43,107);
+    min-width: 10em;
+    padding: 6px;
+
+	/*image:url(:/ressources/fondStatus.png);*/
 	color: rgb(109, 43,107);
 }
 
@@ -280,7 +311,7 @@ QLabel
            <item>
             <widget class="QLabel" name="labelStatutAttente">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -350,6 +381,9 @@ QLabel
              <property name="pixmap">
               <pixmap resource="ressources.qrc">:/ressources/cible.png</pixmap>
              </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -400,7 +434,7 @@ QLabel
            </property>
            <property name="minimumSize">
             <size>
-             <width>728</width>
+             <width>194</width>
              <height>1053</height>
             </size>
            </property>
