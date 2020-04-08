@@ -57,11 +57,6 @@ QWidget#actualiterPartie
 	background-repeat: no-repeat;*/
 }
 
-QVBoxLayout#verticalLayoutInformation
-{
-	background: gray;
-}
-
 QLabel#labelMoyenneVolees
 {
 	color: rgb(109, 43,107);
@@ -162,7 +157,7 @@ QLabel#winnerPartie
 QLabel#labelStatut
 {
 	 background-color: rgb(205, 205,205);
-    border-style: outset;
+    border-style: groove;
     border-width: 6px;
     border-radius: 50px;
     border-color: rgb(109, 43,107);
@@ -205,7 +200,7 @@ QLabel
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -311,10 +306,22 @@ QLabel
            <item>
             <widget class="QLabel" name="labelStatutAttente">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>194</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>800</width>
+               <height>16777215</height>
+              </size>
              </property>
              <property name="font">
               <font>
@@ -375,6 +382,12 @@ QLabel
            </item>
            <item>
             <widget class="QLabel" name="labelVisualisationimpact">
+             <property name="sizeIncrement">
+              <size>
+               <width>1</width>
+               <height>1</height>
+              </size>
+             </property>
              <property name="text">
               <string/>
              </property>
