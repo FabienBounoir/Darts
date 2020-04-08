@@ -229,7 +229,7 @@ void Ihm::mettreAJourMessageStatut(int typePoint, int point)
             messageStatut += " " + QString::number(point);
         break;
     }
-    ui->labelStatut->setStyleSheet("color: rgb(109, 43,107);");
+    ui->labelStatut->setStyleSheet("color: rgb(109, 43,107); border-color: rgb(109, 43,107);");
     ui->labelStatut->setText(messageStatut);
 }
 
@@ -507,7 +507,7 @@ void Ihm::afficherDureePartie()
  */
 void Ihm::mettreAJoursolution(QString solution)
 {
-    ui->labelStatut->setStyleSheet("color: rgb(179, 0,5);");
+    ui->labelStatut->setStyleSheet("color: rgb(179, 0,5); border-color: rgb(179, 0,5);");
     ui->labelStatut->setText(solution);
 }
 
