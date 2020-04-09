@@ -289,40 +289,40 @@ void Ihm::mettreAJourJoueur()
 void Ihm::mettreAJourMoyenneVolee()
 {
     QString moyenneVoleeJoueur;
+    QString moyenneVoleesJoueur;
 
     int premierJoueurAfficher = 0;
     int dernierJoueurAfficher = darts->getListJoueur().size();
 
     /** @todo chercher solution pour l'affichage de la moyenne lorsque superieur à 7*/
-    /*if(darts->getListJoueur().size() > 7)
+    if(darts->getListJoueur().size() > 7)
     {
-        premierJoueurAfficher = darts->getJoueurActif();
-        dernierJoueurAfficher = darts->getJoueurActif() + 6;
-
-        while(dernierJoueurAfficher > darts->getListJoueur().size() || premierJoueurAfficher < 0)
+        for(int i = premierJoueurAfficher; i < 7; i++)
         {
-            if(premierJoueurAfficher < 0)
-            {
-                premierJoueurAfficher++;
-                dernierJoueurAfficher++;
-            }
-
-            if(dernierJoueurAfficher > darts->getListJoueur().size())
-            {
-                premierJoueurAfficher--;
-                dernierJoueurAfficher--;
-            }
+            moyenneVoleeJoueur += darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getMoyenneVolee()) +" \n"; //"         " +
         }
-    }*/
-    for(int i = premierJoueurAfficher; i < dernierJoueurAfficher; i++)
+
+        for(int i = 7; i < dernierJoueurAfficher; i++)
+        {
+            moyenneVoleesJoueur += darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getMoyenneVolee()) +" \n"; //"         " +
+        }
+
+        ui->moyenneVolee->setText(moyenneVoleeJoueur);
+        ui->lineSeparateurMoyenne->setVisible(true);
+        ui->moyenneVolee2->setText(moyenneVoleesJoueur);
+    }
+    else
     {
-        moyenneVoleeJoueur += darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getMoyenneVolee()) +" \n"; //"         " +
+        for(int i = premierJoueurAfficher; i < dernierJoueurAfficher; i++)
+        {
+            moyenneVoleeJoueur += darts->getListJoueur()[i].getNom() + " : " + QString::number(darts->getListJoueur()[i].getMoyenneVolee()) +" \n"; //"         " +
+        }
+        ui->moyenneVolee->setText(moyenneVoleeJoueur);
     }
     ui->labelMoyenneVolees->setVisible(true);
     ui->lineScoreActuel->setVisible(true);
-    ui->moyenneVolee->setText(moyenneVoleeJoueur);
     ui->labelMoyenneVoleesStatistique->setVisible(true);
-    ui->moyenneVolees->setText(moyenneVoleeJoueur);
+    ui->moyenneVolees->setText(moyenneVoleeJoueur + moyenneVoleesJoueur);
 }
 
 /**
@@ -391,11 +391,13 @@ void Ihm::afficherNouvellePartie()
      ui->winnerPartie->setText("Winner ....");
      ui->labelStatut->setText("");
      ui->moyenneVolee->setText("");
+     ui->moyenneVolee2->setText("");
      ui->nbVolees->setText("");
      ui->voleeMax->setText("");
      ui->moyenneVolees->setText("");
      ui->labelMoyenneVolees->setVisible(false);
      ui->lineScoreActuel->setVisible(false);
+     ui->lineSeparateurMoyenne->setVisible(false);
      ui->labelMoyenneVoleesStatistique->setVisible(false);
      ui->ecranPartie->setStyleSheet("QWidget#ecranPartie{background-image:url(:/ressources/background.jpg);}");
      mettreAJourCible();
