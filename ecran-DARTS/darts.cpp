@@ -462,7 +462,7 @@ void Darts::testerNombreJoueurRestand()
         }
     }
 
-    if(eliminer == joueurs.size() - 1)
+    if(eliminer == joueurs.size() - 1 && joueurs.size() != 1)
     {
         arreterPartie();
     }
