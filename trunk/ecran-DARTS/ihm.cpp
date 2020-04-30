@@ -225,6 +225,9 @@ void Ihm::mettreAJourMessageStatut(int typePoint, int point)
         case DOUBLE_POINT:
             messageStatut += " D" + QString::number(point);
         break;
+        case ZERO_POINT:
+            messageStatut += " " + QString::number(ZERO_POINT);
+        break;
         default:
             messageStatut += " " + QString::number(point);
         break;
