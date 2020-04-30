@@ -207,7 +207,7 @@ void Darts::testerPoint(int typePoint, int point)
     {
         jouerSon("D25.wav");
     }
-    else if(typePoint == ZERO_POINT && point == 0)
+    else if(typePoint == ZERO_POINT)
     {
         jouerSon("out.wav");
     }
