@@ -112,6 +112,7 @@ public slots:
     void lancerRegle(QString regle);
     void stateChanged(QMediaPlayer::State state);
     void error(QMediaPlayer::Error error);
+    void StopperLectureRegle();
 };
 
 #endif // IHM_H

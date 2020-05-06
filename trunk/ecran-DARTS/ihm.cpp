@@ -92,7 +92,7 @@ void Ihm::initialiserEvenements()
     connect(communication, SIGNAL(erreurBluetooth(QString)), this, SLOT(mettreAJourMessageStatut(QString)));
     connect(darts, SIGNAL(jouerSon(QString)), this, SLOT(jouerSon(QString)));
     connect(communication, SIGNAL(afficherRegle(QString)), this, SLOT(lancerRegle(QString)));
-
+    connect(communication, SIGNAL(stopperRegle()), this, SLOT(StopperLectureRegle()));
 }
 
 /**
@@ -684,6 +684,11 @@ void Ihm::stateChanged(QMediaPlayer::State state)
     {
         testerEtatPartie();
     }
+}
+
+void Ihm::StopperLectureRegle()
+{
+    player->stop();
 }
 
 /**
