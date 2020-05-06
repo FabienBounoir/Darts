@@ -237,6 +237,12 @@ void Communication::decomposerTrame()
     }
 }
 
+/**
+ * @brief Méthode qui teste si la trame reçu est valide
+ *
+ * @fn Communication::estValide
+ * @return bool
+ */
 bool Communication::estValide()
 {
      if(trame.startsWith(TYPE_TRAME) && trame.endsWith(DELIMITEUR_FIN) && trame.contains(";"))

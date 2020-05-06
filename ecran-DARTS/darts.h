@@ -38,11 +38,13 @@ public:
 
     QList<Joueur> getListJoueur() const;
     int getManche() const;
-    Darts *getDarts();
-    int getVoleeMax();
-    int getJoueurActif();
-    int getNbVolees();
-    QString getModeDeJeu();
+    Darts *getDarts() const;
+    int getVoleeMax() const;
+    int getJoueurActif() const;
+    int getNbVolees() const;
+    int getPointVolees() const;
+    QString getModeDeJeu() const;
+    QString testerModeDeJeu();
     Solution *getSolution() const;
     void setVoleeMax(int voleeMax);
     void setManche(int manche);
@@ -50,7 +52,6 @@ public:
     void initialiserPartie(QStringList joueurList, QString modeJeu);
     void reinitialiserPartie();
     void arreterPartie();
-    QString testerModeDeJeu();
 
 signals:
     void miseAJourPoint();              //!< signal émis pour mettre à jour les points des joueurs
@@ -79,6 +80,7 @@ private:
     int voleeMax;               //!< contient la volées Max
     int nbVolees;               //!< contient le nombre de Volées de la partie en cours
     QString ModeDeJeu;          //!< contient le mode de jeu en cours
+    int pointVoleeEnCours;      //!< contient le score de la Volées en cours
 
     void enleverPointImpact();
     void gererManche();

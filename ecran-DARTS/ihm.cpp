@@ -233,7 +233,7 @@ void Ihm::mettreAJourMessageStatut(int typePoint, int point)
         break;
     }
     ui->labelStatut->setStyleSheet("color: rgb(109, 43,107); border-color: rgb(109, 43,107);");
-    ui->labelStatut->setText(messageStatut);
+    ui->labelStatut->setText(messageStatut + "    ⟼ " +QString::number(darts->getPointVolees()) + " Point(s)");
 }
 
 
@@ -297,7 +297,6 @@ void Ihm::mettreAJourMoyenneVolee()
     int premierJoueurAfficher = 0;
     int dernierJoueurAfficher = darts->getListJoueur().size();
 
-    /** @todo chercher solution pour l'affichage de la moyenne lorsque superieur à 7*/
     if(darts->getListJoueur().size() > 7)
     {
         for(int i = premierJoueurAfficher; i < 7; i++)
