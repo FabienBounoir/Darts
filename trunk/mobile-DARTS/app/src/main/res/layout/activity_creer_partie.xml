@@ -18,6 +18,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <CheckBox
+            android:id="@+id/afficheRegle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/afficher_les_regles" />
+
         <TextView
             android:id="@+id/textModeJeu"
             android:layout_width="match_parent"

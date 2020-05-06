@@ -49,6 +49,7 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
     private ListView listJoueur = null;                                     //!< Listview
     private TextView affichageImpact = null;                                //!< Texte qui affiche la volley actuelle
     private Button boutonPause = null;                                      //!< Bouton Pause
+    private boolean AfficheRegle;
 
     /**
      * @brief Méthode appelée à la création de l'activité
@@ -67,7 +68,7 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
         activerBluetooth();
         ChargerLesParametre();
         initialiserListeJoueur();
-        maPartie = new Partie(mesJoueurs, modeJeu, bluetoothAdapter, handlerUI);
+        maPartie = new Partie(mesJoueurs, modeJeu, AfficheRegle, bluetoothAdapter, handlerUI);
     }
 
     /**
@@ -86,6 +87,7 @@ public class ActivitePartie extends AppCompatActivity implements View.OnClickLis
             Log.d(TAG, "le joueur "+ it.next().getNom() + "est chargé");
         }
         modeJeu = new TypeJeu(getIntent().getIntExtra("TypeMode",0));
+        AfficheRegle = getIntent().getBooleanExtra("AfficheRegle", true);
     }
 
     /**

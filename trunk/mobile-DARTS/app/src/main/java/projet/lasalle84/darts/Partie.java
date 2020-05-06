@@ -49,13 +49,14 @@ public class Partie
     private ArrayList<Joueur> lesJoueurs;                           //!< Les objets Joueur stocker dans un conteneur (Queue)
     private BluetoothAdapter bluetoothAdapter;                      //!< Bluetooth Adapteur
     private Set<BluetoothDevice> devices;                           //!< Les peripheriques qui sont appairés
-    private Peripherique raspberry = null;                          //!< Peripherique raspberry connecté en Bluetooth
-    private Peripherique darts = null;                              //!< Peripherique darts connecté en Bluetooth
+    private Peripherique ecran = null;                              //!< Peripherique raspberry connecté en Bluetooth
+    private Peripherique cible = null;                              //!< Peripherique darts connecté en Bluetooth
     private Handler handlerUI = null;                               //!< Handler pour gérer l'interface
     private int impact[] = null;                                    //!< Les impacts
     private boolean impactEstRecuperer;                             //!< Booléen pour savoir quand on reçoit une trame impact
     private boolean estFini = false;                                //!< Booléen si la partie est fini
     private boolean estDoubleImpact = false;                        //!< Booléen si la derniere impact est du type double
+    private boolean afficheRegle = true;                            //!< Booléen si on doit affichier les règles de la partie
 
     /**
      * @brief Constructeur de la classe Partie
@@ -64,7 +65,7 @@ public class Partie
      * @param lesJoueurs
      * @param typeJeu
      */
-    public Partie(ArrayList<Joueur> lesJoueurs, TypeJeu typeJeu, BluetoothAdapter bluetoothAdapter, Handler handlerUI)
+    public Partie(ArrayList<Joueur> lesJoueurs, TypeJeu typeJeu, boolean AfficheRegle, BluetoothAdapter bluetoothAdapter, Handler handlerUI)
     {
         this.lesJoueurs = lesJoueurs;
         this.typeJeu = typeJeu;
@@ -73,6 +74,7 @@ public class Partie
         this.nbManche = 0;
         this.nbJoueurs = this.lesJoueurs.size();
         impact = new int[2];
+        this.afficheRegle = AfficheRegle;
         recupererPeripheriques();
         connecterPeripheriquesBluetooth();
 
@@ -104,7 +106,7 @@ public class Partie
         {
             if(device.getName().contains(nomPeripherique))
             {
-                raspberry = new Peripherique(device, handlerBluetooth);
+                ecran = new Peripherique(device, handlerBluetooth);
                 Log.d(TAG,"Adresse du péripherique raspberrypi " + device.getAddress());
                 break;
             }
@@ -115,16 +117,16 @@ public class Partie
         {
             if(device.getName().contains(nomPeripherique))
             {
-                darts = new Peripherique(device, handlerBluetooth);
+                cible = new Peripherique(device, handlerBluetooth);
                 Log.d(TAG,"Adresse du péripherique darts " + device.getAddress());
                 break;
             }
         }
 
-        if(raspberry != null)
-            raspberry.connecter();
-        if(darts != null)
-            darts.connecter();
+        if(ecran != null)
+            ecran.connecter();
+        if(cible != null)
+            cible.connecter();
     }
 
     /**
@@ -136,14 +138,14 @@ public class Partie
     public void deconnecterPeripheriquesBluetooth()
     {
         Log.d(TAG, "deconnecterPeripheriquesBluetooth()");
-        if (raspberry != null)
+        if (ecran != null)
         {
-            raspberry.deconnecter();
+            ecran.deconnecter();
         }
 
-        if (darts != null)
+        if (cible != null)
         {
-            darts.deconnecter();
+            cible.deconnecter();
         }
     }
 
@@ -236,8 +238,8 @@ public class Partie
             actualiserScoreIHM(monJoueur,typeJeu.getPointDepart());
             nomJoueurTrame = nomJoueurTrame.concat(monJoueur.getNom() + ";");
         }
-
-        envoyerTrame(raspberry,"$DARTS;START;" + typeJeu.getTypeJeu() + ";" + lesJoueurs.size() + ";" + nomJoueurTrame + "\r\n");
+        int afficheRegleInt = afficheRegle ? 1 : 0;
+        envoyerTrame(ecran,"$DARTS;START;" + typeJeu.getTypeJeu() + ";" + afficheRegleInt + ";" + lesJoueurs.size() + ";" + nomJoueurTrame + "\r\n");
     }
 
 
@@ -302,7 +304,7 @@ public class Partie
             sleep(1000);
 
         }
-        envoyerTrame(raspberry,"$DART;GAME;" + impact[0] + ";" + impact[1] + "\r\n");
+        envoyerTrame(ecran,"$DART;GAME;" + impact[0] + ";" + impact[1] + "\r\n");
         impactIHM(impact[0],impact[1]);
 
         if (impact[0] == 2)

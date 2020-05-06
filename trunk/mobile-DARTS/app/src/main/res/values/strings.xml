@@ -18,6 +18,7 @@
     <string name="pause">Pause</string>
     <string name="classement">Classement:</string>
     <string name="mode_de_jeu">Mode de jeu :</string>
+    <string name="afficher_les_regles">Afficher les règles</string>
 
     <string-array name="ModeDeJeu">
         <item>501</item>

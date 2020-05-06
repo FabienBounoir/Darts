@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -28,6 +29,7 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
     private ListView listViewJoueur;            //!< ListView avec les nom des joueurs
     private ArrayAdapter<String> Adaptateur;    //!< Adapter pour afficher sur ListView
     private Button boutonLancerPartie;          //!< Bouton pour lancer une partie
+    private CheckBox checkBoxAfficheRegle;      //!<
     /**
      * @brief Méthode appelée à la création de l'activité
      *
@@ -99,6 +101,7 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
         intent.putExtra("TypeMode",modeDeJeu.getSelectedItemPosition());
         Log.d(TAG,"TypeMode = " + modeDeJeu.getSelectedItemPosition());
         intent.putExtra("LesJoueurs", mesJoueurs);
+        intent.putExtra("AfficheRegle", checkBoxAfficheRegle.isChecked());
         startActivity(intent);
         super.finish();
     }
@@ -115,6 +118,7 @@ public class ActiviteCreerPartie extends AppCompatActivity implements View.OnCli
         modeDeJeu = (Spinner) findViewById(R.id.modeJeu);
         listViewJoueur = (ListView) findViewById(R.id.Listejoueur);
         boutonLancerPartie = (Button) findViewById(R.id.boutonLancerPartie);
+        checkBoxAfficheRegle = (CheckBox) findViewById(R.id.afficheRegle);
 
 
     }
