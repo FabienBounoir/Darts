@@ -47,6 +47,17 @@ int Darts::getManche() const
 }
 
 /**
+ * @brief Retourne la manche
+ *
+ * @fn Darts::getPointVolees
+ * @return int le nombre de point de la manche en cours
+ */
+int Darts::getPointVolees() const
+{
+    return pointVoleeEnCours;
+}
+
+/**
  * @brief Retourne une liste des joueurs
  *
  * @fn Darts::getListJoueur
@@ -63,7 +74,7 @@ QList<Joueur> Darts::getListJoueur() const
  * @fn Darts::getVoleeMax
  * @return int la volée max
  */
-int Darts::getVoleeMax()
+int Darts::getVoleeMax() const
 {
     return voleeMax;
 }
@@ -74,7 +85,7 @@ int Darts::getVoleeMax()
  * @fn Darts::getJoueurActif
  * @return int le numéro du joueur actif
  */
-int Darts::getJoueurActif()
+int Darts::getJoueurActif() const
 {
     return joueurActif;
 }
@@ -85,7 +96,7 @@ int Darts::getJoueurActif()
  * @fn Darts::getNbVolees
  * @return int le nombre de volées de la partie
  */
-int Darts::getNbVolees()
+int Darts::getNbVolees() const
 {
     return nbVolees;
 }
@@ -96,7 +107,7 @@ int Darts::getNbVolees()
  * @fn Darts::getModeDeJeu
  * @return QString le mode de jeu
  */
-QString Darts::getModeDeJeu()
+QString Darts::getModeDeJeu() const
 {
     return ModeDeJeu;
 }
@@ -192,6 +203,7 @@ void Darts::reinitialiserPartie()
     pointLancer = 0;
     nbVolees = 0;
     voleeMax = 0;
+    pointVoleeEnCours = 0;
 }
 
 /**
@@ -225,6 +237,8 @@ void Darts::receptionnerImpact(int typePoint, int point)
     calculerPoints(point, typePoint);
 
     testerPoint(typePoint, point);
+
+    pointVoleeEnCours += pointLancer;
 
     if(joueurs[joueurActif].getFlechette() == 3)
         emit actualiserCible();
@@ -305,6 +319,8 @@ void Darts::gererManche()
     if(joueurs[joueurActif].getFlechette() == 0) //fin de la volées du joueur
     {
         joueurs[joueurActif].setNbFlechette(3);
+
+        pointVoleeEnCours = 0;
 
         gererVoleeMax();
         testerSiJoueurEliminer();
