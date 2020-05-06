@@ -75,6 +75,7 @@ signals:
     void play();                        //!< signal qui relancera le chronometrage de la partie la partie
     void erreurBluetooth(QString erreur);             //!< signal emit quand un probleme de configuration bluetooth est detecté
     void afficherRegle(QString regle);
+    void stopperRegle();
 
 public slots:
     void miseAJourEtatPartieFin();                                  //!< Slot appelé pour mettre à jour l'état de la partie à Fin
@@ -103,6 +104,7 @@ private:
     void extraireParametresTrameStart(QStringList &joueurs, QString &modeJeu);     //!< Méthode qui extrait les paramètres de la trame START
     void extraireParametresTrameRegle();
     void reamorcerPartie();
+    bool estValide();
 };
 
 #endif // COMMUNICATION_H

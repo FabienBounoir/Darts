@@ -187,7 +187,7 @@ void Communication::socketReadyRead()
  */
 void Communication::decomposerTrame()
 {
-    if(trame.startsWith(TYPE_TRAME) && trame.endsWith(DELIMITEUR_FIN)) //test si la trame est valide
+    if(estValide()) //test si la trame est valide
     {
         trame.remove(DELIMITEUR_FIN);
         if(trame.contains("START") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;START;501;1;2;fabien;erwan */
@@ -226,11 +226,28 @@ void Communication::decomposerTrame()
         {
             darts->arreterPartie();
         }
+        else if(trame.contains("STOP") && (etatPartie == EtatPartie::Regle))  /** $DART;STOP */ //permet l'arret des regles en cours de lecture
+        {
+            emit stopperRegle();
+        }
         else
         {
-            qDebug() << Q_FUNC_INFO << "Trame erreur: " << trame;
+            qDebug() << Q_FUNC_INFO << "Trame non Traité: " << trame;
         }
     }
+}
+
+bool Communication::estValide()
+{
+     if(trame.startsWith(TYPE_TRAME) && trame.endsWith(DELIMITEUR_FIN) && trame.contains(";"))
+     {
+         return true;
+     }
+     else
+     {
+         qDebug() << Q_FUNC_INFO << "Trame non Valide: " << trame;
+         return false;
+     }
 }
 
 /**
