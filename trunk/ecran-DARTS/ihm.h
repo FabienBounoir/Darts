@@ -75,6 +75,7 @@ private:
         PageRegle,
         PageJeu,
         PageStatistique,
+        PageTournois,
         NbPages
     };
 
