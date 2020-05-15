@@ -7,5 +7,6 @@
 	<file>ressources/fondStatus.png</file>
         <file alias="pause.png">ressources/pause.png</file>
 	<file>ressources/fondActualiterPartie.png</file>
+	<file>ressources/background-tournois.jpg</file>
     </qresource>
 </RCC>
