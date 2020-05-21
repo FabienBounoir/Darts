@@ -104,6 +104,7 @@ private:
     void extraireParametresTrameStart(QStringList &joueurs, QString &modeJeu);     //!< Méthode qui extrait les paramètres de la trame START
     void extraireParametresTrameRegle();
     void reamorcerPartie();
+    void decomposerTrameTournois();
     bool estValide();
 };
 
