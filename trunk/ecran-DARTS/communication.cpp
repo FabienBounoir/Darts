@@ -213,10 +213,14 @@ void Communication::decomposerTrame()
             emit pause();
             miseAJourEtatPartiePause();
         }
-        else if(trame.contains("PLAY") && etatPartie == EtatPartie::Pause)       /** $DART;PLAY */
+        else if(trame.contains("PLAY") && etatPartie == EtatPartie::Pause)   /** $DART;PLAY */
         {
             emit play();
             miseAJourEtatPartieEnCours();
+        }
+        else if(trame.contains("TOURNOIS"))
+        {
+            decomposerTrameTournois();
         }
         else if(trame.contains("RESET")) // quelque soit l'état de la partie    /** $DART;RESET */
         {
@@ -292,6 +296,14 @@ void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &
         emit afficherRegle(darts->testerModeDeJeu());
     }
 
+}
+
+void Communication::decomposerTrameTournois()
+{
+    if(trame.contains("CONFIG") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;TOURNOIS;CONFIG;501;Tournois inter classe */
+    {
+        /** @todo ajouter methode de configuration */
+    }
 }
 
 /**
