@@ -114,6 +114,7 @@ public slots:
     void stateChanged(QMediaPlayer::State state);
     void error(QMediaPlayer::Error error);
     void StopperLectureRegle();
+    void initialiserAffichageTournois(QString modeJeu, QString nomTournois);
 };
 
 #endif // IHM_H
