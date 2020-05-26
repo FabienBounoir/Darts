@@ -93,6 +93,8 @@ void Ihm::initialiserEvenements()
     connect(darts, SIGNAL(jouerSon(QString)), this, SLOT(jouerSon(QString)));
     connect(communication, SIGNAL(afficherRegle(QString)), this, SLOT(lancerRegle(QString)));
     connect(communication, SIGNAL(stopperRegle()), this, SLOT(StopperLectureRegle()));
+    connect(darts, SIGNAL(afficherTournois(QString, QString)), this, SLOT(initialiserAffichageTournois(QString, QString)));
+
 }
 
 /**
@@ -701,3 +703,15 @@ void Ihm::error(QMediaPlayer::Error error)
     qDebug() << Q_FUNC_INFO << player->errorString() << error;
     testerEtatPartie();
 }
+
+/**
+ * @brief Méthode qui initialise l'affichage du tournois
+ *
+ * @fn Ihm::initialiserAffichageTournois
+ */
+void Ihm::initialiserAffichageTournois(QString modeJeu, QString nomTournois)
+{
+    ui->tournoisNom->setText(nomTournois);
+    ui->modeDeJeuTournois->setText(modeJeu);
+}
+

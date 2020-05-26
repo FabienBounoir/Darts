@@ -300,9 +300,31 @@ void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &
 
 void Communication::decomposerTrameTournois()
 {
-    if(trame.contains("CONFIG") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;TOURNOIS;CONFIG;501;Tournois inter classe */
+    QString modeJeu;
+    QString nomTournois;
+    QStringList joueurs;
+
+    if(trame.contains("CONFIG") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;TOURNOIS;CONFIG;501;Tournois inter classe;4;Fabien;Thierry;Erwan;Julia */
     {
-        /** @todo ajouter methode de configuration */
+        modeJeu = trame.section(";",3,3);
+
+        for(int i = 0;i <= trame.section(";",4,4).toInt();i++)  //boucle qui recuperer les noms des differents joueurs
+        {
+            if(trame.section(";",4+i,4+i) == "")    //test si le joueur a un nom
+            {
+                joueurs.push_back("Joueur[" + QString::number(i) + "]");
+            }
+            else
+            {
+                joueurs.push_back(trame.section(";",4+i,4+i));
+            }
+        }
+        nomTournois = trame.section(";",4,4);
+        darts->configurationTournois(joueurs, modeJeu, nomTournois);
+    }
+    if(trame.contains("PLAY") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;TOURNOIS;PLAY */
+    {
+        /** @todo ajouter le demarrage du tournois */
     }
 }
 

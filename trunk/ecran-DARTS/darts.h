@@ -52,6 +52,7 @@ public:
     void initialiserPartie(QStringList joueurList, QString modeJeu);
     void reinitialiserPartie();
     void arreterPartie();
+    void configurationTournois(QStringList joueurList, QString modeJeu, QString nomTournois);
 
 signals:
     void miseAJourPoint();              //!< signal émis pour mettre à jour les points des joueurs
@@ -66,21 +67,23 @@ signals:
     void changerEtatPartie();           //!< signal émis pour changer l'etat de la partie
     void actualiserCible();             //!< signal émis pour changer actualiser l'affichage de la cible
     void jouerSon(QString son);         //!< signal émis pour Lancer un son
+    void afficherTournois(QString modeJeu, QString nomTournois);
 
 public slots:
 
 private:
-    Solution *solution;         //!< Association vers l'objet solution
-    QList<Joueur> joueurs;      //!< contient des objets joueurs
-    QStringList joueur;         //!< contient les noms des differents joueur
-    int nbJoueur;               //!< contient le nombre de joueur
-    int joueurActif;            //!< contient le numero du joueur en train de jouer
-    int manche;                 //!< contient le numero de la manche actuel
-    int pointLancer;            //!< contient les point associer l'impact de la fleche
-    int voleeMax;               //!< contient la volées Max
-    int nbVolees;               //!< contient le nombre de Volées de la partie en cours
-    QString ModeDeJeu;          //!< contient le mode de jeu en cours
-    int pointVoleeEnCours;      //!< contient le score de la Volées en cours
+    Solution *solution;             //!< Association vers l'objet solution
+    QList<Joueur> joueurs;          //!< contient des objets joueurs
+    QList<Joueur> joueursTournois;  //!< contient des objets joueurs pour le tournois
+    QStringList joueur;             //!< contient les noms des differents joueur
+    int nbJoueur;                   //!< contient le nombre de joueur
+    int joueurActif;                //!< contient le numero du joueur en train de jouer
+    int manche;                     //!< contient le numero de la manche actuel
+    int pointLancer;                //!< contient les point associer l'impact de la fleche
+    int voleeMax;                   //!< contient la volées Max
+    int nbVolees;                   //!< contient le nombre de Volées de la partie en cours
+    QString ModeDeJeu;              //!< contient le mode de jeu en cours
+    int pointVoleeEnCours;          //!< contient le score de la Volées en cours
 
     void enleverPointImpact();
     void gererManche();

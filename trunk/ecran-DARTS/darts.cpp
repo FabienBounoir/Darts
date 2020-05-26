@@ -195,6 +195,7 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
 void Darts::reinitialiserPartie()
 {
     joueurs.clear();
+    joueursTournois.clear();
     joueur.clear();
     ModeDeJeu = "";
     nbJoueur = 0;
@@ -532,4 +533,38 @@ QString Darts::testerModeDeJeu()
         regle = "SANS_DOUBLE_OUT";
     }
     return regle;
+}
+
+void Darts::configurationTournois(QStringList joueurList, QString modeJeu, QString nomTournois)
+{
+    nbJoueur = joueurList.size() - 1;
+    ModeDeJeu = modeJeu;
+    qDebug() << Q_FUNC_INFO << "Nom Tournois " << nomTournois << "nbJoueur " << nbJoueur << " | Mode De Jeu " << ModeDeJeu;
+
+    emit afficherTournois(modeJeu, nomTournois);
+
+    if(ModeDeJeu.toInt() >= 101 && ModeDeJeu.toInt() <= 1001)
+    {
+        for(int i = 1; i < joueurList.size() ; i++)
+        {
+            Joueur player(joueurList.at(i), ModeDeJeu.toInt(), 3);
+            joueursTournois.push_back(player);
+        }
+    }
+    else if(ModeDeJeu.contains("_DOUBLE_OUT") && (ModeDeJeu.section("_",0,0).toInt() >= 101 && ModeDeJeu.section("_",0,0).toInt() <= 1001))
+    {
+        for(int i = 1; i < joueurList.size() ; i++)
+        {
+            Joueur player(joueurList.at(i), ModeDeJeu.section("_",0,0).toInt(), 3);
+            joueursTournois.push_back(player);
+        }
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << "Erreur Mode De Jeu : " << ModeDeJeu;
+        reinitialiserPartie();
+        return;
+    }
+
+
 }
