@@ -5,7 +5,7 @@
  * @file communication.h
  * @brief Déclaration de la classe Communication (Module Ecran-DARTS)
  *
- * @version 0.2
+ * @version 0.3
  *
  * @author Bounoir Fabien
  */
@@ -64,7 +64,8 @@ public:
         EnCours = 1,
         Fin = 2,
         Pause = 3,
-        Regle       //État attente pendant la lecture des règles, seule une trame reset peut être reçu pour arrêter la lecture.
+        Regle = 4,      //État attente pendant la lecture des règles, seule une trame reset peut être reçu pour arrêter la lecture.
+        Tournois
     };
 
 signals:

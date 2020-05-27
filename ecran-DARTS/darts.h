@@ -5,7 +5,7 @@
  * @file darts.h
  * @brief Déclaration de la classe Darts (Module Ecran-DARTS)
  *
- * @version 0.2
+ * @version 0.3
  *
  * @author Bounoir Fabien
  */
@@ -46,6 +46,7 @@ public:
     QString getModeDeJeu() const;
     QString testerModeDeJeu();
     Solution *getSolution() const;
+    QList<QPair<Joueur,Joueur>> getJoueurTournois() const;
     void setVoleeMax(int voleeMax);
     void setManche(int manche);
     void receptionnerImpact(int typePoint, int point);
@@ -53,6 +54,7 @@ public:
     void reinitialiserPartie();
     void arreterPartie();
     void configurationTournois(QStringList joueurList, QString modeJeu, QString nomTournois);
+    void demarrerTournois();
 
 signals:
     void miseAJourPoint();              //!< signal émis pour mettre à jour les points des joueurs
@@ -68,13 +70,14 @@ signals:
     void actualiserCible();             //!< signal émis pour changer actualiser l'affichage de la cible
     void jouerSon(QString son);         //!< signal émis pour Lancer un son
     void afficherTournois(QString modeJeu, QString nomTournois);
+    void debuterTournois();
 
 public slots:
 
 private:
     Solution *solution;             //!< Association vers l'objet solution
     QList<Joueur> joueurs;          //!< contient des objets joueurs
-    QList<Joueur> joueursTournois;  //!< contient des objets joueurs pour le tournois
+    QList<QPair<Joueur,Joueur>> joueursTournois;  //!< contient des objets joueurs pour le tournois
     QStringList joueur;             //!< contient les noms des differents joueur
     int nbJoueur;                   //!< contient le nombre de joueur
     int joueurActif;                //!< contient le numero du joueur en train de jouer

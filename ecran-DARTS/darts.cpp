@@ -9,7 +9,7 @@
 *
 * @author Bounoir Fabien
 *
-* @version 0.2
+* @version 0.3
 *
 */
 
@@ -121,6 +121,11 @@ QString Darts::getModeDeJeu() const
 Solution *Darts::getSolution() const
 {
     return solution;
+}
+
+QList<QPair<Joueur,Joueur>> Darts::getJoueurTournois() const
+{
+    return joueursTournois;
 }
 
 /**
@@ -541,22 +546,28 @@ void Darts::configurationTournois(QStringList joueurList, QString modeJeu, QStri
     ModeDeJeu = modeJeu;
     qDebug() << Q_FUNC_INFO << "Nom Tournois " << nomTournois << "nbJoueur " << nbJoueur << " | Mode De Jeu " << ModeDeJeu;
 
-    emit afficherTournois(modeJeu, nomTournois);
-
     if(ModeDeJeu.toInt() >= 101 && ModeDeJeu.toInt() <= 1001)
     {
-        for(int i = 1; i < joueurList.size() ; i++)
+        for(int i = 1; i < joueurList.size() ; i+=2)
         {
-            Joueur player(joueurList.at(i), ModeDeJeu.toInt(), 3);
-            joueursTournois.push_back(player);
+            Joueur player1(joueurList.at(i), ModeDeJeu.toInt(), 3);
+            Joueur player2(joueurList.at(i+1), ModeDeJeu.toInt(), 3);
+
+            joueursTournois.push_back(qMakePair(player1, player2));
+            //qDebug() << "JoueurTournois" << "[" << i << "] = " << joueursTournois.at(i).first.getNom();
+            //qDebug() << "JoueurTournois" << "[" << i << "] = " << joueursTournois.at(i).second.getNom();
         }
     }
     else if(ModeDeJeu.contains("_DOUBLE_OUT") && (ModeDeJeu.section("_",0,0).toInt() >= 101 && ModeDeJeu.section("_",0,0).toInt() <= 1001))
     {
-        for(int i = 1; i < joueurList.size() ; i++)
+        for(int i = 1; i < joueurList.size() ; i+=2)
         {
-            Joueur player(joueurList.at(i), ModeDeJeu.section("_",0,0).toInt(), 3);
-            joueursTournois.push_back(player);
+            Joueur player1(joueurList.at(i), ModeDeJeu.section("_",0,0).toInt(), 3);
+            Joueur player2(joueurList.at(i+1), ModeDeJeu.section("_",0,0).toInt(), 3);
+
+            joueursTournois.push_back(qMakePair(player1, player2));
+            //qDebug() << "JoueurTournois" << "[" << i << "] = " << joueursTournois.at(i).first.getNom();
+            //qDebug() << "JoueurTournois" << "[" << i << "] = " << joueursTournois.at(i).second.getNom();
         }
     }
     else
@@ -566,5 +577,11 @@ void Darts::configurationTournois(QStringList joueurList, QString modeJeu, QStri
         return;
     }
 
+    emit afficherTournois(modeJeu, nomTournois);
 
+}
+
+void Darts::demarrerTournois()
+{
+    emit debuterTournois();
 }

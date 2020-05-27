@@ -5,7 +5,7 @@
  * @file solution.h
  * @brief Déclaration de la classe solution (Module Ecran-DARTS)
  *
- * @version 0.2
+ * @version 0.3
  *
  * @author Bounoir Fabien
  */

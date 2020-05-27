@@ -5,7 +5,7 @@
  * @file ihm.h
  * @brief Déclaration de la classe Ihm (Module Ecran-DARTS)
  *
- * @version 0.2
+ * @version 0.3
  *
  * @author Bounoir Fabien
  */
@@ -115,6 +115,7 @@ public slots:
     void error(QMediaPlayer::Error error);
     void StopperLectureRegle();
     void initialiserAffichageTournois(QString modeJeu, QString nomTournois);
+    void lancerTournois();
 };
 
 #endif // IHM_H
