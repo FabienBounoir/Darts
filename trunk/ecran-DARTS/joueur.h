@@ -8,7 +8,7 @@
  * @file joueur.h
  * @brief Déclaration de la classe Joueur (Module Ecran-DARTS)
  *
- * @version 0.2
+ * @version 0.3
  *
  * @author Bounoir Fabien
  */

@@ -10,7 +10,7 @@
 *
 * @author Bounoir Fabien
 *
-* @version 0.2
+* @version 0.3
 *
 * @fn main(int argc, char *argv[])
 * @param argc

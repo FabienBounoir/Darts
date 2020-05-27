@@ -8,7 +8,7 @@
 *
 * @author Bounoir Fabien
 *
-* @version 0.2
+* @version 0.3
 *
 */
 
@@ -308,15 +308,22 @@ void Communication::decomposerTrameTournois()
     {
         modeJeu = trame.section(";",3,3);
 
-        for(int i = 0;i <= trame.section(";",4,4).toInt();i++)  //boucle qui recuperer les noms des differents joueurs
+        if(trame.section(";",5,5).toInt()%2 !=0)
         {
-            if(trame.section(";",4+i,4+i) == "")    //test si le joueur a un nom
+            qDebug() << "Nombre de joueur insuffissant";
+            return;
+        }
+
+
+        for(int i = 0;i <= trame.section(";",5,5).toInt();i++)  //boucle qui recuperer les noms des differents joueurs
+        {
+            if(trame.section(";",5+i,5+i) == "")    //test si le joueur a un nom
             {
                 joueurs.push_back("Joueur[" + QString::number(i) + "]");
             }
             else
             {
-                joueurs.push_back(trame.section(";",4+i,4+i));
+                joueurs.push_back(trame.section(";",5+i,5+i));
             }
         }
         nomTournois = trame.section(";",4,4);
@@ -324,7 +331,7 @@ void Communication::decomposerTrameTournois()
     }
     if(trame.contains("PLAY") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;TOURNOIS;PLAY */
     {
-        /** @todo ajouter le demarrage du tournois */
+        darts->demarrerTournois();
     }
 }
 

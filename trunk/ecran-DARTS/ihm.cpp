@@ -13,7 +13,7 @@
 *
 * @author Bounoir Fabien
 *
-* @version 0.2
+* @version 0.3
 *
 */
 
@@ -94,6 +94,7 @@ void Ihm::initialiserEvenements()
     connect(communication, SIGNAL(afficherRegle(QString)), this, SLOT(lancerRegle(QString)));
     connect(communication, SIGNAL(stopperRegle()), this, SLOT(StopperLectureRegle()));
     connect(darts, SIGNAL(afficherTournois(QString, QString)), this, SLOT(initialiserAffichageTournois(QString, QString)));
+    connect(darts, SIGNAL(debuterTournois()), this, SLOT(lancerTournois()));
 
 }
 
@@ -497,11 +498,13 @@ void Ihm::afficherDureePartie()
         ui->ecranPartie->setStyleSheet("QWidget#ecranPartie{background-image:url(:/ressources/backgroundHeure.jpg);}");
         ui->labelTempsPartie->setText(dureeSeance.toString("hh : mm : ss"));
         ui->tempsPartie->setText(dureeSeance.toString("hh : mm : ss"));
+        ui->tournoisChrono->setText(dureeSeance.toString("hh : mm : ss"));
     }
     else
     {
         ui->labelTempsPartie->setText(dureeSeance.toString("mm : ss"));
         ui->tempsPartie->setText(dureeSeance.toString("mm : ss"));
+        ui->tournoisChrono->setText(dureeSeance.toString("mm : ss"));
     }
 }
 
@@ -713,5 +716,24 @@ void Ihm::initialiserAffichageTournois(QString modeJeu, QString nomTournois)
 {
     ui->tournoisNom->setText(nomTournois);
     ui->modeDeJeuTournois->setText(modeJeu);
+
+    ui->nomJoueurTournois1->setText(darts->getJoueurTournois().at(0).first.getNom());
+    ui->nomJoueurTournois2->setText(darts->getJoueurTournois().at(0).second.getNom());
+
+    ui->scoreJoueurTournois1->setText(darts->getJoueurTournois().at(0).first.getNom() + "\n⇓\n" + QString::number(darts->getJoueurTournois().at(0).first.getScore()));
+    ui->scoreJoueurTournois2->setText(darts->getJoueurTournois().at(0).second.getNom() + "\n⇓\n" + QString::number(darts->getJoueurTournois().at(0).second.getScore()));
+
+    ui->moyenneJoueurTournois1->setText(darts->getJoueurTournois().at(0).first.getNom() + "\n⇓\n0" );
+    ui->moyenneJoueurTournois2->setText(darts->getJoueurTournois().at(0).second.getNom() + "\n⇓\n0" );
+}
+
+void Ihm::lancerTournois()
+{
+    musique.stop();
+
+    compteurDureePartie = 0;
+    connect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
+
+    allerPage(Ihm::PageTournois);
 }
 
