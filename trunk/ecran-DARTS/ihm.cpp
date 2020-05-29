@@ -82,9 +82,11 @@ void Ihm::initialiserEvenements()
     connect(darts, SIGNAL(changementJoueurActif()), this, SLOT(mettreAJourJoueur()));
     connect(darts, SIGNAL(nouvelImpact(int, int, int)), this, SLOT(afficherImpact(int,int)));
     connect(darts, SIGNAL(miseAJourPoint()), this, SLOT(mettreAJourScore()));
+    connect(darts, SIGNAL(miseAJourPointTournois()), this, SLOT(mettreAJourScoreTournois()));
     connect(darts, SIGNAL(nouvelleManche()), this, SLOT(mettreAJourManche()));
     connect(darts, SIGNAL(voleeAnnulee()), this, SLOT(afficherVoleeAnnulee()));
     connect(darts, SIGNAL(miseAJourMoyenneVolee()), this, SLOT(mettreAJourMoyenneVolee()));
+    connect(darts, SIGNAL(miseAJourMoyenneVoleeTournois()), this, SLOT(mettreAJourMoyenneVoleeTournois()));
     connect(darts->getSolution(), SIGNAL(solutionTrouver(QString)), this, SLOT(mettreAJoursolution(QString)));
     connect(darts, SIGNAL(actualiserCible()), this, SLOT(mettreAJourCible()));
     connect(communication, SIGNAL(pause()), this, SLOT(mettrePausePartie()));
@@ -206,6 +208,7 @@ void Ihm::afficherImpact(int typePoint, int point)
         p.end();
 
         ui->labelVisualisationimpact->setPixmap(cibleImpacte);
+        ui->ImpactCibleTournois->setPixmap(cibleImpacte);
     }
 
     mettreAJourMessageStatut(typePoint, point);
@@ -237,6 +240,7 @@ void Ihm::mettreAJourMessageStatut(int typePoint, int point)
     }
     ui->labelStatut->setStyleSheet("color: rgb(109, 43,107); border-color: rgb(109, 43,107);");
     ui->labelStatut->setText(messageStatut + "    ⟼ " +QString::number(darts->getPointVolees()) + " Point(s)");
+    ui->statutImpactTournois->setText(messageStatut + "    ⟼ " +QString::number(darts->getPointVolees()) + " Point(s)");
 }
 
 
@@ -358,6 +362,7 @@ void Ihm::afficherPartie()
 void Ihm::afficherVoleeAnnulee()
 {
     ui->labelStatut->setText("Volée annulée !");
+    ui->statutImpactTournois->setText("Volée annulée !");
 }
 
 /**
@@ -518,6 +523,7 @@ void Ihm::mettreAJoursolution(QString solution)
 {
     ui->labelStatut->setStyleSheet("color: rgb(179, 0,5); border-color: rgb(179, 0,5);");
     ui->labelStatut->setText(solution);
+    ui->statutImpactTournois->setText(solution);
 }
 
 /**
@@ -535,6 +541,7 @@ void Ihm::mettrePausePartie()
     p.drawImage(QPoint(0, 0), pause);
     p.end();
     ui->labelVisualisationimpact->setPixmap(cibleImpacte);
+    ui->ImpactCibleTournois->setPixmap(cibleImpacte);
     ui->labelTempsPartie->setStyleSheet("color: rgb(179, 0,5);");
 
     musiquePause.play();
@@ -548,6 +555,7 @@ void Ihm::mettrePausePartie()
 void Ihm::relancerpartie()
 {
     ui->labelVisualisationimpact->setPixmap(sauvegardeImpactEncours);
+    ui->ImpactCibleTournois->setPixmap(sauvegardeImpactEncours);
     ui->labelTempsPartie->setStyleSheet("color: rgb(109, 43,107);");
     connect(timerHorloge, SIGNAL(timeout()),this,SLOT(afficherDureePartie())); // relancer le chronometrage de la partie
     qDebug() << Q_FUNC_INFO << endl;
@@ -690,6 +698,11 @@ void Ihm::stateChanged(QMediaPlayer::State state)
     }
 }
 
+/**
+ * @brief methode qui stop la lecture de la musique
+ *
+ * @fn Ihm::StopperLectureRegle
+ */
 void Ihm::StopperLectureRegle()
 {
     player->stop();
@@ -717,16 +730,21 @@ void Ihm::initialiserAffichageTournois(QString modeJeu, QString nomTournois)
     ui->tournoisNom->setText(nomTournois);
     ui->modeDeJeuTournois->setText(modeJeu);
 
-    ui->nomJoueurTournois1->setText(darts->getJoueurTournois().at(0).first.getNom());
-    ui->nomJoueurTournois2->setText(darts->getJoueurTournois().at(0).second.getNom());
+    ui->nomJoueurTournois1->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom());
+    ui->nomJoueurTournois2->setText(darts->getListJoueur()[darts->getDernierJoueur()].getNom());
 
-    ui->scoreJoueurTournois1->setText(darts->getJoueurTournois().at(0).first.getNom() + "\n⇓\n" + QString::number(darts->getJoueurTournois().at(0).first.getScore()));
-    ui->scoreJoueurTournois2->setText(darts->getJoueurTournois().at(0).second.getNom() + "\n⇓\n" + QString::number(darts->getJoueurTournois().at(0).second.getScore()));
+    ui->scoreJoueurTournois1->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom() + "\n⇓\n" + QString::number(darts->getListJoueur()[darts->getPremierJoueur()].getScore()));
+    ui->scoreJoueurTournois2->setText(darts->getListJoueur()[darts->getDernierJoueur()].getNom() + "\n⇓\n" + QString::number(darts->getListJoueur()[darts->getDernierJoueur()].getScore()));
 
-    ui->moyenneJoueurTournois1->setText(darts->getJoueurTournois().at(0).first.getNom() + "\n⇓\n0" );
-    ui->moyenneJoueurTournois2->setText(darts->getJoueurTournois().at(0).second.getNom() + "\n⇓\n0" );
+    ui->moyenneJoueurTournois1->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom() + "\n⇓\n0" );
+    ui->moyenneJoueurTournois2->setText(darts->getListJoueur()[darts->getDernierJoueur()].getNom() + "\n⇓\n0" );
 }
 
+/**
+ * @brief methode qui affiche le l'ecran de tournois
+ *
+ * @fn Ihm::lancerTournois
+ */
 void Ihm::lancerTournois()
 {
     musique.stop();
@@ -737,3 +755,24 @@ void Ihm::lancerTournois()
     allerPage(Ihm::PageTournois);
 }
 
+/**
+ * @brief methode qui met a jour le score des joueurs des tournois
+ *
+ * @fn Ihm::mettreAJourScoreTournois
+ */
+void Ihm::mettreAJourScoreTournois()
+{
+    ui->scoreJoueurTournois1->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom() + "\n⇓\n" + QString::number(darts->getListJoueur()[darts->getPremierJoueur()].getScore()));
+    ui->scoreJoueurTournois2->setText(darts->getListJoueur()[darts->getDernierJoueur()].getNom() + "\n⇓\n" + QString::number(darts->getListJoueur()[darts->getDernierJoueur()].getScore()));
+}
+
+/**
+ * @brief Méthode qui met a jour la moyenne des Volee du joueur
+ *
+ * @fn Ihm::mettreAJourMoyenneVoleeTournois
+ */
+void Ihm::mettreAJourMoyenneVoleeTournois()
+{
+    ui->moyenneJoueurTournois1->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom() + "\n⇓\n" + QString::number(darts->getListJoueur()[darts->getPremierJoueur()].getMoyenneVolee()));
+    ui->moyenneJoueurTournois2->setText(darts->getListJoueur()[darts->getDernierJoueur()].getNom() + "\n⇓\n" +QString::number(darts->getListJoueur()[darts->getDernierJoueur()].getMoyenneVolee()));
+}

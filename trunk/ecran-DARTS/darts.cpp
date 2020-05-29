@@ -19,7 +19,7 @@
  * @fn Darts::Darts
  * @param parent
  */
-Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0), voleeMax(0), nbVolees(0), ModeDeJeu("")
+Darts::Darts(QObject *parent) : QObject(parent), joueur(nullptr), nbJoueur(0), joueurActif(0), manche(1), pointLancer(0), voleeMax(0), nbVolees(0), ModeDeJeu(""),pointVoleeEnCours(0)
 {
     qDebug() << Q_FUNC_INFO;
     solution = new Solution(this);
@@ -102,6 +102,28 @@ int Darts::getNbVolees() const
 }
 
 /**
+ * @brief Retourne le premier Joueur a jouer
+ *
+ * @fn Darts::getPremierJoueur
+ * @return int le premier Joueur a jouer
+ */
+int Darts::getPremierJoueur() const
+{
+    return premierJoueur;
+}
+
+/**
+ * @brief Retourne le dernier joueur a jouer
+ *
+ * @fn Darts::getDernierJoueur
+ * @return int le dernier joueur a jouer
+ */
+int Darts::getDernierJoueur() const
+{
+    return dernierJoueur;
+}
+
+/**
  * @brief Retourne le mode de jeu
  *
  * @fn Darts::getModeDeJeu
@@ -121,11 +143,6 @@ QString Darts::getModeDeJeu() const
 Solution *Darts::getSolution() const
 {
     return solution;
-}
-
-QList<QPair<Joueur,Joueur>> Darts::getJoueurTournois() const
-{
-    return joueursTournois;
 }
 
 /**
@@ -200,7 +217,6 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
 void Darts::reinitialiserPartie()
 {
     joueurs.clear();
-    joueursTournois.clear();
     joueur.clear();
     ModeDeJeu = "";
     nbJoueur = 0;
@@ -397,8 +413,6 @@ void Darts::testerSiJoueurEliminer()
     {
         joueurs[joueurActif].setEliminer(true);
     }
-
-
 }
 
 /**
@@ -540,6 +554,14 @@ QString Darts::testerModeDeJeu()
     return regle;
 }
 
+/**
+ * @brief methode utiliser pour configurer le tournois
+ *
+ * @fn Darts::configurationTournois
+ * @param joueurList
+ * @param modeJeu
+ * @param nomTournois
+ */
 void Darts::configurationTournois(QStringList joueurList, QString modeJeu, QString nomTournois)
 {
     nbJoueur = joueurList.size() - 1;
@@ -548,26 +570,18 @@ void Darts::configurationTournois(QStringList joueurList, QString modeJeu, QStri
 
     if(ModeDeJeu.toInt() >= 101 && ModeDeJeu.toInt() <= 1001)
     {
-        for(int i = 1; i < joueurList.size() ; i+=2)
+        for(int i = 1; i < joueurList.size() ; i++)
         {
-            Joueur player1(joueurList.at(i), ModeDeJeu.toInt(), 3);
-            Joueur player2(joueurList.at(i+1), ModeDeJeu.toInt(), 3);
-
-            joueursTournois.push_back(qMakePair(player1, player2));
-            //qDebug() << "JoueurTournois" << "[" << i << "] = " << joueursTournois.at(i).first.getNom();
-            //qDebug() << "JoueurTournois" << "[" << i << "] = " << joueursTournois.at(i).second.getNom();
+            Joueur player(joueurList.at(i), ModeDeJeu.toInt(), 3);
+            joueurs.push_back(player);
         }
     }
     else if(ModeDeJeu.contains("_DOUBLE_OUT") && (ModeDeJeu.section("_",0,0).toInt() >= 101 && ModeDeJeu.section("_",0,0).toInt() <= 1001))
     {
-        for(int i = 1; i < joueurList.size() ; i+=2)
+        for(int i = 1; i < joueurList.size() ; i++)
         {
-            Joueur player1(joueurList.at(i), ModeDeJeu.section("_",0,0).toInt(), 3);
-            Joueur player2(joueurList.at(i+1), ModeDeJeu.section("_",0,0).toInt(), 3);
-
-            joueursTournois.push_back(qMakePair(player1, player2));
-            //qDebug() << "JoueurTournois" << "[" << i << "] = " << joueursTournois.at(i).first.getNom();
-            //qDebug() << "JoueurTournois" << "[" << i << "] = " << joueursTournois.at(i).second.getNom();
+            Joueur player(joueurList.at(i), ModeDeJeu.section("_",0,0).toInt(), 3);
+            joueurs.push_back(player);
         }
     }
     else
@@ -576,12 +590,147 @@ void Darts::configurationTournois(QStringList joueurList, QString modeJeu, QStri
         reinitialiserPartie();
         return;
     }
+    solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
+
+    premierJoueur = 0;
+    dernierJoueur = 1;
+
 
     emit afficherTournois(modeJeu, nomTournois);
 
 }
 
+/**
+ * @brief methode appelé pour demarrer le tournois
+ *
+ * @fn Darts::demarrerTournois
+ */
 void Darts::demarrerTournois()
 {
     emit debuterTournois();
+    emit etatPartieTournois();
+}
+
+/**
+ * @brief methode qui gere le deroulement de la partie tournois
+ *
+ * @fn Darts::receptionnerImpactTournois
+ * @param typePoint
+ * @param point
+ */
+void Darts::receptionnerImpactTournois(int typePoint, int point)
+{
+    calculerPoints(point, typePoint);
+
+    testerPoint(typePoint, point);
+
+    pointVoleeEnCours += pointLancer;
+
+    if(joueurs[joueurActif].getFlechette() == 3)
+        emit actualiserCible();
+
+    //qDebug() << Q_FUNC_INFO << joueurs[joueurActif].getNom() << " SCORE : " <<joueurs[joueurActif].getScore() - pointLancer << endl;
+
+    emit nouvelImpact(typePoint, point, pointLancer);
+
+    joueurs[joueurActif].setScore(joueurs[joueurActif].getScore() - pointLancer);
+
+    testerImpactTournois(typePoint); /**@todo a changer pour le mode tournois*/
+    emit miseAJourPointTournois();
+}
+
+/**
+ * @brief teste l'impact
+ *
+ * @fn Darts::testerImpactTournois
+ * @param typePoint
+ */
+void Darts::testerImpactTournois(int typePoint)
+{
+    if(joueurs[joueurActif].getScore()  == 0 && (typePoint == DOUBLE_POINT) && (ModeDeJeu.contains("_DOUBLE_OUT"))) //fin avec double
+    {
+        gererVoleeMax();
+        nbVolees++;
+
+        emit finPartie("↢  Winner " + joueurs[joueurActif].getNom() + "  ↣", getVoleeMax());
+        //emit etatPartieFini();
+    }
+    else if(joueurs[joueurActif].getScore()  == 0 && !ModeDeJeu.contains("_DOUBLE_OUT"))    //fin sans double
+    {
+        gererVoleeMax();
+        nbVolees++;
+        emit finPartie("↢  Winner " + joueurs[joueurActif].getNom() + "  ↣" , getVoleeMax());
+        //emit etatPartieFini();
+    }
+    else
+    {
+        enleverPointImpact();
+        gererMancheTournois();
+    }
+}
+
+
+/**
+ * @brief Permets de gérer le changement de manche en fonction des fléchettes de chaque joueur
+ *
+ * @fn Darts::gererMancheTournois
+ */
+void Darts::gererMancheTournois()
+{
+    if(joueurs[joueurActif].getFlechette() == 0) //fin de la volées du joueur
+    {
+        joueurs[joueurActif].setNbFlechette(3);
+
+        pointVoleeEnCours = 0;
+
+        gererVoleeMax();
+        //testerSiJoueurEliminer(); /** @todo changer pour faire gagner l'autre joueur*/
+
+        joueurs[joueurActif].addHistoriqueVolees((joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore()));
+
+        if((joueurs[joueurActif].getScoreManchePrecedente() - joueurs[joueurActif].getScore()) == 180)
+            emit jouerSon("180.wav");
+
+        joueurs[joueurActif].setScoreManchePrecedente(joueurs[joueurActif].getScore());
+
+        if(joueurActif == dernierJoueur)  //equivalent a la fin de manche
+        {
+            joueurActif = premierJoueur;
+
+            setManche(getManche() + 1);
+            //emit changementJoueurActif();
+            calculerMoyenneVoleesTournois();
+            //emit nouvelleManche();
+            solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
+        }
+        else
+        {
+            joueurActif++;
+
+            //emit changementJoueurActif();
+            solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
+        }
+    }
+}
+
+/**
+ * @brief Calcule la moyenne des volées de chaque joueur
+ *
+ * @fn Darts::calculerMoyenneVoleesTournois
+ */
+void Darts::calculerMoyenneVoleesTournois()
+{
+    for(int i = premierJoueur; i <= dernierJoueur; i++)
+    {
+        int moyenneVolee = 0;
+
+        for(int j = 0; j < joueurs[i].getHistoriqueVolees().size(); j++)
+        {
+            moyenneVolee += joueurs[i].getHistoriqueVolees()[j];
+        }
+
+        moyenneVolee = moyenneVolee / joueurs[i].getHistoriqueVolees().size();
+        joueurs[i].setMoyenneVolee(moyenneVolee);
+    }
+    emit miseAJourMoyenneVoleeTournois();
 }
