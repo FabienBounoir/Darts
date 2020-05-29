@@ -99,6 +99,7 @@ public slots:
     void mettreAJourScore();
     void mettreAJourManche();
     void mettreAJourMoyenneVolee();
+    void mettreAJourMoyenneVoleeTournois();
     void afficherVoleeAnnulee();
     void afficherNouvellePartie();
     void finirPartie(QString gagnant, int voleeMaxJoueur);
@@ -116,6 +117,7 @@ public slots:
     void StopperLectureRegle();
     void initialiserAffichageTournois(QString modeJeu, QString nomTournois);
     void lancerTournois();
+    void mettreAJourScoreTournois();
 };
 
 #endif // IHM_H

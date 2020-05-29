@@ -89,6 +89,7 @@ void Communication::parametrerBluetooth()
         connect(&localDevice, SIGNAL(error(QBluetoothLocalDevice::Error)), this, SLOT(error(QBluetoothLocalDevice::Error)));
 
         connect(darts, SIGNAL(etatPartieFini()), this , SLOT(miseAJourEtatPartieFin()));
+        connect(darts, SIGNAL(etatPartieTournois()), this , SLOT(miseAJourEtatPartieTournois()));
         connect(darts, SIGNAL(changerEtatPartie()), this , SLOT(miseAJourEtatPartieEnCours()));
     }
 }
@@ -204,11 +205,15 @@ void Communication::decomposerTrame()
         {
             darts->receptionnerImpact(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
         }
+        else if(trame.contains("GAME") && etatPartie == EtatPartie::Tournois)      /** $DART;GAME;3;7 */
+        {
+            darts->receptionnerImpactTournois(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
+        }
         else if(trame.contains("REGLE")&& etatPartie != EtatPartie::Regle)   /** $DART;REGLE */
         {
             extraireParametresTrameRegle();
         }
-        else if(trame.contains("PAUSE") && etatPartie == EtatPartie::EnCours)     /** $DART;PAUSE */
+        else if(trame.contains("PAUSE") && (etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Tournois))     /** $DART;PAUSE */
         {
             emit pause();
             miseAJourEtatPartiePause();
@@ -491,4 +496,15 @@ void Communication::miseAJourEtatPartieRegle()
 {
     qDebug() << Q_FUNC_INFO << "EtatPartie::Regle";
     etatPartie = EtatPartie::Regle;
+}
+
+/**
+ * @brief Méthode qui met à jour l'état de la partie en mode tournois
+ *
+ * @fn Communication::miseAJourEtatPartieRegle
+ */
+void Communication::miseAJourEtatPartieTournois()
+{
+    qDebug() << Q_FUNC_INFO << "EtatPartie::Tournois";
+    etatPartie = EtatPartie::Tournois;
 }

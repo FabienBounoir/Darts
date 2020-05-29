@@ -69,18 +69,19 @@ public:
     };
 
 signals:
-    void appareilConnecter();           //!< signal émis quand un nouvel appareil est connecté
-    void afficherAttenteConnexion();    //!< signal émis quand un appareil se déconnecte
-    void resetPartie();                 //!< signal qui reinitialisera la partie en cours
-    void pause();                       //!< signal qui mettra en pause la partie
-    void play();                        //!< signal qui relancera le chronometrage de la partie la partie
-    void erreurBluetooth(QString erreur);             //!< signal emit quand un probleme de configuration bluetooth est detecté
-    void afficherRegle(QString regle);
-    void stopperRegle();
+    void appareilConnecter();                       //!< signal émis quand un nouvel appareil est connecté
+    void afficherAttenteConnexion();                //!< signal émis quand un appareil se déconnecte
+    void resetPartie();                             //!< signal qui reinitialisera la partie en cours
+    void pause();                                   //!< signal qui mettra en pause la partie
+    void play();                                    //!< signal qui relancera le chronometrage de la partie la partie
+    void erreurBluetooth(QString erreur);           //!< signal emit quand un probleme de configuration bluetooth est detecté
+    void afficherRegle(QString regle);              //!< signal emit pour afficher les regles
+    void stopperRegle();                            //!< signal emit poour stopper la lecture des regles
 
 public slots:
     void miseAJourEtatPartieFin();                                  //!< Slot appelé pour mettre à jour l'état de la partie à Fin
     void miseAJourEtatPartieEnCours();                              //!< Slot appelé pour mettre à jour l'état de la partie à EnCours
+    void miseAJourEtatPartieTournois();                             //!< Slot appelé pour mettre à jour l'état de la partie à tournois
 
 private slots:
     void deviceConnected(const QBluetoothAddress &adresse);         //!< Slot appelé quand un nouvel appareil est connecté
@@ -103,10 +104,10 @@ private:
 
     void decomposerTrame();                     //!< Méthode qui decompose la trame reçue
     void extraireParametresTrameStart(QStringList &joueurs, QString &modeJeu);     //!< Méthode qui extrait les paramètres de la trame START
-    void extraireParametresTrameRegle();
-    void reamorcerPartie();
-    void decomposerTrameTournois();
-    bool estValide();
+    void extraireParametresTrameRegle();                                            //!< Méthode qui extrait les paramètres de la trame REGLE
+    void reamorcerPartie();                                                         //!< Méthode qui relance la partie
+    void decomposerTrameTournois();                                                 //!< Méthode qui extrait les paramètres de la trame TOURNOIS
+    bool estValide();                                                               //!< Méthode qui test si la trame est valide
 };
 
 #endif // COMMUNICATION_H
