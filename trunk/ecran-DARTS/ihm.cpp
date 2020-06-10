@@ -78,7 +78,7 @@ void Ihm::initialiserEvenements()
     connect(communication, SIGNAL(afficherAttenteConnexion()), this, SLOT(afficherAttenteConnexion()));
     connect(darts, SIGNAL(afficherNouvellePartie()), this, SLOT(afficherPartie()));
     connect(communication, SIGNAL(resetPartie()), this, SLOT(afficherNouvellePartie()));
-    connect(darts, SIGNAL(finPartie(QString, int)), this, SLOT(finirPartie(QString, int)));
+    connect(darts, SIGNAL(finPartie(QString, int, bool)), this, SLOT(finirPartie(QString, int, bool)));
     connect(darts, SIGNAL(changementJoueurActif()), this, SLOT(mettreAJourJoueur()));
     connect(darts, SIGNAL(nouvelImpact(int, int, int)), this, SLOT(afficherImpact(int,int)));
     connect(darts, SIGNAL(miseAJourPoint()), this, SLOT(mettreAJourScore()));
@@ -184,6 +184,7 @@ void Ihm::mettreAJourScore()
 void Ihm::mettreAJourManche()
 {
     ui->manche->setText(QString::number(darts->getManche()));
+    ui->tournoisManche->setText(QString::number(darts->getManche()));
 }
 
 /**
@@ -372,10 +373,17 @@ void Ihm::afficherVoleeAnnulee()
  * @param gagnant
  * @param voleeMaxJoueur
  */
-void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur)
+void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur, bool tournois)
 {
     player->stop();
     musique.play();
+
+    if(tournois == true)
+    {
+        ui->labelMoyenneVoleesStatistique->setVisible(true);
+        ui->moyenneVolees->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom() + " : " + QString::number(darts->getListJoueur()[darts->getPremierJoueur()].getMoyenneVolee()) + "\n" + darts->getListJoueur()[darts->getDernierJoueur()].getNom() + " : " +QString::number(darts->getListJoueur()[darts->getDernierJoueur()].getMoyenneVolee()));
+        ui->moyenneVolees->setVisible(true);
+    }
 
     disconnect(timerHorloge, SIGNAL(timeout()), this, SLOT(afficherDureePartie())); // Pour le comptage et l'affichage de la durée d'une séance
     ui->winnerPartie->setText(gagnant);
@@ -485,6 +493,11 @@ void Ihm::afficherAttenteConfiguration()
 void Ihm::afficherAttenteConnexion()
 {
     ui->labelStatutAttente->setText("En attente de connexion");
+}
+
+void Ihm::afficherPretLancerTournois()
+{
+    ui->labelStatutAttente->setText("🏆 Prêt à lancer le tournoi 🏆");
 }
 
 /**
@@ -738,6 +751,10 @@ void Ihm::initialiserAffichageTournois(QString modeJeu, QString nomTournois)
 
     ui->moyenneJoueurTournois1->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom() + "\n⇓\n0" );
     ui->moyenneJoueurTournois2->setText(darts->getListJoueur()[darts->getDernierJoueur()].getNom() + "\n⇓\n0" );
+
+    ui->tournoisManche->setText(QString::number(darts->getManche()));
+
+    afficherPretLancerTournois();
 }
 
 /**
