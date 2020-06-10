@@ -94,6 +94,7 @@ public slots:
     void fermerApplication();
     void afficherAttenteConfiguration();
     void afficherAttenteConnexion();
+    void afficherPretLancerTournois();
     void afficherImpact(int typePoint, int point);
     void afficherPartie();
     void mettreAJourScore();
@@ -102,7 +103,7 @@ public slots:
     void mettreAJourMoyenneVoleeTournois();
     void afficherVoleeAnnulee();
     void afficherNouvellePartie();
-    void finirPartie(QString gagnant, int voleeMaxJoueur);
+    void finirPartie(QString gagnant, int voleeMaxJoueur, bool tournois);
     void mettreAJourJoueur();
     void afficherDureePartie();
     void mettreAJoursolution(QString solution);

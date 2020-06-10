@@ -285,14 +285,14 @@ void Darts::testerImpact(int typePoint)
     {
         gererVoleeMax();
         nbVolees++;
-        emit finPartie("↢  Winner " + joueurs[joueurActif].getNom() + "  ↣", getVoleeMax());
+        emit finPartie("↢  Winner " + joueurs[joueurActif].getNom() + "  ↣", getVoleeMax(), false);
         emit etatPartieFini();
     }
     else if(joueurs[joueurActif].getScore()  == 0 && !ModeDeJeu.contains("_DOUBLE_OUT"))    //fin sans double
     {
         gererVoleeMax();
         nbVolees++;
-        emit finPartie("↢  Winner " + joueurs[joueurActif].getNom() + "  ↣" , getVoleeMax());
+        emit finPartie("↢  Winner " + joueurs[joueurActif].getNom() + "  ↣" , getVoleeMax(), false);
         emit etatPartieFini();
     }
     else
@@ -320,7 +320,7 @@ void Darts::enleverPointImpact()
     {
         gererVoleeMax();
         emit jouerSon("perdu.wav");
-        emit finPartie("↢  " + joueurs[joueurActif].getNom() + " a perdu  ↣", getVoleeMax());
+        emit finPartie("↢  " + joueurs[joueurActif].getNom() + " a perdu  ↣", getVoleeMax(), false);
         emit etatPartieFini();
     }
     else
@@ -457,7 +457,7 @@ void Darts::gererVoleeMax()
  */
 void Darts::arreterPartie()
 {
-    emit finPartie(calculerGagnant(), getVoleeMax());
+    emit finPartie(calculerGagnant(), getVoleeMax(), false);
 }
 
 /**
@@ -566,6 +566,7 @@ void Darts::configurationTournois(QStringList joueurList, QString modeJeu, QStri
 {
     nbJoueur = joueurList.size() - 1;
     ModeDeJeu = modeJeu;
+    NomTournois = nomTournois;
     qDebug() << Q_FUNC_INFO << "Nom Tournois " << nomTournois << "nbJoueur " << nbJoueur << " | Mode De Jeu " << ModeDeJeu;
 
     if(ModeDeJeu.toInt() >= 101 && ModeDeJeu.toInt() <= 1001)
@@ -652,14 +653,16 @@ void Darts::testerImpactTournois(int typePoint)
         gererVoleeMax();
         nbVolees++;
 
-        emit finPartie("↢  Winner " + joueurs[joueurActif].getNom() + "  ↣", getVoleeMax());
+        emit finPartie("↢  Winner " + joueurs[joueurActif].getNom() + "  ↣", getVoleeMax(), true);
+        gererFinPartieTournois();
         //emit etatPartieFini();
     }
     else if(joueurs[joueurActif].getScore()  == 0 && !ModeDeJeu.contains("_DOUBLE_OUT"))    //fin sans double
     {
         gererVoleeMax();
         nbVolees++;
-        emit finPartie("↢  Winner " + joueurs[joueurActif].getNom() + "  ↣" , getVoleeMax());
+        emit finPartie("↢  Winner " + joueurs[joueurActif].getNom() + "  ↣" , getVoleeMax(), true);
+        gererFinPartieTournois();
         //emit etatPartieFini();
     }
     else
@@ -700,7 +703,7 @@ void Darts::gererMancheTournois()
             setManche(getManche() + 1);
             //emit changementJoueurActif();
             calculerMoyenneVoleesTournois();
-            //emit nouvelleManche();
+            emit nouvelleManche();
             solution->trouverSolution(joueurs[joueurActif].getScore(),joueurs[joueurActif].getFlechette());
         }
         else
@@ -733,4 +736,78 @@ void Darts::calculerMoyenneVoleesTournois()
         joueurs[i].setMoyenneVolee(moyenneVolee);
     }
     emit miseAJourMoyenneVoleeTournois();
+}
+
+void Darts::gererFinPartieTournois()
+{
+    if(joueurActif == premierJoueur)
+    {
+        joueurs[premierJoueur].setEliminer(false);
+        joueurs[dernierJoueur].setEliminer(true);
+    }
+
+    if(joueurActif == dernierJoueur)
+    {
+        joueurs[dernierJoueur].setEliminer(false);
+        joueurs[premierJoueur].setEliminer(true);
+    }
+
+    if(premierJoueur + 2 < (joueurs.size() - 1)  && dernierJoueur + 2 <= (joueurs.size() - 1))
+    {
+        premierJoueur += 2;
+        dernierJoueur += 2;
+
+        qDebug() << "premierJoueur " << premierJoueur << endl;
+        qDebug() << "dernierJoueur " << dernierJoueur << endl;
+    }
+    else if(estDernier())
+    {
+        qDebug() << " Dernier Joueur : " << joueurs[joueurActif].getNom() << endl;
+        //@todo realiser la fin du tournois
+    }
+    else
+    {
+        qDebug() << "est la"  << endl;
+        for(int i = joueurs.size() - 1; i > 0; i--)
+        {
+            if(joueurs[i].getEliminer())    //@bug corriger probleme
+            {
+                joueursTournoisEliminer.push_back(joueurs[i]);
+                joueurs.removeAt(i);
+            }
+        }
+        premierJoueur = 0;
+        dernierJoueur = 1;
+
+        for(int i = 0; i < joueurs.size(); i++)
+        {
+
+            joueurs[i].setScore(ModeDeJeu.section("_",0,0).toInt());
+            joueurs[i].setMoyenneVolee(0);
+            joueurs[i].setScoreManchePrecedente(ModeDeJeu.section("_",0,0).toInt());
+            joueurs[i].setNbFlechette(3);
+        }
+    }
+
+    joueurActif = premierJoueur;
+    setManche(1);
+
+    emit afficherTournois(ModeDeJeu, NomTournois);
+
+}
+
+bool Darts::estDernier()
+{
+    int estdernier = 0;
+    for(int i = 0; i < joueurs.size(); i++)
+    {
+        qDebug() << joueurs[i].getNom() << " : " << joueurs[i].getEliminer() << endl;
+        if(joueurs[i].getEliminer() == false)
+            estdernier++;
+    }
+
+    if(estdernier == 1)
+        return true;
+
+    return false;
 }

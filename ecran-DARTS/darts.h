@@ -63,7 +63,7 @@ signals:
     void nouvelleManche();                  //!< signal émis quand on change de manche
     void nouvelImpact(int,int,int);         //!< signal émis quand il y a un nouvel Impact
     void voleeAnnulee();                    //!< signal émis quand la volées est annulé
-    void finPartie(QString, int);           //!< signal émis quand c'est la fin de la partie
+    void finPartie(QString, int, bool);           //!< signal émis quand c'est la fin de la partie
     void etatPartieFini();                  //!< signal émis pour mettre l'etat de la partie en fin
     void changementJoueurActif();           //!< signal émis quand le joueur actif change
     void miseAJourMoyenneVolee();           //!< signal émis pour mettre à jour la moyenne des volées
@@ -82,6 +82,7 @@ public slots:
 private:
     Solution *solution;             //!< Association vers l'objet solution
     QList<Joueur> joueurs;          //!< contient des objets joueurs
+    QList<Joueur> joueursTournoisEliminer;          //!< contient des objets joueurs eliminer pendant le tournois
     QStringList joueur;             //!< contient les noms des differents joueur
     int nbJoueur;                   //!< contient le nombre de joueur
     int joueurActif;                //!< contient le numero du joueur en train de jouer
@@ -90,6 +91,7 @@ private:
     int voleeMax;                   //!< contient la volées Max
     int nbVolees;                   //!< contient le nombre de Volées de la partie en cours
     QString ModeDeJeu;              //!< contient le mode de jeu en cours
+    QString NomTournois;
     int pointVoleeEnCours;          //!< contient le score de la Volées en cours
     int premierJoueur;              //!< contient le premier joueur du tournois a jouer
     int dernierJoueur;              //!< contient le dernier joueur du tournois a jouer
@@ -108,6 +110,8 @@ private:
     void testerNombreJoueurRestand();
     void testerPoint(int typePoint, int point);
     void calculerPoints(int point, int typePoint);
+    void gererFinPartieTournois();
+    bool estDernier();
 };
 
 #endif // DARTS_H
