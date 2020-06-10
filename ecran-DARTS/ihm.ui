@@ -281,7 +281,7 @@ QLabel#labelJoueurTournois, QLabel#labelScoreTournois, QLabel#nomJoueurTournois1
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -1441,7 +1441,7 @@ QLabel
                </font>
               </property>
               <property name="text">
-               <string>00:00</string>
+               <string>00 : 00</string>
               </property>
              </widget>
             </item>
@@ -1461,7 +1461,7 @@ QLabel
                </font>
               </property>
               <property name="text">
-               <string>tournois inter classe</string>
+               <string>------------</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -1484,7 +1484,7 @@ QLabel
                </font>
               </property>
               <property name="text">
-               <string>Manche</string>
+               <string>Manche 1</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

@@ -97,6 +97,7 @@ void Ihm::initialiserEvenements()
     connect(communication, SIGNAL(stopperRegle()), this, SLOT(StopperLectureRegle()));
     connect(darts, SIGNAL(afficherTournois(QString, QString)), this, SLOT(initialiserAffichageTournois(QString, QString)));
     connect(darts, SIGNAL(debuterTournois()), this, SLOT(lancerTournois()));
+    connect(darts, SIGNAL(changementJoueurActifTournoi()), this, SLOT(mettreAJourJoueurTournoi()));
 
 }
 
@@ -184,7 +185,7 @@ void Ihm::mettreAJourScore()
 void Ihm::mettreAJourManche()
 {
     ui->manche->setText(QString::number(darts->getManche()));
-    ui->tournoisManche->setText(QString::number(darts->getManche()));
+    ui->tournoisManche->setText("Manche " + QString::number(darts->getManche()));
 }
 
 /**
@@ -389,7 +390,7 @@ void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur, bool tournois)
     ui->winnerPartie->setText(gagnant);
     ui->voleeMax->setText(QString::number(voleeMaxJoueur) + " points");
     ui->nbVolees->setText(QString::number(darts->getNbVolees()));
-    communication->miseAJourEtatPartieFin();
+    //communication->miseAJourEtatPartieFin();
     allerPage(Ihm::PageStatistique);
 }
 
@@ -419,6 +420,18 @@ void Ihm::afficherNouvellePartie()
      ui->labelMoyenneVoleesStatistique->setVisible(false);
      ui->ecranPartie->setStyleSheet("QWidget#ecranPartie{background-image:url(:/ressources/background.jpg);}");
      mettreAJourCible();
+
+     //ecran Tournois
+     ui->tournoisNom->setText("----------");
+     ui->modeDeJeuTournois->setText("");
+     ui->nomJoueurTournois1->setText("");
+     ui->nomJoueurTournois2->setText("");
+     ui->scoreJoueurTournois1->setText("\n⇓\n");
+     ui->scoreJoueurTournois2->setText("\n⇓\n");
+     ui->moyenneJoueurTournois1->setText("\n⇓\n" );
+     ui->moyenneJoueurTournois2->setText("\n⇓\n" );
+     ui->tournoisManche->setText("Manche 1");
+
 
      // configurer la musique
      musique.setLoops(QSound::Infinite);
@@ -740,7 +753,7 @@ void Ihm::error(QMediaPlayer::Error error)
  */
 void Ihm::initialiserAffichageTournois(QString modeJeu, QString nomTournois)
 {
-    ui->tournoisNom->setText(nomTournois);
+    ui->tournoisNom->setText("Tournoi " + nomTournois);
     ui->modeDeJeuTournois->setText(modeJeu);
 
     ui->nomJoueurTournois1->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom());
@@ -792,4 +805,23 @@ void Ihm::mettreAJourMoyenneVoleeTournois()
 {
     ui->moyenneJoueurTournois1->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom() + "\n⇓\n" + QString::number(darts->getListJoueur()[darts->getPremierJoueur()].getMoyenneVolee()));
     ui->moyenneJoueurTournois2->setText(darts->getListJoueur()[darts->getDernierJoueur()].getNom() + "\n⇓\n" +QString::number(darts->getListJoueur()[darts->getDernierJoueur()].getMoyenneVolee()));
+}
+
+/**
+ * @brief Méthode qui initialise l'affichage du mode et des joueurs de la partie
+ *
+ * @fn Ihm::mettreAJourJoueurTournoi
+ */
+void Ihm::mettreAJourJoueurTournoi()
+{
+    if(darts->getJoueurActif() == darts->getPremierJoueur())
+    {
+        ui->nomJoueurTournois1->setText("↣ " + darts->getListJoueur()[darts->getPremierJoueur()].getNom() + " ↢");
+        ui->nomJoueurTournois2->setText(darts->getListJoueur()[darts->getDernierJoueur()].getNom());
+    }
+    else
+    {
+        ui->nomJoueurTournois1->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom());
+        ui->nomJoueurTournois2->setText("↣ " + darts->getListJoueur()[darts->getDernierJoueur()].getNom() + " ↢");
+    }
 }

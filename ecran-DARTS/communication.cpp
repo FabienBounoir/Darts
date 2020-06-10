@@ -91,6 +91,7 @@ void Communication::parametrerBluetooth()
         connect(darts, SIGNAL(etatPartieFini()), this , SLOT(miseAJourEtatPartieFin()));
         connect(darts, SIGNAL(etatPartieTournois()), this , SLOT(miseAJourEtatPartieTournois()));
         connect(darts, SIGNAL(changerEtatPartie()), this , SLOT(miseAJourEtatPartieEnCours()));
+        connect(darts, SIGNAL(etatPartieAttenteTournois()), this, SLOT(miseAJourEtatPartieAttenteTournois()));
     }
 }
 
@@ -213,7 +214,7 @@ void Communication::decomposerTrame()
         {
             extraireParametresTrameRegle();
         }
-        else if(trame.contains("PAUSE") && (etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Tournois))     /** $DART;PAUSE */
+        else if(trame.contains("PAUSE") && (etatPartie == EtatPartie::EnCours)) //|| etatPartie == EtatPartie::Tournois))     /** $DART;PAUSE */ @todo prendre le gestion du mode tournois
         {
             emit pause();
             miseAJourEtatPartiePause();
@@ -319,6 +320,7 @@ void Communication::decomposerTrameTournois()
             return;
         }
 
+        darts->reinitialiserPartie();
 
         for(int i = 0;i <= trame.section(";",5,5).toInt();i++)  //boucle qui recuperer les noms des differents joueurs
         {
@@ -334,7 +336,7 @@ void Communication::decomposerTrameTournois()
         nomTournois = trame.section(";",4,4);
         darts->configurationTournois(joueurs, modeJeu, nomTournois);
     }
-    if(trame.contains("PLAY") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;TOURNOIS;PLAY */
+    if(trame.contains("PLAY") && (etatPartie == EtatPartie::AttenteTournois))      /** $DART;TOURNOIS;PLAY */
     {
         darts->demarrerTournois();
     }
@@ -409,7 +411,7 @@ void Communication::deviceConnected(const QBluetoothAddress &adresse)
     if(etatPartie == EtatPartie::Pause) // si l'appareil est reconnecte, la partie reprend
     {
         emit play();
-        miseAJourEtatPartieEnCours();
+        miseAJourEtatPartieEnCours();       //@todo prendre le gestion du mode tournois
     }
 }
 
@@ -424,7 +426,7 @@ void Communication::deviceDisconnected(const QBluetoothAddress &adresse)
     qDebug() << Q_FUNC_INFO << adresse;
     emit afficherAttenteConnexion();
 
-    if(etatPartie == EtatPartie::EnCours) // si l'appareil se deconnecte pendant la partie, il la met donc en pause
+    if(etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Tournois) // si l'appareil se deconnecte pendant la partie, il la met donc en pause
     {
         emit pause();
 
@@ -507,4 +509,16 @@ void Communication::miseAJourEtatPartieTournois()
 {
     qDebug() << Q_FUNC_INFO << "EtatPartie::Tournois";
     etatPartie = EtatPartie::Tournois;
+}
+
+
+/**
+ * @brief Méthode qui met à jour l'état de la partie en mode tournois
+ *
+ * @fn Communication::miseAJourEtatPartieAttenteTournois
+ */
+void Communication::miseAJourEtatPartieAttenteTournois()
+{
+    qDebug() << Q_FUNC_INFO << "EtatPartie::AttenteTournois";
+    etatPartie = EtatPartie::AttenteTournois;
 }

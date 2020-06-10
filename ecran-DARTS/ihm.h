@@ -119,6 +119,7 @@ public slots:
     void initialiserAffichageTournois(QString modeJeu, QString nomTournois);
     void lancerTournois();
     void mettreAJourScoreTournois();
+    void mettreAJourJoueurTournoi();
 };
 
 #endif // IHM_H

@@ -76,6 +76,8 @@ signals:
     void debuterTournois();                                         //!< signal émis pour debuter le tournois
     void etatPartieTournois();                                      //!< signal émis pour mettre en etat de tournois
     void miseAJourPointTournois();                                  //!< signal émis pour mettre a jour les points du tournois
+    void etatPartieAttenteTournois();
+    void changementJoueurActifTournoi();
 
 public slots:
 
