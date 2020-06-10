@@ -65,6 +65,7 @@ public:
         Fin = 2,
         Pause = 3,
         Regle = 4,      //État attente pendant la lecture des règles, seule une trame reset peut être reçu pour arrêter la lecture.
+        AttenteTournois = 5,
         Tournois
     };
 
@@ -82,6 +83,7 @@ public slots:
     void miseAJourEtatPartieFin();                                  //!< Slot appelé pour mettre à jour l'état de la partie à Fin
     void miseAJourEtatPartieEnCours();                              //!< Slot appelé pour mettre à jour l'état de la partie à EnCours
     void miseAJourEtatPartieTournois();                             //!< Slot appelé pour mettre à jour l'état de la partie à tournois
+    void miseAJourEtatPartieAttenteTournois();
 
 private slots:
     void deviceConnected(const QBluetoothAddress &adresse);         //!< Slot appelé quand un nouvel appareil est connecté
