@@ -214,15 +214,16 @@ void Communication::decomposerTrame()
         {
             extraireParametresTrameRegle();
         }
-        else if(trame.contains("PAUSE") && (etatPartie == EtatPartie::EnCours)) //|| etatPartie == EtatPartie::Tournois))     /** $DART;PAUSE */ @todo prendre le gestion du mode tournois
+        else if(trame.contains("PAUSE") && (etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Tournois))     /** $DART;PAUSE */
         {
+            etatPrecedent = etatPartie;
             emit pause();
             miseAJourEtatPartiePause();
         }
         else if(trame.contains("PLAY") && etatPartie == EtatPartie::Pause)   /** $DART;PLAY */
         {
             emit play();
-            miseAJourEtatPartieEnCours();
+            relancerPartie();
         }
         else if(trame.contains("TOURNOIS"))
         {
@@ -304,6 +305,11 @@ void Communication::extraireParametresTrameStart(QStringList &joueurs, QString &
 
 }
 
+/**
+ * @brief Methode qui decompose la trame TOURNOIS
+ *
+ * @fn Communication::decomposerTrameTournois
+ */
 void Communication::decomposerTrameTournois()
 {
     QString modeJeu;
@@ -411,7 +417,7 @@ void Communication::deviceConnected(const QBluetoothAddress &adresse)
     if(etatPartie == EtatPartie::Pause) // si l'appareil est reconnecte, la partie reprend
     {
         emit play();
-        miseAJourEtatPartieEnCours();       //@todo prendre le gestion du mode tournois
+        relancerPartie();
     }
 }
 
@@ -428,8 +434,8 @@ void Communication::deviceDisconnected(const QBluetoothAddress &adresse)
 
     if(etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Tournois) // si l'appareil se deconnecte pendant la partie, il la met donc en pause
     {
+        etatPrecedent = etatPartie;
         emit pause();
-
         miseAJourEtatPartiePause();
     }
 }
@@ -521,4 +527,21 @@ void Communication::miseAJourEtatPartieAttenteTournois()
 {
     qDebug() << Q_FUNC_INFO << "EtatPartie::AttenteTournois";
     etatPartie = EtatPartie::AttenteTournois;
+}
+
+/**
+ * @brief Methode qui remet la partie dans l'etat dans lequel elle se trouver avant la pause
+ *
+ * @fn Communication::relancerPartie
+ */
+void Communication::relancerPartie()
+{
+    if(etatPrecedent == EtatPartie::EnCours)
+    {
+        miseAJourEtatPartieEnCours();
+    }
+    else
+    {
+        miseAJourEtatPartieTournois();
+    }
 }

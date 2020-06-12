@@ -612,6 +612,7 @@ void Darts::configurationTournois(QStringList joueurList, QString modeJeu, QStri
  */
 void Darts::demarrerTournois()
 {
+    emit actualiserCible();
     emit changementJoueurActifTournoi();
     emit debuterTournois();
     emit etatPartieTournois();  
@@ -644,7 +645,7 @@ void Darts::receptionnerImpactTournois(int typePoint, int point)
 }
 
 /**
- * @brief teste l'impact
+ * @brief teste l'impact pour le mode tournois
  *
  * @fn Darts::testerImpactTournois
  * @param typePoint
