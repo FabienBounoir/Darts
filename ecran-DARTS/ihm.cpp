@@ -431,6 +431,7 @@ void Ihm::afficherNouvellePartie()
      ui->moyenneJoueurTournois1->setText("\n⇓\n" );
      ui->moyenneJoueurTournois2->setText("\n⇓\n" );
      ui->tournoisManche->setText("Manche 1");
+     ui->statutImpactTournois->setText("");
 
 
      // configurer la musique
@@ -508,6 +509,11 @@ void Ihm::afficherAttenteConnexion()
     ui->labelStatutAttente->setText("En attente de connexion");
 }
 
+/**
+ * @brief
+ *
+ * @fn Ihm::afficherPretLancerTournois
+ */
 void Ihm::afficherPretLancerTournois()
 {
     ui->labelStatutAttente->setText("🏆 Prêt à lancer le tournoi 🏆");
@@ -608,6 +614,7 @@ void Ihm::initialiserHorloge()
 void Ihm::mettreAJourCible()
 {
     ui->labelVisualisationimpact->setPixmap(QPixmap(":/ressources/cible.png"));
+    ui->ImpactCibleTournois->setPixmap(QPixmap(":/ressources/cible.png"));
     sauvegardeImpactEncours = ui->labelVisualisationimpact->pixmap()->copy();
     messageStatut = "Volée ➤";
 }

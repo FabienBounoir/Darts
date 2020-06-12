@@ -110,6 +110,8 @@ private:
     void reamorcerPartie();                                                         //!< Méthode qui relance la partie
     void decomposerTrameTournois();                                                 //!< Méthode qui extrait les paramètres de la trame TOURNOIS
     bool estValide();                                                               //!< Méthode qui test si la trame est valide
+    int etatPrecedent;
+    void relancerPartie();
 };
 
 #endif // COMMUNICATION_H
