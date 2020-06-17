@@ -78,6 +78,7 @@ signals:
     void miseAJourPointTournois();                                  //!< signal émis pour mettre a jour les points du tournois
     void etatPartieAttenteTournois();
     void changementJoueurActifTournoi();
+    void finTournois(QString, QString, QList<Joueur>);
 
 public slots:
 
@@ -114,6 +115,7 @@ private:
     void calculerPoints(int point, int typePoint);
     void gererFinPartieTournois();
     bool estDernier();
+    void initialiserFinTournois();
 };
 
 #endif // DARTS_H

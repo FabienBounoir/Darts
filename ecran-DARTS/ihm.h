@@ -76,6 +76,7 @@ private:
         PageJeu,
         PageStatistique,
         PageTournois,
+        PageFinTournois,
         NbPages
     };
 
@@ -120,6 +121,7 @@ public slots:
     void lancerTournois();
     void mettreAJourScoreTournois();
     void mettreAJourJoueurTournoi();
+    void afficherFinTournois(QString nomGagnant, QString nomTournois, QList<Joueur> joueurs);
 };
 
 #endif // IHM_H
