@@ -772,8 +772,7 @@ void Darts::gererFinPartieTournois()
     else if(estDernier())
     {
         qDebug() << "Gagnant tournois " << joueurs[joueurActif].getNom() << endl;
-
-        emit finPartie("↢ " + joueurs[joueurActif].getNom() +" est le gagnant du tournoi "+ NomTournois +" ↣" , getVoleeMax(), true);
+        initialiserFinTournois();
         emit etatPartieFini();
     }
     else
@@ -827,4 +826,21 @@ bool Darts::estDernier()
         return true;
 
     return false;
+}
+
+void Darts::initialiserFinTournois()
+{
+    QList<Joueur> joueurTournois;
+
+    for(int i = 0 ; i < joueurs.size(); i++)
+    {
+        joueurTournois.push_back(joueurs[i]);
+    }
+
+    for(int i = 0 ; i < joueursTournoisEliminer.size(); i++)
+    {
+        joueurTournois.push_back(joueursTournoisEliminer[i]);
+    }
+
+    emit finTournois(joueurs[joueurActif].getNom(),NomTournois,joueurTournois);
 }

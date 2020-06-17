@@ -98,6 +98,7 @@ void Ihm::initialiserEvenements()
     connect(darts, SIGNAL(afficherTournois(QString, QString)), this, SLOT(initialiserAffichageTournois(QString, QString)));
     connect(darts, SIGNAL(debuterTournois()), this, SLOT(lancerTournois()));
     connect(darts, SIGNAL(changementJoueurActifTournoi()), this, SLOT(mettreAJourJoueurTournoi()));
+    connect(darts, SIGNAL(finTournois(QString,QString,QList<Joueur>)), this, SLOT(afficherFinTournois(QString,QString,QList<Joueur>)));
 
 }
 
@@ -137,6 +138,7 @@ void Ihm::actualiserHeure()
     affichageHeure = "<font color=\"#6D2B6B\">" + heure.toString("hh : mm ") + "</font>";
     ui->labelHeureAttente->setText(affichageHeure);
     ui->labelHeureStatistique->setText(affichageHeure);
+    ui->labelHeureTournois->setText(heure.toString("hh : mm "));
 }
 
 /**
@@ -382,7 +384,7 @@ void Ihm::finirPartie(QString gagnant, int voleeMaxJoueur, bool tournois)
     if(tournois == true)
     {
         ui->labelMoyenneVoleesStatistique->setVisible(true);
-        ui->moyenneVolees->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom() + " : " + QString::number(darts->getListJoueur()[darts->getPremierJoueur()].getMoyenneVolee()) + "\n" + darts->getListJoueur()[darts->getDernierJoueur()].getNom() + " : " +QString::number(darts->getListJoueur()[darts->getDernierJoueur()].getMoyenneVolee()));
+        ui->moyenneVolees->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom() + " ➠ " + QString::number(darts->getListJoueur()[darts->getPremierJoueur()].getMoyenneVolee()) + "\n" + darts->getListJoueur()[darts->getDernierJoueur()].getNom() + " ➠ " +QString::number(darts->getListJoueur()[darts->getDernierJoueur()].getMoyenneVolee()));
         ui->moyenneVolees->setVisible(true);
     }
 
@@ -831,4 +833,26 @@ void Ihm::mettreAJourJoueurTournoi()
         ui->nomJoueurTournois1->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom());
         ui->nomJoueurTournois2->setText("↣ " + darts->getListJoueur()[darts->getDernierJoueur()].getNom() + " ↢");
     }
+}
+
+void Ihm::afficherFinTournois(QString nomGagnant,QString nomTournois,QList<Joueur> joueurs)
+{
+    QString joueurTournois = "";
+
+    for(int i = 0 ; i < joueurs.size(); i++)
+    {
+
+        if(i == 0)
+        {
+            joueurTournois = "      1er ➠ " + joueurs[i].getNom() + "\n";
+        }
+        else
+        {
+            joueurTournois = joueurTournois +"      "+ QString::number(i + 1) + "ème ➠ " + joueurs[i].getNom() + "\n";
+        }
+    }
+
+    ui->winnerTournois->setText("↢ " + nomGagnant + " grand(e) gagnant(e) du tournoi " + nomTournois +" ↣");
+    ui->recapPlaceTournois->setText(joueurTournois);
+    allerPage(Ihm::PageFinTournois);
 }
