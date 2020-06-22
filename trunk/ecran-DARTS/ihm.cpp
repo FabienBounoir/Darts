@@ -93,12 +93,14 @@ void Ihm::initialiserEvenements()
     connect(communication, SIGNAL(play()), this, SLOT(relancerpartie()));
     connect(communication, SIGNAL(erreurBluetooth(QString)), this, SLOT(mettreAJourMessageStatut(QString)));
     connect(darts, SIGNAL(jouerSon(QString)), this, SLOT(jouerSon(QString)));
+    connect(communication, SIGNAL(jouerSon(QString)), this, SLOT(jouerSon(QString)));
     connect(communication, SIGNAL(afficherRegle(QString)), this, SLOT(lancerRegle(QString)));
     connect(communication, SIGNAL(stopperRegle()), this, SLOT(StopperLectureRegle()));
     connect(darts, SIGNAL(afficherTournois(QString, QString)), this, SLOT(initialiserAffichageTournois(QString, QString)));
     connect(darts, SIGNAL(debuterTournois()), this, SLOT(lancerTournois()));
     connect(darts, SIGNAL(changementJoueurActifTournoi()), this, SLOT(mettreAJourJoueurTournoi()));
     connect(darts, SIGNAL(finTournois(QString,QString,QList<Joueur>)), this, SLOT(afficherFinTournois(QString,QString,QList<Joueur>)));
+    connect(darts, SIGNAL(afficherInfoTournois()), this, SLOT(afficherInformationTournois()));
 
 }
 
@@ -422,6 +424,7 @@ void Ihm::afficherNouvellePartie()
      ui->labelMoyenneVoleesStatistique->setVisible(false);
      ui->ecranPartie->setStyleSheet("QWidget#ecranPartie{background-image:url(:/ressources/background.jpg);}");
      mettreAJourCible();
+     ui->labelINfoMatch->setVisible(false);
 
      //ecran Tournois
      ui->tournoisNom->setText("----------");
@@ -498,7 +501,7 @@ void Ihm::fermerApplication()
  */
 void Ihm::afficherAttenteConfiguration()
 {
-    ui->labelStatutAttente->setText("Attente configuration de la partie");
+    ui->labelStatutAttente->setText("⇒ Attente configuration de la partie ⇐");
 }
 
 /**
@@ -508,7 +511,7 @@ void Ihm::afficherAttenteConfiguration()
  */
 void Ihm::afficherAttenteConnexion()
 {
-    ui->labelStatutAttente->setText("En attente de connexion");
+    ui->labelStatutAttente->setText("⇒ En attente de connexion ⇐");
 }
 
 /**
@@ -518,7 +521,7 @@ void Ihm::afficherAttenteConnexion()
  */
 void Ihm::afficherPretLancerTournois()
 {
-    ui->labelStatutAttente->setText("🏆 Prêt à lancer le tournoi 🏆");
+    ui->labelStatutAttente->setText("⇒ Prêt à lancer le tournoi ⇐");
 }
 
 /**
@@ -774,7 +777,7 @@ void Ihm::initialiserAffichageTournois(QString modeJeu, QString nomTournois)
     ui->moyenneJoueurTournois1->setText(darts->getListJoueur()[darts->getPremierJoueur()].getNom() + "\n⇓\n0" );
     ui->moyenneJoueurTournois2->setText(darts->getListJoueur()[darts->getDernierJoueur()].getNom() + "\n⇓\n0" );
 
-    ui->tournoisManche->setText(QString::number(darts->getManche()));
+    ui->tournoisManche->setText("Manche " + QString::number(darts->getManche()));
 
     afficherPretLancerTournois();
 }
@@ -835,6 +838,11 @@ void Ihm::mettreAJourJoueurTournoi()
     }
 }
 
+/**
+ * @brief Méthode qui gère l'affichage quand le tournoi est terminé
+ *
+ * @fn Ihm::afficherFinTournois
+ */
 void Ihm::afficherFinTournois(QString nomGagnant,QString nomTournois,QList<Joueur> joueurs)
 {
     QString joueurTournois = "";
@@ -844,15 +852,25 @@ void Ihm::afficherFinTournois(QString nomGagnant,QString nomTournois,QList<Joueu
 
         if(i == 0)
         {
-            joueurTournois = "      1er ➠ " + joueurs[i].getNom() + "\n";
+            joueurTournois = "          1er ➠ " + joueurs[i].getNom() + "\n";
         }
         else
         {
-            joueurTournois = joueurTournois +"      "+ QString::number(i + 1) + "ème ➠ " + joueurs[i].getNom() + "\n";
+            joueurTournois = joueurTournois +"          "+ QString::number(i + 1) + "ème ➠ " + joueurs[i].getNom() + "\n";
         }
     }
 
     ui->winnerTournois->setText("↢ " + nomGagnant + " grand(e) gagnant(e) du tournoi " + nomTournois +" ↣");
     ui->recapPlaceTournois->setText(joueurTournois);
     allerPage(Ihm::PageFinTournois);
+}
+
+/**
+ * @brief Méthode qui gère l'affichage des informations du tournoi
+ *
+ * @fn Ihm::afficherInformationTournois
+ */
+void Ihm::afficherInformationTournois()
+{
+    ui->labelINfoMatch->setVisible(true);
 }

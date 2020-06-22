@@ -48,9 +48,9 @@ public:
     void parametrerBluetooth();     //!< Méthode qui configure la connexion Bluetooth en mode serveur
     void demarrer();                //!< Méthode qui démarre le serveur
     void arreter();                 //!< Méthode qui arrête le serveur
-    int getEtatPartie();
+    int getEtatPartie();            //!< Méthode qui permet de recuperer l'etat de la partie
 
-    void miseAJourEtatPartieRegle();
+    void miseAJourEtatPartieRegle();                                //!< Méthode appelé pour mettre à jour l'état de la partie à regle
     void miseAJourEtatPartieAttente();                              //!< Méthode appelé pour mettre à jour l'état de la partie à Attente
     void miseAJourEtatPartiePause();                                //!< Méthode appelé pour mettre à jour l'état de la partie à Pause
 
@@ -77,13 +77,14 @@ signals:
     void play();                                    //!< signal qui relancera le chronometrage de la partie la partie
     void erreurBluetooth(QString erreur);           //!< signal emit quand un probleme de configuration bluetooth est detecté
     void afficherRegle(QString regle);              //!< signal emit pour afficher les regles
-    void stopperRegle();                            //!< signal emit poour stopper la lecture des regles
+    void stopperRegle();                            //!< signal emit pour stopper la lecture des regles
+    void jouerSon(QString);
 
 public slots:
     void miseAJourEtatPartieFin();                                  //!< Slot appelé pour mettre à jour l'état de la partie à Fin
     void miseAJourEtatPartieEnCours();                              //!< Slot appelé pour mettre à jour l'état de la partie à EnCours
     void miseAJourEtatPartieTournois();                             //!< Slot appelé pour mettre à jour l'état de la partie à tournois
-    void miseAJourEtatPartieAttenteTournois();
+    void miseAJourEtatPartieAttenteTournois();                      //!< Slot appelé pour mettre à jour l'état de la partie à attenteTournois
 
 private slots:
     void deviceConnected(const QBluetoothAddress &adresse);         //!< Slot appelé quand un nouvel appareil est connecté
@@ -110,8 +111,8 @@ private:
     void reamorcerPartie();                                                         //!< Méthode qui relance la partie
     void decomposerTrameTournois();                                                 //!< Méthode qui extrait les paramètres de la trame TOURNOIS
     bool estValide();                                                               //!< Méthode qui test si la trame est valide
-    int etatPrecedent;
-    void relancerPartie();
+    int etatPrecedent;                                                              //!< Contient l'etat dans lequel se trouver l'application
+    void relancerPartie();                                                          //!< Méthode qui gere l'initialisation d'une partie de flechette
 };
 
 #endif // COMMUNICATION_H

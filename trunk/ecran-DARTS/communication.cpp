@@ -225,6 +225,10 @@ void Communication::decomposerTrame()
             emit play();
             relancerPartie();
         }
+        else if(trame.contains("SON"))
+        {
+            emit jouerSon(trame.section(";",2,2));
+        }
         else if(trame.contains("TOURNOIS"))
         {
             decomposerTrameTournois();
@@ -341,10 +345,15 @@ void Communication::decomposerTrameTournois()
         }
         nomTournois = trame.section(";",4,4);
         darts->configurationTournois(joueurs, modeJeu, nomTournois);
+
     }
-    if(trame.contains("PLAY") && (etatPartie == EtatPartie::AttenteTournois))      /** $DART;TOURNOIS;PLAY */
+    else if(trame.contains("PLAY") && (etatPartie == EtatPartie::AttenteTournois))      /** $DART;TOURNOIS;PLAY */
     {
         darts->demarrerTournois();
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << "Trame non Traité: " << trame;
     }
 }
 
