@@ -184,7 +184,7 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
     {
         for(int i = 1; i < joueurList.size() ; i++)
         {
-            Joueur player(joueurList.at(i), ModeDeJeu.toInt(), 3);
+            Joueur player(joueurList.at(i), ModeDeJeu.toInt(), NB_FLECHETTE);
             joueurs.push_back(player);
         }
         emit afficherNouvellePartie();
@@ -194,7 +194,7 @@ void Darts::initialiserPartie(QStringList joueurList, QString modeJeu)
     {
         for(int i = 1; i < joueurList.size() ; i++)
         {
-            Joueur player(joueurList.at(i), ModeDeJeu.section("_",0,0).toInt(), 3);
+            Joueur player(joueurList.at(i), ModeDeJeu.section("_",0,0).toInt(), NB_FLECHETTE);
             joueurs.push_back(player);
         }
         emit afficherNouvellePartie();
@@ -266,7 +266,7 @@ void Darts::receptionnerImpact(int typePoint, int point)
 
     pointVoleeEnCours += pointLancer;
 
-    if(joueurs[joueurActif].getFlechette() == 3)
+    if(joueurs[joueurActif].getFlechette() == NB_FLECHETTE)
         emit actualiserCible();
 
     qDebug() << Q_FUNC_INFO << joueurs[joueurActif].getNom() << " SCORE : " <<joueurs[joueurActif].getScore() - pointLancer << endl;
@@ -344,7 +344,7 @@ void Darts::gererManche()
 {
     if(joueurs[joueurActif].getFlechette() == 0) //fin de la volées du joueur
     {
-        joueurs[joueurActif].setNbFlechette(3);
+        joueurs[joueurActif].setNbFlechette(NB_FLECHETTE);
 
         pointVoleeEnCours = 0;
 
@@ -578,7 +578,7 @@ void Darts::configurationTournois(QStringList joueurList, QString modeJeu, QStri
     {
         for(int i = 1; i < joueurList.size() ; i++)
         {
-            Joueur player(joueurList.at(i), ModeDeJeu.toInt(), 3);
+            Joueur player(joueurList.at(i), ModeDeJeu.toInt(), NB_FLECHETTE);
             joueurs.push_back(player);
         }
     }
@@ -586,7 +586,7 @@ void Darts::configurationTournois(QStringList joueurList, QString modeJeu, QStri
     {
         for(int i = 1; i < joueurList.size() ; i++)
         {
-            Joueur player(joueurList.at(i), ModeDeJeu.section("_",0,0).toInt(), 3);
+            Joueur player(joueurList.at(i), ModeDeJeu.section("_",0,0).toInt(), NB_FLECHETTE);
             joueurs.push_back(player);
         }
     }
@@ -603,6 +603,7 @@ void Darts::configurationTournois(QStringList joueurList, QString modeJeu, QStri
 
     emit afficherTournois(modeJeu, nomTournois);
     emit etatPartieAttenteTournois();
+    emit afficherInfoTournois();
 }
 
 /**
@@ -633,7 +634,7 @@ void Darts::receptionnerImpactTournois(int typePoint, int point)
 
     pointVoleeEnCours += pointLancer;
 
-    if(joueurs[joueurActif].getFlechette() == 3)
+    if(joueurs[joueurActif].getFlechette() == NB_FLECHETTE)
         emit actualiserCible();
 
     emit nouvelImpact(typePoint, point, pointLancer);
@@ -656,6 +657,7 @@ void Darts::testerImpactTournois(int typePoint)
     {
         gererVoleeMax();
         nbVolees++;
+        emit afficherInfoTournois();
         emit finPartie("↢  " + joueurs[joueurActif].getNom() +" Winner de la manche" +"  ↣" , getVoleeMax(), true);
         gererFinPartieTournois();
         emit etatPartieAttenteTournois();
@@ -664,6 +666,7 @@ void Darts::testerImpactTournois(int typePoint)
     {
         gererVoleeMax();
         nbVolees++;
+        emit afficherInfoTournois();
         emit finPartie("↢  " + joueurs[joueurActif].getNom() +" Winner de la manche" +"  ↣" , getVoleeMax(), true);
         gererFinPartieTournois();
         emit etatPartieAttenteTournois();
@@ -685,7 +688,7 @@ void Darts::gererMancheTournois()
 {
     if(joueurs[joueurActif].getFlechette() == 0) //fin de la volées du joueur
     {
-        joueurs[joueurActif].setNbFlechette(3);
+        joueurs[joueurActif].setNbFlechette(NB_FLECHETTE);
 
         pointVoleeEnCours = 0;
 
@@ -795,7 +798,7 @@ void Darts::gererFinPartieTournois()
             joueurs[i].setScore(ModeDeJeu.section("_",0,0).toInt());
             joueurs[i].setMoyenneVolee(0);
             joueurs[i].setScoreManchePrecedente(ModeDeJeu.section("_",0,0).toInt());
-            joueurs[i].setNbFlechette(3);
+            joueurs[i].setNbFlechette(NB_FLECHETTE);
         }
     }
 
@@ -828,6 +831,11 @@ bool Darts::estDernier()
     return false;
 }
 
+/**
+ * @brief methode qui gere la fin du tournois
+ *
+ * @fn Darts::initialiserFinTournois
+ */
 void Darts::initialiserFinTournois()
 {
     QList<Joueur> joueurTournois;

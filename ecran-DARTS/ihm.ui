@@ -153,6 +153,20 @@ QLabel#labelStatutAttente
 	color: rgb(109, 43,107);
 }
 
+QLabel#labelINfoMatch
+{
+
+	background-color: rgb(255, 255,255);
+    border-style: outset;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(0, 104,55);;
+    min-width: 10em;
+    padding: 6px;
+
+	color: rgb(0, 104,55);
+}
+
 QLabel#labelHeureAttente
 {
 	color: rgb(109, 43,107);
@@ -304,7 +318,7 @@ QLabel#labelHeureTournois
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="ecranAttente">
       <property name="autoFillBackground">
@@ -417,7 +431,7 @@ QLabel#labelHeureTournois
              </property>
              <property name="minimumSize">
               <size>
-               <width>194</width>
+               <width>244</width>
                <height>0</height>
               </size>
              </property>
@@ -438,7 +452,7 @@ QLabel#labelHeureTournois
               <string notr="true"/>
              </property>
              <property name="text">
-              <string>En attente de connexion</string>
+              <string>⇒ En attente de connexion ⇐</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -557,7 +571,7 @@ QLabel#labelHeureTournois
            </property>
            <property name="minimumSize">
             <size>
-             <width>194</width>
+             <width>244</width>
              <height>1053</height>
             </size>
            </property>
@@ -1193,6 +1207,9 @@ QLabel
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
            </property>
+           <property name="margin">
+            <number>0</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -1415,6 +1432,35 @@ QLabel
          </item>
         </layout>
        </item>
+       <item>
+        <widget class="QLabel" name="labelINfoMatch">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>20</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+           <underline>false</underline>
+           <strikeout>false</strikeout>
+          </font>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;⇒ Appuyer sur &lt;/span&gt;&lt;span style=&quot; font-size:24pt; color:#6d2b6b;&quot;&gt;START &lt;/span&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;pour lancer le prochain Match ⇐&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="ecranTournois">
@@ -1431,7 +1477,7 @@ QLabel
            </property>
            <property name="minimumSize">
             <size>
-             <width>194</width>
+             <width>244</width>
              <height>70</height>
             </size>
            </property>
@@ -1959,7 +2005,7 @@ QLabel
             <number>0</number>
            </property>
            <property name="indent">
-            <number>80</number>
+            <number>-1</number>
            </property>
            <property name="openExternalLinks">
             <bool>false</bool>

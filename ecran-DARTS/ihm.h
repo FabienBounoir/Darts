@@ -122,6 +122,7 @@ public slots:
     void mettreAJourScoreTournois();
     void mettreAJourJoueurTournoi();
     void afficherFinTournois(QString nomGagnant, QString nomTournois, QList<Joueur> joueurs);
+    void afficherInformationTournois();
 };
 
 #endif // IHM_H

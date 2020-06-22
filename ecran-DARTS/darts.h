@@ -20,6 +20,7 @@
 #define SIMPLE_POINT        1
 #define ZERO_POINT          0
 #define BULL                25
+#define NB_FLECHETTE        3
 
 class Joueur;
 class Solution;
@@ -79,6 +80,7 @@ signals:
     void etatPartieAttenteTournois();
     void changementJoueurActifTournoi();
     void finTournois(QString, QString, QList<Joueur>);
+    void afficherInfoTournois();
 
 public slots:
 
@@ -94,7 +96,7 @@ private:
     int voleeMax;                   //!< contient la volées Max
     int nbVolees;                   //!< contient le nombre de Volées de la partie en cours
     QString ModeDeJeu;              //!< contient le mode de jeu en cours
-    QString NomTournois;
+    QString NomTournois;            //!< contient le nom du tournois
     int pointVoleeEnCours;          //!< contient le score de la Volées en cours
     int premierJoueur;              //!< contient le premier joueur du tournois a jouer
     int dernierJoueur;              //!< contient le dernier joueur du tournois a jouer
