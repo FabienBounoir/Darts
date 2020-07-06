@@ -5,7 +5,7 @@
  * @file communication.h
  * @brief Déclaration de la classe Communication (Module Ecran-DARTS)
  *
- * @version 0.3
+ * @version 1.0
  *
  * @author Bounoir Fabien
  */
