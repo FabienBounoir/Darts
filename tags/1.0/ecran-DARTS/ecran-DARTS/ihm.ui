@@ -1,0 +1,2050 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Ihm</class>
+ <widget class="QWidget" name="Ihm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1024</width>
+    <height>768</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <weight>50</weight>
+    <bold>false</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>DARTS</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"> QWidget#ecranAttente
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QWidget#ecranRegle
+{
+	background: rgb(109, 43,107);
+}
+
+QWidget#ecranPartie
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QWidget#ecranTournois, #ecranFinTournois
+{
+	background-image:url(:/ressources/background-tournois.jpg);
+}
+
+
+QWidget#actualiterPartie
+{
+	/*background-color: rgb(205, 205,205);*/
+	background-color: rgb(255, 255,255);
+    border-style: outset;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(109, 43,107);
+    min-width: 10em;
+    padding: 6px;
+	/*background-image:url(:/ressources/fondActualiterPartie.png);
+	background-repeat: no-repeat;*/
+}
+
+QWidget#gridWidgetTournois
+{
+	background-color: rgb(255, 255,255);
+    border-style: solid;
+    border-width: 6px;
+    border-radius: 50px;
+    /*border-color: rgb(35, 84,122);*/
+	border-color: rgb(191,17,17);
+    min-width: 10em;
+    padding: 6px;
+	/*background-image:url(:/ressources/fondActualiterPartie.png);
+	background-repeat: no-repeat;*/
+}
+
+QLabel#labelMoyenneVolees
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelNomjoueurs
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#nomJoueur
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#scoreActuel
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#moyenneVolee
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#moyenneVolee2
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelScoreActuel
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelManche
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelTypeJeu
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#typeJeu
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#manche
+{
+	color: rgb(109, 43,107);
+}
+
+QWidget#ecranStatistique
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QLabel#labelStatutAttente
+{
+	 /*background-color: rgb(205, 205,205);*/
+	background-color: rgb(255, 255,255);
+    border-style: outset;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(109, 43,107);
+    min-width: 10em;
+    padding: 6px;
+
+	/*image:url(:/ressources/fondStatus.png);*/
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelINfoMatch
+{
+
+	background-color: rgb(255, 255,255);
+    border-style: outset;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(0, 104,55);;
+    min-width: 10em;
+    padding: 6px;
+
+	color: rgb(0, 104,55);
+}
+
+QLabel#labelHeureAttente
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelTempsPartie
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelHeureStatistique
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#winnerPartie
+{
+	 /*background-color: rgb(205, 205,205);*/
+	background-color: rgb(255, 255,255);
+    border-style: outset;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(109, 43,107);
+    min-width: 10em;
+    padding: 6px;
+	/*image:url(:/ressources/fondStatus.png);*/
+	color: rgb(109, 43,107);
+}
+
+QWidget#horizontalWidget
+{
+	 background-color: rgb(255, 255,255);
+    border-style: solid;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(0, 0,0);
+    min-width: 10em;
+    padding: 6px;
+	/*image:url(:/ressources/fondStatus.png);*/
+	color: rgb(0, 0,0);
+}
+
+QLabel#labelStatut
+{
+	 /*background-color: rgb(205, 205,205);*/
+	background-color: rgb(255, 255,255);
+    border-style: groove;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(109, 43,107);
+    min-width: 10em;
+    padding: 6px;
+
+	/*image:url(:/ressources/fondStatus.png);*/
+	color: rgb(109, 43,107);
+}
+
+QLabel#statutImpactTournois
+{
+	 background-color: rgb(255, 255,255);
+    border-style: solid;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(0, 104,55);
+    min-width: 10em;
+    padding: 6px;
+
+	/*image:url(:/ressources/fondStatus.png);*/
+	color: rgb(0, 104,55);
+}
+
+QLabel#statutImpactJoueur2
+{
+	 background-color: rgb(255, 255,255);
+    border-style: solid;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(191,17,17);
+    min-width: 10em;
+    padding: 6px;
+
+	/*image:url(:/ressources/fondStatus.png);*/
+	color: rgb(191,17,17);
+}
+
+#lineManche, #lineNomJoueurs, #lineScoreActuel, #lineSeparateurTypeJeu, #lineSeparateurMoyenne, #lineSeparateurTournoisNom1 {
+    background-color: rgb(109, 43,107);
+}
+
+#lineSeparateurTournoisNom, #lineSeparateurTournoisScore, #lineSeparateurTournoisMoyenne
+{
+    background-color: rgb(191,17,17);
+}
+
+QLabel
+{
+	color: rgb(255, 255,255);
+}
+
+QLabel#tournoisChrono, QLabel#tournoisNom, QLabel#tournoisManche
+{
+	color: rgb(0, 0,0);
+}
+
+QLabel#labelJoueurTournois, QLabel#labelScoreTournois, QLabel#nomJoueurTournois1, QLabel#nomJoueurTournois2, QLabel#scoreJoueurTournois1, QLabel#labelModeDeJeuTournois, QLabel#modeDeJeuTournois, QLabel#scoreJoueurTournois2, QLabel#labelMoyenneTournois, QLabel#moyenneJoueurTournois1, QLabel#moyenneJoueurTournois2
+{
+	color: rgb(191,17,17);
+}
+
+QLabel#winnerTournois
+{
+	 background-color: rgb(255, 255,255);
+    border-style: outset;
+    border-width: 6px;
+    border-radius: 50px;
+    border-color: rgb(0,0,0);
+    min-width: 10em;
+    padding: 6px;
+	/*image:url(:/ressources/fondStatus.png);*/
+	color: rgb(191,17,17);
+}
+
+QLabel#labelHeureTournois
+{
+    color: rgb(255,255,255);
+}
+
+</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QStackedWidget" name="ecranDarts">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="currentIndex">
+      <number>5</number>
+     </property>
+     <widget class="QWidget" name="ecranAttente">
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayoutHeure">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelHeureAttente">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>35</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>00 : 00</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+             <property name="margin">
+              <number>0</number>
+             </property>
+             <property name="indent">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayoutLogo">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="sizeConstraint">
+            <enum>QLayout::SetNoConstraint</enum>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelLogo">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>940</width>
+               <height>940</height>
+              </size>
+             </property>
+             <property name="sizeIncrement">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="ressources.qrc">:/ressources/logoDarts.png</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayoutStatut">
+           <item>
+            <widget class="QLabel" name="labelStatutAttente">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>244</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>800</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>30</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>⇒ En attente de connexion ⇐</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="ecranRegle">
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayoutRegle"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="ecranPartie">
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0">
+         <property name="spacing">
+          <number>6</number>
+         </property>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayoutVisualisation">
+           <item>
+            <widget class="QLabel" name="labelTempsPartie">
+             <property name="font">
+              <font>
+               <pointsize>35</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>00 : 00</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelVisualisationimpact">
+             <property name="maximumSize">
+              <size>
+               <width>900</width>
+               <height>900</height>
+              </size>
+             </property>
+             <property name="sizeIncrement">
+              <size>
+               <width>1</width>
+               <height>1</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="ressources.qrc">:/ressources/cible.png</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelStatut">
+             <property name="font">
+              <font>
+               <pointsize>30</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="lineWidth">
+              <number>1</number>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Preferred</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>250</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QWidget" name="actualiterPartie" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>10</horstretch>
+             <verstretch>10</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>244</width>
+             <height>1053</height>
+            </size>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayoutInformation">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <item>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <property name="rightMargin">
+               <number>10</number>
+              </property>
+              <property name="verticalSpacing">
+               <number>6</number>
+              </property>
+              <item row="7" column="0" colspan="5">
+               <widget class="QLabel" name="labelScoreActuel">
+                <property name="font">
+                 <font>
+                  <family>Bitstream Vera Sans</family>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>➳ Score actuel : </string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="2">
+               <widget class="QLabel" name="manche">
+                <property name="font">
+                 <font>
+                  <family>Bitstream Vera Sans</family>
+                  <pointsize>27</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="0">
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>60</width>
+                  <height>10</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <widget class="QLabel" name="labelTypeJeu">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Bitstream Vera Sans</family>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"> QWidget#ecranAttente
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QWidget#ecranPartie
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QWidget#actualiterPartie
+{
+	background-image:url(:/ressources/fondActualiterPartie.png);
+}
+QVBoxLayout#verticalLayoutInformation
+{
+	background: gray;
+}
+
+QLabel#labelMoyenneVolees
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelNomjoueurs
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#nomJoueur
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#scoreActuel
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#moyenneVolee
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelScoreActuel
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelManche
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelTypeJeu
+{
+	color: rgb(109, 43,107);
+}
+
+QWidget#ecranStatistique
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QLabel#labelStatutAttente
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelHeureAttente
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelTempsPartie
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelHeureStatistique
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#winnerPartie
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelStatut
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel
+{
+	color: rgb(255,255,255);
+}
+</string>
+                </property>
+                <property name="text">
+                 <string>➳ Jeu :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="1" colspan="2">
+               <widget class="QLabel" name="moyenneVolee">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Bitstream Vera Sans</family>
+                  <pointsize>22</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0" colspan="2">
+               <widget class="QLabel" name="labelManche">
+                <property name="font">
+                 <font>
+                  <family>Bitstream Vera Sans</family>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"> QWidget#ecranAttente
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QWidget#ecranPartie
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QWidget#actualiterPartie
+{
+	background-image:url(:/ressources/fondActualiterPartie.png);
+}
+QVBoxLayout#verticalLayoutInformation
+{
+	background: gray;
+}
+
+QLabel#labelMoyenneVolees
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelNomjoueurs
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#nomJoueur
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#scoreActuel
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#moyenneVolee
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelScoreActuel
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelManche
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelTypeJeu
+{
+	color: rgb(109, 43,107);
+}
+
+QWidget#ecranStatistique
+{
+	background-image:url(:/ressources/background.jpg);
+}
+
+QLabel#labelStatutAttente
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelHeureAttente
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelTempsPartie
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelHeureStatistique
+{
+	color: rgb(109, 43,107);
+}
+
+QLabel#winnerPartie
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel#labelStatut
+{
+	image:url(:/ressources/fondStatus.png);
+	color: rgb(109, 43,107);
+}
+
+QLabel
+{
+	color: rgb(255,255,255);
+}
+</string>
+                </property>
+                <property name="text">
+                 <string>➳ Manche : </string>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="1" colspan="2">
+               <widget class="QLabel" name="scoreActuel">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Bitstream Vera Sans</family>
+                  <pointsize>22</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="0">
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>60</width>
+                  <height>10</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="8" column="4" colspan="2">
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="11" column="5">
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="11" column="4">
+               <widget class="QLabel" name="moyenneVolee2">
+                <property name="font">
+                 <font>
+                  <family>Bitstream Vera Sans</family>
+                  <pointsize>22</pointsize>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="5">
+               <widget class="QLabel" name="labelNomjoueurs">
+                <property name="font">
+                 <font>
+                  <family>Bitstream Vera Sans</family>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>➳ Joueurs :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2" colspan="4">
+               <widget class="QLabel" name="typeJeu">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Bitstream Vera Sans</family>
+                  <pointsize>27</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" colspan="6">
+               <widget class="Line" name="lineSeparateurTypeJeu">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>5</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>900</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <property name="lineWidth">
+                 <number>20</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0" colspan="5">
+               <widget class="QLabel" name="nomJoueur">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Bitstream Vera Sans</family>
+                  <pointsize>22</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="0" colspan="6">
+               <widget class="QLabel" name="labelMoyenneVolees">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Bitstream Vera Sans</family>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>➳ Moyenne des volées :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="0" colspan="6">
+               <widget class="Line" name="lineManche">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <property name="lineWidth">
+                 <number>3</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="0" colspan="6">
+               <widget class="Line" name="lineScoreActuel">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <property name="lineWidth">
+                 <number>3</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0" colspan="6">
+               <widget class="Line" name="lineNomJoueurs">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>5</height>
+                 </size>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <property name="lineWidth">
+                 <number>50</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="3">
+               <widget class="Line" name="lineSeparateurMoyenne">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>11</pointsize>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <property name="midLineWidth">
+                 <number>0</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="ecranStatistique">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayoutStatistique">
+         <item>
+          <widget class="QLabel" name="labelHeureStatistique">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>35</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>00 : 00</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           </property>
+           <property name="margin">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="winnerPartie">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>50</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Winner Fabien</string>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <layout class="QGridLayout" name="gridLayout">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetMinimumSize</enum>
+             </property>
+             <item row="3" column="0">
+              <widget class="QLabel" name="labelVoleesMaxStatistique">
+               <property name="font">
+                <font>
+                 <family>Courier 10 Pitch</family>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>- Volée maximale : </string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelMoyenneVoleesStatistique">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Courier 10 Pitch</family>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>- Moyenne des volées : </string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="labelNombreVoleesStatistique">
+               <property name="font">
+                <font>
+                 <family>Courier 10 Pitch</family>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>- Nombre de volées : </string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="labelDureePartie">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Courier 10 Pitch</family>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>- Durée : </string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="voleeMax">
+               <property name="font">
+                <font>
+                 <family>Courier 10 Pitch</family>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="nbVolees">
+               <property name="font">
+                <font>
+                 <family>Courier 10 Pitch</family>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLabel" name="tempsPartie">
+               <property name="font">
+                <font>
+                 <family>Courier 10 Pitch</family>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="moyenneVolees">
+               <property name="font">
+                <font>
+                 <family>Courier 10 Pitch</family>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelLogoJeu">
+             <property name="maximumSize">
+              <size>
+               <width>700</width>
+               <height>700</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="ressources.qrc">:/ressources/logoDarts.png</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="margin">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelINfoMatch">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>20</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+           <underline>false</underline>
+           <strikeout>false</strikeout>
+          </font>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;⇒ Appuyer sur &lt;/span&gt;&lt;span style=&quot; font-size:24pt; color:#6d2b6b;&quot;&gt;START &lt;/span&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;pour lancer le prochain Match ⇐&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="ecranTournois">
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QWidget" name="horizontalWidget" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>244</width>
+             <height>70</height>
+            </size>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <property name="leftMargin">
+             <number>20</number>
+            </property>
+            <property name="topMargin">
+             <number>20</number>
+            </property>
+            <property name="rightMargin">
+             <number>20</number>
+            </property>
+            <property name="bottomMargin">
+             <number>20</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="tournoisChrono">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>27</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>00 : 00</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="tournoisNom">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>27</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>------------</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="tournoisManche">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>27</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Manche 1</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayoutTournois">
+             <item>
+              <widget class="QLabel" name="ImpactCibleTournois">
+               <property name="maximumSize">
+                <size>
+                 <width>1200</width>
+                 <height>1200</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="pixmap">
+                <pixmap resource="ressources.qrc">:/ressources/cible.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="statutImpactTournois">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>30</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>T50 D25 12</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>240</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QWidget" name="gridWidgetTournois" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <layout class="QGridLayout" name="gridLayoutJoueur1">
+              <property name="leftMargin">
+               <number>20</number>
+              </property>
+              <property name="topMargin">
+               <number>20</number>
+              </property>
+              <property name="rightMargin">
+               <number>20</number>
+              </property>
+              <property name="bottomMargin">
+               <number>20</number>
+              </property>
+              <item row="8" column="0" colspan="3">
+               <widget class="QLabel" name="labelMoyenneTournois">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>➶ Moyenne Volées ➴</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0" colspan="3">
+               <widget class="Line" name="lineSeparateurTournoisScore">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" colspan="3">
+               <widget class="Line" name="lineSeparateurTournoisNom">
+                <property name="lineWidth">
+                 <number>50</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0" colspan="3">
+               <widget class="QLabel" name="labelScoreTournois">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>➶ Score ➴</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="nomJoueurTournois1">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>24</pointsize>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>          Fabien</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="labelModeDeJeuTournois">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>➳ Jeu :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" colspan="2">
+               <widget class="QLabel" name="modeDeJeuTournois">
+                <property name="font">
+                 <font>
+                  <pointsize>24</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>501 DOUBLE OUT</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="scoreJoueurTournois1">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>150</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>24</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Fabien
+⇓
+501</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="3">
+               <widget class="QLabel" name="labelJoueurTournois">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>27</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>➶ Joueur ➴</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="2">
+               <widget class="QLabel" name="nomJoueurTournois2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>24</pointsize>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Thierry</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="2">
+               <widget class="QLabel" name="scoreJoueurTournois2">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>150</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>24</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Thierry
+⇓
+ 501</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="0" colspan="3">
+               <widget class="Line" name="lineSeparateurTournoisMoyenne">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="0">
+               <widget class="QLabel" name="moyenneJoueurTournois1">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>150</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>24</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Fabien
+⇓
+58</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="2">
+               <widget class="QLabel" name="moyenneJoueurTournois2">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>150</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>24</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Thierry
+⇓
+ 64</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="ecranFinTournois">
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <widget class="QLabel" name="labelHeureTournois">
+         <property name="font">
+          <font>
+           <pointsize>35</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>00 : 00</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="winnerTournois">
+         <property name="font">
+          <font>
+           <pointsize>35</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Fabien grand gagnant du tournois inter classe</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="recapPlaceTournois">
+           <property name="font">
+            <font>
+             <pointsize>30</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>1er ➠ fabien </string>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           </property>
+           <property name="margin">
+            <number>0</number>
+           </property>
+           <property name="indent">
+            <number>-1</number>
+           </property>
+           <property name="openExternalLinks">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelLogoJeuTournois">
+           <property name="maximumSize">
+            <size>
+             <width>700</width>
+             <height>700</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="ressources.qrc">:/ressources/logoDarts.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="ressources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

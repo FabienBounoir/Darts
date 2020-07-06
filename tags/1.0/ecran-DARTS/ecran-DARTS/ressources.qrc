@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ressources/logoDarts.png</file>
+        <file>ressources/background.jpg</file>
+	<file>ressources/backgroundHeure.jpg</file>
+        <file>ressources/cible.png</file>
+        <file alias="pause.png">ressources/pause.png</file>
+	<file>ressources/background-tournois.jpg</file>
+    </qresource>
+</RCC>
