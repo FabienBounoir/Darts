@@ -1,8 +1,8 @@
 Le système **DARTS** est un système numérique permettant de jouer au jeu de fléchettes électroniques.
 
-# Projet {projet}
+# Projet
 
-## Présentation {presentation}
+## Présentation
 
 Le système **DARTS** est un système numérique permettant de jouer au jeu de fléchettes électroniques.
 
@@ -41,7 +41,7 @@ Les données visualisées sont donc :
 
 * Mode de Jeu sans Double OUT : https://youtu.be/EAdACx7pUR8
 
-## Informations {#informations}
+## Informations
 
 author **Fabien Bounoir** <bounoirfabien@gmail.com>
 date 2020
