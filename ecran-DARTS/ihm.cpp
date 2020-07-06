@@ -13,7 +13,7 @@
 *
 * @author Bounoir Fabien
 *
-* @version 0.3
+* @version 1.0
 *
 */
 
