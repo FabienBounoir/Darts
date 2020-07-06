@@ -1,5 +1,3 @@
-Le système **DARTS** est un système numérique permettant de jouer au jeu de fléchettes électroniques.
-
 # Projet
 
 ## Présentation
@@ -10,15 +8,15 @@ Le système DARTS est décomposé en trois modules, dont deux modules sont réal
 
 * Module de gestion de partie (**Mobile-DARTS**) : les joueurs paramètrent et lancent la partie à partir d'une application sur un terminal mobile (sous Android) ;
 
-* Module de détection des impacts (Cible-DARTS) : la cible est équipée de capteurs permettant d'identifier la zone impactée par les fléchettes envoyées par les joueurs ;
+* Module de détection des impacts (**Cible-DARTS** ) : la cible est équipée de capteurs permettant d'identifier la zone impactée par les fléchettes envoyées par les joueurs ;
 
 * Module de visualisation de partie (**Écran-DARTS** : les joueurs, les arbitres et le public peuvent visualiser en “temps réel” le déroulement de la partie (nombre de manche, point restant dans la manche, moyenne des volées, ...) sur un écran de télévision.
 
 Plus d'information : https://docs.google.com/document/d/1ErG-AuB1AdsGreX-ljjOWLvSdfRazHPk-4TMnNLcXbg/edit?usp=sharing
 
-## Module de visualisation de partie (Écran-DARTS) {ecran}
+## Module de visualisation de partie (Écran-DARTS)
 
-Ce module correspond à la partie "affichage" du système. Il a pour objectifs de réaliser la récupération d'informations​ envoyées par le terminal mobile, ​le calcul et l'affichage les statistiques pour la partie actuelle. Il communique en Bluetooth uniquement avec le terminal mobile Android.
+Ce module correspond à la partie "affichage" du système. Il a pour objectifs de réaliser la récupération d'informations envoyées par le terminal mobile, le calcul et l'affichage les statistiques pour la partie actuelle. Il communique en Bluetooth uniquement avec le terminal mobile Android.
 
 Sur l'écran, les joueurs pourront visualiser en continu :
 
@@ -35,7 +33,7 @@ Les données visualisées sont donc :
 
 ## Video Presentation Projet
 
-* presentation general Projet DARTS + démonstration : https://youtu.be/7VGxQW2TQps
+* Presentation général Projet DARTS + démonstration : https://youtu.be/7VGxQW2TQps
 
 * Mode de Jeu Double OUT : https://youtu.be/zoXQc0yn8vI
 
@@ -43,7 +41,7 @@ Les données visualisées sont donc :
 
 ## Informations
 
-author **Fabien Bounoir** <bounoirfabien@gmail.com>
+Auteur **Fabien Bounoir** <bounoirfabien@gmail.com>
 date 2020
 version 1.0
 see https://svn.riouxsvn.com/darts-2020/
