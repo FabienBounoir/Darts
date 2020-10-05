@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Jeu"
+        android:enabled="true"
+        android:icon="@drawable/icone_darts"
+        android:title="Jeu"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/Joueurs"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="Joueurs"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/Historique"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="Historique"
+        app:showAsAction="ifRoom" />
+</menu>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/configurerJeu"
+        android:title="Type de jeu" />
+    <item android:id="@+id/configurerPartie"
+        android:title="Type de partie" />
+    <item android:id="@+id/affichageRegle"
+        android:title="Affichage des règles" />
+    <item android:id="@+id/activationSon"
+        android:title="Activation des sons" />
+    <item android:id="@+id/testerEnvoiFlechette"
+        android:title="Test" />
+    <item android:id="@+id/aPropos"
+        android:title="À propos de l'application" />
+</menu>
