@@ -175,7 +175,8 @@ void Communication::socketReadyRead()
         usleep(150000); // cf. timeout
     }
 
-    trame = QString(donnees);
+    trames = QString(donnees);
+    //trame = QString(donnees); // bug si les données contiennent plusieurs trames
 
     qDebug() << Q_FUNC_INFO << QString::fromUtf8("Trame reçues : ") << QString(donnees);
 
@@ -189,65 +190,71 @@ void Communication::socketReadyRead()
  */
 void Communication::decomposerTrame()
 {
-    if(estValide()) //test si la trame est valide
+    QStringList listeTrames = trames.split(DELIMITEUR_FIN, QString::SkipEmptyParts);
+
+    for (int i = 0; i < listeTrames.size(); ++i)
     {
-        trame.remove(DELIMITEUR_FIN);
-        if(trame.contains("START") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;START;501;1;2;fabien;erwan */
+        trame = listeTrames.at(i);
+        if(estValide()) //trame valide ?
         {
-            emit resetPartie();
-            darts->reinitialiserPartie();
+            trame.remove(DELIMITEUR_FIN); // inutile car split
+            if(trame.contains("START") && (etatPartie == EtatPartie::Attente || etatPartie == EtatPartie::Fin))      /** $DART;START;501;1;2;fabien;erwan */
+            {
+                emit resetPartie();
+                darts->reinitialiserPartie();
 
-            QString modeJeu;
-            QStringList joueurs;
+                QString modeJeu;
+                QStringList joueurs;
 
-            extraireParametresTrameStart(joueurs, modeJeu);
-        }
-        else if(trame.contains("GAME") && etatPartie == EtatPartie::EnCours)      /** $DART;GAME;3;7 */
-        {
-            darts->receptionnerImpact(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
-        }
-        else if(trame.contains("GAME") && etatPartie == EtatPartie::Tournois)      /** $DART;GAME;3;7 */
-        {
-            darts->receptionnerImpactTournois(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
-        }
-        else if(trame.contains("REGLE")&& etatPartie != EtatPartie::Regle)   /** $DART;REGLE */
-        {
-            extraireParametresTrameRegle();
-        }
-        else if(trame.contains("PAUSE") && (etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Tournois))     /** $DART;PAUSE */
-        {
-            etatPrecedent = etatPartie;
-            emit pause();
-            miseAJourEtatPartiePause();
-        }
-        else if(trame.contains("PLAY") && etatPartie == EtatPartie::Pause)   /** $DART;PLAY */
-        {
-            emit play();
-            relancerPartie();
-        }
-        else if(trame.contains("SON"))
-        {
-            emit jouerSon(trame.section(";",2,2));
-        }
-        else if(trame.contains("TOURNOIS"))
-        {
-            decomposerTrameTournois();
-        }
-        else if(trame.contains("RESET")) // quelque soit l'état de la partie    /** $DART;RESET */
-        {
-            reamorcerPartie();
-        }
-        else if(trame.contains("STOP") && (etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Pause))  /** $DART;STOP */
-        {
-            darts->arreterPartie();
-        }
-        else if(trame.contains("STOP") && (etatPartie == EtatPartie::Regle))  /** $DART;STOP */ //permet l'arret des regles en cours de lecture
-        {
-            emit stopperRegle();
-        }
-        else
-        {
-            qDebug() << Q_FUNC_INFO << "Trame non Traité: " << trame;
+                extraireParametresTrameStart(joueurs, modeJeu);
+            }
+            else if(trame.contains("GAME") && etatPartie == EtatPartie::EnCours)      /** $DART;GAME;3;7 */
+            {
+                darts->receptionnerImpact(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
+            }
+            else if(trame.contains("GAME") && etatPartie == EtatPartie::Tournois)      /** $DART;GAME;3;7 */
+            {
+                darts->receptionnerImpactTournois(trame.section(";",2,2).toInt(), trame.section(";",3,3).toInt());
+            }
+            else if(trame.contains("REGLE")&& etatPartie != EtatPartie::Regle)   /** $DART;REGLE */
+            {
+                extraireParametresTrameRegle();
+            }
+            else if(trame.contains("PAUSE") && (etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Tournois))     /** $DART;PAUSE */
+            {
+                etatPrecedent = etatPartie;
+                emit pause();
+                miseAJourEtatPartiePause();
+            }
+            else if(trame.contains("PLAY") && etatPartie == EtatPartie::Pause)   /** $DART;PLAY */
+            {
+                emit play();
+                relancerPartie();
+            }
+            else if(trame.contains("SON"))
+            {
+                emit jouerSon(trame.section(";",2,2));
+            }
+            else if(trame.contains("TOURNOIS"))
+            {
+                decomposerTrameTournois();
+            }
+            else if(trame.contains("RESET")) // quelque soit l'état de la partie    /** $DART;RESET */
+            {
+                reamorcerPartie();
+            }
+            else if(trame.contains("STOP") && (etatPartie == EtatPartie::EnCours || etatPartie == EtatPartie::Pause))  /** $DART;STOP */
+            {
+                darts->arreterPartie();
+            }
+            else if(trame.contains("STOP") && (etatPartie == EtatPartie::Regle))  /** $DART;STOP */ //permet l'arret des regles en cours de lecture
+            {
+                emit stopperRegle();
+            }
+            else
+            {
+                qDebug() << Q_FUNC_INFO << "Trame non traitée " << trame;
+            }
         }
     }
 }

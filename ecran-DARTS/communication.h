@@ -102,7 +102,8 @@ private:
     QBluetoothLocalDevice localDevice;          //!< L'interface Bluetooth de la Raspberry Pi    
     QBluetoothServiceInfo serviceInfo;          //!< Informations sur le service bluetooth
     QString localDeviceName;                    //!< Nom du peripherique local
-    QString trame;                              //!< La trame recue    
+    QString trame;                              //!< La trame extraite des données reçues
+    QString trames;                             //!< Les trames recues
     EtatPartie etatPartie;                      //!< L'état de la partie
 
     void decomposerTrame();                     //!< Méthode qui decompose la trame reçue
